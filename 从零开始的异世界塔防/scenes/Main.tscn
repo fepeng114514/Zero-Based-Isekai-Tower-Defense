@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn322bbgr6nvm"]
+
+[ext_resource type="Script" uid="uid://xyhknncmb2f4" path="res://scripts/systems/director.gd" id="1_rarhs"]
+[ext_resource type="Script" uid="uid://cla57fbvd4v0q" path="res://scripts/spawner.gd" id="2_vcsgt"]
+[ext_resource type="Script" uid="uid://bx6oo4rydl7wx" path="res://scripts/tower.gd" id="3_c01mt"]
+[ext_resource type="Script" uid="uid://d13jflym35kbu" path="res://scenes/follow.gd" id="4_nxtc6"]
+
+[sub_resource type="Curve2D" id="Curve2D_4dvvg"]
+_data = {
+"points": PackedVector2Array(187.6033, 1.6528931, -187.6033, -1.6528931, 878, 153, 126.6389, -4.321022, -126.6389, 4.321022, 640, 150, 55.98835, 23.635595, -55.98835, -23.635595, 319, 93, 37.19008, 34.710743, -37.19008, -34.710743, 128, 44, 0, 0, 0, 0, 22, 10, 0, 0, 0, 0, -66, 8)
+}
+point_count = 6
+
+[node name="Main" type="Node2D"]
+
+[node name="Systems" type="Node" parent="."]
+script = ExtResource("1_rarhs")
+
+[node name="Spawner" type="Node" parent="Systems"]
+script = ExtResource("2_vcsgt")
+
+[node name="Tower" type="Node2D" parent="."]
+position = Vector2(0, 24)
+script = ExtResource("3_c01mt")
+
+[node name="Sprite" type="ColorRect" parent="Tower"]
+offset_left = 440.0
+offset_top = 146.0
+offset_right = 480.0
+offset_bottom = 186.0
+
+[node name="Bullet" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Bullet"]
+position = Vector2(-36, 100)
+scale = Vector2(1, 0.6333333)
+polygon = PackedVector2Array(597, 203, 606, 230, 616, 200, 606, 213.1579)
+
+[node name="Paths" type="Node" parent="."]
+
+[node name="Path1" type="Path2D" parent="Paths"]
+position = Vector2(74, 138)
+curve = SubResource("Curve2D_4dvvg")
+
+[node name="Follow" type="PathFollow2D" parent="Paths/Path1"]
+position = Vector2(878, 153)
+rotation = -3.1327822
+rotates = false
+script = ExtResource("4_nxtc6")
+
+[connection signal="director_start" from="Systems" to="Paths/Path1/Follow" method="aaa"]

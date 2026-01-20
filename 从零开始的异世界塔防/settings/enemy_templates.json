@@ -1,0 +1,15 @@
+{
+	"enemy_goblin": {
+		"components": {
+			"Health": {
+				"health_bar_hidden": false,
+				"scale": {"x": 2, "y": 2},
+				"hp_max": 100,
+				"hp": 18
+			},
+			"Motion": {
+				"speed": 100
+			}
+		}
+	}
+}

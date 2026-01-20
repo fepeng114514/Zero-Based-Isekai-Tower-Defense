@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="从零开始的异世界塔防"
-config/features=PackedStringArray("4.5", "Mobile")
+run/main_scene="uid://dn322bbgr6nvm"
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
-[rendering]
+[autoload]
 
-renderer/rendering_method="mobile"
+Utils="*res://scripts/utils/utils.gd"
+Constants="*res://scripts/constants/constants.gd"
+BasicUtils="*res://scripts/utils/basic_utils.gd"
+EntitySystem="*res://scripts/systems/entity_system.gd"

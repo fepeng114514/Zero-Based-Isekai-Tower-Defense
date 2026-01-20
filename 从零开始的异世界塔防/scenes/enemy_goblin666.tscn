@@ -1,0 +1,129 @@
+[gd_scene load_steps=25 format=3 uid="uid://b4tm1bvlgxvt1"]
+
+[ext_resource type="Script" uid="uid://cyy8ldjablwpw" path="res://scripts/enemy_script.gd" id="1_6awcb"]
+[ext_resource type="Texture2D" uid="uid://cwrkiqkxqibmc" path="res://resources/sprites/bandit_0001.png" id="2_wjec0"]
+[ext_resource type="Texture2D" uid="uid://dx65rks2veou4" path="res://resources/sprites/bandit_0002.png" id="3_i4rgx"]
+[ext_resource type="Texture2D" uid="uid://bta37sb5lkkkk" path="res://resources/sprites/bandit_0003.png" id="4_2mchx"]
+[ext_resource type="Texture2D" uid="uid://q3bjv50l0ldp" path="res://resources/sprites/bandit_0004.png" id="5_t3vcr"]
+[ext_resource type="Texture2D" uid="uid://dp80ijtkh1tlm" path="res://resources/sprites/bandit_0005.png" id="6_qaulx"]
+[ext_resource type="Texture2D" uid="uid://dggg27m63xl15" path="res://resources/sprites/bandit_0006.png" id="7_1f82d"]
+[ext_resource type="Texture2D" uid="uid://6cirqjloabqp" path="res://resources/sprites/bandit_0007.png" id="8_lioqc"]
+[ext_resource type="Texture2D" uid="uid://vvgsejfq8li1" path="res://resources/sprites/bandit_0008.png" id="9_0lg75"]
+[ext_resource type="Texture2D" uid="uid://breynagdo51bh" path="res://resources/sprites/bandit_0009.png" id="10_lsnsy"]
+[ext_resource type="Texture2D" uid="uid://bjwvylkhcrgfs" path="res://resources/sprites/bandit_0010.png" id="11_thsr5"]
+[ext_resource type="Texture2D" uid="uid://be2inx8f7nq3c" path="res://resources/sprites/bandit_0011.png" id="12_ekh6n"]
+[ext_resource type="Texture2D" uid="uid://df5awo7k5lulj" path="res://resources/sprites/bandit_0012.png" id="13_2sbpf"]
+[ext_resource type="Texture2D" uid="uid://dprebhslnqtbq" path="res://resources/sprites/bandit_0013.png" id="14_78kod"]
+[ext_resource type="Texture2D" uid="uid://dd1vbyo5lby2n" path="res://resources/sprites/bandit_0014.png" id="15_605iw"]
+[ext_resource type="Texture2D" uid="uid://u8gfani2i3ey" path="res://resources/sprites/bandit_0015.png" id="16_x6q4o"]
+[ext_resource type="Texture2D" uid="uid://bvqsp76ekahut" path="res://resources/sprites/bandit_0016.png" id="17_2tuss"]
+[ext_resource type="Texture2D" uid="uid://ctbysqn0w6syr" path="res://resources/sprites/bandit_0017.png" id="18_7v6cf"]
+[ext_resource type="Texture2D" uid="uid://cylvaf2g83cfb" path="res://resources/sprites/bandit_0018.png" id="19_vab5u"]
+[ext_resource type="Texture2D" uid="uid://dvqdl0y1etwkj" path="res://resources/sprites/bandit_0019.png" id="20_qiusc"]
+[ext_resource type="Texture2D" uid="uid://bxn5yf7amklsu" path="res://resources/sprites/bandit_0020.png" id="21_5ie7m"]
+[ext_resource type="Texture2D" uid="uid://cw2np3r57u4yn" path="res://resources/sprites/bandit_0021.png" id="22_ya47j"]
+[ext_resource type="Texture2D" uid="uid://7ndcf3uv5kpj" path="res://resources/sprites/bandit_0022.png" id="23_hyejq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w8l5x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wjec0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i4rgx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2mchx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t3vcr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qaulx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1f82d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_lioqc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0lg75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_lsnsy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_thsr5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ekh6n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2sbpf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_78kod")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_605iw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_x6q4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_2tuss")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_7v6cf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_vab5u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_qiusc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_5ie7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_ya47j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_hyejq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_6awcb")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(43.73413, -57.865173)
+rotation = 3.1086705
+scale = Vector2(0.5572339, 0.5991522)
+sprite_frames = SubResource("SpriteFrames_w8l5x")
+flip_h = true
+
+[node name="HealthBar" type="Node2D" parent="."]
+position = Vector2(999.82025, 202.19911)
+rotation = 3.1327822
+
+[node name="BG" type="ColorRect" parent="HealthBar"]
+offset_left = 911.0
+offset_top = 239.0
+offset_right = 951.0
+offset_bottom = 279.0
+scale = Vector2(2.1599998, 0.07999998)
+color = Color(0, 0, 0, 1)
+
+[node name="FG" type="ColorRect" parent="HealthBar"]
+offset_left = 911.00006
+offset_top = 239.00003
+offset_right = 951.00006
+offset_bottom = 279.00003
+scale = Vector2(2.1599998, 0.07999998)
+color = Color(1, 0, 0, 1)
