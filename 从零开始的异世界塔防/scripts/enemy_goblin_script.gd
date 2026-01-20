@@ -15,6 +15,6 @@ func update(delta: float) -> void:
 	
 	if Health.hp <= 0:
 		Health.dead = true
-		queue_free()
+		EntitySystem.remove_entity(self)
 	
 	health_bar_fg.scale.x = origin_health_bar_fg_scale.x * Health.get_hp_percent()

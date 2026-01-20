@@ -107,11 +107,24 @@ func process_insert_queue():
 		var entity = insert_queue.pop_at(i)
 		
 		emit_signal("insert_entity", entity.id)
-		
 		entity.node_root.add_child(entity)
+		
+		if entity.has_node("Enemy"):
+			enemies.append(entity)
+		elif entity.has_node("Soldier"):
+			soldiers.append(entity)
+		elif entity.has_node("Tower"):
+			towers.append(entity)
+		elif entity.has_node("Modifier"):
+			modifiers.append(entity)
+		elif entity.has_node("Aura"):
+			auras.append(entity)
+			
 		all_entities.append(entity)
 
 func process_entities_update(delta: float):
-	for entity: Entity in all_entities:
-		if entity.get("update"):
-			entity.update(delta)
+	for entity in all_entities:
+		if not is_instance_valid(entity) or not entity.get("update"):
+			continue
+			
+		entity.update(delta)
