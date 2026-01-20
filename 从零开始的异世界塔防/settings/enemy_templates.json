@@ -2,7 +2,6 @@
 	"enemy_goblin": {
 		"components": {
 			"Health": {
-				"health_bar_hidden": false,
 				"hp_max": 100,
 				"hp": 18
 			},
