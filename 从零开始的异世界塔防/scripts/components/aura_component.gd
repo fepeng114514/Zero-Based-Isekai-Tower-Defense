@@ -1,2 +1,6 @@
+extends BaseComponent
 class_name AuraComponent
-extends Node
+
+func _ready() -> void:
+	component_name = "Aura"
+	set_setting_data()

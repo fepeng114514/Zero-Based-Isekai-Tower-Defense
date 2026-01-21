@@ -1,86 +1,54 @@
 extends Node
-signal remove_entity_signal
-signal insert_entity_signal
+
+var templates: Dictionary
+var templates_data: Dictionary
 
 var last_id: int
 
-var templates: Dictionary
-var enemies: Array
-var soldiers: Array
-var towers: Array
-var modifiers: Array
-var auras: Array
-var all_entities: Array
+var Enemies: Array
+var Soldiers: Array
+var Towers: Array
+var Modifiers: Array
+var Auras: Array
+var All_entities: Array
 var insert_queue: Array
 var remove_queue: Array
+	
+func init() -> void:
+	templates = preload("res://resources/templates_resource.tres").preloaded_templates
 
-func init():
 	last_id = 0
 
-	templates = {}
-	enemies = []
-	soldiers = []
-	towers = []
-	modifiers = []
-	auras = []
-	all_entities = []
+	Enemies = []
+	Soldiers = []
+	Towers = []
+	Modifiers = []
+	Auras = []
+	All_entities = []
 	insert_queue = []
 	remove_queue = []
 	
-	load_templates()
+	load_templates_data()
 
-func load_templates():
+func load_templates_data() -> void:
 	var incompleted_templates: Dictionary = {}
-	#incompleted_templates.merge(Utils.load_json_file(Constants.BASIC_TEMPLATES_PATH))
+	#incompleted_templates.merge(Utils.load_json_file(Constants.TEMPLATES_PATH))
 	incompleted_templates.merge(Utils.load_json_file(Constants.ENEMY_TEMPLATES_PATH))
 	#incompleted_templates.merge(Utils.load_json_file(Constants.TOWER_TEMPLATES_PATH))
 	#incompleted_templates.merge(Utils.load_json_file(Constants.HERO_TEMPLATES_PATH))
 	#incompleted_templates.merge(Utils.load_json_file(Constants.BOSS_TEMPLATES_PATH))
 
-	for key in incompleted_templates.keys():
-		templates[key] = register_template(key, incompleted_templates[key])
+	for key: String in incompleted_templates.keys():
+		templates_data[key] = incompleted_templates[key]
 
-func update(delta: float):
+func update(delta: float) -> void:
 	process_insert_queue()
 	process_remove_queue()
 	process_entities_update(delta)
 
-func register_template(t_name: String, template: Dictionary):
-	assert(template.has("components"), "模板 %s 没有任何组件" % t_name)
-	var scene: Entity = load(Constants.SCENES_PATH % t_name).instantiate()	
-
-	for component_type in template.components.keys():
-		var component_data = template.components[component_type]
-		add_component_to_scene(scene, component_type, component_data)
-		
-	# 打包为场景
-	var packed_scene = PackedScene.new()
-	packed_scene.pack(scene)
-	
-	# 清理
-	scene.queue_free()
-	return packed_scene
-	
-func add_component_to_scene(scene: Entity, component_type: String, component_data: Dictionary):
-	var component_node
-	if component_type == "Health":
-		component_node = HealthComponent.new()
-	elif component_type == "Motion":
-		component_node = MotionComponent.new()
-		
-	# 设置组件属性
-	for property in component_data.keys():
-		if property is Dictionary:
-			property = Utils.dict_to_vector2(property)
-			
-		component_node.set(property, component_data[property])
-
-	component_node.name = component_type
-	scene.add_child(component_node)
-	component_node.owner = scene
-
-func create_entity(t_name: String, root: Node):
-	assert(templates[t_name], "模板不存在: %s" % t_name)
+func create_entity(t_name: String, root: Node) -> Entity:
+	if not templates.get(t_name):
+		push_error("模板不存在: %s" % t_name)
 	
 	var entity: Entity = templates[t_name].instantiate()
 	entity.node_root = root
@@ -92,39 +60,42 @@ func create_entity(t_name: String, root: Node):
 		
 	return entity
 	
-func remove_entity(e: Entity):
-	remove_queue.append(e)
+func remove_entity(entity: Entity) -> void:
+	remove_queue.append(entity)
 
-func process_remove_queue():
-	for i in range(remove_queue.size() - 1, -1, -1):
-		var entity = remove_queue.pop_at(i)
+func process_remove_queue() -> void:
+	for i: int in range(remove_queue.size() - 1, -1, -1):
+		var entity: Entity = remove_queue.pop_at(i)
 		
-		emit_signal("remove_entity", entity.id)
 		entity.free()
 
-func process_insert_queue():
-	for i in range(insert_queue.size() - 1, -1, -1):
-		var entity = insert_queue.pop_at(i)
+func process_insert_queue() -> void:
+	for i: int in range(insert_queue.size() - 1, -1, -1):
+		var entity: Entity = insert_queue.pop_at(i)
 		
-		emit_signal("insert_entity", entity.id)
 		entity.node_root.add_child(entity)
 		
-		if entity.has_node("Enemy"):
-			enemies.append(entity)
-		elif entity.has_node("Soldier"):
-			soldiers.append(entity)
-		elif entity.has_node("Tower"):
-			towers.append(entity)
-		elif entity.has_node("Modifier"):
-			modifiers.append(entity)
-		elif entity.has_node("Aura"):
-			auras.append(entity)
+		if entity.has_node("EnemyComponent"):
+			Enemies.append(entity)
+		elif entity.has_node("SoldierComponent"):
+			Soldiers.append(entity)
+		elif entity.has_node("TowerComponent"):
+			Towers.append(entity)
+		elif entity.has_node("ModifierComponent"):
+			Modifiers.append(entity)
+		elif entity.has_node("AuraComponent"):
+			Auras.append(entity)
 			
-		all_entities.append(entity)
+		All_entities.append(entity)
 
-func process_entities_update(delta: float):
-	for entity in all_entities:
+func process_entities_update(delta: float) -> void:
+	for entity in All_entities:
 		if not is_instance_valid(entity) or not entity.get("update"):
 			continue
 			
 		entity.update(delta)
+		
+func find_enemy_in_range(origin, radius) -> Array:
+	var enemies: Array = Enemies.filter(func(e): return is_instance_valid(e) and Utils.is_in_ellipse(e.position, origin, radius))
+	
+	return enemies

@@ -1,4 +1,8 @@
+extends BaseComponent
 class_name MotionComponent
-extends Node
 
-@export var speed: int = 0
+var speed: int = 0
+
+func _ready() -> void:
+	component_name = "Motion"
+	set_setting_data()

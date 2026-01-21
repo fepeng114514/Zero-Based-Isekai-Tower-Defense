@@ -1,2 +1,6 @@
+extends BaseComponent
 class_name EnemyComponent
-extends Node
+
+func _ready() -> void:
+	component_name = "Enemy"
+	set_setting_data()

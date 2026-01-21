@@ -1,11 +1,10 @@
 extends Entity
-
 @onready var health_bar_fg: ColorRect = $HealthBar/FG
 @onready var origin_health_bar_fg_scale: Vector2 = health_bar_fg.scale
 @onready var path_follow: PathFollow2D = get_parent()
 @onready var animated_sprite: AnimatedSprite2D = $Sprite
-@onready var Motion = $Motion
-@onready var Health = $Health
+@onready var Motion = $MotionComponent
+@onready var Health = $HealthComponent
 
 func _ready() -> void:
 	animated_sprite.play()

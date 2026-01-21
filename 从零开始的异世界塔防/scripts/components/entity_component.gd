@@ -1,6 +1,6 @@
+extends BaseComponent
 class_name Entity
-extends Node2D
 
-@export var id: int = -1
-@export var template_name: String = ""
-@export var node_root: Node = Node.new()
+var id: int = -1
+var template_name: String = ""
+var node_root: Node = null

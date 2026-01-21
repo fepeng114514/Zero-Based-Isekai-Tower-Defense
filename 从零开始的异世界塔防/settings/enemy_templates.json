@@ -1,13 +1,12 @@
 {
 	"enemy_goblin": {
-		"components": {
-			"Health": {
-				"hp_max": 100,
-				"hp": 18
-			},
-			"Motion": {
-				"speed": 100
-			}
+		"Health": {
+			"hp_max": 100,
+			"hp": 18
+		},
+		"Motion": {
+			"speed": 100,
+			"yyy":666
 		}
 	}
 }

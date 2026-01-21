@@ -1,2 +1,6 @@
+extends BaseComponent
 class_name TowerComponent
-extends Node
+
+func _ready() -> void:
+	component_name = "Tower"
+	set_setting_data()

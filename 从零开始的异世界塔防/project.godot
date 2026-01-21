@@ -19,5 +19,4 @@ config/icon="res://icon.svg"
 
 Utils="*res://scripts/utils/utils.gd"
 Constants="*res://scripts/constants/constants.gd"
-BasicUtils="*res://scripts/utils/basic_utils.gd"
 EntitySystem="*res://scripts/systems/entity_system.gd"

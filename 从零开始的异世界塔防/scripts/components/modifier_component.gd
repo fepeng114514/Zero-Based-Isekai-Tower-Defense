@@ -1,2 +1,6 @@
+extends BaseComponent
 class_name ModifierComponent
-extends Node
+
+func _ready() -> void:
+	component_name = "Modifier"
+	set_setting_data()
