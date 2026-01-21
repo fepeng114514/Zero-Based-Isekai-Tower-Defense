@@ -1,33 +1,20 @@
 extends Node
 
-var templates: Dictionary
-var templates_data: Dictionary
+@onready var templates: Dictionary = preload("res://resources/templates_resource.tres").preloaded_templates
+@onready var templates_data: Dictionary = {}
 
-var last_id: int
+@onready var last_id: int = 0
 
-var Enemies: Array
-var Soldiers: Array
-var Towers: Array
-var Modifiers: Array
-var Auras: Array
-var All_entities: Array
-var insert_queue: Array
-var remove_queue: Array
+@onready var Enemies: Array = []
+@onready var Soldiers: Array = []
+@onready var Towers: Array = []
+@onready var Modifiers: Array = []
+@onready var Auras: Array = []
+@onready var All_entities: Array = []
+@onready var insert_queue: Array = []
+@onready var remove_queue: Array = []
 	
-func init() -> void:
-	templates = preload("res://resources/templates_resource.tres").preloaded_templates
-
-	last_id = 0
-
-	Enemies = []
-	Soldiers = []
-	Towers = []
-	Modifiers = []
-	Auras = []
-	All_entities = []
-	insert_queue = []
-	remove_queue = []
-	
+func _ready() -> void:
 	load_templates_data()
 
 func load_templates_data() -> void:
@@ -41,7 +28,7 @@ func load_templates_data() -> void:
 	for key: String in incompleted_templates.keys():
 		templates_data[key] = incompleted_templates[key]
 
-func update(delta: float) -> void:
+func _process(delta: float) -> void:
 	process_insert_queue()
 	process_remove_queue()
 	process_entities_update(delta)
