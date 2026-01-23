@@ -1,0 +1,16 @@
+{
+    "tower_mage": {
+        "Ranged": {
+            "bullet": "bolt",
+            "min_range": 0,
+            "max_range": 300,
+            "cooldown": 1
+        }
+    },
+    "bolt": {
+        "Bullet": {
+            "min_damage": 50,
+            "max_damage": 50
+        }
+    }
+}

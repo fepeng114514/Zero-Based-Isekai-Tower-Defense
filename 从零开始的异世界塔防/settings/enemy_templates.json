@@ -4,9 +4,8 @@
 			"hp_max": 100,
 			"hp": 18
 		},
-		"Motion": {
-			"speed": 100,
-			"yyy":666
+		"NavPath": {
+			"speed": 100
 		}
 	}
 }

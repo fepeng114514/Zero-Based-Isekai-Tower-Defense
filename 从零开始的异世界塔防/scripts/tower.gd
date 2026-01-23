@@ -11,7 +11,7 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	var target = EntitySystem.find_enemy_in_range(self.position, attack_range)[0]
+	var target = EntityDB.find_enemy_in_range(self.position, attack_range)[0]
 		
 	if target and can_attack:
 		attack(target)

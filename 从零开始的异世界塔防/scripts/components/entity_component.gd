@@ -1,6 +1,7 @@
-extends BaseComponent
+extends Component
 class_name Entity
 
 var id: int = -1
 var template_name: String = ""
-var node_root: Node = null
+var target_id: int = -1
+var source_id: int = -1

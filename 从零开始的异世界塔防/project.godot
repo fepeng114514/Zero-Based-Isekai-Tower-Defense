@@ -19,4 +19,5 @@ config/icon="res://icon.svg"
 
 Utils="*res://scripts/utils/utils.gd"
 Constants="*res://scripts/constants/constants.gd"
-EntitySystem="*res://scripts/systems/entity_system.gd"
+PathDB="*res://scripts/db/path_db.gd"
+EntityDB="*res://scripts/db/entity_db.gd"
