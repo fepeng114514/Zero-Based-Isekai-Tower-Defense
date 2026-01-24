@@ -1,4 +1,4 @@
 extends Component
-class_name MotionComponent
+class_name NavPointComponent
 
 var speed: int = 0

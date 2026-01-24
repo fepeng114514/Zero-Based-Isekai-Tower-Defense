@@ -24,8 +24,9 @@ func _spawner(group: Dictionary) -> void:
 		for i in range(spawn.count):
 			var enemy: Entity = EntityDB.create_entity(spawn.name)
 			var nav_path_c: NavPathComponent = enemy.get_node("NavPathComponent")
+			var subpath = spawn.get("subpath")
 			nav_path_c.nav_path = path - 1
-			nav_path_c.nav_subpath = spawn.subpath - 1
+			nav_path_c.nav_subpath = subpath - 1 if subpath != null else -1
 			
 			await timer(spawn.interval)
 			

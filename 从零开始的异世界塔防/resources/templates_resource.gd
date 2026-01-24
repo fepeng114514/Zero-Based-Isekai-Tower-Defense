@@ -1,10 +1,11 @@
 extends Resource
 class_name TemplatesResource
 
-# 使用 @export 让资源在编辑器中可视
 @export var templates_scenes: Array = [
-	"enemy_goblin"
-	#"bullet"
+	"enemy_goblin",
+	"bolt",
+	"tower_mage",
+	"damage"
 ]
 
 var preloaded_templates: Dictionary = {}

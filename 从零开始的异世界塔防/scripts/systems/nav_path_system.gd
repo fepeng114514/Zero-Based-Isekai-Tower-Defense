@@ -2,25 +2,28 @@ extends System
 class_name NavPathSystem
 
 func on_insert(entity: Entity):
-	var nav_path_c = entity.get_node("NavPathComponent")
+	if not is_has_c(entity, CS.CN_NAV_PATH):
+		return true
 	
-	if not nav_path_c:
-		return
+	var nav_path_c = entity.components[CS.CN_NAV_PATH]
+	
+	var nav_path: int = nav_path_c.nav_path
+	var nav_subpath: int = nav_path_c.nav_subpath
+	var subpath_idx: int = nav_subpath if nav_subpath != -1 else PathDB.get_random_subpath(nav_path)
+	nav_path_c.nav_subpath = subpath_idx
+	var subpath: Path2D = PathDB.get_subpath(nav_path, subpath_idx)
 		
-	var subpath: Path2D = PathDB.get_subpath(nav_path_c.nav_path, nav_path_c.nav_subpath)
 	var path_follow: PathFollow2D = subpath.get_node("Follow")
 
 	entity.position = subpath.to_global(path_follow.position)
+	return true
 
 func on_update(delta: float):
 	for entity in EntityDB.entities:
-		if not is_instance_valid(entity):
+		if not is_instance_valid(entity) or not is_has_c(entity, CS.CN_NAV_PATH):
 			continue
-		
-		var nav_path_c = entity.get_node("NavPathComponent")
-		
-		if not nav_path_c:
-			continue
+			
+		var nav_path_c = entity.components[CS.CN_NAV_PATH]
 			
 		var subpath: Path2D = PathDB.get_subpath(nav_path_c.nav_path, nav_path_c.nav_subpath)
 		nav_path_c.progress_ratio += PathDB.calculate_progress_ratio(delta, nav_path_c.speed, subpath)

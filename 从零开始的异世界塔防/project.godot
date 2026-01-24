@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Utils="*res://scripts/utils/utils.gd"
-Constants="*res://scripts/constants/constants.gd"
+CS="*res://scripts/constants/constants.gd"
 PathDB="*res://scripts/db/path_db.gd"
 EntityDB="*res://scripts/db/entity_db.gd"
+CooldownManager="*res://scripts/systems/cooldown_manager.gd"

@@ -1,5 +1,10 @@
 extends Node
-	
+
+var rng = RandomNumberGenerator.new()
+
+func random_int(from: int, to: int) -> int:
+	return rng.randi_range(from, to)
+
 func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7, r: float = 0.0) -> bool:
 	var radius_x: float = radius	# 椭圆X轴半径
 	var radius_y: float = radius * aspect	# 椭圆Y轴半径

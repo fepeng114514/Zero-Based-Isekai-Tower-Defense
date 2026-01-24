@@ -1,5 +1,6 @@
 {
-    "tower_mage": {
+    "towermage": {
+        "aaa": 555,
         "Ranged": {
             "bullet": "bolt",
             "min_range": 0,
@@ -10,7 +11,8 @@
     "bolt": {
         "Bullet": {
             "min_damage": 50,
-            "max_damage": 50
+            "max_damage": 50,
+            "speed": 100
         }
     }
 }

@@ -1,13 +1,12 @@
 extends Path2D
 class_name Path
 
-var subpath: Array = []
-
-@export var spacing: float = 20.0
+var spacing: float = 20.0
+var subpath: Array[Path2D] = [self]
 
 func _ready():
+	PathDB.paths.append(self)
 	add_child(create_follow())
-	subpath.append(self)
 	
 	# 创建左右路径
 	var left_path: Path2D = Path2D.new()
@@ -17,8 +16,8 @@ func _ready():
 	right_path.curve = create_offset_curve(spacing)
 	
 	# 设置不同颜色以便区分
-	left_path.name = "LeftPath"
-	right_path.name = "RightPath"
+	left_path.name = "Path"
+	right_path.name = "Path"
 	
 	# 添加Line2D可视化
 	#add_line_visualization(left_path, Color.RED)
@@ -31,7 +30,6 @@ func _ready():
 	right_path.add_child(create_follow())
 	subpath.append(left_path)
 	subpath.append(right_path)
-	PathDB.paths.append(self)
 	
 func create_follow():
 	var follow: PathFollow2D = PathFollow2D.new()
@@ -102,19 +100,19 @@ func add_line_visualization(path: Path2D, color: Color):
 	line.points = points
 	
 	path.add_child(line)
+	
+var point_count: int = 198
 
-#func get_equally_spaced_points(count: int) -> PackedVector2Array:
-	#"""获取路径上等间距的多个点"""
-	#var points: PackedVector2Array = []
-	#if not path_follow or not path_follow.curve:
-		#return points
-	#
-	#var total_length = path_follow.curve.get_baked_length()
-	#var spacing = total_length / (count - 1) if count > 1 else 0
-	#
-	#for i in range(count):
-		#var distance = i * spacing
-		#var local_pos = path_follow.curve.sample_baked(distance)
-		#points.append(path_follow.to_global(local_pos))
-	#
-	#return points
+func get_equally_spaced_points(path: Path2D) -> PackedVector2Array:
+	"""获取路径上等间距的多个点"""
+	var points: PackedVector2Array = []
+	
+	var total_length = path.curve.get_baked_length()
+	var spacing = total_length / (point_count - 1)
+	
+	for i in range(point_count):
+		var distance = i * spacing
+		var local_pos = path.curve.sample_baked(distance)
+		points.append(path.to_global(local_pos))
+	
+	return points

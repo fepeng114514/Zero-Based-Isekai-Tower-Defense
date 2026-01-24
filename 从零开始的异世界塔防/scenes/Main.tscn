@@ -1,37 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn322bbgr6nvm"]
+[gd_scene load_steps=8 format=3 uid="uid://dn322bbgr6nvm"]
 
 [ext_resource type="Script" uid="uid://d3ofglcqbg2ig" path="res://scripts/systems/spawner_wave.gd" id="1_rarhs"]
-[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://scripts/components/ranged_component.gd" id="1_vcsgt"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://scripts/path.gd" id="2_rarhs"]
 [ext_resource type="Script" uid="uid://bncnn75d07i3x" path="res://scripts/systems/system_manager.gd" id="2_rvslj"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://scripts/systems/nav_path_system.gd" id="4_rarhs"]
+[ext_resource type="Script" uid="uid://doj2bbl12wisd" path="res://scripts/systems/health_system.gd" id="6_nxtc6"]
+[ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://scripts/systems/entity_system.gd" id="8_q8u5g"]
 
-[sub_resource type="Curve2D" id="Curve2D_rarhs"]
+[sub_resource type="Curve2D" id="Curve2D_q8u5g"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 148, 149, -115.42926, 0.6830134, 115.42926, -0.6830134, 339, 47, -140.01775, -20.490402, 140.01775, 20.490402, 550, 158, 0, 0, 0, 0, 721, 38)
+"points": PackedVector2Array(0, 0, 0, 0, 95, 127, -150.90909, 71.81818, 150.90909, -71.81818, 431, 176, -108.181816, 0, 108.181816, 0, 697, 77, 0, 0, 0, 0, 927, 194)
 }
 point_count = 4
 
 [node name="Main" type="Node2D"]
-
-[node name="Tower" type="Node2D" parent="."]
-position = Vector2(443, 182)
-
-[node name="Sprite" type="ColorRect" parent="Tower"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="RangedComponent" type="Node" parent="Tower"]
-script = ExtResource("1_vcsgt")
-metadata/_custom_type_script = "uid://7hja048qjkj0"
-
-[node name="Bullet" type="Node2D" parent="."]
-position = Vector2(536, 223)
-
-[node name="Polygon2D" type="Polygon2D" parent="Bullet"]
-position = Vector2(-601, -137)
-scale = Vector2(1, 0.6333333)
-polygon = PackedVector2Array(597, 203, 606, 230, 616, 200, 606, 213.1579)
 
 [node name="PathManage" type="Node" parent="."]
 script = ExtResource("1_rarhs")
@@ -46,9 +28,18 @@ metadata/_custom_type_script = "uid://dlkq6p4daka13"
 
 [node name="Entities" type="Node" parent="SystemManager"]
 
+[node name="EntitySystem" type="Node" parent="SystemManager"]
+script = ExtResource("8_q8u5g")
+metadata/_custom_type_script = "uid://cia8mo148t6pb"
+
+[node name="HealthSystem" type="Node" parent="SystemManager"]
+script = ExtResource("6_nxtc6")
+metadata/_custom_type_script = "uid://doj2bbl12wisd"
+
 [node name="Paths" type="Node" parent="."]
 
 [node name="Path" type="Path2D" parent="Paths"]
-curve = SubResource("Curve2D_rarhs")
+position = Vector2(0, 13)
+curve = SubResource("Curve2D_q8u5g")
 script = ExtResource("2_rarhs")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"

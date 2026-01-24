@@ -10,21 +10,42 @@
                         "interval": 1,
                         "name": "enemy_goblin",
                         "count": 5,
-                        "subpath": 1,
                         "next_interval": 1
                     },
                     {
                         "interval": 1,
                         "name": "enemy_goblin",
                         "count": 5,
-                        "subpath": 2,
                         "next_interval": 1
                     },
                     {
                         "interval": 1,
                         "name": "enemy_goblin",
                         "count": 5,
-                        "subpath": 3,
+                        "next_interval": 1
+                    }
+                ]
+            },
+            {
+                "path": 1,
+                "delay": 1,
+                "spawns": [
+                    {
+                        "interval": 1,
+                        "name": "enemy_goblin",
+                        "count": 5,
+                        "next_interval": 1
+                    },
+                    {
+                        "interval": 1,
+                        "name": "enemy_goblin",
+                        "count": 5,
+                        "next_interval": 1
+                    },
+                    {
+                        "interval": 1,
+                        "name": "enemy_goblin",
+                        "count": 5,
                         "next_interval": 1
                     }
                 ]
