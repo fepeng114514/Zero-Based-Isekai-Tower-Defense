@@ -16,8 +16,12 @@ func on_update(delta) -> void:
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Entity = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
+		if not is_instance_valid(target):
+			continue
+			
 		var health_c = target.get_component(CS.CN_HEALTH)
-		if not is_instance_valid(target) or not health_c:
+
+		if not health_c:
 			continue
 			
 		take_damage(target, d, health_c)
