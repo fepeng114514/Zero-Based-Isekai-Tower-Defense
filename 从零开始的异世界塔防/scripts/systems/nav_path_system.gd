@@ -2,7 +2,7 @@ extends System
 class_name NavPathSystem
 
 func on_insert(entity: Entity):
-	if not is_has_c(entity, CS.CN_NAV_PATH):
+	if not Utils.is_has_c(entity, CS.CN_NAV_PATH):
 		return true
 	
 	var nav_path_c = entity.components[CS.CN_NAV_PATH]
@@ -20,7 +20,7 @@ func on_insert(entity: Entity):
 
 func on_update(delta: float):
 	for entity in EntityDB.entities:
-		if not is_instance_valid(entity) or not is_has_c(entity, CS.CN_NAV_PATH):
+		if not is_instance_valid(entity) or not Utils.is_has_c(entity, CS.CN_NAV_PATH):
 			continue
 			
 		var nav_path_c = entity.components[CS.CN_NAV_PATH]

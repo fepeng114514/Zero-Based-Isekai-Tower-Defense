@@ -6,6 +6,3 @@ func _ready() -> void:
 #
 #func _process(delta: float) -> void:
 	#pass
-
-func is_has_c(entity: Entity, c_name: String) -> bool:
-	return c_name in entity.components_name

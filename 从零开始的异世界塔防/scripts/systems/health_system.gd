@@ -2,7 +2,7 @@ extends System
 class_name HealthSystem
 
 func on_insert(entity: Entity) -> bool:
-	if not is_has_c(entity, CS.CN_HEALTH):
+	if not Utils.is_has_c(entity, CS.CN_HEALTH):
 		return true
 		
 	var health_c = entity.components[CS.CN_HEALTH]
@@ -16,10 +16,11 @@ func on_update(delta) -> void:
 		var d: Entity = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
 		
-		if not is_instance_valid(target) or not is_has_c(target, CS.CN_HEALTH):
+		if not is_instance_valid(target) or not Utils.is_has_c(target, CS.CN_HEALTH):
 			continue
 			
 		take_damage(target, d)
+
 		
 func take_damage(target: Entity, d: Entity):
 	var health_c = target.components[CS.CN_HEALTH]

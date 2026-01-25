@@ -8,10 +8,8 @@ class_name TemplatesResource
 	"damage"
 ]
 
-var preloaded_templates: Dictionary = {}
+var templates: Dictionary = {}
 
 func _init():
 	for template_name in templates_scenes:
-		preloaded_templates[template_name] = load("res://scenes/templates/%s" % template_name + ".tscn")
-		
-	print()
+		templates[template_name] = load("res://scenes/templates/%s.tscn" % template_name)

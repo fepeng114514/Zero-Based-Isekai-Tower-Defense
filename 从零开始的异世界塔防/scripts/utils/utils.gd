@@ -44,7 +44,10 @@ func load_json_file(path: String):
 	
 	# 返回解析后的数据
 	return json.get_data()
-	
+
+func is_has_c(entity: Entity, c_name: String) -> bool:
+	return c_name in entity.components_name
+
 # 从字典解析 Vector2
 func dict_to_vector2(data: Dictionary):
 	if data.is_empty():

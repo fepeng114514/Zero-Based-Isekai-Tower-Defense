@@ -1,6 +1,6 @@
 extends Node
 
-var templates: Dictionary = preload("res://resources/templates_resource.tres").preloaded_templates
+var templates: Dictionary = preload("res://resources/templates_resource.tres").templates
 var templates_data: Dictionary = {}
 var enemies: Array = []
 var soldiers: Array = []
@@ -25,15 +25,15 @@ func _ready() -> void:
 		templates_data[key] = incompleted_templates[key]
 
 func insert_entity(entity: Entity) -> void:
-	if entity.has_node("EnemyComponent"):
+	if Utils.is_has_c(entity, CS.CN_ENEMY):
 		enemies.append(entity)
-	elif entity.has_node("SoldierComponent"):
+	elif Utils.is_has_c(entity, CS.CN_SOLDIER):
 		soldiers.append(entity)
-	elif entity.has_node("TowerComponent"):
+	elif Utils.is_has_c(entity, CS.CN_TOWER):
 		towers.append(entity)
-	elif entity.has_node("ModifierComponent"):
+	elif Utils.is_has_c(entity, CS.CN_MODIFIER):
 		modifiers.append(entity)
-	elif entity.has_node("AuraComponent"):
+	elif Utils.is_has_c(entity, CS.CN_AURA):
 		auras.append(entity)
 		
 	entities.append(entity)
@@ -61,6 +61,7 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	d.value = Utils.random_int(min_damage, max_damage)
 	
 	return d
+	
 func remove_entity(entity: Entity) -> void:
 	remove_queue.append(entity)
 	

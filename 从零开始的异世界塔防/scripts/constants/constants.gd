@@ -16,6 +16,11 @@ const STATE_RANGED: String = "ranged"
 
 const CN_HEALTH: String = "HealthComponen"
 const CN_NAV_PATH: String = "NavPathComponent"
+const CN_ENEMY: String = "EnemyComponent"
+const CN_SOLDIER: String = "SoldierComponent"
+const CN_TOWER: String = "TowerComponent"
+const CN_MODIFIER: String = "ModifierComponent"
+const CN_AURA: String = "AuraComponent"
 
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1

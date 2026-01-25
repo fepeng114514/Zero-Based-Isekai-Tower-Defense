@@ -1,7 +1,7 @@
 extends Path2D
 class_name Path
 
-var spacing: float = 20.0
+@export var spacing: float = 20.0
 var subpath: Array[Path2D] = [self]
 
 func _ready():
