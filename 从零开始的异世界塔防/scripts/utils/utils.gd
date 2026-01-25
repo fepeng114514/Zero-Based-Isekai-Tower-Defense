@@ -5,11 +5,9 @@ var rng = RandomNumberGenerator.new()
 func random_int(from: int, to: int) -> int:
 	return rng.randi_range(from, to)
 
-func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7, r: float = 0.0) -> bool:
+func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7) -> bool:
 	var radius_x: float = radius	# 椭圆X轴半径
 	var radius_y: float = radius * aspect	# 椭圆Y轴半径
-	r = deg_to_rad(r)
-	p = p.rotated(-r)
 	
 	# 椭圆方程: (x/rx)² + (y/ry)² <= 1
 	var value = ((p.x - center.x) / radius_x) ** 2 + ((p.y - center.y) / radius_y) ** 2

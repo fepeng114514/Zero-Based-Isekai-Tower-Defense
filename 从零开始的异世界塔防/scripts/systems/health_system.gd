@@ -2,10 +2,11 @@ extends System
 class_name HealthSystem
 
 func on_insert(entity: Entity) -> bool:
-	if not entity.get_component(CS.CN_HEALTH):
+	var health_c = entity.get_component(CS.CN_HEALTH)
+	
+	if not health_c:
 		return true
 		
-	var health_c = entity.get_component(CS.CN_HEALTH)
 	health_c.hp = health_c.hp_max
 	
 	return true
@@ -15,16 +16,14 @@ func on_update(delta) -> void:
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Entity = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
-		
-		if not is_instance_valid(target) or not target.get_component(CS.CN_HEALTH):
+		var health_c = target.get_component(CS.CN_HEALTH)
+		if not is_instance_valid(target) or not health_c:
 			continue
 			
-		take_damage(target, d)
+		take_damage(target, d, health_c)
 
 		
-func take_damage(target: Entity, d: Entity):
-	var health_c = target.get_component(CS.CN_HEALTH)
-	
+func take_damage(target: Entity, d: Entity, health_c):	
 	if d.damage_type & CS.DAMAGE_EAT:
 		if target.get("on_eat"):
 			target.on_eat()
@@ -33,12 +32,15 @@ func take_damage(target: Entity, d: Entity):
 		return
 	
 	var actual_damage: int = predict_damage(d, health_c)
-	health_c.hp -= d.actual_damage
+	health_c.hp -= actual_damage
 		
 	if target.get("on_damage"):
 		target.on_damage(d.source_id)
 		
-	if health_c.hp <= 0 and target.get("on_dead") and target.dead():
+	if health_c.hp <= 0:
+		if target.get("on_dead"):
+			target.dead()
+			
 		EntityDB.remove_entity(target)
 		
 func predict_damage(d: Entity, health_c):

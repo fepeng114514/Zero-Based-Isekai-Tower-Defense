@@ -24,7 +24,7 @@ const STATE_GO_NAV: String = "go_nav"
 const STATE_MELEE: String = "melee"
 const STATE_RANGED: String = "ranged"
 
-const CN_HEALTH: String = "HealthComponen"
+const CN_HEALTH: String = "HealthComponent"
 const CN_NAV_PATH: String = "NavPathComponent"
 const CN_ENEMY: String = "EnemyComponent"
 const CN_SOLDIER: String = "SoldierComponent"
@@ -42,3 +42,14 @@ const DAMAGE_EAT: int = 1 << 6
 
 const DAMAGE_PHYSICAL_ARMOR: int = 1 << 15
 const DAMAGE_MAGICAL_ARMOR: int = 1 << 16
+
+const FLAG_ENEMY: int = 1
+const FLAG_SOLDIER: int = 1 << 1
+const FLAG_HERO: int = 1 << 2
+const FLAG_TOWER: int = 1 << 3
+const FLAG_BULLET: int = 1 << 4
+const FLAG_MODIFIER: int = 1 << 5
+const FLAG_AURA: int = 1 << 6
+const FLAG_BOSS: int = 1 << 10
+
+const NAME_TOWER_HOLDER: String = "tower_holder_%s"

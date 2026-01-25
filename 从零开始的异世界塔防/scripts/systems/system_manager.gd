@@ -38,7 +38,8 @@ func _process_insert_queue() -> void:
 	for i: int in range(insert_queue.size() - 1, -1, -1):
 		var entity: Entity = insert_queue.pop_at(i)
 		
-		EntityDB.insert_entity(entity)
-		
 		if not _process_systems("on_insert", entity):
+			entity.free()
 			continue
+		
+		EntityDB.insert_entity(entity)

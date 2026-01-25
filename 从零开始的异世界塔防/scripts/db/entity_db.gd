@@ -50,32 +50,39 @@ func create_entity(t_name: String) -> Entity:
 	
 	create_entity_s.emit(entity)
 
-	if t_name == "damage":
-		damage_queue.append(entity)
-	else:
-		insert_queue.append(entity)
-		
+	insert_queue.append(entity)
+	
 	print("创建实体： %s（%d）" % [t_name, last_id])
-		
 	last_id += 1
+		
 	return entity
 	
 func create_damage(target_id: int, min_damage: int, max_damage: int, source_id = -1) -> Entity:
-	var d: Entity = create_entity("damage")
+	var d_name: String = "damage"
+	var d: Entity = templates[d_name].instantiate()
 	d.target_id = target_id
 	d.source_id = source_id
 	d.value = Utils.random_int(min_damage, max_damage)
+	d.template_name = d_name
+	d.name = d_name
 	
+	create_entity_s.emit(d)
+
+	damage_queue.append(d)
+	print("创建伤害，目标： %s，来源： %s，值：%s" % [target_id, source_id, d.value])
+		
 	return d
 	
 func remove_entity(entity: Entity) -> void:
 	remove_queue.append(entity)
+	print("移除实体： %s（%d）" % [entity.template_name, entity.id])
 	
 func get_entity_by_id(id: int):
 	return entities[id]
 
 func find_enemy_in_range(origin, min_range, max_range) -> Array:
-	var targets: Array = enemies.filter(func(e): return is_instance_valid(e) and Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range))
+	var filter = func(e): return is_instance_valid(e) and Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range)
+	var targets: Array = enemies.filter(filter)
 	
 	return targets
 #

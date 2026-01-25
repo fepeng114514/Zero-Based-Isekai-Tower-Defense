@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://e5sn3gdxbc6f"]
+[gd_scene load_steps=29 format=3 uid="uid://e5sn3gdxbc6f"]
 
 [ext_resource type="Script" uid="uid://cb6oow7qouame" path="res://scripts/enemy_scripts/enemy_goblin_script.gd" id="1_x6tgr"]
 [ext_resource type="Texture2D" uid="uid://cwrkiqkxqibmc" path="res://resources/sprites/bandit_0001.png" id="2_50dt2"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="24_2oi2u"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://scripts/components/health_component.gd" id="26_f1urp"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://scripts/components/nav_path_component.gd" id="27_ngiqk"]
+[ext_resource type="Script" uid="uid://bjmpl3gd85btr" path="res://scripts/components/enemy_component.gd" id="27_uyn1r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w8l5x"]
 animations = [{
@@ -110,7 +111,6 @@ position = Vector2(-19, -24)
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5572339, 0.5991522)
 sprite_frames = SubResource("SpriteFrames_w8l5x")
-flip_h = true
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("26_f1urp")
@@ -119,3 +119,7 @@ metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 [node name="NavPathComponent" type="Node" parent="."]
 script = ExtResource("27_ngiqk")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
+
+[node name="EnemyComponent" type="Node" parent="."]
+script = ExtResource("27_uyn1r")
+metadata/_custom_type_script = "uid://bjmpl3gd85btr"

@@ -4,9 +4,11 @@ class_name Entity
 var id: int = -1
 var template_name: String = ""
 var target_id: int = -1
-var source_id: int = -15
+var source_id: int = -1
 var components: Dictionary = {}
 var state: String = "idle"
+var vis_bans: int = 0
+var vis_flags: int = 0
 
 func _ready() -> void:
 	set_setting_data()
