@@ -5,7 +5,6 @@ var id: int = -1
 var template_name: String = ""
 var target_id: int = -1
 var source_id: int = -15
-var components_name: Array[String] = []
 var components: Dictionary = {}
 var state: String = "idle"
 
@@ -27,3 +26,6 @@ func set_setting_data():
 		var property = setting_data[key]
 		
 		set(key, property)
+	
+func get_component(c_name: String):
+	return components.get(c_name)

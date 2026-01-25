@@ -1,4 +1,5 @@
 extends Node
+signal create_entity_s(entity: Entity)
 
 var templates: Dictionary = load(CS.PATH_TEMPLATES_RESOURCE).templates
 var templates_data: Dictionary = {}
@@ -24,19 +25,19 @@ func _ready() -> void:
 	for key: String in incompleted_templates.keys():
 		templates_data[key] = incompleted_templates[key]
 
-func insert_entity(entity: Entity) -> void:
-	if Utils.is_has_c(entity, CS.CN_ENEMY):
-		enemies.append(entity)
-	elif Utils.is_has_c(entity, CS.CN_SOLDIER):
-		soldiers.append(entity)
-	elif Utils.is_has_c(entity, CS.CN_TOWER):
-		towers.append(entity)
-	elif Utils.is_has_c(entity, CS.CN_MODIFIER):
-		modifiers.append(entity)
-	elif Utils.is_has_c(entity, CS.CN_AURA):
-		auras.append(entity)
+func insert_entity(e: Entity) -> void:
+	if e.get_component(CS.CN_ENEMY):
+		enemies.append(e)
+	elif e.get_component(CS.CN_SOLDIER):
+		soldiers.append(e)
+	elif e.get_component(CS.CN_TOWER):
+		towers.append(e)
+	elif e.get_component(CS.CN_MODIFIER):
+		modifiers.append(e)
+	elif e.get_component(CS.CN_AURA):
+		auras.append(e)
 		
-	entities.append(entity)
+	entities.append(e)
 
 func create_entity(t_name: String) -> Entity:
 	if not templates.get(t_name):
@@ -45,13 +46,18 @@ func create_entity(t_name: String) -> Entity:
 	var entity: Entity = templates[t_name].instantiate()
 	entity.id = last_id
 	entity.template_name = t_name
-	last_id += 1
+	entity.name = t_name
 	
+	create_entity_s.emit(entity)
+
 	if t_name == "damage":
 		damage_queue.append(entity)
 	else:
 		insert_queue.append(entity)
 		
+	print("创建实体： %s（%d）" % [t_name, last_id])
+		
+	last_id += 1
 	return entity
 	
 func create_damage(target_id: int, min_damage: int, max_damage: int, source_id = -1) -> Entity:

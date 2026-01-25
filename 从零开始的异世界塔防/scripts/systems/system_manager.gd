@@ -1,8 +1,7 @@
 extends Node
 class_name SystemManager
 
-@onready var Entities = $Entities
-@export var systems: Array = []
+var systems: Array = []
 
 func _process_systems(system_name: String, entity: Entity) -> bool:
 	for system: System in systems:
@@ -39,8 +38,6 @@ func _process_insert_queue() -> void:
 	for i: int in range(insert_queue.size() - 1, -1, -1):
 		var entity: Entity = insert_queue.pop_at(i)
 		
-		entity.name = entity.template_name
-		Entities.add_child(entity)
 		EntityDB.insert_entity(entity)
 		
 		if not _process_systems("on_insert", entity):

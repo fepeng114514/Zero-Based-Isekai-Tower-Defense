@@ -2,10 +2,10 @@ extends System
 class_name NavPathSystem
 
 func on_insert(entity: Entity):
-	if not Utils.is_has_c(entity, CS.CN_NAV_PATH):
+	if not entity.get_component(CS.CN_NAV_PATH):
 		return true
 	
-	var nav_path_c = entity.components[CS.CN_NAV_PATH]
+	var nav_path_c = entity.get_component(CS.CN_NAV_PATH)
 	
 	var nav_path: int = nav_path_c.nav_path
 	var nav_subpath: int = nav_path_c.nav_subpath
@@ -20,10 +20,10 @@ func on_insert(entity: Entity):
 
 func on_update(delta: float):
 	for entity in EntityDB.entities:
-		if not is_instance_valid(entity) or not Utils.is_has_c(entity, CS.CN_NAV_PATH):
+		if not is_instance_valid(entity) or not entity.get_component(CS.CN_NAV_PATH):
 			continue
 			
-		var nav_path_c = entity.components[CS.CN_NAV_PATH]
+		var nav_path_c = entity.get_component(CS.CN_NAV_PATH)
 			
 		var subpath: Path2D = PathDB.get_subpath(nav_path_c.nav_path, nav_path_c.nav_subpath)
 		nav_path_c.progress_ratio += PathDB.calculate_progress_ratio(delta, nav_path_c.speed, subpath)

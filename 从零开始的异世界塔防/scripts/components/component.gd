@@ -1,9 +1,9 @@
 extends Node
 class_name Component
 @onready var parent = get_parent()
+
 func _ready() -> void:
 	set_setting_data()
-	parent.components_name.append(name)
 	parent.components[name] = self
 
 func get_component_name() -> String:
@@ -21,7 +21,7 @@ func get_setting_data() -> Dictionary:
 	return setting_data
 
 func get_template_name() -> String:
-	return get_parent().template_name
+	return parent.template_name
 	
 func set_setting_data():
 	var setting_data = get_setting_data()
