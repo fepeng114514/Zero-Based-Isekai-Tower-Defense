@@ -1,13 +1,16 @@
 extends Node
-class_name PathManage
+class_name SpawnerWave
 
-@onready var wave_datas = Utils.load_json_file("res://data/waves/wave.json")
+var wave_data: Array = []
+@onready var parent = get_parent()
 
 func timer(time: float) -> Signal:
 	return get_tree().create_timer(time).timeout
 
 func _ready() -> void:
-	for wave: Dictionary in wave_datas:
+	wave_data = Utils.load_json_file("res://data/waves/level_%s_wave.json" % parent.level_idx)
+	
+	for wave: Dictionary in wave_data:
 		# 每波之间的等待
 		await timer(wave.interval)
 		

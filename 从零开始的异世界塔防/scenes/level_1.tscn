@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dn322bbgr6nvm"]
 
-[ext_resource type="Script" uid="uid://cjub2h10i60yc" path="res://scenes/level_1.gd" id="1_pa8r4"]
+[ext_resource type="Script" uid="uid://l0bojwxfygpe" path="res://scripts/level_base.gd" id="1_pa8r4"]
 [ext_resource type="Script" uid="uid://d3ofglcqbg2ig" path="res://scripts/systems/spawner_wave.gd" id="2_15mv3"]
 [ext_resource type="Script" uid="uid://bncnn75d07i3x" path="res://scripts/systems/system_manager.gd" id="3_e3sih"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://scripts/systems/nav_path_system.gd" id="4_2y5yt"]
@@ -16,8 +16,9 @@ point_count = 4
 
 [node name="level_1" type="Node2D"]
 script = ExtResource("1_pa8r4")
+level_idx = 1
 
-[node name="PathManage" type="Node" parent="."]
+[node name="SpawnerWave" type="Node" parent="."]
 script = ExtResource("2_15mv3")
 metadata/_custom_type_script = "uid://d3ofglcqbg2ig"
 

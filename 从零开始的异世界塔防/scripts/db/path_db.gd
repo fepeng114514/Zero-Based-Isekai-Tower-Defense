@@ -3,10 +3,10 @@ extends Node
 var paths: Array[Path2D] = []
 
 func get_subpath(path_idx: int, subpath_idx: int) -> Path2D:
-	return paths[path_idx].subpath[subpath_idx]
+	return paths[path_idx].subpaths[subpath_idx]
 
 func get_random_subpath(path_idx: int):
-	return Utils.random_int(0, paths[path_idx].subpath.size() - 1)
+	return Utils.random_int(0, paths[path_idx].subpaths.size() - 1)
 
 func calculate_progress_ratio(delta: float, speed: int, subpath: Path2D) -> float:
 	var value: float = speed * delta / subpath.curve.get_baked_length()

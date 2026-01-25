@@ -32,7 +32,7 @@ func take_damage(target: Entity, d: Entity):
 		EntityDB.remove_entity(target)
 		return
 	
-	var actual_damage: int = predict_damage(target, d, health_c)
+	var actual_damage: int = predict_damage(d, health_c)
 	health_c.hp -= d.actual_damage
 		
 	if target.get("on_damage"):
@@ -41,7 +41,7 @@ func take_damage(target: Entity, d: Entity):
 	if health_c.hp <= 0 and target.get("on_dead") and target.dead():
 		EntityDB.remove_entity(target)
 		
-func predict_damage(target: Entity, d: Entity, health_c):
+func predict_damage(d: Entity, health_c):
 	var protection: float
 	var damage_type = d.damage_type
 		

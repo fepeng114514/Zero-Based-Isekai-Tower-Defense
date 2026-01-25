@@ -1,36 +1,40 @@
 extends Path2D
 class_name Path
 
-@export var spacing: float = 20.0
-var subpath: Array[Path2D] = [self]
+@export var spacing: int = 20
+var subpaths: Array[Path2D] = [self]
+var follows: Array[PathFollow2D] = []
 
 func _ready():
 	PathDB.paths.append(self)
-	add_child(create_follow())
+
+	var follow: PathFollow2D = create_follow()
+	follows.append(follow)
+	add_child(follow)
 	
 	# 创建左右路径
-	var left_path: Path2D = Path2D.new()
-	var right_path: Path2D = Path2D.new()
-	
-	left_path.curve = create_offset_curve(-spacing)
-	right_path.curve = create_offset_curve(spacing)
-	
-	# 设置不同颜色以便区分
-	left_path.name = "Path"
-	right_path.name = "Path"
+	var left_path: Path2D = create_subpath(spacing)
+	var right_path: Path2D = create_subpath(-spacing)
 	
 	# 添加Line2D可视化
 	#add_line_visualization(left_path, Color.RED)
 	#add_line_visualization(right_path, Color.BLUE)
 	#add_line_visualization(self, Color.GREEN)
 	
-	add_child(left_path)
-	add_child(right_path)
-	left_path.add_child(create_follow())
-	right_path.add_child(create_follow())
-	subpath.append(left_path)
-	subpath.append(right_path)
+func create_subpath(s: int) -> Path2D:
+	var subpath: Path2D = Path2D.new()
+	subpath.curve = create_offset_curve(s)
 	
+	subpath.name = "Path"
+
+	add_child(subpath)
+
+	var follow: PathFollow2D = create_follow()
+	follows.append(follow)
+	subpath.add_child(follow)
+
+	return subpath
+
 func create_follow():
 	var follow: PathFollow2D = PathFollow2D.new()
 	follow.name = "Follow"
@@ -103,16 +107,16 @@ func add_line_visualization(path: Path2D, color: Color):
 	
 var point_count: int = 198
 
-func get_equally_spaced_points(path: Path2D) -> PackedVector2Array:
-	"""获取路径上等间距的多个点"""
-	var points: PackedVector2Array = []
+# func get_equally_spaced_points(path: Path2D) -> PackedVector2Array:
+# 	"""获取路径上等间距的多个点"""
+# 	var points: PackedVector2Array = []
 	
-	var total_length = path.curve.get_baked_length()
-	var spacing = total_length / (point_count - 1)
+# 	var total_length = path.curve.get_baked_length()
+# 	var spacing = total_length / (point_count - 1)
 	
-	for i in range(point_count):
-		var distance = i * spacing
-		var local_pos = path.curve.sample_baked(distance)
-		points.append(path.to_global(local_pos))
+# 	for i in range(point_count):
+# 		var distance = i * spacing
+# 		var local_pos = path.curve.sample_baked(distance)
+# 		points.append(path.to_global(local_pos))
 	
-	return points
+# 	return points
