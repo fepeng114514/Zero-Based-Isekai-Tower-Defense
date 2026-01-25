@@ -1,5 +1,5 @@
 extends Node
-
+@onready var curren_scene = get_tree()
 var rng = RandomNumberGenerator.new()
 
 func random_int(from: int, to: int) -> int:
@@ -60,3 +60,6 @@ func dict_to_vector2(data: Dictionary):
 		return Vector2(int(data.width), int(data.height))
 	
 	return data
+	
+func create_timer(time: float) -> Signal:
+	return curren_scene.create_timer(time).timeout

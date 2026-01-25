@@ -13,7 +13,7 @@ func on_insert(entity: Entity):
 	nav_path_c.nav_subpath = subpath_idx
 	var subpath: Path2D = PathDB.get_subpath(nav_path, subpath_idx)
 		
-	var path_follow: PathFollow2D = subpath.get_node("Follow")
+	var path_follow: PathFollow2D = subpath.follow
 
 	entity.position = subpath.to_global(path_follow.position)
 	return true

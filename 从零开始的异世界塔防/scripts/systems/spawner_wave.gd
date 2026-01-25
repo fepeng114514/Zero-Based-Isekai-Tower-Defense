@@ -4,15 +4,12 @@ class_name SpawnerWave
 var wave_data: Array = []
 @onready var parent = get_parent()
 
-func timer(time: float) -> Signal:
-	return get_tree().create_timer(time).timeout
-
 func _ready() -> void:
-	wave_data = Utils.load_json_file("res://data/waves/level_%s_wave.json" % parent.level_idx)
+	wave_data = Utils.load_json_file(CS.PATH_WAVES_DATA % parent.level_idx)
 	
 	for wave: Dictionary in wave_data:
 		# 每波之间的等待
-		await timer(wave.interval)
+		await Utils.create_timer(wave.interval)
 		
 		for group in wave.groups:
 			# 出怪组并行
@@ -20,7 +17,7 @@ func _ready() -> void:
 			spawner.call(group)
 
 func _spawner(group: Dictionary) -> void:
-	await timer(group.delay)
+	await Utils.create_timer(group.delay)
 	var path: int = group.path
 	
 	for spawn in group.spawns:
@@ -31,8 +28,8 @@ func _spawner(group: Dictionary) -> void:
 			nav_path_c.nav_path = path - 1
 			nav_path_c.nav_subpath = subpath - 1 if subpath != null else -1
 			
-			await timer(spawn.interval)
+			await Utils.create_timer(spawn.interval)
 			
-		await timer(spawn.next_interval)
+		await Utils.create_timer(spawn.next_interval)
 	
 	

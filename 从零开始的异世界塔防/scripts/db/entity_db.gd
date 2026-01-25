@@ -1,6 +1,6 @@
 extends Node
 
-var templates: Dictionary = preload("res://resources/templates_resource.tres").templates
+var templates: Dictionary = load(CS.PATH_TEMPLATES_RESOURCE).templates
 var templates_data: Dictionary = {}
 var enemies: Array = []
 var soldiers: Array = []

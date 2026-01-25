@@ -6,6 +6,16 @@ var PATH_ENEMY_TEMPLATES: String = PATH_SETTING.path_join("enemy_templates.json"
 var PATH_TOWER_TEMPLATES: String = PATH_SETTING.path_join("tower_templates.json")
 var PATH_HERO_TEMPLATES: String = PATH_SETTING.path_join("hero_templates.json")
 var PATH_BOSS_TEMPLATES: String = PATH_SETTING.path_join("boss_templates.json")
+var PATH_LEVELS_DATA: String = PATH_SETTING.path_join("levels/level_%s_data.json")
+var PATH_WAVES_DATA: String = PATH_SETTING.path_join("waves/level_%s_wave.json")
+
+const PATH_SCENES: String = "res://scenes"
+var PATH_TEMPLATES_SCENES: String = PATH_SCENES.path_join("templates/%s.tscn")
+var PATH_LEVELS_SCENES: String = PATH_SCENES.path_join("levels/level_%s_data.tscn")
+var PATH_WAVES_SCENES: String = PATH_SCENES.path_join("waves/level_%s_wave.tscn")
+
+const PATH_RESOURCES: String = "res://resources"
+var PATH_TEMPLATES_RESOURCE: String = PATH_RESOURCES.path_join("templates_resource.tres")
 
 const STATE_IDLE: String = "idle"
 const STATE_DEAD: String = "dead"

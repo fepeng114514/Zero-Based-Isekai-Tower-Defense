@@ -1,15 +1,15 @@
 extends Path2D
 class_name Path
 
-@export var spacing: int = 20
+@export var spacing: int = 25
 var subpaths: Array[Path2D] = [self]
-var follows: Array[PathFollow2D] = []
+var follow: PathFollow2D
 
 func _ready():
 	PathDB.paths.append(self)
 
-	var follow: PathFollow2D = create_follow()
-	follows.append(follow)
+	follow = PathFollow2D.new()
+	follow.name = "Follow"
 	add_child(follow)
 	
 	# 创建左右路径
@@ -22,23 +22,11 @@ func _ready():
 	#add_line_visualization(self, Color.GREEN)
 	
 func create_subpath(s: int) -> Path2D:
-	var subpath: Path2D = Path2D.new()
+	var subpath = Subpath.new()
 	subpath.curve = create_offset_curve(s)
-	
-	subpath.name = "Path"
-
 	add_child(subpath)
 
-	var follow: PathFollow2D = create_follow()
-	follows.append(follow)
-	subpath.add_child(follow)
-
 	return subpath
-
-func create_follow():
-	var follow: PathFollow2D = PathFollow2D.new()
-	follow.name = "Follow"
-	return follow
 
 func create_offset_curve(offset: float) -> Curve2D:
 	var new_curve = Curve2D.new()

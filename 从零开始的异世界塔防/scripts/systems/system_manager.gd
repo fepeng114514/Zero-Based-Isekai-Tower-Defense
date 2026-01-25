@@ -2,7 +2,7 @@ extends Node
 class_name SystemManager
 
 @onready var Entities = $Entities
-var systems: Array = []
+@export var systems: Array = []
 
 func _process_systems(system_name: String, entity: Entity) -> bool:
 	for system: System in systems:

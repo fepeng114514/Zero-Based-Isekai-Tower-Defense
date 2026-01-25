@@ -12,4 +12,4 @@ var templates: Dictionary = {}
 
 func _init():
 	for template_name in templates_scenes:
-		templates[template_name] = load("res://scenes/templates/%s.tscn" % template_name)
+		templates[template_name] = load(CS.PATH_TEMPLATES_SCENES % template_name)

@@ -14,7 +14,7 @@ func calculate_progress_ratio(delta: float, speed: int, subpath: Path2D) -> floa
 
 func get_position_with_progress_ratio(subpath: Path2D, nav_path_c: NavPathComponent, path_follow = null) -> Vector2:
 	if not path_follow:
-		path_follow = subpath.get_node("Follow")
+		path_follow = subpath.follow
 		
 	path_follow.progress_ratio = nav_path_c.progress_ratio
 	var position: Vector2 = path_follow.position
