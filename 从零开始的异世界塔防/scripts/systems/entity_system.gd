@@ -1,21 +1,21 @@
 extends System
 class_name EntitySystem
 
-func on_insert(entity: Entity) -> bool:
-	if not entity.get("insert"):
+func on_insert(e: Entity) -> bool:
+	if not e.get("insert"):
 		return true
 		
-	return entity.insert()
+	return e.insert()
 	
-func on_remove(entity: Entity) -> bool:
-	if not entity.get("remove"):
+func on_remove(e: Entity) -> bool:
+	if not e.get("remove"):
 		return true
 		
-	return entity.remove()
+	return e.remove()
 
 func on_update(delta: float) -> void:
-	for entity in EntityDB.entities:
-		if not is_instance_valid(entity) or not entity.get("update"):
+	for e in EntityDB.entities:
+		if not is_instance_valid(e) or not e.get("update") or e.removed :
 			continue
 			
-		entity.update(delta)
+		e.update()

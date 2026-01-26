@@ -46,14 +46,37 @@ func load_json_file(path: String):
 # 从字典解析 Vector2
 func dict_to_vector2(data: Dictionary):
 	if data.is_empty():
-		return data
+		return null
 	
 	# 多种格式支持
 	if data.has("x") and data.has("y"):
-		return Vector2(int(data.x), int(data.y))
-	elif data.has("width") and data.has("height"):
-		return Vector2(int(data.width), int(data.height))
+		return Vector2(data.x, data.y)
+	elif data.has("w") and data.has("h"):
+		return Vector2(data.w, data.h)
 	
+	return null
+	
+func dict_to_rect2(data: Dictionary):
+	if data.is_empty():
+		return null
+	
+	if data.has("x") and data.has("y") and data.has("w") and data.has("h"):
+		return Rect2(data.x, data.y, data.w, data.h)
+	
+	return null
+	
+func try_convert_dict(data):
+	if typeof(data) != TYPE_DICTIONARY:
+		return data
+	
+	var rect2 = dict_to_rect2(data)
+	if rect2 != null:
+		return rect2
+		
+	var vec2 = dict_to_vector2(data)
+	if vec2 != null:
+		return vec2
+		
 	return data
 	
 func create_timer(time: float) -> Signal:

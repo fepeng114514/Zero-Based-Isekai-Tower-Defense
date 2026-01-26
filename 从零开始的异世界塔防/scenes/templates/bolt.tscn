@@ -8,6 +8,7 @@ script = ExtResource("1_hu2p6")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(0, 1.9073486e-06)
+rotation = 4.923574
 scale = Vector2(1, 0.6333333)
 offset = Vector2(-607, -214.73685)
 polygon = PackedVector2Array(597, 203, 606, 230, 616, 200, 606, 213.1579)

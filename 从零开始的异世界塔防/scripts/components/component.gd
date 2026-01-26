@@ -28,5 +28,6 @@ func set_setting_data():
 	
 	for key: String in setting_data.keys():
 		var property = setting_data[key]
+		property = Utils.try_convert_dict(property)
 		
 		set(key, property)

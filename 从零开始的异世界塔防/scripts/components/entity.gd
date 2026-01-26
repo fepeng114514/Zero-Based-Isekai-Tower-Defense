@@ -9,6 +9,7 @@ var components: Dictionary = {}
 var state: String = "idle"
 var vis_bans: int = 0
 var vis_flags: int = 0
+var removed: bool = false
 
 func _ready() -> void:
 	set_setting_data()
@@ -26,6 +27,7 @@ func set_setting_data():
 	
 	for key: String in setting_data.keys():
 		var property = setting_data[key]
+		property = Utils.try_convert_dict(property)
 		
 		set(key, property)
 	

@@ -11,5 +11,5 @@ func insert() -> bool:
 	animated_sprite.play()
 	return true
 	
-func update(delta: float) -> void:
+func update() -> void:
 	health_bar_fg.scale.x = origin_health_bar_fg_scale.x * Health.get_hp_percent()

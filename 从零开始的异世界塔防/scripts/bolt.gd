@@ -11,18 +11,22 @@ func insert():
 	if not is_instance_valid(target):
 		return false
 		
+	t_pos = target.position
+	direction = (t_pos - position).normalized()	
+	rotation = direction.angle()
+		
 	return true
 	
-func update(delta: float) -> void:
+func update() -> void:
 	if is_instance_valid(target):
 		t_pos = target.position
 	
 	direction = (t_pos - position).normalized()
-	position += direction * Bullet.speed * delta
+	position += direction * Bullet.speed * TimeManager.frame_length
 	
 	rotation = direction.angle()
 	
-	if abs(t_pos - position) < Vector2(1, 1):
+	if Bullet.hit_rect.has_point(t_pos - position):
 		EntityDB.create_damage(target_id, Bullet.min_damage, Bullet.max_damage, source_id)
 		EntityDB.remove_entity(self)
 		return

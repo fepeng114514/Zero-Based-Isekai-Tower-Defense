@@ -2,10 +2,10 @@ extends Entity
 @onready var Ranged = $RangedComponent
 @onready var base_attack = Ranged.attacks[0]
 
-func update(delta: float) -> void:
+func update() -> void:
 	var target = EntityDB.find_enemy_in_range(self.position, base_attack.min_range, base_attack.max_range)
 		
-	if target and CooldownManager.is_ready("attack0001"):
+	if target and TimeManager.is_ready("0001"):
 		attack(target[0])
 		
 func attack(target):
@@ -13,4 +13,4 @@ func attack(target):
 	bullet.target_id = target.id
 	bullet.source_id = id
 	bullet.position = position
-	CooldownManager.start_cooldown("attack0001", base_attack.cooldown)
+	TimeManager.start_timer("0001", base_attack.cooldown)

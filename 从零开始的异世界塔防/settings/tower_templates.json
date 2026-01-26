@@ -16,7 +16,13 @@
         "Bullet": {
             "min_damage": 50,
             "max_damage": 50,
-            "speed": 300
+            "speed": 300,
+            "hit_rect": {
+                "x": -10,
+                "y": -10,
+                "w": 20,
+                "h": 20
+            }
         }
     }
 }

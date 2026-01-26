@@ -43,19 +43,20 @@ func create_entity(t_name: String) -> Entity:
 	if not templates.get(t_name):
 		push_error("模板不存在: %s" % t_name)
 	
-	var entity: Entity = templates[t_name].instantiate()
-	entity.id = last_id
-	entity.template_name = t_name
-	entity.name = t_name
+	var e: Entity = templates[t_name].instantiate()
+	e.id = last_id
+	e.template_name = t_name
+	e.name = t_name
+	e.visible = false
 	
-	create_entity_s.emit(entity)
+	create_entity_s.emit(e)
 
-	insert_queue.append(entity)
+	insert_queue.append(e)
 	
 	print("创建实体： %s（%d）" % [t_name, last_id])
 	last_id += 1
 		
-	return entity
+	return e
 	
 func create_damage(target_id: int, min_damage: int, max_damage: int, source_id = -1) -> Entity:
 	var d_name: String = "damage"
@@ -73,9 +74,11 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 		
 	return d
 	
-func remove_entity(entity: Entity) -> void:
-	remove_queue.append(entity)
-	print("移除实体： %s（%d）" % [entity.template_name, entity.id])
+func remove_entity(e: Entity) -> void:
+	remove_queue.append(e)
+	e.removed = true
+	e.visible = false
+	print("移除实体： %s（%d）" % [e.template_name, e.id])
 	
 func get_entity_by_id(id: int):
 	return entities[id]
