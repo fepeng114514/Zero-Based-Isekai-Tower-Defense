@@ -9,8 +9,9 @@ func update() -> void:
 		attack(target[0])
 		
 func attack(target):
-	var bullet = EntityDB.create_entity(base_attack.bullet)
-	bullet.target_id = target.id
-	bullet.source_id = id
-	bullet.position = position
+	var b = EntityDB.create_entity(base_attack.bullet)
+	b.target_id = target.id
+	b.source_id = id
+	b.position = position
+	EntityDB.insert_entity(b)
 	#base_attack.ts = TM.tick_ts

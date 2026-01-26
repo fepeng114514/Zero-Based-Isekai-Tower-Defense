@@ -1,19 +1,9 @@
 extends Node
-class_name SystemManager
 
 var systems: Array = []
-
-func _process_systems(system_name: String, entity: Entity) -> bool:
-	for system: System in systems:
-		var system_func = system.get(system_name)
-		
-		if not system_func:
-			continue
-			
-		if not system_func.call(entity):
-			return false
-			
-	return true
+var remove_queue: Array[Entity] = []
+var insert_queue: Array[Entity] = []
+var damage_queue: Array[Entity] = []
 
 func _process(delta: float) -> void:
 	for system: System in systems:
@@ -25,25 +15,18 @@ func _process(delta: float) -> void:
 	_process_remove_queue()
 	_process_insert_queue()
 
-func _process_remove_queue() -> void:
-	for i: int in range(EntityDB.remove_queue.size() - 1, -1, -1):
-		var e = EntityDB.remove_queue.pop_at(i)
+func _process_remove_queue() -> void:	
+	while remove_queue:
+		var e = remove_queue.pop_front()
 		if not is_instance_valid(e):
 			continue
-		
-		_process_systems("on_remove", e)
 		
 		e.free()
 
 func _process_insert_queue() -> void:
-	var insert_queue = EntityDB.insert_queue
-	for i: int in range(insert_queue.size() - 1, -1, -1):
-		var e: Entity = insert_queue.pop_at(i)
+	while insert_queue:
+		var e: Entity = insert_queue.pop_front()
 		
-		EntityDB.insert_entity(e)
-		
-		if not _process_systems("on_insert", e):
-			EntityDB.remove_entity(e)
-			continue
+		EntityDB.insert(e)
 		
 		e.visible = true

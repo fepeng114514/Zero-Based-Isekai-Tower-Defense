@@ -18,6 +18,7 @@ func create_level_entities() -> void:
 	for e: Dictionary in level_data.entities:
 		var entity = EntityDB.create_entity(e.name)
 		entity.position = Utils.dict_to_vector2(e.position)
+		EntityDB.insert_entity(entity)
 
 func create_level_tower_holders() -> void:
 	for e: Dictionary in level_data.tower_holders:
@@ -25,3 +26,4 @@ func create_level_tower_holders() -> void:
 
 		var entity = EntityDB.create_entity(holder_name)
 		entity.position = Utils.dict_to_vector2(e.position)
+		EntityDB.insert_entity(entity)

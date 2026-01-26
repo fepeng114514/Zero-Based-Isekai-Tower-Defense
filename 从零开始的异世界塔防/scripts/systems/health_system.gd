@@ -12,7 +12,7 @@ func on_insert(e: Entity) -> bool:
 	return true
 
 func on_update(delta) -> void:
-	var damage_queue = EntityDB.damage_queue
+	var damage_queue = SystemManager.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Entity = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)

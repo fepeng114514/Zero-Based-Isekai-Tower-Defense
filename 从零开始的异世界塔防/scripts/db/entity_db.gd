@@ -10,9 +10,6 @@ var modifiers: Array = []
 var auras: Array = []
 var entities: Array = []
 var last_id: int = 0
-var remove_queue: Array[Entity] = []
-var insert_queue: Array[Entity] = []
-var damage_queue: Array[Entity] = []
 
 func _ready() -> void:
 	var incompleted_templates: Dictionary = {}
@@ -25,7 +22,12 @@ func _ready() -> void:
 	for key: String in incompleted_templates.keys():
 		templates_data[key] = incompleted_templates[key]
 
-func insert_entity(e: Entity) -> void:
+func insert(e: Entity) -> void:
+	if entities:
+		var entities_len: int = entities.size()
+		if e.id != entities_len:
+			push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
+	
 	if e.has_component(CS.CN_ENEMY):
 		enemies.append(e)
 	elif e.has_component(CS.CN_SOLDIER):
@@ -38,6 +40,7 @@ func insert_entity(e: Entity) -> void:
 		auras.append(e)
 		
 	entities.append(e)
+	print("插入实体 %s（%d）" % [e.template_name, e.id])
 
 func create_entity(t_name: String) -> Entity:
 	var t = templates.get(t_name)
@@ -54,13 +57,11 @@ func create_entity(t_name: String) -> Entity:
 	
 	create_entity_s.emit(e)
 
-	insert_queue.append(e)
-	
 	print("创建实体： %s（%d）" % [t_name, last_id])
 	last_id += 1
 		
 	return e
-	
+
 func create_damage(target_id: int, min_damage: int, max_damage: int, source_id = -1) -> Entity:
 	var d_name: String = "damage"
 	var d: Entity = templates[d_name].instantiate()
@@ -70,17 +71,37 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	d.template_name = d_name
 	d.name = d_name
 
-	damage_queue.append(d)
+	SystemManager.damage_queue.append(d)
 	print("创建伤害, 目标: %s，来源: %s，值: %s" % [target_id, source_id, d.value])
 		
 	return d
 	
+func insert_entity(e: Entity) -> void:
+	for system: System in SystemManager.systems:
+		var system_func = system.get("on_insert")
+		
+		if not system_func:
+			continue
+			
+		if not system_func.call(e):
+			return
+		
+	SystemManager.insert_queue.append(e)
+
 func remove_entity(e: Entity) -> void:
-	remove_queue.append(e)
+	for system: System in SystemManager.systems:
+		var system_func = system.get("on_remove")
+		
+		if not system_func:
+			continue
+			
+		system_func.call(e)
+
+	SystemManager.remove_queue.append(e)
 	e.removed = true
 	e.visible = false
 	print("移除实体： %s（%d）" % [e.template_name, e.id])
-	
+
 func get_entity_by_id(id: int):
 	return entities[id]
 

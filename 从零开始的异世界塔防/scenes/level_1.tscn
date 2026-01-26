@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn322bbgr6nvm"]
+[gd_scene load_steps=10 format=3 uid="uid://dn322bbgr6nvm"]
 
 [ext_resource type="Script" uid="uid://l0bojwxfygpe" path="res://scripts/level_base.gd" id="1_pa8r4"]
-[ext_resource type="Script" uid="uid://d3ofglcqbg2ig" path="res://scripts/systems/spawner_wave.gd" id="2_15mv3"]
-[ext_resource type="Script" uid="uid://bncnn75d07i3x" path="res://scripts/systems/system_manager.gd" id="3_e3sih"]
+[ext_resource type="Script" uid="uid://d3ofglcqbg2ig" path="res://scripts/systems/spawner_wave_system.gd" id="2_15mv3"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://scripts/systems/nav_path_system.gd" id="4_2y5yt"]
 [ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://scripts/systems/entity_system.gd" id="5_2os1m"]
 [ext_resource type="Script" uid="uid://doj2bbl12wisd" path="res://scripts/systems/health_system.gd" id="6_go7sj"]
@@ -24,24 +23,23 @@ level_idx = 1
 script = ExtResource("2_15mv3")
 metadata/_custom_type_script = "uid://d3ofglcqbg2ig"
 
-[node name="SystemManager" type="Node" parent="."]
-script = ExtResource("3_e3sih")
+[node name="Systems" type="Node" parent="."]
 
-[node name="NavPathSystem" type="Node" parent="SystemManager"]
-script = ExtResource("4_2y5yt")
-metadata/_custom_type_script = "uid://dlkq6p4daka13"
-
-[node name="EntitySystem" type="Node" parent="SystemManager"]
+[node name="EntitySystem" type="Node" parent="Systems"]
 script = ExtResource("5_2os1m")
 metadata/_custom_type_script = "uid://cia8mo148t6pb"
 
-[node name="HealthSystem" type="Node" parent="SystemManager"]
+[node name="HealthSystem" type="Node" parent="Systems"]
 script = ExtResource("6_go7sj")
 metadata/_custom_type_script = "uid://doj2bbl12wisd"
 
-[node name="ModifierSystem" type="Node" parent="SystemManager"]
+[node name="ModifierSystem" type="Node" parent="Systems"]
 script = ExtResource("7_e3sih")
 metadata/_custom_type_script = "uid://cbcje4j81kvmp"
+
+[node name="NavPathSystem" type="Node" parent="Systems"]
+script = ExtResource("4_2y5yt")
+metadata/_custom_type_script = "uid://dlkq6p4daka13"
 
 [node name="Paths" type="Node" parent="."]
 
