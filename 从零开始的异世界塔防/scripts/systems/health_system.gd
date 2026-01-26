@@ -1,8 +1,8 @@
 extends System
 class_name HealthSystem
 
-func on_insert(entity: Entity) -> bool:
-	var health_c = entity.get_component(CS.CN_HEALTH)
+func on_insert(e: Entity) -> bool:
+	var health_c = e.get_component(CS.CN_HEALTH)
 	
 	if not health_c:
 		return true

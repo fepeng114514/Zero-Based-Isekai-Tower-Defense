@@ -69,8 +69,6 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	d.value = Utils.random_int(min_damage, max_damage)
 	d.template_name = d_name
 	d.name = d_name
-	
-	create_entity_s.emit(d)
 
 	damage_queue.append(d)
 	print("创建伤害, 目标: %s，来源: %s，值: %s" % [target_id, source_id, d.value])

@@ -27,7 +27,9 @@ func _process(delta: float) -> void:
 
 func _process_remove_queue() -> void:
 	for i: int in range(EntityDB.remove_queue.size() - 1, -1, -1):
-		var e: Entity = EntityDB.remove_queue.pop_at(i)
+		var e = EntityDB.remove_queue.pop_at(i)
+		if not is_instance_valid(e):
+			continue
 		
 		_process_systems("on_remove", e)
 		
@@ -38,9 +40,10 @@ func _process_insert_queue() -> void:
 	for i: int in range(insert_queue.size() - 1, -1, -1):
 		var e: Entity = insert_queue.pop_at(i)
 		
+		EntityDB.insert_entity(e)
+		
 		if not _process_systems("on_insert", e):
 			EntityDB.remove_entity(e)
 			continue
 		
 		e.visible = true
-		EntityDB.insert_entity(e)

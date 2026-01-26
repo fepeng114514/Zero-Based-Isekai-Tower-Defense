@@ -13,4 +13,4 @@ func attack(target):
 	bullet.target_id = target.id
 	bullet.source_id = id
 	bullet.position = position
-	base_attack.ts = TM.tick_ts
+	#base_attack.ts = TM.tick_ts

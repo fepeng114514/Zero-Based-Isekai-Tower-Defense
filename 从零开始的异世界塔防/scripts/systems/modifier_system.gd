@@ -43,6 +43,9 @@ func on_insert(m: Entity) -> bool:
 	return true
 
 func on_remove(m: Entity) -> void:
+	if not m.has_component(CS.CN_MODIFIER):
+		return
+	
 	var target = EntityDB.get_entity_by_id(m.target_id)
 
 	if not is_instance_valid(target):
