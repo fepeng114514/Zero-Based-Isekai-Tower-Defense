@@ -9,7 +9,7 @@ func _ready() -> void:
 	
 	for wave: Dictionary in wave_data:
 		# 每波之间的等待
-		await Utils.create_timer(wave.interval)
+		await TM.create_timer(wave.interval)
 		
 		for group in wave.groups:
 			# 出怪组并行
@@ -17,7 +17,7 @@ func _ready() -> void:
 			spawner.call(group)
 
 func _spawner(group: Dictionary) -> void:
-	await Utils.create_timer(group.delay)
+	await TM.create_timer(group.delay)
 	var path: int = group.path
 	
 	for spawn in group.spawns:
@@ -28,8 +28,8 @@ func _spawner(group: Dictionary) -> void:
 			nav_path_c.nav_path = path - 1
 			nav_path_c.nav_subpath = subpath - 1 if subpath != null else -1
 			
-			await Utils.create_timer(spawn.interval)
+			await TM.create_timer(spawn.interval)
 			
-		await Utils.create_timer(spawn.next_interval)
+		await TM.create_timer(spawn.next_interval)
 	
 	

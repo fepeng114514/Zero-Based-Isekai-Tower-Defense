@@ -5,7 +5,7 @@ extends Entity
 @onready var Health = $HealthComponent
 
 func _ready() -> void:
-	vis_flags = CS.FLAG_ENEMY
+	flags = CS.FLAG_ENEMY
 
 func insert() -> bool:
 	animated_sprite.play()

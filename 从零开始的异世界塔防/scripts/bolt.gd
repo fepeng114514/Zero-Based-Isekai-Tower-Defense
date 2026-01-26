@@ -22,7 +22,7 @@ func update() -> void:
 		t_pos = target.position
 	
 	direction = (t_pos - position).normalized()
-	position += direction * Bullet.speed * TimeManager.frame_length
+	position += direction * Bullet.speed * TM.frame_length
 	
 	rotation = direction.angle()
 	

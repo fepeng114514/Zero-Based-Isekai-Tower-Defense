@@ -9,22 +9,9 @@ func _process(delta: float) -> void:
 	tick_ts += delta
 	tick += 1
 	frame_length = delta
-	
-	var to_remove: Array = []
-	
-	for key in timers:
-		var timer = timers[key]
-		timer.elapsed += delta
-		if timer.elapsed < timer.time:
-			continue
-			
-		to_remove.append(key)
-	
-	for key in to_remove:
-		timers.erase(key)
-			
-func start_timer(key: String, duration: float):
-	timers[key] = { "time": duration, "elapsed": 0.0 }
-	
-func is_ready(key: String) -> bool:
-	return !timers.has(key)
+
+func is_ready_time(ts: float, time: float):
+	return tick_ts - ts > time
+
+func create_timer(time: float) -> Signal:
+	return Utils.curren_scene.create_timer(time).timeout

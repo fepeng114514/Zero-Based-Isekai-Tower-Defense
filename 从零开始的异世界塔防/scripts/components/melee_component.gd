@@ -10,5 +10,6 @@ func _ready() -> void:
 		"cooldown": 0,
 		"mod": "",
 		"damage_type": 0,
+		"ts": 0
 	}
 	super._ready()

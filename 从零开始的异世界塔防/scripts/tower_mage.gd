@@ -5,7 +5,7 @@ extends Entity
 func update() -> void:
 	var target = EntityDB.find_enemy_in_range(self.position, base_attack.min_range, base_attack.max_range)
 		
-	if target and TimeManager.is_ready("0001"):
+	if target and TM.is_ready_time(base_attack.ts, base_attack.cooldown):
 		attack(target[0])
 		
 func attack(target):
@@ -13,4 +13,4 @@ func attack(target):
 	bullet.target_id = target.id
 	bullet.source_id = id
 	bullet.position = position
-	TimeManager.start_timer("0001", base_attack.cooldown)
+	base_attack.ts = TM.tick_ts

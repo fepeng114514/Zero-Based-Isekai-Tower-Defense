@@ -6,6 +6,7 @@ func _ready() -> void:
 		"min_range": 0,
 		"max_range": 0,
 		"cooldown": 0,
-		"bullet": ""
+		"bullet": "",
+		"ts": 0
 	}
 	super._ready()

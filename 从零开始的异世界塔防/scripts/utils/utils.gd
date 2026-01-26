@@ -78,9 +78,6 @@ func try_convert_dict(data):
 		return vec2
 		
 	return data
-	
-func create_timer(time: float) -> Signal:
-	return curren_scene.create_timer(time).timeout
 
 func get_component_name(node_name) -> String:
 	return node_name.replace("Component", "")

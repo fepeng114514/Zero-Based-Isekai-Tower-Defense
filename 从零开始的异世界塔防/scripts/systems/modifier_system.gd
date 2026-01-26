@@ -30,7 +30,7 @@ func on_insert(m: Entity) -> bool:
 		if other_m.template_name == m.template_name:
 			# 重置时间戳
 			if m_component.reset_same:
-				other_m.ts = TimeManager.tick_ts
+				other_m.ts = TM.tick_ts
 				return false
 			# 替换
 			elif m_component.replace_same:
