@@ -52,4 +52,10 @@ const FLAG_MODIFIER: int = 1 << 5
 const FLAG_AURA: int = 1 << 6
 const FLAG_BOSS: int = 1 << 10
 
+const MOD_TYPE_POISON: int = 1
+const MOD_TYPE_LAVA: int = 1 << 1
+const MOD_TYPE_BLEED: int = 1 << 2
+const MOD_TYPE_FREEZE: int = 1 << 3
+const MOD_TYPE_STUN: int = 1 << 4
+
 const NAME_TOWER_HOLDER: String = "tower_holder_%s"
