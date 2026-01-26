@@ -26,24 +26,27 @@ func _ready() -> void:
 		templates_data[key] = incompleted_templates[key]
 
 func insert_entity(e: Entity) -> void:
-	if e.get_component(CS.CN_ENEMY):
+	if e.has_component(CS.CN_ENEMY):
 		enemies.append(e)
-	elif e.get_component(CS.CN_SOLDIER):
+	elif e.has_component(CS.CN_SOLDIER):
 		soldiers.append(e)
-	elif e.get_component(CS.CN_TOWER):
+	elif e.has_component(CS.CN_TOWER):
 		towers.append(e)
-	elif e.get_component(CS.CN_MODIFIER):
+	elif e.has_component(CS.CN_MODIFIER):
 		modifiers.append(e)
-	elif e.get_component(CS.CN_AURA):
+	elif e.has_component(CS.CN_AURA):
 		auras.append(e)
 		
 	entities.append(e)
 
 func create_entity(t_name: String) -> Entity:
-	if not templates.get(t_name):
+	var t = templates.get(t_name)
+
+	if not t:
 		push_error("模板不存在: %s" % t_name)
+		return
 	
-	var e: Entity = templates[t_name].instantiate()
+	var e: Entity = t.instantiate()
 	e.id = last_id
 	e.template_name = t_name
 	e.name = t_name
@@ -70,7 +73,7 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	create_entity_s.emit(d)
 
 	damage_queue.append(d)
-	print("创建伤害，目标： %s，来源： %s，值：%s" % [target_id, source_id, d.value])
+	print("创建伤害, 目标: %s，来源: %s，值: %s" % [target_id, source_id, d.value])
 		
 	return d
 	

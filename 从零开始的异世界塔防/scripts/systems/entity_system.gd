@@ -15,7 +15,7 @@ func on_remove(e: Entity) -> bool:
 
 func on_update(delta: float) -> void:
 	for e in EntityDB.entities:
-		if not is_instance_valid(e) or not e.get("update") or e.removed :
+		if not is_instance_valid(e) or not e.get("update") or e.removed:
 			continue
 			
 		e.update()

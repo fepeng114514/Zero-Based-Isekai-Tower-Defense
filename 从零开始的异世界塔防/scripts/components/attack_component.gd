@@ -6,7 +6,7 @@ var attack_template: Dictionary = {}
 var can_attack: bool = true
 
 func _ready() -> void:	
-	var setting_data = get_setting_data()
+	var setting_data = Utils.get_setting_data(parent.template_name, Utils.get_component_name(name))
 	var attaks_data = setting_data.attacks
 	
 	for i: int in range(attaks_data.size()):

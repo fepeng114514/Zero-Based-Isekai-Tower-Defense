@@ -81,3 +81,35 @@ func try_convert_dict(data):
 	
 func create_timer(time: float) -> Signal:
 	return curren_scene.create_timer(time).timeout
+
+func get_component_name(node_name) -> String:
+	return node_name.replace("Component", "")
+	
+func get_setting_data(template_name: String, component_name = null) -> Dictionary:
+	var templates_data = EntityDB.templates_data.get(template_name)
+	
+	if not templates_data:
+		if template_name != "damage":
+			push_error("未找到模板数据： %s", template_name)
+		return {}
+	
+	var data
+	
+	if component_name:
+		data = templates_data.get(component_name)
+	else:
+		data = templates_data
+		
+	if not data:
+		return {}
+	
+	return data
+	
+func set_setting_data(component, template_name: String, component_name = null):
+	var setting_data = get_setting_data(template_name, component_name)
+	
+	for key: String in setting_data.keys():
+		var property = setting_data[key]
+		property = try_convert_dict(property)
+		
+		component.set(key, property)

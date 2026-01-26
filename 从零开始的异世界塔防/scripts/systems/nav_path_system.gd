@@ -2,10 +2,10 @@ extends System
 class_name NavPathSystem
 
 func on_insert(entity: Entity):
-	if not entity.get_component(CS.CN_NAV_PATH):
-		return true
-	
 	var nav_path_c = entity.get_component(CS.CN_NAV_PATH)
+
+	if not nav_path_c:
+		return true
 	
 	var nav_path: int = nav_path_c.nav_path
 	var nav_subpath: int = nav_path_c.nav_subpath
@@ -14,13 +14,13 @@ func on_insert(entity: Entity):
 	var subpath: Path2D = PathDB.get_subpath(nav_path, subpath_idx)
 		
 	var path_follow: PathFollow2D = subpath.follow
-
+	path_follow.progress_ratio = 0
 	entity.position = subpath.to_global(path_follow.position)
 	return true
 
 func on_update(delta: float):
 	for entity in EntityDB.entities:
-		if not is_instance_valid(entity) or not entity.get_component(CS.CN_NAV_PATH):
+		if not is_instance_valid(entity) or not entity.has_component(CS.CN_NAV_PATH):
 			continue
 			
 		var nav_path_c = entity.get_component(CS.CN_NAV_PATH)

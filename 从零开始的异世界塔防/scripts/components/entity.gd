@@ -10,26 +10,13 @@ var state: String = "idle"
 var vis_bans: int = 0
 var vis_flags: int = 0
 var removed: bool = false
+var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 
 func _ready() -> void:
-	set_setting_data()
-	
-func get_setting_data() -> Dictionary:
-	var setting_data = EntityDB.templates_data.get(template_name)
-	
-	if not setting_data:
-		return {}
-	
-	return setting_data
-
-func set_setting_data():
-	var setting_data = get_setting_data()
-	
-	for key: String in setting_data.keys():
-		var property = setting_data[key]
-		property = Utils.try_convert_dict(property)
-		
-		set(key, property)
+	Utils.set_setting_data(self, template_name)
 	
 func get_component(c_name: String):
 	return components.get(c_name)
+
+func has_component(c_name: String) -> bool:
+	return components.has(c_name)
