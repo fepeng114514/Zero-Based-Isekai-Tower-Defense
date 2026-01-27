@@ -121,3 +121,36 @@ func find_enemy_first(origin, min_range, max_range):
 	targets.sort_custom(filter)
 	
 	return targets[0]
+
+func find_enemy_last(origin, min_range, max_range):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+	
+	if not targets:
+		return null
+
+	var filter = func(e1, e2): return e1.get_c(CS.CN_NAV_PATH).progress_ratio < e2.get_c(CS.CN_NAV_PATH).progress_ratio
+	targets.sort_custom(filter)
+	
+	return targets[0]
+
+func find_enemy_strong(origin, min_range, max_range):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+	
+	if not targets:
+		return null
+
+	var filter = func(e1, e2): return e1.get_c(CS.CN_HEALTH).hp > e2.get_c(CS.CN_HEALTH).hp
+	targets.sort_custom(filter)
+	
+	return targets[0]
+	
+func find_enemy_weak(origin, min_range, max_range):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+	
+	if not targets:
+		return null
+
+	var filter = func(e1, e2): return e1.get_c(CS.CN_HEALTH).hp < e2.get_c(CS.CN_HEALTH).hp
+	targets.sort_custom(filter)
+	
+	return targets[0]

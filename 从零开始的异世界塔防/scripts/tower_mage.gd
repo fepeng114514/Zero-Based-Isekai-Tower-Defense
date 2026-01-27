@@ -3,7 +3,7 @@ extends Entity
 @onready var base_attack = Ranged.attacks[0]
 
 func update() -> void:
-	var target = EntityDB.find_enemy_first(self.position, base_attack.min_range, base_attack.max_range)
+	var target = EntityDB.find_enemy_first(position, base_attack.min_range, base_attack.max_range)
 		
 	if target and TM.is_ready_time(base_attack.ts, base_attack.cooldown):
 		attack(target)
