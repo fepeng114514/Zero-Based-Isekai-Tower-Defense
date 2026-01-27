@@ -13,5 +13,6 @@ func attack(target):
 	b.target_id = target.id
 	b.source_id = id
 	b.position = position
+	
 	EntityDB.insert_entity(b)
 	base_attack.ts = TM.tick_ts

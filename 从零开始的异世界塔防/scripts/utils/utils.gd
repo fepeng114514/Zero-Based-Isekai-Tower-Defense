@@ -6,11 +6,12 @@ func random_int(from: int, to: int) -> int:
 	return rng.randi_range(from, to)
 
 func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7) -> bool:
-	var radius_x: float = radius	# 椭圆X轴半径
-	var radius_y: float = radius * aspect	# 椭圆Y轴半径
+	var a: float = radius	# 椭圆X轴半径
+	var b: float = radius * aspect	# 椭圆Y轴半径
+	var dx: float = p.x - center.x
+	var dy: float = p.y - center.y
 	
-	# 椭圆方程: (x/rx)² + (y/ry)² <= 1
-	var value = ((p.x - center.x) / radius_x) ** 2 + ((p.y - center.y) / radius_y) ** 2
+	var value = (dx / a) ** 2 + (dy / b) ** 2
 	
 	return value <= 1
 
@@ -102,7 +103,7 @@ func get_setting_data(template_name: String, component_name = null) -> Dictionar
 	
 	return data
 	
-func set_setting_data(component, template_name: String, component_name = null):
+func set_setting_data(component, template_name: String, component_name = null) -> void:
 	var setting_data = get_setting_data(template_name, component_name)
 	
 	for key: String in setting_data.keys():
@@ -110,3 +111,27 @@ func set_setting_data(component, template_name: String, component_name = null):
 		property = try_convert_dict(property)
 		
 		component.set(key, property)
+
+func initial_linear_speed(from: Vector2, to: Vector2, t: float) -> Vector2:
+	var x: float = (to.x - from.x) / t
+	var y: float = (to.y - from.y) / t
+	
+	return Vector2(x, y)
+
+func position_in_linear(speed: Vector2, from: Vector2, t: float) -> Vector2:
+	var x: float = speed.x * t + from.x
+	var y: float = speed.y * t + from.y
+	
+	return Vector2(x, y)
+	
+func initial_parabola_speed(from: Vector2, to: Vector2, t: float, g: int) -> Vector2:
+	var x: float = (to.x - from.x) / t
+	var y: float = (to.y - from.y - g * t * t / 2) / t
+	
+	return Vector2(x, y)
+
+func position_in_parabola(t: float, from: Vector2, speed: Vector2, g: int) -> Vector2:
+	var x: float = speed.x * t + from.x
+	var y: float = g * t * t / 2 + speed.y * t + from.y
+
+	return Vector2(x, y)

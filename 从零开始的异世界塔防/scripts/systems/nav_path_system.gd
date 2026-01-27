@@ -21,14 +21,14 @@ func on_insert(e: Entity):
 
 func on_update(delta: float):
 	for e in EntityDB.entities:
-		if not is_instance_valid(e) or not e.has_component(CS.CN_NAV_PATH):
+		if not is_instance_valid(e) or not e.has_c(CS.CN_NAV_PATH):
 			continue
 			
 		var nav_path_c = e.get_c(CS.CN_NAV_PATH)
 		var subpath: Path2D = PathDB.get_subpath(nav_path_c.nav_path, nav_path_c.nav_subpath)
 		
-		nav_path_c.progress_ratio += PathDB.calculate_progress_ratio(delta, nav_path_c.speed, subpath)
-		e.position = subpath.to_global(PathDB.get_position_with_progress_ratio(subpath, nav_path_c))
+		nav_path_c.progress_ratio += PathDB.calculate_progress_ratio(nav_path_c.speed, subpath)
+		e.position = PathDB.get_position_with_progress_ratio(subpath, nav_path_c, nav_path_c.progress_ratio)
 		
 		# 终点线检查
 		if nav_path_c.progress_ratio >= 1.0:

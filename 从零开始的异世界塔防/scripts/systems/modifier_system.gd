@@ -2,7 +2,7 @@ extends System
 class_name ModifierSystem
 
 func on_insert(m: Entity) -> bool:
-	if not m.has_component(CS.CN_MODIFIER):
+	if not m.has_c(CS.CN_MODIFIER):
 		return true
 
 	var target = EntityDB.get_entity_by_id(m.target_id)
@@ -43,7 +43,7 @@ func on_insert(m: Entity) -> bool:
 	return true
 
 func on_remove(m: Entity) -> void:
-	if not m.has_component(CS.CN_MODIFIER):
+	if not m.has_c(CS.CN_MODIFIER):
 		return
 	
 	var target = EntityDB.get_entity_by_id(m.target_id)

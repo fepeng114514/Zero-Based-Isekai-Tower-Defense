@@ -1,5 +1,7 @@
 extends Node
 
+const FPS: int = 40
+
 const PATH_SETTING: String = "settings"
 var PATH_TEMPLATES: String = PATH_SETTING.path_join("templates.json")
 var PATH_ENEMY_TEMPLATES: String = PATH_SETTING.path_join("enemy_templates.json")

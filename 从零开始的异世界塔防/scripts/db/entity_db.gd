@@ -28,15 +28,15 @@ func insert(e: Entity) -> void:
 		if e.id != entities_len:
 			push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
 	
-	if e.has_component(CS.CN_ENEMY):
+	if e.has_c(CS.CN_ENEMY):
 		enemies.append(e)
-	elif e.has_component(CS.CN_SOLDIER):
+	elif e.has_c(CS.CN_SOLDIER):
 		soldiers.append(e)
-	elif e.has_component(CS.CN_TOWER):
+	elif e.has_c(CS.CN_TOWER):
 		towers.append(e)
-	elif e.has_component(CS.CN_MODIFIER):
+	elif e.has_c(CS.CN_MODIFIER):
 		modifiers.append(e)
-	elif e.has_component(CS.CN_AURA):
+	elif e.has_c(CS.CN_AURA):
 		auras.append(e)
 		
 	entities.append(e)

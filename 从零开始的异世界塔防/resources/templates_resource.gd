@@ -4,6 +4,7 @@ class_name TemplatesResource
 @export var templates_scenes: Array = [
 	"enemy_goblin",
 	"bolt",
+	"arrow",
 	"tower_mage",
 	"damage"
 ]

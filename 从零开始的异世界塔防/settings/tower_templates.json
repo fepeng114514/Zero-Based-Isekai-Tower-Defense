@@ -4,7 +4,7 @@
         "Ranged": {
             "attacks": [
                 {
-                    "bullet": "bolt",
+                    "bullet": "arrow",
                     "min_range": 0,
                     "max_range": 300,
                     "cooldown": 1
@@ -16,13 +16,14 @@
         "Bullet": {
             "min_damage": 50,
             "max_damage": 50,
-            "speed": 300,
-            "hit_rect": {
-                "x": -10,
-                "y": -10,
-                "w": 20,
-                "h": 20
-            }
+            "speed": 300
+        }
+    },
+    "arrow": {
+        "Bullet": {
+            "min_damage": 50,
+            "max_damage": 50,
+            "flight_time": 1.2
         }
     }
 }
