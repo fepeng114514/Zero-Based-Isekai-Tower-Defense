@@ -47,24 +47,22 @@ func take_damage(target: Entity, d: Entity, health_c):
 			
 		EntityDB.remove_entity(target)
 		
-func predict_damage(d: Entity, health_c):
-	var protection: float
+func predict_damage(d: Entity, health_c: HealthComponent):
+	var protection: float = 1 * health_c.damage_reduction
 	var damage_type = d.damage_type
 		
 	if damage_type & CS.DAMAGE_DISINTEGRATE:
 		return health_c.hp
-	elif damage_type & CS.DAMAGE_PHYSICAL:
-		protection = health_c.physical_armor
-	elif damage_type & CS.DAMAGE_MAGICAL:
-		protection = health_c.magical_armor
-	elif damage_type & CS.DAMAGE_EXPLOSION:
-		protection = health_c.physical_armor / 2
-	else:
-		protection = 0
 		
-	protection = clampf(protection, 0, 1)
+	if damage_type & CS.DAMAGE_PHYSICAL:
+		protection *= health_c.physical_armor
+	if damage_type & CS.DAMAGE_MAGICAL:
+		protection *= health_c.magical_armor
+	if damage_type & CS.DAMAGE_EXPLOSION:
+		protection *= health_c.physical_armor / 2.0
+	if damage_type & CS.DAMAGE_MAGICAL_EXPLOSION:
+		protection *= health_c.magical_armor / 2.0
 	
-	var actual_damage: int = d.value * (1 - protection)
-	actual_damage = roundi(health_c.damage_factor * actual_damage)
+	var actual_damage: int = roundi(d.value * (1 - protection))
 	
 	return actual_damage

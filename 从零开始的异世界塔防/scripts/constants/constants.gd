@@ -35,10 +35,11 @@ const CN_AURA: String = "AuraComponent"
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1
 const DAMAGE_EXPLOSION: int = 1 << 2
-const DAMAGE_TRUE: int = 1 << 3
-const DAMAGE_DISINTEGRATE: int = 1 << 4
-const DAMAGE_POISON: int = 1 << 5
-const DAMAGE_EAT: int = 1 << 6
+const DAMAGE_MAGICAL_EXPLOSION: int = 1 << 3
+const DAMAGE_TRUE: int = 1 << 4
+const DAMAGE_DISINTEGRATE: int = 1 << 5
+const DAMAGE_POISON: int = 1 << 6
+const DAMAGE_EAT: int = 1 << 7
 
 const DAMAGE_PHYSICAL_ARMOR: int = 1 << 15
 const DAMAGE_MAGICAL_ARMOR: int = 1 << 16

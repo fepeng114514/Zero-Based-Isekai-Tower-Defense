@@ -8,7 +8,7 @@ var health_bar_scale: Vector2 = Vector2(1, 1)
 var dead: bool = false
 var physical_armor: int = 0
 var magical_armor: int = 0
-var damage_factor: float = 1
+var damage_reduction: float = 1
 
 
 func get_hp_percent() -> float:
