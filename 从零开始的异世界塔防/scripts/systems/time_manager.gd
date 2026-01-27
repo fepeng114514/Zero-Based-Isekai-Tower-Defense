@@ -13,5 +13,5 @@ func _process(delta: float) -> void:
 func is_ready_time(ts: float, time: float):
 	return tick_ts - ts > time
 
-func create_timer(time: float) -> Signal:
+func create_once_timer(time: float) -> Signal:
 	return Utils.curren_scene.create_timer(time).timeout

@@ -8,6 +8,13 @@
                 "x": 500,
                 "y": 250
             }
+        },
+        {
+            "name": "tower_mage",
+            "position": {
+                "x": 400,
+                "y": 250
+            }
         }
     ],
     "tower_holders": [

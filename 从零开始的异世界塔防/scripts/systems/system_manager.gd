@@ -12,8 +12,8 @@ func _process(delta: float) -> void:
 			
 		system.on_update(delta)
 	
-	_process_remove_queue()
-	_process_insert_queue()
+	call_deferred("_process_remove_queue")
+	call_deferred("_process_insert_queue")
 
 func _process_remove_queue() -> void:	
 	while remove_queue:

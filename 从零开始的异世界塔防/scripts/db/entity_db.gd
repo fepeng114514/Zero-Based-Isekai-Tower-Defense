@@ -110,10 +110,14 @@ func find_enemy_in_range(origin, min_range, max_range) -> Array:
 	var targets: Array = enemies.filter(filter)
 	
 	return targets
-#
-#func find_enemy_first(origin, min_range, max_range) -> Array:
-	#var targets: Array = find_enemy_in_range(origin, min_range, max_range)
-	#
-	#targets.sort()
-	#
-	#return target
+
+func find_enemy_first(origin, min_range, max_range):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+	
+	if not targets:
+		return null
+
+	var filter = func(e1, e2): return e1.get_c(CS.CN_NAV_PATH).progress_ratio > e2.get_c(CS.CN_NAV_PATH).progress_ratio
+	targets.sort_custom(filter)
+	
+	return targets[0]

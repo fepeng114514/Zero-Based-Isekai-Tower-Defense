@@ -2,7 +2,7 @@ extends System
 class_name HealthSystem
 
 func on_insert(e: Entity) -> bool:
-	var health_c = e.get_component(CS.CN_HEALTH)
+	var health_c = e.get_c(CS.CN_HEALTH)
 	
 	if not health_c:
 		return true
@@ -19,7 +19,7 @@ func on_update(delta) -> void:
 		if not is_instance_valid(target):
 			continue
 			
-		var health_c = target.get_component(CS.CN_HEALTH)
+		var health_c = target.get_c(CS.CN_HEALTH)
 
 		if not health_c:
 			continue

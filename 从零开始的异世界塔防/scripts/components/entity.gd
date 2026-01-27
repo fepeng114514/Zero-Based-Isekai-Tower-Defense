@@ -20,7 +20,7 @@ var has_mods: Dictionary = {}
 func _ready() -> void:
 	Utils.set_setting_data(self, template_name)
 	
-func get_component(c_name: String):
+func get_c(c_name: String):
 	return components.get(c_name)
 
 func has_component(c_name: String) -> bool:
