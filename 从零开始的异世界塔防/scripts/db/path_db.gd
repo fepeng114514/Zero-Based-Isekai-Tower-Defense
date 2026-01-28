@@ -9,15 +9,18 @@ func get_random_subpath(path_idx: int):
 	return Utils.random_int(0, paths[path_idx].subpaths.size() - 1)
 
 func calculate_progress_ratio(speed: int, subpath: Path2D, time: float = 1) -> float:
-	var value: float = speed * TM.frame_length * time / subpath.curve.get_baked_length()
+	var distance_moved = speed * time * TM.frame_length
+	var path_length = subpath.curve.get_baked_length()
+		
+	var progress_delta = distance_moved / path_length
+	return clampf(progress_delta, 0, 1)
 	
-	return value
-
-func get_position_with_progress_ratio(subpath: Path2D, nav_path_c: NavPathComponent, progress_ratio) -> Vector2:
+func get_pos_with_progress_ratio(subpath: Path2D, progress_ratio) -> Vector2:
 	var path_follow = subpath.follow
 		
 	path_follow.progress_ratio = progress_ratio
 	var position: Vector2 = path_follow.position
+	path_follow.progress_ratio = 0
 	
 	return subpath.to_global(position)
 
@@ -29,6 +32,6 @@ func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 	
 	var subpath: Path2D = get_subpath(nav_path_c.nav_path, nav_path_c.nav_subpath)
 	var progress_ratio = nav_path_c.progress_ratio + calculate_progress_ratio(nav_path_c.speed, subpath, walk_time)
-	var predict_pos: Vector2 = get_position_with_progress_ratio(subpath, nav_path_c, progress_ratio)
+	var predict_pos: Vector2 = get_pos_with_progress_ratio(subpath, progress_ratio)
 	
 	return predict_pos

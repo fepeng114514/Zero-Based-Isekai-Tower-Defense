@@ -1,31 +1,30 @@
 extends Entity
 
-var direction: Vector2 = Vector2.RIGHT
 @onready var B: BulletComponent = $BulletComponent
-@onready var to = B.to
-	
-func insert():
+var target
+
+func on_insert() -> bool:
 	target = EntityDB.get_entity_by_id(target_id)
 	
 	if not is_instance_valid(B.target):
 		return false
 		
-	to = target.position
-	direction = (to - position).normalized()	
-	rotation = direction.angle()
+	B.to = target.position
+	B.direction = (B.to - position).normalized()	
+	rotation = B.direction.angle()
 		
 	return true
 	
-func update() -> void:
+func on_update(delta: float) -> void:
 	if is_instance_valid(target):
-		to = target.position
+		B.to = target.position
 	
-	direction = (to - position).normalized()
-	position += direction * B.speed * TM.frame_length
+	B.direction = (B.to - position).normalized()
+	position += B.direction * B.speed * delta
 	
-	rotation = direction.angle()
+	rotation = B.direction.angle()
 	
-	if B.hit_rect.has_point(to - position):
+	if B.hit_rect.has_point(B.to - position):
 		EntityDB.create_damage(target_id, B.min_damage, B.max_damage, source_id)
 		EntityDB.remove_entity(self)
 		return

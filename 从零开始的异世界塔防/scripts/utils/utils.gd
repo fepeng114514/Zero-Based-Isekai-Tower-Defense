@@ -6,8 +6,8 @@ func random_int(from: int, to: int) -> int:
 	return rng.randi_range(from, to)
 
 func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7) -> bool:
-	var a: float = radius	# 椭圆X轴半径
-	var b: float = radius * aspect	# 椭圆Y轴半径
+	var a: float = radius
+	var b: float = radius * aspect
 	var dx: float = p.x - center.x
 	var dy: float = p.y - center.y
 	

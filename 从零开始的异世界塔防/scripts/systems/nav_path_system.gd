@@ -28,8 +28,10 @@ func on_update(delta: float):
 		var subpath: Path2D = PathDB.get_subpath(nav_path_c.nav_path, nav_path_c.nav_subpath)
 		
 		nav_path_c.progress_ratio += PathDB.calculate_progress_ratio(nav_path_c.speed, subpath)
-		e.position = PathDB.get_position_with_progress_ratio(subpath, nav_path_c, nav_path_c.progress_ratio)
+		e.position = PathDB.get_pos_with_progress_ratio(subpath, nav_path_c.progress_ratio)
+		e.on_walk(nav_path_c)
 		
 		# 终点线检查
 		if nav_path_c.progress_ratio >= 1.0:
+			e.on_culminate(nav_path_c)
 			EntityDB.remove_entity(e)

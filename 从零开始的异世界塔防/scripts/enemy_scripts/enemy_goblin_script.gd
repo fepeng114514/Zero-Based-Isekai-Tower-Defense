@@ -7,9 +7,9 @@ extends Entity
 func _ready() -> void:
 	flags = CS.FLAG_ENEMY
 
-func insert() -> bool:
+func on_insert() -> bool:
 	animated_sprite.play()
 	return true
 	
-func update() -> void:
+func on_update(delta: float) -> void:
 	health_bar_fg.scale.x = origin_health_bar_fg_scale.x * Health.get_hp_percent()

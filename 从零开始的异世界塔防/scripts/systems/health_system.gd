@@ -16,6 +16,7 @@ func on_update(delta) -> void:
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Entity = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
+		
 		if not is_instance_valid(target):
 			continue
 			
@@ -28,9 +29,10 @@ func on_update(delta) -> void:
 
 		
 func take_damage(target: Entity, d: Entity, health_c):	
+	var source_id = d.source_id
+	
 	if d.damage_type & CS.DAMAGE_EAT:
-		if target.get("on_eat"):
-			target.on_eat()
+		target.on_eat(health_c, source_id)
 		
 		EntityDB.remove_entity(target)
 		return
@@ -38,12 +40,10 @@ func take_damage(target: Entity, d: Entity, health_c):
 	var actual_damage: int = predict_damage(d, health_c)
 	health_c.hp -= actual_damage
 		
-	if target.get("on_damage"):
-		target.on_damage(d.source_id)
+	target.on_damage(health_c, d)
 		
 	if health_c.hp <= 0:
-		if target.get("on_dead"):
-			target.dead()
+		target.on_dead(health_c, d)
 			
 		EntityDB.remove_entity(target)
 		
