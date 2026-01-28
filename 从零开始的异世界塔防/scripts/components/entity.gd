@@ -38,8 +38,12 @@ func on_remove() -> bool:
 func on_update(delta: float) -> void:
 	pass
 	
-# 实体行走时调用
-func on_walk(nav_path_c: NavPathComponent) -> void:
+# 实体在路径行走时调用
+func on_path_walk(nav_path_c: NavPathComponent) -> void:
+	pass
+
+# 实体往集结点行走时调用
+func on_nav_walk(nav_point_c: NavPointComponent) -> void:
 	pass
 
 # 实体到达终点时调用
@@ -55,5 +59,5 @@ func on_dead(health_c: HealthComponent, d: Entity) -> void:
 	pass
 	
 # 实体被吃时调用
-func on_eat(health_c: HealthComponent, source_id: int) -> void:
+func on_eat(health_c: HealthComponent, d: Entity) -> void:
 	pass

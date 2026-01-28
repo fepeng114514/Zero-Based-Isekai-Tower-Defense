@@ -29,7 +29,7 @@ func on_update(delta: float):
 		
 		nav_path_c.progress_ratio += PathDB.calculate_progress_ratio(nav_path_c.speed, subpath)
 		e.position = PathDB.get_pos_with_progress_ratio(subpath, nav_path_c.progress_ratio)
-		e.on_walk(nav_path_c)
+		e.on_path_walk(nav_path_c)
 		
 		# 终点线检查
 		if nav_path_c.progress_ratio >= 1.0:

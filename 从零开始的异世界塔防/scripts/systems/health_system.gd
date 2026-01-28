@@ -28,11 +28,9 @@ func on_update(delta) -> void:
 		take_damage(target, d, health_c)
 
 		
-func take_damage(target: Entity, d: Entity, health_c):	
-	var source_id = d.source_id
-	
+func take_damage(target: Entity, d: Entity, health_c):
 	if d.damage_type & CS.DAMAGE_EAT:
-		target.on_eat(health_c, source_id)
+		target.on_eat(health_c, d)
 		
 		EntityDB.remove_entity(target)
 		return
