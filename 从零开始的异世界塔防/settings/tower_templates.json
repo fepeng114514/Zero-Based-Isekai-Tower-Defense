@@ -1,13 +1,13 @@
 {
     "tower_mage": {
-        "aaa": 555,
         "Ranged": {
             "attacks": [
                 {
                     "bullet": "arrow",
                     "min_range": 0,
                     "max_range": 300,
-                    "cooldown": 1
+                    "cooldown": 1,
+                    "bans": ["int", 2]
                 }
             ]
         }

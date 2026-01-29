@@ -7,6 +7,8 @@ var level_data: Dictionary = {}
 @onready var store = $Store
 
 func _ready() -> void:
+	SystemManager.systems = ReqiuredRes.new().level_required_system
+	
 	level_data = Utils.load_json_file(CS.PATH_LEVELS_DATA % level_idx)
 	create_level_entities()
 	# create_level_tower_holders()
@@ -17,7 +19,7 @@ func _process(delta: float) -> void:
 func create_level_entities() -> void:
 	for e: Dictionary in level_data.entities:
 		var entity = EntityDB.create_entity(e.name)
-		entity.position = Utils.dict_to_vector2(e.position)
+		Utils.set_setting_data(entity, e, func(k): return k != "name")
 		EntityDB.insert_entity(entity)
 
 func create_level_tower_holders() -> void:
@@ -25,5 +27,5 @@ func create_level_tower_holders() -> void:
 		var holder_name: String = CS.NAME_TOWER_HOLDER % e.style
 
 		var entity = EntityDB.create_entity(holder_name)
-		entity.position = Utils.dict_to_vector2(e.position)
+		Utils.set_setting_data(entity, e)
 		EntityDB.insert_entity(entity)

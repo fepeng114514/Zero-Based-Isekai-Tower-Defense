@@ -42,13 +42,15 @@ func on_insert(m: Entity) -> bool:
 	t_has_mods[m.id] = m
 	return true
 
-func on_remove(m: Entity) -> void:
+func on_remove(m: Entity) -> bool:
 	if not m.has_c(CS.CN_MODIFIER):
-		return
+		return true
 	
 	var target = EntityDB.get_entity_by_id(m.target_id)
 
 	if not is_instance_valid(target):
-		return
+		return true
 
 	target.has_mods.erase(m.id)
+	
+	return true

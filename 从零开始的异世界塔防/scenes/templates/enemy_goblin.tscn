@@ -1,101 +1,102 @@
-[gd_scene load_steps=29 format=3 uid="uid://e5sn3gdxbc6f"]
+[gd_scene load_steps=30 format=3 uid="uid://e5sn3gdxbc6f"]
 
 [ext_resource type="Script" uid="uid://cb6oow7qouame" path="res://scripts/enemy_scripts/enemy_goblin_script.gd" id="1_x6tgr"]
-[ext_resource type="Texture2D" uid="uid://cwrkiqkxqibmc" path="res://resources/sprites/bandit_0001.png" id="2_50dt2"]
-[ext_resource type="Texture2D" uid="uid://dx65rks2veou4" path="res://resources/sprites/bandit_0002.png" id="3_2aouj"]
-[ext_resource type="Texture2D" uid="uid://bta37sb5lkkkk" path="res://resources/sprites/bandit_0003.png" id="4_40jkn"]
-[ext_resource type="Texture2D" uid="uid://q3bjv50l0ldp" path="res://resources/sprites/bandit_0004.png" id="5_oxwf7"]
-[ext_resource type="Texture2D" uid="uid://dp80ijtkh1tlm" path="res://resources/sprites/bandit_0005.png" id="6_b6fta"]
-[ext_resource type="Texture2D" uid="uid://dggg27m63xl15" path="res://resources/sprites/bandit_0006.png" id="7_tqh65"]
-[ext_resource type="Texture2D" uid="uid://6cirqjloabqp" path="res://resources/sprites/bandit_0007.png" id="8_h3dkc"]
-[ext_resource type="Texture2D" uid="uid://vvgsejfq8li1" path="res://resources/sprites/bandit_0008.png" id="9_utbdn"]
-[ext_resource type="Texture2D" uid="uid://breynagdo51bh" path="res://resources/sprites/bandit_0009.png" id="10_drg8k"]
-[ext_resource type="Texture2D" uid="uid://bjwvylkhcrgfs" path="res://resources/sprites/bandit_0010.png" id="11_ic3m2"]
-[ext_resource type="Texture2D" uid="uid://be2inx8f7nq3c" path="res://resources/sprites/bandit_0011.png" id="12_dxmra"]
-[ext_resource type="Texture2D" uid="uid://df5awo7k5lulj" path="res://resources/sprites/bandit_0012.png" id="13_t5iho"]
-[ext_resource type="Texture2D" uid="uid://dprebhslnqtbq" path="res://resources/sprites/bandit_0013.png" id="14_vcm3s"]
-[ext_resource type="Texture2D" uid="uid://dd1vbyo5lby2n" path="res://resources/sprites/bandit_0014.png" id="15_ggs26"]
-[ext_resource type="Texture2D" uid="uid://u8gfani2i3ey" path="res://resources/sprites/bandit_0015.png" id="16_c6i3a"]
-[ext_resource type="Texture2D" uid="uid://bvqsp76ekahut" path="res://resources/sprites/bandit_0016.png" id="17_qdivt"]
-[ext_resource type="Texture2D" uid="uid://ctbysqn0w6syr" path="res://resources/sprites/bandit_0017.png" id="18_4u50x"]
-[ext_resource type="Texture2D" uid="uid://cylvaf2g83cfb" path="res://resources/sprites/bandit_0018.png" id="19_25gxe"]
-[ext_resource type="Texture2D" uid="uid://dvqdl0y1etwkj" path="res://resources/sprites/bandit_0019.png" id="20_wgajg"]
-[ext_resource type="Texture2D" uid="uid://bxn5yf7amklsu" path="res://resources/sprites/bandit_0020.png" id="21_exqx4"]
-[ext_resource type="Texture2D" uid="uid://cw2np3r57u4yn" path="res://resources/sprites/bandit_0021.png" id="22_lo6kv"]
-[ext_resource type="Texture2D" uid="uid://7ndcf3uv5kpj" path="res://resources/sprites/bandit_0022.png" id="23_of5b0"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://scripts/components/sprite_component.gd" id="2_0jjpe"]
+[ext_resource type="Texture2D" uid="uid://cwrkiqkxqibmc" path="res://assets/atlas/bandit_0001.png" id="2_uyn1r"]
+[ext_resource type="Texture2D" uid="uid://dx65rks2veou4" path="res://assets/atlas/bandit_0002.png" id="3_t73rw"]
+[ext_resource type="Texture2D" uid="uid://bta37sb5lkkkk" path="res://assets/atlas/bandit_0003.png" id="4_5ri6x"]
+[ext_resource type="Texture2D" uid="uid://q3bjv50l0ldp" path="res://assets/atlas/bandit_0004.png" id="5_sqdml"]
+[ext_resource type="Texture2D" uid="uid://dp80ijtkh1tlm" path="res://assets/atlas/bandit_0005.png" id="6_8a3rk"]
+[ext_resource type="Texture2D" uid="uid://dggg27m63xl15" path="res://assets/atlas/bandit_0006.png" id="7_unsb1"]
+[ext_resource type="Texture2D" uid="uid://6cirqjloabqp" path="res://assets/atlas/bandit_0007.png" id="8_p4ejs"]
+[ext_resource type="Texture2D" uid="uid://vvgsejfq8li1" path="res://assets/atlas/bandit_0008.png" id="9_7vhfs"]
+[ext_resource type="Texture2D" uid="uid://breynagdo51bh" path="res://assets/atlas/bandit_0009.png" id="10_l42j1"]
+[ext_resource type="Texture2D" uid="uid://bjwvylkhcrgfs" path="res://assets/atlas/bandit_0010.png" id="11_mox6k"]
+[ext_resource type="Texture2D" uid="uid://be2inx8f7nq3c" path="res://assets/atlas/bandit_0011.png" id="12_p8hyw"]
+[ext_resource type="Texture2D" uid="uid://df5awo7k5lulj" path="res://assets/atlas/bandit_0012.png" id="13_2xksh"]
+[ext_resource type="Texture2D" uid="uid://dprebhslnqtbq" path="res://assets/atlas/bandit_0013.png" id="14_o4r3j"]
+[ext_resource type="Texture2D" uid="uid://dd1vbyo5lby2n" path="res://assets/atlas/bandit_0014.png" id="15_kn2o4"]
+[ext_resource type="Texture2D" uid="uid://u8gfani2i3ey" path="res://assets/atlas/bandit_0015.png" id="16_8hhv7"]
+[ext_resource type="Texture2D" uid="uid://bvqsp76ekahut" path="res://assets/atlas/bandit_0016.png" id="17_xe0o1"]
+[ext_resource type="Texture2D" uid="uid://ctbysqn0w6syr" path="res://assets/atlas/bandit_0017.png" id="18_slkgt"]
+[ext_resource type="Texture2D" uid="uid://cylvaf2g83cfb" path="res://assets/atlas/bandit_0018.png" id="19_kfpcq"]
+[ext_resource type="Texture2D" uid="uid://dvqdl0y1etwkj" path="res://assets/atlas/bandit_0019.png" id="20_iuh6e"]
+[ext_resource type="Texture2D" uid="uid://bxn5yf7amklsu" path="res://assets/atlas/bandit_0020.png" id="21_knhed"]
+[ext_resource type="Texture2D" uid="uid://cw2np3r57u4yn" path="res://assets/atlas/bandit_0021.png" id="22_mkxmx"]
+[ext_resource type="Texture2D" uid="uid://7ndcf3uv5kpj" path="res://assets/atlas/bandit_0022.png" id="23_nr7qm"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="24_2oi2u"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://scripts/components/health_component.gd" id="26_f1urp"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://scripts/components/nav_path_component.gd" id="27_ngiqk"]
 [ext_resource type="Script" uid="uid://bjmpl3gd85btr" path="res://scripts/components/enemy_component.gd" id="27_uyn1r"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_w8l5x"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_0jjpe"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_50dt2")
+"texture": ExtResource("2_uyn1r")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_2aouj")
+"texture": ExtResource("3_t73rw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_40jkn")
+"texture": ExtResource("4_5ri6x")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_oxwf7")
+"texture": ExtResource("5_sqdml")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_b6fta")
+"texture": ExtResource("6_8a3rk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_tqh65")
+"texture": ExtResource("7_unsb1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_h3dkc")
+"texture": ExtResource("8_p4ejs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_utbdn")
+"texture": ExtResource("9_7vhfs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_drg8k")
+"texture": ExtResource("10_l42j1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_ic3m2")
+"texture": ExtResource("11_mox6k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_dxmra")
+"texture": ExtResource("12_p8hyw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_t5iho")
+"texture": ExtResource("13_2xksh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_vcm3s")
+"texture": ExtResource("14_o4r3j")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_ggs26")
+"texture": ExtResource("15_kn2o4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("16_c6i3a")
+"texture": ExtResource("16_8hhv7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_qdivt")
+"texture": ExtResource("17_xe0o1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_4u50x")
+"texture": ExtResource("18_slkgt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_25gxe")
+"texture": ExtResource("19_kfpcq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("20_wgajg")
+"texture": ExtResource("20_iuh6e")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_exqx4")
+"texture": ExtResource("21_knhed")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_lo6kv")
+"texture": ExtResource("22_mkxmx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_of5b0")
+"texture": ExtResource("23_nr7qm")
 }],
 "loop": true,
 "name": &"default",
@@ -105,12 +106,10 @@ animations = [{
 [node name="EnemyGoblin" type="Node2D"]
 script = ExtResource("1_x6tgr")
 
-[node name="HealthBar" parent="." instance=ExtResource("24_2oi2u")]
-position = Vector2(-19, -24)
-
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5572339, 0.5991522)
-sprite_frames = SubResource("SpriteFrames_w8l5x")
+[node name="SpriteComponent" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0jjpe")
+script = ExtResource("2_0jjpe")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("26_f1urp")
@@ -123,3 +122,6 @@ metadata/_custom_type_script = "uid://btct3ysbbulk0"
 [node name="EnemyComponent" type="Node" parent="."]
 script = ExtResource("27_uyn1r")
 metadata/_custom_type_script = "uid://bjmpl3gd85btr"
+
+[node name="HealthBar" parent="." instance=ExtResource("24_2oi2u")]
+position = Vector2(-19, -22)

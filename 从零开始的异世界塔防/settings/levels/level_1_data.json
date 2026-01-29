@@ -4,26 +4,17 @@
     "entities": [
         {
             "name": "tower_mage",
-            "position": {
-                "x": 500,
-                "y": 250
-            }
+            "position": ["vec2", 500, 250]
         },
         {
             "name": "tower_mage",
-            "position": {
-                "x": 400,
-                "y": 250
-            }
+            "position": ["vec2", 400, 250]
         }
     ],
     "tower_holders": [
         {
-            "position": {
-                "x": 500,
-                "y": 500
-            },
-            "style": "grass"
+            "style": "grass",
+            "position": ["vec2", 500, 500]
         }
     ]
 }

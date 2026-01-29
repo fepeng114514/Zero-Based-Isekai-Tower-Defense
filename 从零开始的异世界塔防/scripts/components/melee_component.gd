@@ -9,7 +9,8 @@ func _ready() -> void:
 		"max_damage": 0,
 		"cooldown": 0,
 		"mod": "",
-		"damage_type": 0,
-		"ts": 0
+		"damage_type": ["int", 0],
+		"ts": 0,
+		"animation": ""
 	}
 	super._ready()

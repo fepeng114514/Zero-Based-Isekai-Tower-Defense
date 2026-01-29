@@ -1,7 +1,7 @@
 extends Node
 signal create_entity_s(entity: Entity)
 
-var templates: Dictionary = load(CS.PATH_TEMPLATES_RESOURCE).templates
+var templates: Dictionary = TemplatesRes.new().templates
 var templates_data: Dictionary = {}
 var enemies: Array = []
 var soldiers: Array = []
@@ -79,10 +79,7 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 func insert_entity(e: Entity) -> void:
 	for system: System in SystemManager.systems:
 		var system_func = system.get("on_insert")
-		
-		if not system_func:
-			continue
-			
+
 		if not system_func.call(e):
 			return
 		
@@ -91,10 +88,6 @@ func insert_entity(e: Entity) -> void:
 func remove_entity(e: Entity) -> void:
 	for system: System in SystemManager.systems:
 		var system_func = system.get("on_remove")
-		
-		if not system_func:
-			continue
-			
 		system_func.call(e)
 
 	SystemManager.remove_queue.append(e)
@@ -105,52 +98,74 @@ func remove_entity(e: Entity) -> void:
 func get_entity_by_id(id: int):
 	return entities[id]
 
-func find_enemy_in_range(origin, min_range, max_range) -> Array:
-	var filter = func(e): return is_instance_valid(e) and Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range)
-	var targets: Array = enemies.filter(filter)
+func find_enemy_in_range(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null) -> Array:
+	var ft = func(e): return is_instance_valid(e) and not (bans & e.flags or e.bans & flags) and (Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range)) and (not filter or filter.call(e, origin))
+	var targets: Array = enemies.filter(ft)
 	
 	return targets
 
-func find_enemy_first(origin, min_range, max_range):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+func find_enemy_first(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
 	
 	if not targets:
 		return null
 
-	var filter = func(e1, e2): return e1.get_c(CS.CN_NAV_PATH).progress_ratio > e2.get_c(CS.CN_NAV_PATH).progress_ratio
-	targets.sort_custom(filter)
+	var ft = func(e1, e2): return e1.get_c(CS.CN_NAV_PATH).progress_ratio > e2.get_c(CS.CN_NAV_PATH).progress_ratio
+	targets.sort_custom(ft)
 	
 	return targets[0]
 
-func find_enemy_last(origin, min_range, max_range):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+func find_enemy_last(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
 	
 	if not targets:
 		return null
 
-	var filter = func(e1, e2): return e1.get_c(CS.CN_NAV_PATH).progress_ratio < e2.get_c(CS.CN_NAV_PATH).progress_ratio
-	targets.sort_custom(filter)
+	var ft = func(e1, e2): return e1.get_c(CS.CN_NAV_PATH).progress_ratio < e2.get_c(CS.CN_NAV_PATH).progress_ratio
+	targets.sort_custom(ft)
 	
 	return targets[0]
 
-func find_enemy_strong(origin, min_range, max_range):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+func find_enemy_nearst(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
 	
 	if not targets:
 		return null
 
-	var filter = func(e1, e2): return e1.get_c(CS.CN_HEALTH).hp > e2.get_c(CS.CN_HEALTH).hp
-	targets.sort_custom(filter)
+	var ft = func(e1, e2): return e1.position.distance_squared_to() > e2.position.distance_squared_to()
+	targets.sort_custom(ft)
+	
+	return targets[0]
+
+func find_enemy_farthest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
+	
+	if not targets:
+		return null
+
+	var ft = func(e1, e2): return e1.position.distance_squared_to() < e2.position.distance_squared_to()
+	targets.sort_custom(ft)
+	
+	return targets[0]
+
+func find_enemy_strongest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
+	
+	if not targets:
+		return null
+
+	var ft = func(e1, e2): return e1.get_c(CS.CN_HEALTH).hp > e2.get_c(CS.CN_HEALTH).hp
+	targets.sort_custom(ft)
 	
 	return targets[0]
 	
-func find_enemy_weak(origin, min_range, max_range):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range)
+func find_enemy_weakest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
+	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
 	
 	if not targets:
 		return null
 
-	var filter = func(e1, e2): return e1.get_c(CS.CN_HEALTH).hp < e2.get_c(CS.CN_HEALTH).hp
-	targets.sort_custom(filter)
+	var ft = func(e1, e2): return e1.get_c(CS.CN_HEALTH).hp < e2.get_c(CS.CN_HEALTH).hp
+	targets.sort_custom(ft)
 	
 	return targets[0]

@@ -7,9 +7,6 @@ var damage_queue: Array[Entity] = []
 
 func _process(delta: float) -> void:
 	for system: System in systems:
-		if not system.get("on_update"):
-			continue
-			
 		system.on_update(delta)
 	
 	call_deferred("_process_remove_queue")

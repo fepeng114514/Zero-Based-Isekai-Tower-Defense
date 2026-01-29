@@ -17,7 +17,9 @@ var PATH_LEVELS_SCENES: String = PATH_SCENES.path_join("levels/level_%s_data.tsc
 var PATH_WAVES_SCENES: String = PATH_SCENES.path_join("waves/level_%s_wave.tscn")
 
 const PATH_RESOURCES: String = "res://resources"
-var PATH_TEMPLATES_RESOURCE: String = PATH_RESOURCES.path_join("templates_resource.tres")
+
+const PATH_ASSETS: String = "res://assets"
+var PATH_ATLAS_ASSETS: String = PATH_ASSETS.path_join("atlas/%")
 
 const STATE_IDLE: String = "idle"
 const STATE_DEAD: String = "dead"
@@ -33,6 +35,9 @@ const CN_SOLDIER: String = "SoldierComponent"
 const CN_TOWER: String = "TowerComponent"
 const CN_MODIFIER: String = "ModifierComponent"
 const CN_AURA: String = "AuraComponent"
+const CN_MELEE: String = "MeleeComponent"
+const CN_RANGED: String = "RangedComponent"
+const CN_SPRITE: String = "SpriteComponent"
 
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1
@@ -62,3 +67,10 @@ const MOD_TYPE_FREEZE: int = 1 << 3
 const MOD_TYPE_STUN: int = 1 << 4
 
 const NAME_TOWER_HOLDER: String = "tower_holder_%s"
+
+const SEARCH_MODE_FIRST: String = "first"
+const SEARCH_MODE_LAST: String = "last"
+const SEARCH_MODE_NEARST: String = "nearst"
+const SEARCH_MODE_FARTHEST: String = "farthest"
+const SEARCH_MODE_STRONGEST: String = "strongest"
+const SEARCH_MODE_WEAKEST: String = "weakest"

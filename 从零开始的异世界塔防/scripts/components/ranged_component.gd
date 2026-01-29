@@ -7,6 +7,10 @@ func _ready() -> void:
 		"max_range": 0,
 		"cooldown": 0,
 		"bullet": "",
-		"ts": 0
+		"ts": 0,
+		"search_mode": CS.SEARCH_MODE_FIRST,
+		"flags": ["int", 0],
+		"bans": ["int", 0],
+		"animation": ""
 	}
 	super._ready()

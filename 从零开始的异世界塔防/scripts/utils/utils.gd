@@ -15,24 +15,19 @@ func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0
 	
 	return value <= 1
 
-# 加载 JSON 文件并解析
 func load_json_file(path: String):
-	# 检查文件是否存在
 	if not FileAccess.file_exists(path):
 		push_error("JSON 文件不存在: " + path)
 		return null
 	
-	# 读取文件
 	var file = FileAccess.open(path, FileAccess.READ)
 	if not file:
 		push_error("无法打开文件: " + path)
 		return null
 	
-	# 读取内容
 	var content = file.get_as_text()
 	file.close()
 	
-	# 解析 JSON
 	var json = JSON.new()
 	var parse_result = json.parse(content)
 	
@@ -44,41 +39,62 @@ func load_json_file(path: String):
 	# 返回解析后的数据
 	return json.get_data()
 
-# 从字典解析 Vector2
-func dict_to_vector2(data: Dictionary):
-	if data.is_empty():
-		return null
-	
-	# 多种格式支持
-	if data.has("x") and data.has("y"):
-		return Vector2(data.x, data.y)
-	elif data.has("w") and data.has("h"):
-		return Vector2(data.w, data.h)
-	
-	return null
-	
-func dict_to_rect2(data: Dictionary):
-	if data.is_empty():
-		return null
-	
-	if data.has("x") and data.has("y") and data.has("w") and data.has("h"):
-		return Rect2(data.x, data.y, data.w, data.h)
-	
-	return null
-	
-func try_convert_dict(data):
-	if typeof(data) != TYPE_DICTIONARY:
-		return data
-	
-	var rect2 = dict_to_rect2(data)
-	if rect2 != null:
-		return rect2
+func convert_type(value, type):
+	match type:
+		"int": value = int(value[1])
+		"float": value = float(value[1])
+		"vec2": value = Vector2(value[1], value[2])
+		"rect2": value = Rect2(value[1], value[2], value[3], value[4])
 		
-	var vec2 = dict_to_vector2(data)
-	if vec2 != null:
-		return vec2
+	return value
+
+func convert_dict_by_type(type_dict: Dictionary):
+	var new_dict: Dictionary = {}
+	
+	for key: String in type_dict:
+		var value = type_dict[key]
 		
-	return data
+		if typeof(value) != TYPE_ARRAY:
+			new_dict[key] = value
+			continue
+		
+		var type = value[0]
+		
+		new_dict[key] = convert_type(value, type)
+
+	return new_dict
+
+func convert_data_by_type(value):
+	if typeof(value) != TYPE_ARRAY:
+		return value
+		
+	var type = value[0]
+
+	return convert_type(value, type)
+
+func merge_type_dict(dict1: Dictionary, dict2: Dictionary):
+	for key in dict2:
+		var value = dict2[key]
+		var dict1_value = dict1[key]
+		
+		if typeof(dict1_value) != TYPE_ARRAY:
+			dict1[key] = value
+			continue
+		
+		var type = dict1_value[0]
+			
+		dict1[key] = convert_type(value, type)
+		
+	for key in dict1:
+		var value = dict1[key]
+		
+		if typeof(value) != TYPE_ARRAY:
+			dict1[key] = value
+			continue
+		
+		var type = value[0]
+			
+		dict1[key] = convert_type(value, type)
 
 func get_component_name(node_name) -> String:
 	return node_name.replace("Component", "")
@@ -103,14 +119,17 @@ func get_setting_data(template_name: String, component_name = null) -> Dictionar
 	
 	return data
 	
-func set_setting_data(component, template_name: String, component_name = null) -> void:
-	var setting_data = get_setting_data(template_name, component_name)
+func set_setting_data(obj, setting_data: Dictionary, filter = null) -> void:
+	var keys: Array = setting_data.keys()
 	
-	for key: String in setting_data.keys():
+	if filter:
+		keys = keys.filter(filter)
+	
+	for key: String in keys:
 		var property = setting_data[key]
-		property = try_convert_dict(property)
+		property = convert_data_by_type(property)
 		
-		component.set(key, property)
+		obj.set(key, property)
 
 func initial_linear_speed(from: Vector2, to: Vector2, t: float) -> Vector2:
 	var x: float = (to.x - from.x) / t
