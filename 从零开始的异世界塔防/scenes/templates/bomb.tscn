@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cx35c0rfd1fwr"]
 
-[ext_resource type="Script" uid="uid://bo8ey7a1rvldh" path="res://scripts/bomb.gd" id="1_g48kh"]
+[ext_resource type="Script" uid="uid://bo8ey7a1rvldh" path="res://scripts/tower_scripts/bomb.gd" id="1_g48kh"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://scripts/components/bullet_component.gd" id="2_4wbnw"]
 
 [node name="Bomb" type="Node2D"]

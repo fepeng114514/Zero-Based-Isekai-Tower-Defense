@@ -40,7 +40,7 @@ func take_damage(target: Entity, d: Entity, health_c):
 	
 	target.on_damage(health_c, d)
 	
-	print("造成伤害, 目标: %s，来源: %s，值: %s" % [d.target_id, d.source_id, actual_damage])
+	print("造成伤害: 目标: %s，来源: %s，值: %s" % [d.target_id, d.source_id, actual_damage])
 		
 	if health_c.hp <= 0:
 		target.on_dead(health_c, d)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c77v7yq60lpig"]
 
-[ext_resource type="Script" uid="uid://d3dgr5w25248o" path="res://scripts/bolt.gd" id="1_hu2p6"]
+[ext_resource type="Script" uid="uid://d3dgr5w25248o" path="res://scripts/tower_scripts/bolt.gd" id="1_hu2p6"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://scripts/components/bullet_component.gd" id="2_s0h4p"]
 
 [node name="Bolt" type="Node2D"]

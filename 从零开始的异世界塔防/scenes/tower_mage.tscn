@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b3dgc34bom6sc"]
 
-[ext_resource type="Script" uid="uid://bq3va7ys7ipss" path="res://scripts/tower_mage.gd" id="1_44nfe"]
+[ext_resource type="Script" uid="uid://bq3va7ys7ipss" path="res://scripts/tower_scripts/tower_mage.gd" id="1_44nfe"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://scripts/components/ranged_component.gd" id="2_56gwd"]
 
 [node name="TowerMage" type="Node2D"]
