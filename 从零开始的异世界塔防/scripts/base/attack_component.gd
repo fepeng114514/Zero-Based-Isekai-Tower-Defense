@@ -3,6 +3,7 @@ class_name AttackComponent
 
 var attacks: Array = []
 var attack_template: Dictionary = {}
+var order: Array = []
 
 func _ready() -> void:	
 	var setting_data = Utils.get_setting_data(parent.template_name, Utils.get_component_name(name))

@@ -11,6 +11,7 @@ func _ready() -> void:
 		"search_mode": CS.SEARCH_MODE_FIRST,
 		"flags": ["int", 0],
 		"bans": ["int", 0],
-		"animation": ""
+		"animation": "",
+		"chance": 1
 	}
 	super._ready()

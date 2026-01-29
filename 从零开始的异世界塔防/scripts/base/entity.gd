@@ -1,25 +1,25 @@
 extends Node2D
 class_name Entity
 
-var id: int = -1
 var template_name: String = ""
+var id: int = -1
 var target_id: int = -1
 var source_id: int = -1
 var components: Dictionary = {}
-var state: String = "idle"
 var bans: int = 0
 var flags: int = 0
 var ts: float = 0
 var waiting: bool = false
+var removed: bool = false
 var mod_bans: int = 0
 var mod_type_bans: int = 0
-var removed: bool = false
-var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 var has_mods: Dictionary = {}
+var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 
 func _ready() -> void:
 	var setting_data: Dictionary = Utils.get_setting_data(template_name)
 	Utils.set_setting_data(self, setting_data)
+	try_sort_attacks()
 	
 func get_c(c_name: String):
 	return components.get(c_name)
@@ -54,10 +54,40 @@ func on_dead(health_c: HealthComponent, d: Entity) -> void: pass
 # 实体被吃时调用
 func on_eat(health_c: HealthComponent, d: Entity) -> void: pass
 	
-func try_ranged_attack() -> void:
-	var ranged_c: RangedComponent = get_c(CS.CN_RANGED)
+func try_sort_attacks():
+	if has_c(CS.CN_MELEE):
+		sort_melee_attacks()
 	
-	for a: Dictionary in ranged_c.attacks:
+	if has_c(CS.CN_RANGED):
+		sort_ranged_attacks()
+	
+func attacks_sort_fn(a1, a2):
+	var a1_chance: float = a1.chance
+	var a2_chance: float = a2.chance
+	var a1_cooldown: float = a1.cooldown
+	var a2_cooldown: float = a2.cooldown
+	
+	return (a1_chance != a2_chance and a1_chance < a2_chance) or (a1_cooldown != a2_cooldown and a1_cooldown > a2_cooldown)
+	
+func sort_melee_attacks():
+	var melee_c = get_c(CS.CN_MELEE)
+	
+	melee_c.order = melee_c.attacks.duplicate()
+	melee_c.order.sort_custom(attacks_sort_fn)
+	
+func sort_ranged_attacks():
+	var ranged_c = get_c(CS.CN_RANGED)
+	
+	ranged_c.order = ranged_c.attacks.duplicate()
+	ranged_c.order.sort_custom(attacks_sort_fn)
+	
+func try_ranged_attack() -> void:
+	var ranged_c = get_c(CS.CN_RANGED)
+	
+	if not ranged_c:
+		return
+	
+	for a: Dictionary in ranged_c.order:
 		if not TM.is_ready_time(a.ts, a.cooldown):
 			continue
 			

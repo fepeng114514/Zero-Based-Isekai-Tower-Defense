@@ -40,7 +40,7 @@ func insert(e: Entity) -> void:
 		auras.append(e)
 		
 	entities.append(e)
-	#print("插入实体 %s（%d）" % [e.template_name, e.id])
+	#print("插入实体: %s（%d）" % [e.template_name, e.id])
 
 func create_entity(t_name: String) -> Entity:
 	var t = templates.get(t_name)
