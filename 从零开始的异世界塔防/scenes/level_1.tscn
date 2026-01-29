@@ -22,7 +22,7 @@ metadata/_custom_type_script = "uid://d3ofglcqbg2ig"
 [node name="Paths" type="Node" parent="."]
 
 [node name="Path" type="Path2D" parent="Paths"]
-position = Vector2(0, 13)
+position = Vector2(74, 136)
 curve = SubResource("Curve2D_q8u5g")
 script = ExtResource("7_7gny6")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"

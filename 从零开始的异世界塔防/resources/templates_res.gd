@@ -3,9 +3,10 @@ class_name TemplatesRes
 
 @export var templates_name: Array = [
 	"enemy_goblin",
-	"bolt",
-	"arrow",
-	"bomb",
+	"bullet_bolt",
+	"bullet_arrow",
+	"bullet_bomb",
+	"bullet_sword",
 	"tower_mage",
 	"damage"
 ]
