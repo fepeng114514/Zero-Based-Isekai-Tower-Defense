@@ -29,7 +29,8 @@ func on_update(delta: float) -> void:
 	position = Utils.position_in_parabola(time, B.from, B.speed, B.g)
 	rotation += B.rotation_speed * delta
 	
-	if B.hit_rect.has_point(B.to - position):
-		EntityDB.create_damage(target_id, B.min_damage, B.max_damage, source_id)
-		EntityDB.remove_entity(self)
+	if not B.hit_rect.has_point(B.to - position):
 		return
+		
+	EntityDB.create_damage(target_id, B.min_damage, B.max_damage, source_id)
+	EntityDB.remove_entity(self)

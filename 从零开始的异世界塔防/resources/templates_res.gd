@@ -5,6 +5,7 @@ class_name TemplatesRes
 	"enemy_goblin",
 	"bolt",
 	"arrow",
+	"bomb",
 	"tower_mage",
 	"damage"
 ]

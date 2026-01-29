@@ -15,6 +15,22 @@ func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0
 	
 	return value <= 1
 
+func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: float, min_radius: float = 0, aspect: float = 0.7):
+	var angle = center.angle_to(p)
+	var a = radius
+	var b = radius * aspect
+	var v_len = Vector2(p.x - center.x, p.y - center.y).length()
+	var e_len = Vector2(a * cos(angle), b * sin(angle)).length()
+
+	if min_radius == 0:
+		return clampf(v_len / e_len, 0, 1)
+		
+	var ma = min_radius
+	var mb = min_radius * aspect
+	var me_len = Vector2(ma * cos(angle), mb * sin(angle)).length()
+
+	return clampf((v_len - me_len) / (e_len - me_len), 0, 1)
+
 func load_json_file(path: String):
 	if not FileAccess.file_exists(path):
 		push_error("JSON 文件不存在: " + path)

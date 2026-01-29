@@ -24,7 +24,8 @@ func on_update(delta: float) -> void:
 	
 	rotation = B.direction.angle()
 	
-	if B.hit_rect.has_point(B.to - position):
-		EntityDB.create_damage(target_id, B.min_damage, B.max_damage, source_id)
-		EntityDB.remove_entity(self)
+	if not B.hit_rect.has_point(B.to - position):
 		return
+		
+	EntityDB.create_damage(target_id, B.min_damage, B.max_damage, source_id)
+	EntityDB.remove_entity(self)

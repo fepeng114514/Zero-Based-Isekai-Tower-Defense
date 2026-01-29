@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0jnoaw66vbsa"
-path="res://.godot/imported/t.tpset.png-b0c500d3bcab114f179ecaa243717590.ctex"
+uid="uid://c1dx21e2fevvy"
+path="res://.godot/imported/arrow.png-84aef443c2126e2c7a6f2d791227702c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/atlas/t.tpset.png"
-dest_files=["res://.godot/imported/t.tpset.png-b0c500d3bcab114f179ecaa243717590.ctex"]
+source_file="res://assets/atlas/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-84aef443c2126e2c7a6f2d791227702c.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
         "Ranged": {
             "attacks": [
                 {
-                    "bullet": "arrow",
+                    "bullet": "bomb",
                     "min_range": 0,
                     "max_range": 300,
                     "cooldown": 1,
@@ -23,7 +23,16 @@
         "Bullet": {
             "min_damage": 50,
             "max_damage": 50,
-            "flight_time": 1.2
+            "flight_time": 1
         }
+    },
+    "bomb": {
+        "Bullet": {
+            "min_damage": 50,
+            "max_damage": 50,
+            "flight_time": 1
+        },
+        "min_damage_radius": 0,
+        "max_damage_radius": 100
     }
 }

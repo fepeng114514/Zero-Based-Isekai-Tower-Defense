@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Utils="*res://scripts/utils/utils.gd"
+Utils="*res://scripts/utils.gd"
 CS="*res://scripts/constants/constants.gd"
 TM="*res://scripts/systems/time_manager.gd"
 SystemManager="*res://scripts/systems/system_manager.gd"

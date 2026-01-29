@@ -62,17 +62,17 @@ func create_entity(t_name: String) -> Entity:
 		
 	return e
 
-func create_damage(target_id: int, min_damage: int, max_damage: int, source_id = -1) -> Entity:
+func create_damage(target_id: int, min_damage: int, max_damage: int, source_id = -1, damage_factor = 1) -> Entity:
 	var d_name: String = "damage"
 	var d: Entity = templates[d_name].instantiate()
 	d.target_id = target_id
 	d.source_id = source_id
 	d.value = Utils.random_int(min_damage, max_damage)
+	d.damage_factor = damage_factor
 	d.template_name = d_name
 	d.name = d_name
 
 	SystemManager.damage_queue.append(d)
-	print("创建伤害, 目标: %s，来源: %s，值: %s" % [target_id, source_id, d.value])
 		
 	return d
 	

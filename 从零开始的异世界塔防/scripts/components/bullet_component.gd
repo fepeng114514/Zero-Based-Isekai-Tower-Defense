@@ -4,7 +4,7 @@ class_name BulletComponent
 var min_damage: int = 0
 var max_damage: int = 0
 var mod: String = ""
-var damage_type: int = 0
+var damage_type: int = 1
 var speed = 0
 var rotation_speed: float = 0
 var hit_rect: Rect2 = Rect2(-3, -3, 6, 6)

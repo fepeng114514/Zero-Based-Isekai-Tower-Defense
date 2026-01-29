@@ -37,8 +37,10 @@ func take_damage(target: Entity, d: Entity, health_c):
 	
 	var actual_damage: int = predict_damage(d, health_c)
 	health_c.hp -= actual_damage
-		
+	
 	target.on_damage(health_c, d)
+	
+	print("造成伤害, 目标: %s，来源: %s，值: %s" % [d.target_id, d.source_id, actual_damage])
 		
 	if health_c.hp <= 0:
 		target.on_dead(health_c, d)
@@ -61,6 +63,6 @@ func predict_damage(d: Entity, health_c: HealthComponent):
 	if damage_type & CS.DAMAGE_MAGICAL_EXPLOSION:
 		protection *= health_c.magical_armor / 2.0
 	
-	var actual_damage: int = roundi(d.value * (1 - protection))
+	var actual_damage: int = roundi(d.value * (1 - protection) * d.damage_factor)
 	
 	return actual_damage
