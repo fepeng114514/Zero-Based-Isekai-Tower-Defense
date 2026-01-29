@@ -91,7 +91,7 @@ func try_ranged_attack() -> void:
 		if not TM.is_ready_time(a.ts, a.cooldown):
 			continue
 			
-		var target = select_search_target(a)
+		var target = EntityDB.search_target(a.search_mode, position, a.min_range, a.max_range, a.flags, a.bans)
 		if not is_instance_valid(target) or not target:
 			continue
 			
@@ -104,29 +104,13 @@ func try_ranged_attack() -> void:
 			
 		a.ts = TM.tick_ts
 
-func select_search_target(a: Dictionary):
-	if a.bans & CS.FLAG_SOLDIER:
-		return search_enemy(a)
-	elif a.bans & CS.FLAG_ENEMY:
-		return search_soldier(a)
-	else:
-		return search_target(a)
-			
-func search_enemy(a: Dictionary):
-	var target
-	
-	match a.search_mode:
-		CS.SEARCH_MODE_FIRST: target = EntityDB.find_enemy_first(position, a.min_range, a.max_range, a.flags, a.bans)
-		CS.SEARCH_MODE_LAST: target = EntityDB.find_enemy_last(position, a.min_range, a.max_range, a.flags, a.bans)
-		CS.SEARCH_MODE_NEARST: target = EntityDB.find_enemy_nearst(position, a.min_range, a.max_range, a.flags, a.bans)
-		CS.SEARCH_MODE_FARTHEST: target = EntityDB.find_enemy_farthest(position, a.min_range, a.max_range, a.flags, a.bans)
-		CS.SEARCH_MODE_STRONGEST: target = EntityDB.find_enemy_strongest(position, a.min_range, a.max_range, a.flags, a.bans)
-		CS.SEARCH_MODE_WEAKEST: target = EntityDB.find_enemy_weakest(position, a.min_range, a.max_range, a.flags, a.bans)
-	
-	return target
-
-func search_soldier(a: Dictionary):
-	pass
-	
-func search_target(a: Dictionary):
-	pass
+#func try_melee_attack():
+	#var melee_c = get_c(CS.CN_MELEE)
+	#
+	#if not melee_c:
+		#return
+		#
+	#var targets1 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
+	#var targets2 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
+	#for a: Dictionary in melee_c.order:
+		#pass

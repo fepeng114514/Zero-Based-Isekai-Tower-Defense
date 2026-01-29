@@ -8,7 +8,7 @@ func _ready() -> void:
 		"cooldown": 0,
 		"bullet": "",
 		"ts": 0,
-		"search_mode": CS.SEARCH_MODE_FIRST,
+		"search_mode": CS.SEARCH_MODE_ENEMY_FIRST,
 		"flags": ["int", 0],
 		"bans": ["int", 0],
 		"animation": "",
