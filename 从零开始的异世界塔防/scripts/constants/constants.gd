@@ -52,13 +52,13 @@ const DAMAGE_PHYSICAL_ARMOR: int = 1 << 15
 const DAMAGE_MAGICAL_ARMOR: int = 1 << 16
 
 const FLAG_ENEMY: int = 1
-const FLAG_SOLDIER: int = 1 << 1
-const FLAG_HERO: int = 1 << 2
-const FLAG_TOWER: int = 1 << 3
-const FLAG_BULLET: int = 1 << 4
-const FLAG_MODIFIER: int = 1 << 5
-const FLAG_AURA: int = 1 << 6
-const FLAG_BOSS: int = 1 << 10
+const FLAG_BOSS: int = 1 << 1 | FLAG_ENEMY
+const FLAG_SOLDIER: int = 1 << 2
+const FLAG_HERO: int = 1 << 3 | FLAG_SOLDIER
+const FLAG_TOWER: int = 1 << 4
+const FLAG_BULLET: int = 1 << 5
+const FLAG_MODIFIER: int = 1 << 6
+const FLAG_AURA: int = 1 << 7
 
 const MOD_TYPE_POISON: int = 1
 const MOD_TYPE_LAVA: int = 1 << 1

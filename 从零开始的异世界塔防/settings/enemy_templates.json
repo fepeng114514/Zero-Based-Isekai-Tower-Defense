@@ -1,5 +1,6 @@
 {
 	"enemy_goblin": {
+		"flags": 1,
 		"Health": {
 			"hp_max": 100,
 			"hp": 18

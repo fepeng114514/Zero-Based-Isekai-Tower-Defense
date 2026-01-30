@@ -99,166 +99,88 @@ func get_entity_by_id(id: int):
 	return entities[id]
 
 func sort_targets(targets: Array, sort_type: String, origin: Vector2, reversed: bool = false):
-	if reversed:
-		match sort_type:
-			CS.SORT_TYPE_PROGRESS: targets.sort_custom(func(e1, e2): return e1.has_c(CS.CN_NAV_PATH) and e1.get_c(CS.CN_NAV_PATH).progress_ratio < e2.get_c(CS.CN_NAV_PATH).progress_ratio)
-			CS.SORT_TYPE_HP: targets.sort_custom(func(e1, e2): return e1.has_c(CS.CN_HEALTH) and e1.get_c(CS.CN_HEALTH).hp < e2.get_c(CS.CN_HEALTH).hp)
-			CS.SORT_TYPE_DIST: targets.sort_custom(func(e1, e2): return e1.position.distance_squared_to(origin) < e2.position.distance_squared_to(origin))
-			CS.SORT_TYPE_BLOCK_LEVEL: targets.sort_custom(func(e1, e2): return e1.has_c(CS.CN_MELEE) and e1.get_c(CS.CN_MELEE).block_level < e2.get_c(CS.CN_MELEE).block_level)
-	else:
-		match sort_type:
-			CS.SORT_TYPE_PROGRESS: targets.sort_custom(func(e1, e2): return e1.has_c(CS.CN_NAV_PATH) and e1.get_c(CS.CN_NAV_PATH).progress_ratio > e2.get_c(CS.CN_NAV_PATH).progress_ratio)
-			CS.SORT_TYPE_HP: targets.sort_custom(func(e1, e2): return e1.has_c(CS.CN_HEALTH) and e1.get_c(CS.CN_HEALTH).hp > e2.get_c(CS.CN_HEALTH).hp)
-			CS.SORT_TYPE_DIST: targets.sort_custom(func(e1, e2): return e1.position.distance_squared_to(origin) > e2.position.distance_squared_to(origin))
-			CS.SORT_TYPE_BLOCK_LEVEL: targets.sort_custom(func(e1, e2): return e1.has_c(CS.CN_MELEE) and e1.get_c(CS.CN_MELEE).block_level > e2.get_c(CS.CN_MELEE).block_level)
+	var sort_functions = {
+		CS.SORT_TYPE_PROGRESS: func(e1, e2):
+			var p1 = e1.get_c(CS.CN_NAV_PATH).progress_ratio if e1.has_c(CS.CN_NAV_PATH) else 0
+			var p2 = e2.get_c(CS.CN_NAV_PATH).progress_ratio if e2.has_c(CS.CN_NAV_PATH) else 0
+			return p1 > p2 if not reversed else p1 < p2,
+		
+		CS.SORT_TYPE_HP: func(e1, e2):
+			var h1 = e1.get_c(CS.CN_HEALTH).hp if e1.has_c(CS.CN_HEALTH) else 0
+			var h2 = e2.get_c(CS.CN_HEALTH).hp if e2.has_c(CS.CN_HEALTH) else 0
+			return h1 > h2 if not reversed else h1 < h2,
+		
+		CS.SORT_TYPE_DIST: func(e1, e2):
+			var d1 = e1.position.distance_squared_to(origin)
+			var d2 = e2.position.distance_squared_to(origin)
+			return d1 > d2 if not reversed else d1 < d2,
+		
+		CS.SORT_TYPE_BLOCK_LEVEL: func(e1, e2):
+			var b1 = e1.get_c(CS.CN_MELEE).block_level if e1.has_c(CS.CN_MELEE) else 0
+			var b2 = e2.get_c(CS.CN_MELEE).block_level if e2.has_c(CS.CN_MELEE) else 0
+			return b1 > b2 if not reversed else b1 < b2
+	}
+	
+	if sort_type in sort_functions:
+		targets.sort_custom(sort_functions[sort_type])
 
-func find_enemy_in_range(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null) -> Array:
-	return enemies.filter(func(e): return is_instance_valid(e) and not (bans & e.flags or e.bans & flags) and (Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range)) and (not filter or filter.call(e, origin)))
+func find_targets_in_range(target_pool: Array, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null) -> Array:
+	return target_pool.filter(func(e): return is_instance_valid(e) and e.flags & (CS.FLAG_ENEMY | CS.FLAG_SOLDIER) and not (bans & e.flags or e.bans & flags) and Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range) and (not filter or filter.call(e, origin)))
 
-func find_enemy_sort_with_progress(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_PROGRESS, origin)
-	return targets
-	
-func find_enemy_sort_with_dist(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_DIST, origin)
-	
-	return targets
-	
-func find_enemy_sort_with_hp(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_HP, origin)
-	
-	return targets
-	
-func find_enemy_sort_with_block_level(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_BLOCK_LEVEL, origin)
-	
+func find_sorted_targets(target_pool: Array, sort_type: String, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null, reversed: bool = false) -> Array:
+	var targets = find_targets_in_range(target_pool, origin, min_range, max_range, flags, bans, filter)
+	sort_targets(targets, sort_type, origin, reversed)
 	return targets
 
-func find_enemy_first(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_sort_with_progress(origin, min_range, max_range, flags, bans, filter)
-
+func find_extreme_target(target_pool: Array, sort_type: String, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null, reversed: bool = false):
+	var targets = find_targets_in_range(target_pool, origin, min_range, max_range, flags, bans, filter)
+	sort_targets(targets, sort_type, origin, reversed)
 	return targets[0] if targets else null
 
-func find_enemy_last(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_sort_with_progress(origin, min_range, max_range, flags, bans, filter)
+func find_enemies_in_range(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null) -> Array:
+	return find_targets_in_range(enemies, origin, min_range, max_range, flags, bans, filter)
 
-	return targets[-1] if targets else null
+func find_sorted_enemies(sort_type: String, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null, reversed: bool = false) -> Array:
+	return find_sorted_targets(enemies, sort_type, origin, min_range, max_range, flags, bans, filter, reversed)
 
-func find_enemy_nearst(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_sort_with_dist(origin, min_range, max_range, flags, bans, filter)
+func find_extreme_enemy(sort_type: String, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null, reversed: bool = false):
+	return find_extreme_target(enemies, sort_type, origin, min_range, max_range, flags, bans, filter, reversed)
 
-	return targets[0] if targets else null
+func find_soldiers_in_range(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null) -> Array:
+	return find_targets_in_range(soldiers, origin, min_range, max_range, flags, bans, filter)
 
-func find_enemy_farthest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_sort_with_dist(origin, min_range, max_range, flags, bans, filter)[-1]
+func find_sorted_soldiers(sort_type: String, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null, reversed: bool = false) -> Array:
+	return find_sorted_targets(soldiers, sort_type, origin, min_range, max_range, flags, bans, filter, reversed)
 
-	return targets[-1] if targets else null
+func find_extreme_soldier(sort_type: String, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null, reversed: bool = false):
+	return find_extreme_target(soldiers, sort_type, origin, min_range, max_range, flags, bans, filter, reversed)
 
-func find_enemy_strongest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_sort_with_hp(origin, min_range, max_range, flags, bans, filter)[0]
-	
-	return targets[0] if targets else null
-	
-func find_enemy_weakest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_enemy_sort_with_dist(origin, min_range, max_range, flags, bans, filter)[-1]
-
-	return targets[-1] if targets else null
-
-func find_soldier_in_range(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null) -> Array:
-	return soldiers.filter(func(e): return is_instance_valid(e) and not (bans & e.flags or e.bans & flags) and (Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range)) and (not filter or filter.call(e, origin)))
-
-func find_soldier_sort_with_progress(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_PROGRESS, origin)
-	
-	return targets
-	
-func find_soldier_sort_with_dist(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_DIST, origin)
-	
-	return targets
-	
-func find_soldier_sort_with_hp(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_HP, origin)
-	
-	return targets
-
-func find_soldier_sort_with_block_level(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_in_range(origin, min_range, max_range, flags, bans, filter)
-	sort_targets(targets, CS.SORT_TYPE_BLOCK_LEVEL, origin)
-	
-	return targets
-
-func find_soldier_first(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_sort_with_progress(origin, min_range, max_range, flags, bans, filter)
-
-	return targets[0] if targets else null
-
-func find_soldier_last(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_sort_with_progress(origin, min_range, max_range, flags, bans, filter)
-
-	return targets[-1] if targets else null
-
-func find_soldier_nearst(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_sort_with_dist(origin, min_range, max_range, flags, bans, filter)
-
-	return targets[0] if targets else null
-
-func find_soldier_farthest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_sort_with_dist(origin, min_range, max_range, flags, bans, filter)
-
-	return targets[-1] if targets else null
-
-func find_soldier_strongest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_sort_with_hp(origin, min_range, max_range, flags, bans, filter)
-	
-	return targets[0] if targets else null
-	
-func find_soldier_weakest(origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null):
-	var targets: Array = find_soldier_sort_with_dist(origin, min_range, max_range, flags, bans, filter)
-
-	return targets[-1] if targets else null
-
-func search_target(search_mode, position, min_range, max_range, flags, bans, filter = null):
-	var target
-	
+func search_target(search_mode, origin, min_range, max_range, flags, bans, filter = null):
 	match search_mode:
-		CS.SEARCH_MODE_ENEMY_FIRST: target = find_enemy_first(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_LAST: target = find_enemy_last(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_NEARST: target = find_enemy_nearst(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_FARTHEST: target = find_enemy_farthest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_STRONGEST: target = find_enemy_strongest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_WEAKEST: target = find_enemy_weakest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_FIRST: target = find_soldier_first(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_LAST: target = find_soldier_last(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_NEARST: target = find_soldier_nearst(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_FARTHEST: target = find_soldier_farthest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_STRONGEST: target = find_soldier_strongest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_WEAKEST: target = find_soldier_weakest(position, min_range, max_range, flags, bans, filter)
-	
-	return target
+		CS.SEARCH_MODE_ENEMY_FIRST: return find_extreme_enemy(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_ENEMY_LAST: return find_extreme_enemy(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_ENEMY_NEARST: return find_extreme_enemy(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_ENEMY_FARTHEST: return find_extreme_enemy(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_ENEMY_STRONGEST: return find_extreme_enemy(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_ENEMY_WEAKEST: return find_extreme_enemy(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_SOLDIER_FIRST: return find_extreme_soldier(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_SOLDIER_LAST: return find_extreme_soldier(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_SOLDIER_NEARST: return find_extreme_soldier(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_SOLDIER_FARTHEST: return find_extreme_soldier(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_SOLDIER_STRONGEST: return find_extreme_soldier(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_SOLDIER_WEAKEST: return find_extreme_soldier(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true)
 
-func search_targets_in_range(search_mode, position, min_range, max_range, flags, bans, filter = null):
-	var target
-	
+func search_targets_in_range(search_mode, origin, min_range, max_range, flags, bans, filter = null):
 	match search_mode:
-		CS.SEARCH_MODE_ENEMY_FIRST: target = find_enemy_first(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_LAST: target = find_enemy_last(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_NEARST: target = find_enemy_nearst(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_FARTHEST: target = find_enemy_farthest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_STRONGEST: target = find_enemy_strongest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_ENEMY_WEAKEST: target = find_enemy_weakest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_FIRST: target = find_soldier_first(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_LAST: target = find_soldier_last(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_NEARST: target = find_soldier_nearst(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_FARTHEST: target = find_soldier_farthest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_STRONGEST: target = find_soldier_strongest(position, min_range, max_range, flags, bans, filter)
-		CS.SEARCH_MODE_SOLDIER_WEAKEST: target = find_soldier_weakest(position, min_range, max_range, flags, bans, filter)
-	
-	return target
+		CS.SEARCH_MODE_ENEMY_FIRST: return find_sorted_enemies(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_ENEMY_LAST: return find_sorted_enemies(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_ENEMY_NEARST: return find_sorted_enemies(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_ENEMY_FARTHEST: return find_sorted_enemies(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_ENEMY_STRONGEST: return find_sorted_enemies(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_ENEMY_WEAKEST: return find_sorted_enemies(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_SOLDIER_FIRST: return find_sorted_soldiers(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_SOLDIER_LAST: return find_sorted_soldiers(CS.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_SOLDIER_NEARST: return find_sorted_soldiers(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_SOLDIER_FARTHEST: return find_sorted_soldiers(CS.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true)
+		CS.SEARCH_MODE_SOLDIER_STRONGEST: return find_sorted_soldiers(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter)
+		CS.SEARCH_MODE_SOLDIER_WEAKEST: return find_sorted_soldiers(CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true)

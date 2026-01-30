@@ -104,13 +104,13 @@ func try_ranged_attack() -> void:
 			
 		a.ts = TM.tick_ts
 
-#func try_melee_attack():
-	#var melee_c = get_c(CS.CN_MELEE)
-	#
-	#if not melee_c:
-		#return
-		#
-	#var targets1 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
-	#var targets2 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
-	#for a: Dictionary in melee_c.order:
-		#pass
+# func try_melee_attack():
+# 	var melee_c = get_c(CS.CN_MELEE)
+	
+# 	if not melee_c:
+# 		return
+		
+# 	var targets1 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
+# 	var targets2 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
+# 	for a: Dictionary in melee_c.order:
+# 		pass

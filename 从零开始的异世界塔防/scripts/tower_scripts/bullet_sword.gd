@@ -73,7 +73,7 @@ func on_update(delta: float) -> void:
 	if not B.hit_rect.has_point(B.predict_target_pos - position):
 		return
 	
-	var targets = EntityDB.find_enemy_in_range(position, min_damage_radius, max_damage_radius, flags, bans)
+	var targets = EntityDB.find_enemies_in_range(position, min_damage_radius, max_damage_radius, flags, bans)
 
 	for t in targets:
 		var damage_factor = Utils.dist_factor_inside_ellipse(t.position, position, min_damage_radius, max_damage_radius)
