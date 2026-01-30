@@ -28,15 +28,15 @@ func insert(e: Entity) -> void:
 		if e.id != entities_len:
 			push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
 	
-	if e.has_c(CS.CN_ENEMY):
+	if e.flags & CS.FLAG_ENEMY:
 		enemies.append(e)
-	elif e.has_c(CS.CN_SOLDIER):
+	if e.flags & CS.FLAG_SOLDIER:
 		soldiers.append(e)
-	elif e.has_c(CS.CN_TOWER):
+	if e.flags & CS.FLAG_TOWER:
 		towers.append(e)
-	elif e.has_c(CS.CN_MODIFIER):
+	if e.flags & CS.FLAG_MODIFIER:
 		modifiers.append(e)
-	elif e.has_c(CS.CN_AURA):
+	if e.flags & CS.FLAG_AURA:
 		auras.append(e)
 		
 	entities.append(e)
@@ -125,7 +125,7 @@ func sort_targets(targets: Array, sort_type: String, origin: Vector2, reversed: 
 		targets.sort_custom(sort_functions[sort_type])
 
 func find_targets_in_range(target_pool: Array, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null) -> Array:
-	return target_pool.filter(func(e): return is_instance_valid(e) and e.flags & (CS.FLAG_ENEMY | CS.FLAG_SOLDIER) and not (bans & e.flags or e.bans & flags) and Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range) and (not filter or filter.call(e, origin)))
+	return target_pool.filter(func(e): return is_instance_valid(e) and not (bans & e.flags or e.bans & flags) and Utils.is_in_ellipse(e.position, origin, max_range) and not Utils.is_in_ellipse(e.position, origin, min_range) and (not filter or filter.call(e, origin)))
 
 func find_sorted_targets(target_pool: Array, sort_type: String, origin: Vector2, min_range: int, max_range: int, flags: int, bans: int, filter = null, reversed: bool = false) -> Array:
 	var targets = find_targets_in_range(target_pool, origin, min_range, max_range, flags, bans, filter)
