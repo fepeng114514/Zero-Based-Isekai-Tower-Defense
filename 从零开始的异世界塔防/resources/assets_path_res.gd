@@ -1,10 +1,6 @@
 extends Resource
 class_name AssetsPathRes
 
-@export var atlas_name: Array = [
+@export var atlas: Array = [
 	""
 ]
-
-
-func _init():
-	

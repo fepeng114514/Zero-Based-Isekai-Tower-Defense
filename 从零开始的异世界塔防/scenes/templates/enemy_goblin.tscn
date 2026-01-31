@@ -1,7 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://e5sn3gdxbc6f"]
+[gd_scene load_steps=26 format=3 uid="uid://e5sn3gdxbc6f"]
 
 [ext_resource type="Script" uid="uid://cb6oow7qouame" path="res://scripts/enemy_scripts/enemy_goblin_script.gd" id="1_x6tgr"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://scripts/components/sprite_component.gd" id="2_0jjpe"]
 [ext_resource type="Texture2D" uid="uid://cwrkiqkxqibmc" path="res://assets/atlas/bandit_0001.png" id="2_uyn1r"]
 [ext_resource type="Texture2D" uid="uid://dx65rks2veou4" path="res://assets/atlas/bandit_0002.png" id="3_t73rw"]
 [ext_resource type="Texture2D" uid="uid://bta37sb5lkkkk" path="res://assets/atlas/bandit_0003.png" id="4_5ri6x"]
@@ -25,9 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://cw2np3r57u4yn" path="res://assets/atlas/bandit_0021.png" id="22_mkxmx"]
 [ext_resource type="Texture2D" uid="uid://7ndcf3uv5kpj" path="res://assets/atlas/bandit_0022.png" id="23_nr7qm"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="24_2oi2u"]
-[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://scripts/components/health_component.gd" id="26_f1urp"]
-[ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://scripts/components/nav_path_component.gd" id="27_ngiqk"]
-[ext_resource type="Script" uid="uid://bjmpl3gd85btr" path="res://scripts/components/enemy_component.gd" id="27_uyn1r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0jjpe"]
 animations = [{
@@ -108,20 +104,7 @@ script = ExtResource("1_x6tgr")
 
 [node name="SpriteComponent" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0jjpe")
-script = ExtResource("2_0jjpe")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("26_f1urp")
-metadata/_custom_type_script = "uid://ly8ldtphpxmy"
-
-[node name="NavPathComponent" type="Node" parent="."]
-script = ExtResource("27_ngiqk")
-metadata/_custom_type_script = "uid://btct3ysbbulk0"
-
-[node name="EnemyComponent" type="Node" parent="."]
-script = ExtResource("27_uyn1r")
-metadata/_custom_type_script = "uid://bjmpl3gd85btr"
 
 [node name="HealthBar" parent="." instance=ExtResource("24_2oi2u")]
 position = Vector2(-19, -22)

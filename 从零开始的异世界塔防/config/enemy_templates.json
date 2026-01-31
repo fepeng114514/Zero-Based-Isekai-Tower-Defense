@@ -1,0 +1,13 @@
+{
+	"enemy_goblin": {
+		"components": {
+			"Health": {
+				"hp_max": 100,
+				"hp": 18
+			},
+			"NavPath": {
+				"speed": 100
+			}
+		}
+	}
+}

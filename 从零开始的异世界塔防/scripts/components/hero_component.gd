@@ -1,2 +1,0 @@
-extends SoldierComponent
-class_name HeroComponent

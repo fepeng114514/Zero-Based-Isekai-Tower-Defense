@@ -16,4 +16,4 @@ func is_ready_time(ts: float, time: float):
 	return tick_ts - ts > time
 
 func create_once_timer(time: float) -> Signal:
-	return Utils.curren_scene.create_timer(time).timeout
+	return GlobalStore.curren_scene.create_timer(time).timeout

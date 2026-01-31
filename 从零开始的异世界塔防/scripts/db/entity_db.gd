@@ -3,6 +3,7 @@ signal create_entity_s(entity: Entity)
 
 var templates: Dictionary = TemplatesRes.new().templates
 var templates_data: Dictionary = {}
+var components_data: Dictionary = {}
 var enemies: Array = []
 var soldiers: Array = []
 var towers: Array = []
@@ -12,15 +13,10 @@ var entities: Array = []
 var last_id: int = 0
 
 func _ready() -> void:
-	var incompleted_templates: Dictionary = {}
-	#incompleted_templates.merge(Utils.load_json_file(CS.PATH_TEMPLATES))
-	incompleted_templates.merge(Utils.load_json_file(CS.PATH_ENEMY_TEMPLATES))
-	incompleted_templates.merge(Utils.load_json_file(CS.PATH_TOWER_TEMPLATES))
-	#incompleted_templates.merge(Utils.load_json_file(CS.PATH_HERO_TEMPLATES))
-	#incompleted_templates.merge(Utils.load_json_file(CS.PATH_BOSS_TEMPLATES))
-
-	for key: String in incompleted_templates.keys():
-		templates_data[key] = incompleted_templates[key]
+	for base_path in CS.PATH_TEMPLATES:
+		templates_data.merge(ConfigManager.get_config_data(base_path))
+	
+	components_data = ConfigManager.get_config_data(CS.PATH_COMPOTENTS)
 
 func insert(e: Entity) -> void:
 	if entities:
@@ -54,6 +50,10 @@ func create_entity(t_name: String) -> Entity:
 	e.template_name = t_name
 	e.name = t_name
 	e.visible = false
+	
+	# 待实现数据的缓存
+	var template_data = get_template_data(t_name)
+	e.set_template_data(template_data)
 	
 	create_entity_s.emit(e)
 
@@ -97,6 +97,30 @@ func remove_entity(e: Entity) -> void:
 
 func get_entity_by_id(id: int):
 	return entities[id]
+
+func get_component_data(c_name: String) -> Dictionary:
+	var c_data = components_data.get(c_name)
+	
+	if c_data == null:
+		push_error("未找到组件数据： %s", c_name)
+		return {}
+		
+	if not c_data:
+		return {}
+
+	return c_data.duplicate(true)
+
+func get_template_data(t_name: String) -> Dictionary:
+	var template_data = templates_data.get(t_name)
+	
+	if template_data == null:
+		push_error("未找到模板数据： %s", t_name)
+		return {}
+		
+	if not template_data:
+		return {}
+	
+	return template_data
 
 func sort_targets(targets: Array, sort_type: String, origin: Vector2, reversed: bool = false):
 	var sort_functions = {

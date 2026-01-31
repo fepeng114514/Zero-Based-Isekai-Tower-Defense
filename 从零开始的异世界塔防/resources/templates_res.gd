@@ -1,18 +1,12 @@
 extends Resource
 class_name TemplatesRes
 
-@export var templates_name: Array = [
-	"enemy_goblin",
-	"bullet_bolt",
-	"bullet_arrow",
-	"bullet_bomb",
-	"bullet_sword",
-	"tower_mage",
-	"damage"
-]
-
-var templates: Dictionary = {}
-
-func _init():
-	for template_name in templates_name:
-		templates[template_name] = load(CS.PATH_TEMPLATES_SCENES % template_name)
+var templates: Dictionary = {
+	"enemy_goblin": preload(CS.PATH_TEMPLATES_SCENES % "enemy_goblin"),
+	"bullet_bolt": preload(CS.PATH_TEMPLATES_SCENES % "bullet_bolt"),
+	"bullet_arrow": preload(CS.PATH_TEMPLATES_SCENES % "bullet_arrow"),
+	"bullet_bomb": preload(CS.PATH_TEMPLATES_SCENES % "bullet_bomb"),
+	"bullet_sword": preload(CS.PATH_TEMPLATES_SCENES % "bullet_sword"),
+	"tower_mage": preload(CS.PATH_TEMPLATES_SCENES % "tower_mage"),
+	"damage": preload(CS.PATH_TEMPLATES_SCENES % "damage")
+}

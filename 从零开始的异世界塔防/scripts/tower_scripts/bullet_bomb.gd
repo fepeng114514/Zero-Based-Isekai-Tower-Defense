@@ -1,9 +1,7 @@
 extends Entity
 
-@onready var B: BulletComponent = $BulletComponent
+@onready var B = CS.CN_BULLET
 var target
-var min_damage_radius: int = 0
-var max_damage_radius: int = 0
 
 func on_insert() -> bool:
 	target = EntityDB.get_entity_by_id(target_id)
@@ -34,10 +32,10 @@ func on_update(delta: float) -> void:
 	if not B.hit_rect.has_point(B.to - position):
 		return
 	
-	var targets = EntityDB.find_enemies_in_range(position, min_damage_radius, max_damage_radius, flags, bans)
+	var targets = EntityDB.find_enemies_in_range(position, B.min_damage_radius, B.max_damage_radius, flags, bans)
 
 	for t in targets:
-		var damage_factor = Utils.dist_factor_inside_ellipse(t.position, position, min_damage_radius, max_damage_radius)
+		var damage_factor = Utils.dist_factor_inside_ellipse(t.position, position, B.min_damage_radius, B.max_damage_radius)
 		
 		EntityDB.create_damage(t.id, B.min_damage, B.max_damage, source_id, damage_factor)
 	

@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx35c0rfd1fwr"]
+[gd_scene load_steps=2 format=3 uid="uid://cx35c0rfd1fwr"]
 
 [ext_resource type="Script" uid="uid://bo8ey7a1rvldh" path="res://scripts/tower_scripts/bullet_bomb.gd" id="1_g48kh"]
-[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://scripts/components/bullet_component.gd" id="2_4wbnw"]
 
 [node name="BulletBomb" type="Node2D"]
 script = ExtResource("1_g48kh")
@@ -13,7 +12,3 @@ rotation = 4.923574
 scale = Vector2(1, 0.6333333)
 offset = Vector2(-607, -214.73685)
 polygon = PackedVector2Array(597, 203, 606, 230, 616, 200, 606, 213.1579)
-
-[node name="BulletComponent" type="Node" parent="."]
-script = ExtResource("2_4wbnw")
-metadata/_custom_type_script = "uid://haoljvofy74e"

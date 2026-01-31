@@ -1,31 +1,32 @@
 extends Node2D
 class_name LevelBase
 
-@export var level_idx: int = -1
-var level_mode: int = 0
-var level_data: Dictionary = {}
+#@export var level_idx: int = -1
+#var level_mode: int = 0
 @onready var store = $Store
 
 func _ready() -> void:
+	#GlobalStore.level_idx = level_idx
+	
 	SystemManager.systems = ReqiuredRes.new().level_required_system
 	
-	level_data = Utils.load_json_file(CS.PATH_LEVELS_DATA % level_idx)
-	create_level_entities()
-	# create_level_tower_holders()
+	var current_level_data = LevelManager.levels_data[GlobalStore.level_idx]
+	create_level_entities(current_level_data)
+	# create_level_tower_holders(current_level_data)
 
 func _process(delta: float) -> void:
 	pass
 
-func create_level_entities() -> void:
-	for e: Dictionary in level_data.entities:
-		var entity = EntityDB.create_entity(e.name)
-		Utils.set_setting_data(entity, e, func(k): return k != "name")
+func create_level_entities(current_level_data) -> void:
+	for entity_data: Dictionary in current_level_data.entities:
+		var entity = EntityDB.create_entity(entity_data.t_name)
+		entity.set_template_data(entity_data)
 		EntityDB.insert_entity(entity)
 
-func create_level_tower_holders() -> void:
-	for e: Dictionary in level_data.tower_holders:
-		var holder_name: String = CS.NAME_TOWER_HOLDER % e.style
+func create_level_tower_holders(current_level_data) -> void:
+	for entity_data: Dictionary in current_level_data.tower_holders:
+		var holder_name: String = CS.NAME_TOWER_HOLDER % entity_data.style
 
 		var entity = EntityDB.create_entity(holder_name)
-		Utils.set_setting_data(entity, e)
+		entity.set_template_data(entity_data)
 		EntityDB.insert_entity(entity)

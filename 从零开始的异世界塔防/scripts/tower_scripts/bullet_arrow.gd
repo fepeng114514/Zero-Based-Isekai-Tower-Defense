@@ -1,6 +1,6 @@
 extends Entity
 
-@onready var B: BulletComponent = $BulletComponent
+@onready var B = get_c(CS.CN_BULLET)
 var target
 
 func on_insert() -> bool:

@@ -13,7 +13,6 @@ point_count = 4
 
 [node name="level_1" type="Node2D"]
 script = ExtResource("1_pa8r4")
-level_idx = 1
 
 [node name="SpawnerWave" type="Node" parent="."]
 script = ExtResource("2_15mv3")

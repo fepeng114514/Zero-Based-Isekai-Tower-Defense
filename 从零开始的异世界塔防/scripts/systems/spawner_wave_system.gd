@@ -1,13 +1,8 @@
 extends Node
 class_name SpawnerWave
 
-var wave_data: Array = []
-@onready var parent = get_parent()
-
 func _ready() -> void:
-	wave_data = Utils.load_json_file(CS.PATH_WAVES_DATA % parent.level_idx)
-	
-	for wave: Dictionary in wave_data:
+	for wave: Dictionary in LevelManager.waves_data[GlobalStore.level_idx]:
 		# 每波之间的等待
 		await TM.create_once_timer(wave.interval)
 		

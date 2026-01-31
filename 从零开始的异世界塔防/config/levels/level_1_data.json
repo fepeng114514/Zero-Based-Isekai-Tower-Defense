@@ -1,0 +1,20 @@
+{
+    "life": 20,
+    "cash": 1000,
+    "entities": [
+        {
+            "t_name": "tower_mage",
+            "position": "%vec2(500, 250)"
+        },
+        {
+            "t_name": "tower_mage",
+            "position": "%vec2(400, 250)"
+        }
+    ],
+    "tower_holders": [
+        {
+            "style": "grass",
+            "position": "%vec2(500, 500)"
+        }
+    ]
+}

@@ -1,25 +1,29 @@
-extends Node
+class_name CS
 
-const FPS: int = 40
-
-const PATH_SETTING: String = "settings"
-var PATH_TEMPLATES: String = PATH_SETTING.path_join("templates.json")
-var PATH_ENEMY_TEMPLATES: String = PATH_SETTING.path_join("enemy_templates.json")
-var PATH_TOWER_TEMPLATES: String = PATH_SETTING.path_join("tower_templates.json")
-var PATH_HERO_TEMPLATES: String = PATH_SETTING.path_join("hero_templates.json")
-var PATH_BOSS_TEMPLATES: String = PATH_SETTING.path_join("boss_templates.json")
-var PATH_LEVELS_DATA: String = PATH_SETTING.path_join("levels/level_%s_data.json")
-var PATH_WAVES_DATA: String = PATH_SETTING.path_join("waves/level_%s_wave.json")
+const PATH_TEMPLATES: Array = [
+	#"templates.json",
+	"enemy_templates.json",
+	"tower_templates.json",
+	#"hero_templates.json",
+	#"boss_templates.json"
+]
+const PATH_COMPOTENTS: String = "components.json"
+const PATH_LEVELS: String = "levels/level_%s_data.json"
+const PATH_WAVES: String = "levels/level_%s_wave.json"
 
 const PATH_SCENES: String = "res://scenes"
-var PATH_TEMPLATES_SCENES: String = PATH_SCENES.path_join("templates/%s.tscn")
-var PATH_LEVELS_SCENES: String = PATH_SCENES.path_join("levels/level_%s_data.tscn")
-var PATH_WAVES_SCENES: String = PATH_SCENES.path_join("waves/level_%s_wave.tscn")
+const PATH_TEMPLATES_SCENES: String = PATH_SCENES + "/templates/%s.tscn"
+const PATH_LEVELS_SCENES: String = PATH_SCENES + "/levels/level_%s_data.tscn"
+const PATH_WAVES_SCENES: String = PATH_SCENES + "/levels/level_%s_wave.tscn"
 
 const PATH_RESOURCES: String = "res://resources"
 
 const PATH_ASSETS: String = "res://assets"
-var PATH_ATLAS_ASSETS: String = PATH_ASSETS.path_join("atlas/%")
+const PATH_ATLAS_ASSETS: String = PATH_ASSETS + "/atlas/%"
+
+const LEVEL_LIST: Array = [
+	1
+]
 
 const STATE_IDLE: String = "idle"
 const STATE_DEAD: String = "dead"
@@ -28,16 +32,17 @@ const STATE_GO_NAV: String = "go_nav"
 const STATE_MELEE: String = "melee"
 const STATE_RANGED: String = "ranged"
 
-const CN_HEALTH: String = "HealthComponent"
-const CN_NAV_PATH: String = "NavPathComponent"
-const CN_ENEMY: String = "EnemyComponent"
-const CN_SOLDIER: String = "SoldierComponent"
-const CN_TOWER: String = "TowerComponent"
-const CN_MODIFIER: String = "ModifierComponent"
-const CN_AURA: String = "AuraComponent"
-const CN_MELEE: String = "MeleeComponent"
-const CN_RANGED: String = "RangedComponent"
-const CN_SPRITE: String = "SpriteComponent"
+const CN_HEALTH: String = "Health"
+const CN_NAV_PATH: String = "NavPath"
+const CN_ENEMY: String = "Enemy"
+const CN_SOLDIER: String = "Soldier"
+const CN_TOWER: String = "Tower"
+const CN_MODIFIER: String = "Modifier"
+const CN_AURA: String = "Aura"
+const CN_MELEE: String = "Melee"
+const CN_RANGED: String = "Ranged"
+const CN_BULLET: String = "Bullet"
+const CN_SPRITE: String = "Sprite"
 
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1

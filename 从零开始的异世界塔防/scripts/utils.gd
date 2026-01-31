@@ -1,11 +1,11 @@
-extends Node
-@onready var curren_scene = get_tree()
-var rng = RandomNumberGenerator.new()
+class_name Utils
+static var constants = CS.new()
+static var rng = RandomNumberGenerator.new()
 
-func random_int(from: int, to: int) -> int:
+static func random_int(from: int, to: int) -> int:
 	return rng.randi_range(from, to)
 
-func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7) -> bool:
+static func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7) -> bool:
 	var a: float = radius
 	var b: float = radius * aspect
 	var dx: float = p.x - center.x
@@ -15,7 +15,7 @@ func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0
 	
 	return value <= 1
 
-func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: float, min_radius: float = 0, aspect: float = 0.7) -> float:
+static func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: float, min_radius: float = 0, aspect: float = 0.7) -> float:
 	var angle: float = center.angle_to(p)
 	var a: float = radius
 	var b: float = radius * aspect
@@ -31,7 +31,7 @@ func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: float, min_
 
 	return clampf((v_len - me_len) / (e_len - me_len), 0, 1)
 
-func load_json_file(path: String):
+static func load_json_file(path: String):
 	if not FileAccess.file_exists(path):
 		push_error("JSON 文件不存在: " + path)
 		return null
@@ -54,118 +54,117 @@ func load_json_file(path: String):
 	
 	return json.get_data()
 
-func convert_type(value, type):
-	match type:
-		"int": value = int(value[1])
-		"float": value = float(value[1])
-		"vec2": value = Vector2(value[1], value[2])
-		"rect2": value = Rect2(value[1], value[2], value[3], value[4])
-		
-	return value
-
-func convert_dict_by_type(type_dict: Dictionary):
-	var new_dict: Dictionary = {}
+static func convert_json_data(data):
+	var new_data
 	
-	for key: String in type_dict:
-		var value = type_dict[key]
-		
-		if typeof(value) != TYPE_ARRAY:
-			new_dict[key] = value
-			continue
-		
-		var type = value[0]
-		
-		new_dict[key] = convert_type(value, type)
+	match typeof(data):
+		TYPE_DICTIONARY:
+			new_data = {}
 
-	return new_dict
+			for key in data:
+				new_data[key] = convert_json_data(data[key])
+		TYPE_ARRAY:
+			new_data = []
 
-func convert_data_by_type(value):
-	if typeof(value) != TYPE_ARRAY:
+			for value in data:
+				new_data.append(convert_json_data(value))
+		TYPE_STRING:
+			new_data = parse_json_value(data)
+		_:
+			new_data = data
+
+	return new_data
+
+static var type_handlers: Dictionary = {
+	"int": func(val): return int(val),
+	"float": func(val): return float(val),
+	"bool": func(val): return val == "true",
+	"str": func(val): return str(val),
+	"vec2": func(val): 
+		var parts = val.split(",")
+		return Vector2(float(parts[0]), float(parts[1])),
+	"rect2": func(val): 
+		var parts = val.split(",")
+		return Rect2(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3])),
+	"color": func(val):
+		var parts = val.split(",")
+		return Color(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3])),
+	"const": func(val):
+		return constants.get(val)
+}
+static func parse_json_value(value: String):
+	var regex = RegEx.new()
+	regex.compile("%(\\w+)\\(([^)]*)\\)")
+	
+	var result = regex.search(value)
+	if not result:
 		return value
-		
-	var type = value[0]
+	
+	var type_name = result.get_string(1)
+	var default_str = result.get_string(2)
+	
+	if type_name not in type_handlers:
+		return value
 
-	return convert_type(value, type)
-
-func merge_type_dict(dict1: Dictionary, dict2: Dictionary):
-	for key in dict2:
-		var value = dict2[key]
-		var dict1_value = dict1[key]
-		
-		if typeof(dict1_value) != TYPE_ARRAY:
-			dict1[key] = value
-			continue
-		
-		var type = dict1_value[0]
-			
-		dict1[key] = convert_type(value, type)
-		
-	for key in dict1:
-		var value = dict1[key]
-		
-		if typeof(value) != TYPE_ARRAY:
-			dict1[key] = value
-			continue
-		
-		var type = value[0]
-			
-		dict1[key] = convert_type(value, type)
-
-func get_component_name(node_name) -> String:
+	var handler = type_handlers[type_name]
+	return handler.call(default_str) if default_str != "" else null
+	
+static func get_component_name(node_name) -> String:
 	return node_name.replace("Component", "")
 	
-func get_setting_data(template_name: String, component_name = null) -> Dictionary:
-	var templates_data = EntityDB.templates_data.get(template_name)
-	
-	if not templates_data:
-		if template_name != "damage":
-			push_error("未找到模板数据： %s", template_name)
-		return {}
-	
-	var data
-	
-	if component_name:
-		data = templates_data.get(component_name)
-	else:
-		data = templates_data
-		
-	if not data:
-		return {}
-	
-	return data
-	
-func set_setting_data(obj, setting_data: Dictionary, filter = null) -> void:
-	var keys: Array = setting_data.keys()
-	
-	if filter:
-		keys = keys.filter(filter)
-	
-	for key: String in keys:
-		var property = setting_data[key]
-		property = convert_data_by_type(property)
-		
-		obj.set(key, property)
-
-func initial_linear_speed(from: Vector2, to: Vector2, t: float) -> Vector2:
+static func initial_linear_speed(from: Vector2, to: Vector2, t: float) -> Vector2:
 	var x: float = (to.x - from.x) / t
 	var y: float = (to.y - from.y) / t
 	
 	return Vector2(x, y)
 
-func position_in_linear(speed: Vector2, from: Vector2, t: float) -> Vector2:
+static func position_in_linear(speed: Vector2, from: Vector2, t: float) -> Vector2:
 	var x: float = speed.x * t + from.x
 	var y: float = speed.y * t + from.y
 	
 	return Vector2(x, y)
 	
-func initial_parabola_speed(from: Vector2, to: Vector2, t: float, g: int) -> Vector2:
+static func initial_parabola_speed(from: Vector2, to: Vector2, t: float, g: int) -> Vector2:
 	var x: float = (to.x - from.x) / t
 	var y: float = (to.y - from.y - g * t * t / 2) / t
 	
 	return Vector2(x, y)
 
-func position_in_parabola(t: float, from: Vector2, speed: Vector2, g: int) -> Vector2:
+static func position_in_parabola(t: float, from: Vector2, speed: Vector2, g: int) -> Vector2:
 	var x: float = speed.x * t + from.x
 	var y: float = g * t * t / 2 + speed.y * t + from.y
 
 	return Vector2(x, y)
+
+static func merge_dict_recursive(dict1: Dictionary, dict2: Dictionary, overwrite: bool = true):
+	for key in dict2:
+		if not dict1.has(key):
+			dict1[key] = dict2[key]
+			continue
+
+		if dict1[key] is Dictionary and dict2[key] is Dictionary:
+			dict1[key] = merge_dict_recursive(dict1[key], dict2[key], overwrite)
+		elif dict1[key] is Array and dict2[key] is Array:
+			if overwrite:
+				dict1[key] = dict2[key].duplicate()
+			else:
+				dict1[key] = merge_arrays(dict1[key], dict2[key])
+		else:
+			if overwrite:
+				dict1[key] = dict2[key]
+
+static func merge_dict_recursive_new(dict1: Dictionary, dict2: Dictionary, overwrite: bool = true):
+	var new_dict: Dictionary = dict1.duplicate_deep()
+	
+	merge_dict_recursive(new_dict, dict2, overwrite)
+	
+	return new_dict
+
+static func merge_arrays(arr1: Array, arr2: Array) -> Array:
+	var result = arr1.duplicate()
+
+	for item in arr2:
+		if not item in result:
+			result.append(item)
+
+	return result

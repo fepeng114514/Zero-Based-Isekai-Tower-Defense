@@ -5,7 +5,7 @@ var template_name: String = ""
 var id: int = -1
 var target_id: int = -1
 var source_id: int = -1
-var components: Dictionary = {}
+var has_components: Dictionary = {}
 var bans: int = 0
 var flags: int = 0
 var ts: float = 0
@@ -17,16 +17,8 @@ var has_mods: Dictionary = {}
 var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 
 func _ready() -> void:
-	var setting_data: Dictionary = Utils.get_setting_data(template_name)
-	Utils.set_setting_data(self, setting_data)
 	try_sort_attacks()
-	
-func get_c(c_name: String):
-	return components.get(c_name)
 
-func has_c(c_name: String) -> bool:
-	return components.has(c_name)
-	
 # 创建实体时调用，返回 false 的实体将会在调用完毕后移除
 func on_insert() -> bool: return true
 	
@@ -37,23 +29,68 @@ func on_remove() -> bool: return true
 func on_update(delta: float) -> void: pass
 	
 # 实体在路径行走时调用
-func on_path_walk(nav_path_c: NavPathComponent) -> void: pass
+func on_path_walk(nav_path_c) -> void: pass
 
 # 实体往集结点行走时调用
-func on_nav_walk(nav_point_c: NavPointComponent) -> void: pass
+func on_nav_walk(nav_point_c) -> void: pass
 
 # 实体到达终点时调用
-func on_culminate(nav_path_c: NavPathComponent) -> void: pass
+func on_culminate(nav_path_c) -> void: pass
 	
 # 实体受到攻击时调用
-func on_damage(health_c: HealthComponent, d: Entity) -> void: pass
+func on_damage(health_c, d: Entity) -> void: pass
 	
 # 实体死亡时调用
-func on_dead(health_c: HealthComponent, d: Entity) -> void: pass
+func on_dead(health_c, d: Entity) -> void: pass
 	
 # 实体被吃时调用
-func on_eat(health_c: HealthComponent, d: Entity) -> void: pass
+func on_eat(health_c, d: Entity) -> void: pass
 	
+func get_c(c_name: String):
+	return has_components.get(c_name)
+
+func has_c(c_name: String) -> bool:
+	return has_components.has(c_name)
+
+func set_template_data(template_data: Dictionary) -> void:
+	if template_data.has("base"):
+		merge_base_template(template_data, template_data.base)
+
+	var keys: Array = template_data.keys()
+	
+	for key: String in keys:
+		var property = template_data[key]
+		property = Utils.convert_json_data(property)
+		
+		set(key, property)
+
+	var components = template_data.get("components")
+	
+	if not components:
+		return
+
+	for c_name in components.keys():
+		var c_data: Dictionary = EntityDB.get_component_data(c_name)
+		var component: Dictionary = components[c_name]
+		
+		if component.has("attacks") and c_data.has("template"):
+			var attacks: Array = component.attacks
+			
+			for i in attacks.size():
+				attacks[i] = Utils.merge_dict_recursive_new(c_data.template, attacks[i], true)
+
+		Utils.merge_dict_recursive(c_data, component)
+
+		has_components[c_name] = Utils.convert_json_data(c_data)
+
+func merge_base_template(template_data: Dictionary, base: String):
+	var base_data: Dictionary = EntityDB.get_template_data(base)
+	
+	if base_data.has("base"):
+		merge_base_template(template_data, base_data.base)
+		
+	Utils.merge_dict_recursive(template_data, base_data)
+
 func try_sort_attacks():
 	if has_c(CS.CN_MELEE):
 		sort_melee_attacks()
