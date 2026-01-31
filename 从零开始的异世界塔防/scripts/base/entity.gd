@@ -18,8 +18,11 @@ var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 
 func _ready() -> void:
 	try_sort_attacks()
+	
+# 创建实体时调用，返回 false 的实体跳过创建
+func on_create() -> bool: return true
 
-# 创建实体时调用，返回 false 的实体将会在调用完毕后移除
+# 插入实体时调用，返回 false 的实体将会在调用完毕后移除
 func on_insert() -> bool: return true
 	
 # 移除实体时调用，返回 false 的实体将不会被移除
@@ -51,6 +54,9 @@ func get_c(c_name: String):
 
 func has_c(c_name: String) -> bool:
 	return has_components.has(c_name)
+
+func set_c(c_name: String, value) -> bool:
+	return has_components.set(c_name, value)
 
 func set_template_data(template_data: Dictionary) -> void:
 	if template_data.has("base"):
@@ -97,6 +103,15 @@ func try_sort_attacks():
 	
 	if has_c(CS.CN_RANGED):
 		sort_ranged_attacks()
+	
+func get_hp_percent():
+	if not has_c(CS.CN_HEALTH):
+		push_error("没有找到血量组件，无法计算血量百分比")
+		return
+		
+	var health_c = get_c(CS.CN_HEALTH)
+		
+	return float(health_c.hp) / float(health_c.hp_max)
 	
 func attacks_sort_fn(a1, a2):
 	var a1_chance: float = a1.chance

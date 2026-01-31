@@ -1,7 +1,7 @@
 {
     "tower_mage": {
         "components": {
-            "Ranged": {
+            "ranged": {
                 "attacks": [
                     {
                         "bullet": "bullet_sword",
@@ -15,7 +15,7 @@
     },
     "bullet_bolt": {
         "components": {
-            "Bullet": {
+            "bullet": {
                 "min_damage": 50,
                 "max_damage": 50,
                 "speed": 300
@@ -24,7 +24,7 @@
     },
     "bullet_arrow": {
         "components": {
-            "Bullet": {
+            "bullet": {
                 "min_damage": 50,
                 "max_damage": 50,
                 "flight_time": 1
@@ -33,7 +33,7 @@
     },
     "bullet_bomb": {
         "components": {
-            "Bullet": {
+            "bullet": {
                 "min_damage": 50,
                 "max_damage": 50,
                 "flight_time": 1,
@@ -44,7 +44,7 @@
     },
     "bullet_sword": {
         "components": {
-            "Bullet": {
+            "bullet": {
                 "min_damage": 50,
                 "max_damage": 50,
                 "stay_height": 120,

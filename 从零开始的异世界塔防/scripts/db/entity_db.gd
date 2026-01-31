@@ -55,7 +55,11 @@ func create_entity(t_name: String) -> Entity:
 	var template_data = get_template_data(t_name)
 	e.set_template_data(template_data)
 	
-	create_entity_s.emit(e)
+	for system: System in SystemManager.systems:
+		var system_func = system.get("on_create")
+
+		if not system_func.call(e):
+			return
 
 	print("创建实体： %s（%d）" % [t_name, last_id])
 	last_id += 1
@@ -77,12 +81,14 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	return d
 	
 func insert_entity(e: Entity) -> void:
+	create_entity_s.emit(e)
+	
 	for system: System in SystemManager.systems:
 		var system_func = system.get("on_insert")
 
 		if not system_func.call(e):
 			return
-		
+	
 	SystemManager.insert_queue.append(e)
 
 func remove_entity(e: Entity) -> void:

@@ -26,7 +26,7 @@ func on_insert() -> bool:
 
 func on_update(delta: float) -> void:
 	# 停留状态
-	if is_instance_valid(target) and B.is_stay and not TM.is_ready_time(ts, B.stay_time):
+	if is_instance_valid(target) and is_stay and not TM.is_ready_time(ts, B.stay_time):
 		var t_pos: Vector2 = target.position
 		position = Vector2(t_pos.x, t_pos.y - B.stay_height)
 		B.to = position

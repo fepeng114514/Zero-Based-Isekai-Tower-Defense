@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://e5sn3gdxbc6f"]
+[gd_scene load_steps=25 format=3 uid="uid://e5sn3gdxbc6f"]
 
 [ext_resource type="Script" uid="uid://cb6oow7qouame" path="res://scripts/enemy_scripts/enemy_goblin_script.gd" id="1_x6tgr"]
 [ext_resource type="Texture2D" uid="uid://cwrkiqkxqibmc" path="res://assets/atlas/bandit_0001.png" id="2_uyn1r"]
@@ -23,7 +23,6 @@
 [ext_resource type="Texture2D" uid="uid://bxn5yf7amklsu" path="res://assets/atlas/bandit_0020.png" id="21_knhed"]
 [ext_resource type="Texture2D" uid="uid://cw2np3r57u4yn" path="res://assets/atlas/bandit_0021.png" id="22_mkxmx"]
 [ext_resource type="Texture2D" uid="uid://7ndcf3uv5kpj" path="res://assets/atlas/bandit_0022.png" id="23_nr7qm"]
-[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="24_2oi2u"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0jjpe"]
 animations = [{
@@ -104,7 +103,3 @@ script = ExtResource("1_x6tgr")
 
 [node name="SpriteComponent" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0jjpe")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="HealthBar" parent="." instance=ExtResource("24_2oi2u")]
-position = Vector2(-19, -22)

@@ -1,6 +1,9 @@
 extends System
 class_name EntitySystem
 
+func on_create(e: Entity) -> bool:
+	return e.on_create()
+
 func on_insert(e: Entity) -> bool:
 	return e.on_insert()
 	

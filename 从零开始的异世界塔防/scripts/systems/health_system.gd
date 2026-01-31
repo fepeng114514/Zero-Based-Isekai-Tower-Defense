@@ -1,6 +1,18 @@
 extends System
 class_name HealthSystem
 
+func on_create(e: Entity) -> bool:
+	var health_c = e.get_c(CS.CN_HEALTH)
+	
+	if not health_c:
+		return true
+		
+	var health_bar = preload(CS.PATH_SCENES + "/health_bar.tscn").instantiate()
+	e.add_child(health_bar)
+	e.set_c(CS.CN_HEALTH_BAR, health_bar)
+	
+	return true
+
 func on_insert(e: Entity) -> bool:
 	var health_c = e.get_c(CS.CN_HEALTH)
 	
@@ -37,6 +49,10 @@ func take_damage(target: Entity, d: Entity, health_c):
 	
 	var actual_damage: int = predict_damage(d, health_c)
 	health_c.hp -= actual_damage
+	
+	var health_bar = target.get_c("health_bar")
+	
+	health_bar.fg.scale.x = health_bar.origin_fg_scale.x * target.get_hp_percent()
 	
 	target.on_damage(health_c, d)
 	
