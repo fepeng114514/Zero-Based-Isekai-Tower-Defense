@@ -8,8 +8,8 @@
     "health": {
         "hp_max": 0,
         "hp": 0,
-        "health_bar_hidden": false,
         "health_bar_scale": "%vec2(1, 1)",
+        "health_bar_offset": "%vec2(0, -30)",
         "dead": false,
         "physical_armor": 0,
         "magical_armor": 0,

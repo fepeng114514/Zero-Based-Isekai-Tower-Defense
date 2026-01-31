@@ -3,16 +3,21 @@
 [ext_resource type="Script" uid="uid://ua1ib3sk4dgk" path="res://scenes/health_bar.gd" id="1_1bvlm"]
 
 [node name="HealthBar" type="Node2D"]
+z_index = 1
 script = ExtResource("1_1bvlm")
 
 [node name="BG" type="ColorRect" parent="."]
-offset_right = 40.0
-offset_bottom = 80.0
+offset_left = -20.0
+offset_top = -2.0
+offset_right = 20.0
+offset_bottom = 78.0
 scale = Vector2(1, 0.037)
 color = Color(0, 0, 0, 1)
 
 [node name="FG" type="ColorRect" parent="."]
-offset_right = 40.0
-offset_bottom = 80.0
+offset_left = -20.0
+offset_top = -2.0
+offset_right = 20.0
+offset_bottom = 78.0
 scale = Vector2(1, 0.037)
 color = Color(1, 0, 0, 1)
