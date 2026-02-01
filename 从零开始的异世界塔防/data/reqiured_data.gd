@@ -1,11 +1,22 @@
 extends Resource
 
-var level_required_system: Array[System] = [
-	ModifierSystem.new(),
-	HealthSystem.new(),
-	EntitySystem.new(),
-	NavPathSystem.new(),
+var level_required_system: Array[String] = [
+	"LevelSystem",
+	"ModifierSystem",
+	"HealthSystem",
+	"EntitySystem",
+	"NavPathSystem",
 ]
+
+var required_systems: Dictionary = {
+	"EntitySystem": EntitySystem,
+	"LevelSystem": LevelSystem,
+	"HealthSystem": HealthSystem,
+	"SpriteSystem": SpriteSystem,
+	"NavPathSystem": NavPathSystem,
+	"ModifierSystem": ModifierSystem,
+	"NavPointSystem": NavPointSystem
+}
 
 var required_templates: Dictionary = {
 	"enemy_goblin": preload(CS.PATH_TEMPLATES_SCENES % "enemy_goblin"),

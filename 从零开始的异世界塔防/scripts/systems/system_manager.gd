@@ -5,9 +5,18 @@ var remove_queue: Array[Entity] = []
 var insert_queue: Array[Entity] = []
 var damage_queue: Array[Entity] = []
 
+func set_required_systems(required_systems_name: Array) -> void:
+	var required_systems: Array[System] = []
+
+	for sys_name in required_systems_name:
+		var system = DataManager.reqiured_data.required_systems[sys_name]
+
+		required_systems.append(system.new())
+
+	systems = required_systems
+
 func _process(delta: float) -> void:
-	for system: System in systems:
-		system.on_update(delta)
+	process_systems(delta, "on_update")
 	
 	call_deferred("_process_remove_queue")
 	call_deferred("_process_insert_queue")
@@ -28,11 +37,11 @@ func _process_insert_queue() -> void:
 		
 		e.visible = true
 
-func process_systems(e, fn_name) -> bool:
+func process_systems(arg, fn_name) -> bool:
 	for system: System in systems:
 		var system_func = system.get(fn_name)
 
-		if not system_func.call(e):
+		if not system_func.call(arg):
 			return false
 
 	return true

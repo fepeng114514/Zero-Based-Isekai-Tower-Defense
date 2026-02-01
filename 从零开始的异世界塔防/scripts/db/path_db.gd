@@ -2,6 +2,9 @@ extends Node
 
 var paths: Array[Path2D] = []
 
+func clean():
+	paths = []
+
 func get_subpath(path_idx: int, subpath_idx: int) -> Path2D:
 	return paths[path_idx].subpaths[subpath_idx]
 

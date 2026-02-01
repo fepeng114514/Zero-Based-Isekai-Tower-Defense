@@ -2,10 +2,10 @@ extends System
 class_name HealthSystem
 
 func on_create(e: Entity) -> bool:
-	var health_c = e.get_c(CS.CN_HEALTH)
-	
-	if not health_c:
+	if not e.has_c(CS.CN_HEALTH):
 		return true
+
+	var health_c = e.get_c(CS.CN_HEALTH)
 		
 	var health_bar = preload(CS.PATH_SCENES + "/health_bar.tscn").instantiate()
 	health_bar.scale = health_c.health_bar_scale
@@ -16,16 +16,16 @@ func on_create(e: Entity) -> bool:
 	return true
 
 func on_insert(e: Entity) -> bool:
-	var health_c = e.get_c(CS.CN_HEALTH)
-	
-	if not health_c:
+	if not e.has_c(CS.CN_HEALTH):
 		return true
 		
+	var health_c = e.get_c(CS.CN_HEALTH)
+
 	health_c.hp = health_c.hp_max
 	
 	return true
 
-func on_update(delta) -> void:
+func on_update(delta) -> bool:
 	var damage_queue = SystemManager.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Entity = damage_queue.pop_at(i)
@@ -48,6 +48,8 @@ func on_update(delta) -> void:
 		var health_c = e.get_c(CS.CN_HEALTH)
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
+		
+	return true
 	
 func take_damage(target: Entity, d: Entity, health_c):
 	if d.damage_type & CS.DAMAGE_EAT:

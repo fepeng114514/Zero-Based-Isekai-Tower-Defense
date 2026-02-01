@@ -1,11 +1,24 @@
 extends System
+class_name LevelSystem
 
+func _init() -> void:
+	var current_level_data = LevelManager.levels_data[GlobalStore.level_idx]
+	create_level_entities(current_level_data)
+	# create_level_tower_holders(current_level_data)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func on_update(delta: float) -> bool:
+	return true
 
+func create_level_entities(current_level_data) -> void:
+	for entity_data: Dictionary in current_level_data.entities:
+		var entity = EntityDB.create_entity(entity_data.t_name)
+		entity.set_template_data(entity_data)
+		EntityDB.insert_entity(entity)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func create_level_tower_holders(current_level_data) -> void:
+	for entity_data: Dictionary in current_level_data.tower_holders:
+		var holder_name: String = CS.NAME_TOWER_HOLDER % entity_data.style
+
+		var entity = EntityDB.create_entity(holder_name)
+		entity.set_template_data(entity_data)
+		EntityDB.insert_entity(entity)

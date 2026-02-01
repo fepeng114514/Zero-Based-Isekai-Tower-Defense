@@ -12,6 +12,15 @@ var auras: Array = []
 var entities: Array = []
 var last_id: int = 0
 
+func clean():
+	enemies = []
+	soldiers = []
+	towers = []
+	modifiers = []
+	auras = []
+	entities = []
+	last_id = 0
+
 func _ready() -> void:
 	for base_path in CS.PATH_TEMPLATES:
 		templates_data.merge(ConfigManager.get_config_data(base_path))
