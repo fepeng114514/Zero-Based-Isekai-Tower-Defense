@@ -41,7 +41,14 @@ func on_update(delta) -> void:
 			
 		take_damage(target, d, health_c)
 
-		
+	for e in EntityDB.entities:
+		if not is_instance_valid(e) or e.removed or not e.has_c(CS.CN_HEALTH):
+			continue
+			
+		var health_c = e.get_c(CS.CN_HEALTH)
+		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
+		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
+	
 func take_damage(target: Entity, d: Entity, health_c):
 	if d.damage_type & CS.DAMAGE_EAT:
 		target.on_eat(health_c, d)
@@ -51,9 +58,6 @@ func take_damage(target: Entity, d: Entity, health_c):
 	
 	var actual_damage: int = predict_damage(d, health_c)
 	health_c.hp -= actual_damage
-	
-	var health_bar = target.get_c("health_bar")
-	health_bar.fg.scale.x = health_bar.origin_fg_scale.x * target.get_hp_percent()
 	
 	target.on_damage(health_c, d)
 	

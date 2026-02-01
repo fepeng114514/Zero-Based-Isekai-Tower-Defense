@@ -76,8 +76,8 @@ func set_template_data(template_data: Dictionary) -> void:
 		return
 
 	for c_name in components.keys():
-		var c_data: Dictionary = EntityDB.get_component_data(c_name)
 		var component: Dictionary = components[c_name]
+		var c_data: Dictionary = EntityDB.get_component_data(c_name)
 		
 		if component.has("attacks") and c_data.has("template"):
 			var attacks: Array = component.attacks
@@ -87,7 +87,16 @@ func set_template_data(template_data: Dictionary) -> void:
 
 		Utils.merge_dict_recursive(c_data, component)
 
-		has_components[c_name] = Utils.convert_json_data(c_data)
+		var data = Utils.convert_json_data(c_data)
+		var component_node = DataManager.reqiured_data.required_components.get(c_name).new()
+	
+		for key: String in data:
+			var property = data[key]
+			
+			component_node.set(key, property)
+		
+		add_child(component_node)
+		has_components[c_name] = component_node
 
 func merge_base_template(template_data: Dictionary, base: String):
 	var base_data: Dictionary = EntityDB.get_template_data(base)
@@ -103,15 +112,6 @@ func try_sort_attacks():
 	
 	if has_c(CS.CN_RANGED):
 		sort_ranged_attacks()
-	
-func get_hp_percent():
-	if not has_c(CS.CN_HEALTH):
-		push_error("没有找到血量组件，无法计算血量百分比")
-		return
-		
-	var health_c = get_c(CS.CN_HEALTH)
-		
-	return float(health_c.hp) / float(health_c.hp_max)
 	
 func attacks_sort_fn(a1, a2):
 	var a1_chance: float = a1.chance
@@ -156,13 +156,33 @@ func try_ranged_attack() -> void:
 			
 		a.ts = TM.tick_ts
 
-# func try_melee_attack():
-# 	var melee_c = get_c(CS.CN_MELEE)
+func try_melee_attack():
+	var melee_c = get_c(CS.CN_MELEE)
 	
-# 	if not melee_c:
-# 		return
+	if not melee_c:
+		return
 		
-# 	var targets1 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
-# 	var targets2 = EntityDB.find_enemy_sort_with_block_level(position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans)	
-# 	for a: Dictionary in melee_c.order:
-# 		pass
+	var blockers = melee_c.blockers
+		
+	if flags & CS.FLAG_SOLDIER:
+		var filter = func(e): return e.has_c(CS.CN_MELEE) and e.id not in blockers
+		var targets = EntityDB.search_targets_in_range(melee_c.search_mode, position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans, filter)	
+		
+		for t in targets:
+			if melee_c.blockers.size() > melee_c.max_blocked:
+				break
+			
+			t.get_c(CS.CN_MELEE).blockers.append(self)
+			blockers.append(t)
+	#elif flags & CS.FLAG_ENEMY:
+		
+	new_nav_point(blockers[0].position)
+	
+	for a: Dictionary in melee_c.order:
+		pass
+
+func new_nav_point(to: Vector2):
+	var nav_point_c = get_c(CS.CN_NAV_POINT)
+	nav_point_c.reversed = true
+	
+	nav_point_c.to = to

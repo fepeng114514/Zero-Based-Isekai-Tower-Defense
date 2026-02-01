@@ -8,7 +8,7 @@ class_name LevelBase
 func _ready() -> void:
 	#GlobalStore.level_idx = level_idx
 	
-	SystemManager.systems = ReqiuredRes.new().level_required_system
+	SystemManager.systems = DataManager.reqiured_data.level_required_system
 	
 	var current_level_data = LevelManager.levels_data[GlobalStore.level_idx]
 	create_level_entities(current_level_data)

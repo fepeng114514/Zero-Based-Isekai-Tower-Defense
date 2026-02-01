@@ -1,11 +1,11 @@
 {
 	"enemy_goblin": {
 		"components": {
-			"health": {
+			"Health": {
 				"hp_max": 100,
 				"hp": 18
 			},
-			"nav_path": {
+			"NavPath": {
 				"speed": 100
 			}
 		}

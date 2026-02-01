@@ -1,56 +1,58 @@
 {
-    "enemy": {},
-    "soldier": {},
-    "hero": {},
-    "tower": {
+    "Enemy": {},
+    "Soldier": {},
+    "Hero": {},
+    "Tower": {
         "tower_type": ""
     },
-    "health": {
+    "Health": {
         "hp_max": 0,
         "hp": 0,
         "health_bar_scale": "%vec2(1, 1)",
         "health_bar_offset": "%vec2(0, -30)",
-        "dead": false,
         "physical_armor": 0,
         "magical_armor": 0,
         "damage_reduction": 1
     },
-    "nav_path": {
+    "NavPath": {
         "nav_path": 0,
         "nav_subpath": 0,
         "progress_ratio": 0,
         "speed": 0,
         "reversed": false
     },
-    "nav_point": {
-        "speed": 0
+    "NavPoint": {
+        "speed": 100,
+        "to": "%vec2(0, 0)",
+        "direction":"%vec2(1, 0)",
+        "arrived": false,
+        "animation": "walk"
     },
-    "bullet": {
+    "Bullet": {
         "min_damage": 0,
         "max_damage": 0,
         "mod": "",
         "damage_type": 1,
         "speed": 0,
         "rotation_speed": 0,
-        "hit_rect": "%rect2(-3, -3, 6, 6)",
         "flight_time": 0,
         "g": 980,
         "from": "%vec2(0, 0)",
         "to": "%vec2(0, 0)",
         "predict_target_pos": "%vec2(0, 0)",
         "direction": "%vec2(1, 0)",
-        "rotation_direction": -1
+        "rotation_direction": -1,
+        "hit_rect": "%rect2(-3, -3, 6, 6)"
     },
-    "melee": {
+    "Melee": {
         "block_min_range": 0,
         "block_max_range": 0,
-        "blockers": {},
-        "block_level": 1,
-        "max_block": 1,
+        "blockers": [],
+        "max_blocked": 1,
         "block_inc": 1,
         "block_flags": 0,
         "block_bans": 0,
-        "block_search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
+        "search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
         "melee_slot": "%vec2(0, 0)",
         "template": {
             "min_damage": 0,
@@ -65,7 +67,7 @@
             "bans": "%int(0)"
         }
     },
-    "ranged": {
+    "Ranged": {
         "template": {
             "min_range": 0,
             "max_range": 0,
@@ -79,7 +81,7 @@
             "chance": 1
         }
     },
-    "custom_attack": {
+    "CustomAttack": {
         "template": {
             "cooldown": 0,
             "ts": 0,
@@ -87,15 +89,15 @@
             "chance": 1
         }
     },
-    "modifier": {
+    "Modifier": {
         "mod_type": 0,
         "allow_same": false,
         "reset_same": true,
         "replace_same": false
     },
-    "aura": {},
-    "sprite": {},
-    "ui": {
+    "Aura": {},
+    "Sprite": {},
+    "UI": {
         "can_click": true,
         "click_rect": "rect2(1, 1, 1, 1)"
     }

@@ -27,3 +27,12 @@ func _process_insert_queue() -> void:
 		EntityDB.insert(e)
 		
 		e.visible = true
+
+func process_systems(e, fn_name) -> bool:
+	for system: System in systems:
+		var system_func = system.get(fn_name)
+
+		if not system_func.call(e):
+			return false
+
+	return true

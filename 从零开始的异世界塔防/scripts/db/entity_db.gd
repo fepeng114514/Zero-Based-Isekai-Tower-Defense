@@ -1,7 +1,7 @@
 extends Node
 signal create_entity_s(entity: Entity)
 
-var templates: Dictionary = TemplatesRes.new().templates
+var templates: Dictionary = DataManager.reqiured_data.required_templates
 var templates_data: Dictionary = {}
 var components_data: Dictionary = {}
 var enemies: Array = []
@@ -55,12 +55,11 @@ func create_entity(t_name: String) -> Entity:
 	var template_data = get_template_data(t_name)
 	e.set_template_data(template_data)
 	
-	for system: System in SystemManager.systems:
-		var system_func = system.get("on_create")
+	if not SystemManager.process_systems(e, "on_create"):
+		return e
 
-		if not system_func.call(e):
-			return
-
+	create_entity_s.emit(e)
+	
 	print("创建实体： %s（%d）" % [t_name, last_id])
 	last_id += 1
 		
@@ -81,20 +80,14 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	return d
 	
 func insert_entity(e: Entity) -> void:
-	create_entity_s.emit(e)
-	
-	for system: System in SystemManager.systems:
-		var system_func = system.get("on_insert")
-
-		if not system_func.call(e):
-			return
+	if not SystemManager.process_systems(e, "on_insert"):
+		return
 	
 	SystemManager.insert_queue.append(e)
 
 func remove_entity(e: Entity) -> void:
-	for system: System in SystemManager.systems:
-		var system_func = system.get("on_remove")
-		system_func.call(e)
+	if not SystemManager.process_systems(e, "on_remove"):
+		return
 
 	SystemManager.remove_queue.append(e)
 	e.removed = true
@@ -143,12 +136,7 @@ func sort_targets(targets: Array, sort_type: String, origin: Vector2, reversed: 
 		CS.SORT_TYPE_DIST: func(e1, e2):
 			var d1 = e1.position.distance_squared_to(origin)
 			var d2 = e2.position.distance_squared_to(origin)
-			return d1 > d2 if not reversed else d1 < d2,
-		
-		CS.SORT_TYPE_BLOCK_LEVEL: func(e1, e2):
-			var b1 = e1.get_c(CS.CN_MELEE).block_level if e1.has_c(CS.CN_MELEE) else 0
-			var b2 = e2.get_c(CS.CN_MELEE).block_level if e2.has_c(CS.CN_MELEE) else 0
-			return b1 > b2 if not reversed else b1 < b2
+			return d1 > d2 if not reversed else d1 < d2
 	}
 	
 	if sort_type in sort_functions:
