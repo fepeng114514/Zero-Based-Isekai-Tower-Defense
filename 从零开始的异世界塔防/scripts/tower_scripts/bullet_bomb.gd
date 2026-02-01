@@ -24,9 +24,7 @@ func on_insert() -> bool:
 	return true
 
 func on_update(delta: float) -> void:
-	var time: float = TM.tick_ts - ts
-	
-	position = Utils.position_in_parabola(time, B.from, B.speed, B.g)
+	position = Utils.position_in_parabola(TM.get_time(ts), B.from, B.speed, B.g)
 	rotation += B.rotation_speed * delta
 	
 	if not B.hit_rect.has_point(B.to - position):

@@ -1,6 +1,6 @@
 extends Node
 
-var systems: Array = []
+var systems: Array[System] = []
 var remove_queue: Array[Entity] = []
 var insert_queue: Array[Entity] = []
 var damage_queue: Array[Entity] = []
@@ -16,10 +16,11 @@ func set_required_systems(required_systems_name: Array) -> void:
 	systems = required_systems
 
 func _process(delta: float) -> void:
-	process_systems(delta, "on_update")
-	
 	call_deferred("_process_remove_queue")
 	call_deferred("_process_insert_queue")
+	
+	if not process_systems("on_update", delta):
+		return
 
 func _process_remove_queue() -> void:	
 	while remove_queue:
@@ -37,7 +38,7 @@ func _process_insert_queue() -> void:
 		
 		e.visible = true
 
-func process_systems(arg, fn_name) -> bool:
+func process_systems(fn_name, arg) -> bool:
 	for system: System in systems:
 		var system_func = system.get(fn_name)
 

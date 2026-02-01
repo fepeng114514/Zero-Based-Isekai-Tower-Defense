@@ -64,7 +64,7 @@ func create_entity(t_name: String) -> Entity:
 	var template_data = get_template_data(t_name)
 	e.set_template_data(template_data)
 	
-	if not SystemManager.process_systems(e, "on_create"):
+	if not SystemManager.process_systems("on_create", e):
 		return e
 
 	create_entity_s.emit(e)
@@ -89,13 +89,13 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	return d
 	
 func insert_entity(e: Entity) -> void:
-	if not SystemManager.process_systems(e, "on_insert"):
+	if not SystemManager.process_systems("on_insert", e):
 		return
 	
 	SystemManager.insert_queue.append(e)
 
 func remove_entity(e: Entity) -> void:
-	if not SystemManager.process_systems(e, "on_remove"):
+	if not SystemManager.process_systems("on_remove", e):
 		return
 
 	SystemManager.remove_queue.append(e)

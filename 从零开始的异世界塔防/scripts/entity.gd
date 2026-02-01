@@ -16,9 +16,6 @@ var mod_type_bans: int = 0
 var has_mods: Dictionary = {}
 var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 
-func _ready() -> void:
-	try_sort_attacks()
-	
 # 创建实体时调用，返回 false 的实体跳过创建
 func on_create() -> bool: return true
 
@@ -106,38 +103,11 @@ func merge_base_template(template_data: Dictionary, base: String):
 		
 	Utils.merge_dict_recursive(template_data, base_data)
 
-func try_sort_attacks():
-	if has_c(CS.CN_MELEE):
-		sort_melee_attacks()
-	
-	if has_c(CS.CN_RANGED):
-		sort_ranged_attacks()
-	
-func attacks_sort_fn(a1, a2):
-	var a1_chance: float = a1.chance
-	var a2_chance: float = a2.chance
-	var a1_cooldown: float = a1.cooldown
-	var a2_cooldown: float = a2.cooldown
-	
-	return (a1_chance != a2_chance and a1_chance < a2_chance) or (a1_cooldown != a2_cooldown and a1_cooldown > a2_cooldown)
-	
-func sort_melee_attacks():
-	var melee_c = get_c(CS.CN_MELEE)
-	
-	melee_c.order = melee_c.attacks.duplicate()
-	melee_c.order.sort_custom(attacks_sort_fn)
-	
-func sort_ranged_attacks():
-	var ranged_c = get_c(CS.CN_RANGED)
-	
-	ranged_c.order = ranged_c.attacks.duplicate()
-	ranged_c.order.sort_custom(attacks_sort_fn)
-	
-func try_ranged_attack() -> void:
-	var ranged_c = get_c(CS.CN_RANGED)
-	
-	if not ranged_c:
+func ranged_attack() -> void:
+	if not has_c(CS.CN_RANGED):
 		return
+		
+	var ranged_c = get_c(CS.CN_RANGED)
 	
 	for a: Dictionary in ranged_c.order:
 		if not TM.is_ready_time(a.ts, a.cooldown):
@@ -156,12 +126,11 @@ func try_ranged_attack() -> void:
 			
 		a.ts = TM.tick_ts
 
-func try_melee_attack():
-	var melee_c = get_c(CS.CN_MELEE)
-	
-	if not melee_c:
+func melee_attack():
+	if not has_c(CS.CN_MELEE):
 		return
 		
+	var melee_c = get_c(CS.CN_MELEE)
 	var blockers = melee_c.blockers
 		
 	if flags & CS.FLAG_SOLDIER:
@@ -176,13 +145,7 @@ func try_melee_attack():
 			blockers.append(t)
 	#elif flags & CS.FLAG_ENEMY:
 		
-	new_nav_point(blockers[0].position)
+	#new_nav_point(blockers[0].position)
 	
 	for a: Dictionary in melee_c.order:
 		pass
-
-func new_nav_point(to: Vector2):
-	var nav_point_c = get_c(CS.CN_NAV_POINT)
-	nav_point_c.reversed = true
-	
-	nav_point_c.to = to

@@ -6,3 +6,10 @@ var to: Vector2 = Vector2(0, 0)
 var direction: Vector2 = Vector2.LEFT
 var arrived: bool = false
 var animation: String = "walk"
+
+func new_nav_point(destination: Vector2):
+	arrived = false
+	
+	to = to
+
+	return true

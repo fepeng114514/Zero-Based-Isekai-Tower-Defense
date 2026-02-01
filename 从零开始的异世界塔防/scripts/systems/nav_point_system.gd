@@ -18,15 +18,15 @@ func on_update(delta: float) -> bool:
 			
 		var nav_point_c = e.get_c(CS.CN_NAV_POINT)
 		
-		if nav_point_c.reversed:
+		if nav_point_c.arrived:
 			continue
 		
 		if not Rect2(-3, -3, 6, 6).has_point(e.position - nav_point_c.to):
-			nav_point_c.reversed = true
+			nav_point_c.arrived = true
 			continue
 			
 		e.position = nav_point_c.direction * nav_point_c.speed
 		e.on_nav_walk()
 		# 待实现动画播放
-		
+
 	return true

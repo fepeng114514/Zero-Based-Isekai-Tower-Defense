@@ -15,7 +15,9 @@ func on_update(delta: float) -> bool:
 		if not is_instance_valid(e) or e.removed:
 			continue
 			
-		if not e.waiting:
-			e.on_update(delta)
+		if e.waiting:
+			continue
+			
+		e.on_update(delta)
 			
 	return true

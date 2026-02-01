@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://52j7mo7jgfkv"]
+
+[node name="Map" type="Node2D"]
+
+[node name="Container" type="Container" parent="."]
+offset_right = 653.0
+offset_bottom = 445.0

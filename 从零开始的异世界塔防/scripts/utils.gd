@@ -168,3 +168,15 @@ static func merge_arrays(arr1: Array, arr2: Array) -> Array:
 			result.append(item)
 
 	return result
+
+static func attacks_sort_fn(a1, a2):
+	var a1_chance: float = a1.chance
+	var a2_chance: float = a2.chance
+	var a1_cooldown: float = a1.cooldown
+	var a2_cooldown: float = a2.cooldown
+	
+	return (a1_chance != a2_chance and a1_chance < a2_chance) or (a1_cooldown != a2_cooldown and a1_cooldown > a2_cooldown)
+	
+static func sort_attacks(attack_component):
+	attack_component.order = attack_component.attacks.duplicate()
+	attack_component.order.sort_custom(attacks_sort_fn)
