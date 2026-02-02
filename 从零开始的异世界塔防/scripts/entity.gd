@@ -20,13 +20,16 @@ var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 func on_create() -> bool: return true
 
 # 插入实体时调用，返回 false 的实体将会在调用完毕后移除
-func on_insert() -> bool: return true
+func on_insert() -> bool: 
+	try_sort_attack()
+	return true
 	
 # 移除实体时调用，返回 false 的实体将不会被移除
 func on_remove() -> bool: return true
 	
 # 实体更新时调用
-func on_update(delta: float) -> void: pass
+func on_update(delta: float) -> void:
+	try_attacks()
 	
 # 实体在路径行走时调用
 func on_path_walk(nav_path_c) -> void: pass
@@ -102,11 +105,24 @@ func merge_base_template(template_data: Dictionary, base: String):
 		merge_base_template(template_data, base_data.base)
 		
 	Utils.merge_dict_recursive(template_data, base_data)
-
-func ranged_attack() -> void:
-	if not has_c(CS.CN_RANGED):
-		return
+	
+func try_sort_attack() -> void:
+	if has_c(CS.CN_MELEE):
+		var melee_c = get_c(CS.CN_MELEE)
+		melee_c.sort_attacks()
 		
+	if has_c(CS.CN_RANGED):
+		var ranged_c = get_c(CS.CN_RANGED)
+		ranged_c.sort_attacks()
+		
+func try_attacks() -> void:
+	if has_c(CS.CN_RANGED):
+		ranged_attack()
+	
+	if has_c(CS.CN_MELEE):
+		melee_attack()
+	
+func ranged_attack() -> void:
 	var ranged_c = get_c(CS.CN_RANGED)
 	
 	for a: Dictionary in ranged_c.order:
@@ -127,9 +143,6 @@ func ranged_attack() -> void:
 		a.ts = TM.tick_ts
 
 func melee_attack():
-	if not has_c(CS.CN_MELEE):
-		return
-		
 	var melee_c = get_c(CS.CN_MELEE)
 	var blockers = melee_c.blockers
 		

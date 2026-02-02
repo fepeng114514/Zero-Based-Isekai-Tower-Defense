@@ -53,7 +53,7 @@ func on_update(delta: float) -> void:
 		
 	# 飞向预判位置
 	if is_to_predict and not TM.is_ready_time(ts, to_predict_time):
-		position = Utils.position_in_linear(B.speed, B.from, TM.tick_ts - ts)
+		position = Utils.position_in_linear(B.speed, B.from, TM.get_time(ts))
 		
 		return
 	
@@ -68,7 +68,7 @@ func on_update(delta: float) -> void:
 		ts = TM.tick_ts
 
 	# 下落
-	position = Utils.position_in_linear(B.speed, B.from, TM.tick_ts - ts)
+	position = Utils.position_in_linear(B.speed, B.from, TM.get_time(ts))
 
 	if not B.hit_rect.has_point(B.predict_target_pos - position):
 		return

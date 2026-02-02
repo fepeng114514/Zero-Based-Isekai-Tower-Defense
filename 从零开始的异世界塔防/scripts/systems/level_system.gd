@@ -1,13 +1,10 @@
 extends System
 class_name LevelSystem
 
-func _init() -> void:
+func init() -> void:
 	var current_level_data = LevelManager.levels_data[GlobalStore.level_idx]
 	create_level_entities(current_level_data)
 	# create_level_tower_holders(current_level_data)
-
-func on_update(delta: float) -> bool:
-	return true
 
 func create_level_entities(current_level_data) -> void:
 	for entity_data: Dictionary in current_level_data.entities:

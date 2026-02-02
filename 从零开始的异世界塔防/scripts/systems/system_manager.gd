@@ -14,13 +14,17 @@ func set_required_systems(required_systems_name: Array) -> void:
 		required_systems.append(system.new())
 
 	systems = required_systems
+	
+	for system: System in systems:
+		system.init()
 
 func _process(delta: float) -> void:
+	for system: System in systems:
+		var system_func = system.get("on_update")
+		system_func.call(delta)
+	
 	call_deferred("_process_remove_queue")
 	call_deferred("_process_insert_queue")
-	
-	if not process_systems("on_update", delta):
-		return
 
 func _process_remove_queue() -> void:	
 	while remove_queue:

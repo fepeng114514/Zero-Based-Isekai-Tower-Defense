@@ -25,7 +25,7 @@ func on_insert(e: Entity) -> bool:
 	
 	return true
 
-func on_update(delta) -> bool:
+func on_update(delta) -> void:
 	var damage_queue = SystemManager.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Entity = damage_queue.pop_at(i)
@@ -42,14 +42,12 @@ func on_update(delta) -> bool:
 		take_damage(target, d, health_c)
 
 	for e in EntityDB.entities:
-		if not is_instance_valid(e) or e.removed or not e.has_c(CS.CN_HEALTH):
+		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_HEALTH):
 			continue
 			
 		var health_c = e.get_c(CS.CN_HEALTH)
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
-		
-	return true
 	
 func take_damage(target: Entity, d: Entity, health_c):
 	if d.damage_type & CS.DAMAGE_EAT:

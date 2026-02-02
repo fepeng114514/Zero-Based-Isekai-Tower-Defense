@@ -1,5 +1,9 @@
 {
+	"enemy": {
+		"flags": "%const(FLAG_ENEMY)"
+	},
 	"enemy_goblin": {
+		"base": "enemy",
 		"components": {
 			"Health": {
 				"hp_max": 100,

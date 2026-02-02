@@ -20,9 +20,9 @@ func on_insert(e: Entity):
 	e.position = subpath.to_global(path_follow.position)
 	return true
 
-func on_update(delta: float) -> bool:
+func on_update(delta: float) -> void:
 	for e in EntityDB.entities:
-		if not is_instance_valid(e) or not e.has_c(CS.CN_NAV_PATH):
+		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_NAV_PATH):
 			continue
 			
 		var nav_path_c = e.get_c(CS.CN_NAV_PATH)
@@ -33,8 +33,6 @@ func on_update(delta: float) -> bool:
 		if nav_path_c.progress_ratio >= 1.0:
 			e.on_culminate(nav_path_c)
 			EntityDB.remove_entity(e)
-	
-	return true
 
 func walk_step(e, nav_path_c):
 	nav_path_c.progress_ratio += nav_path_c.calculate_progress_ratio()

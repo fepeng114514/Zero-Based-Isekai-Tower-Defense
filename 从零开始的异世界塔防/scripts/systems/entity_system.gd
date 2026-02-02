@@ -10,14 +10,12 @@ func on_insert(e: Entity) -> bool:
 func on_remove(e: Entity) -> bool:
 	return e.on_remove()
 
-func on_update(delta: float) -> bool:
+func on_update(delta: float) -> void:
 	for e in EntityDB.entities:
-		if not is_instance_valid(e) or e.removed:
+		if not Utils.is_vaild_entity(e):
 			continue
 			
 		if e.waiting:
 			continue
 			
 		e.on_update(delta)
-			
-	return true

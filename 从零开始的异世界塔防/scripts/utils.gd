@@ -90,7 +90,17 @@ static var type_handlers: Dictionary = {
 		var parts = val.split(",")
 		return Color(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3])),
 	"const": func(val):
-		return constants.get(val)
+		var parts = val.split(",")
+		
+		if parts.size() == 1:
+			return constants.get(parts[0])
+		else:
+			var new_value: int = 0
+			
+			for p in parts:
+				new_value &= p
+				
+			return new_value
 }
 static func parse_json_value(value: String):
 	var regex = RegEx.new()
@@ -176,7 +186,6 @@ static func attacks_sort_fn(a1, a2):
 	var a2_cooldown: float = a2.cooldown
 	
 	return (a1_chance != a2_chance and a1_chance < a2_chance) or (a1_cooldown != a2_cooldown and a1_cooldown > a2_cooldown)
-	
-static func sort_attacks(attack_component):
-	attack_component.order = attack_component.attacks.duplicate()
-	attack_component.order.sort_custom(attacks_sort_fn)
+
+static func is_vaild_entity(e):
+	return is_instance_valid(e) and not e.removed

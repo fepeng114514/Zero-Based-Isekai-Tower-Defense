@@ -11,9 +11,9 @@ func on_insert(e: Entity) -> bool:
 		
 	return true
 
-func on_update(delta: float) -> bool:
+func on_update(delta: float) -> void:
 	for e in EntityDB.entities:
-		if not is_instance_valid(e) or not e.has_c(CS.CN_NAV_POINT):
+		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_NAV_POINT):
 			continue
 			
 		var nav_point_c = e.get_c(CS.CN_NAV_POINT)
@@ -28,5 +28,3 @@ func on_update(delta: float) -> bool:
 		e.position = nav_point_c.direction * nav_point_c.speed
 		e.on_nav_walk()
 		# 待实现动画播放
-
-	return true

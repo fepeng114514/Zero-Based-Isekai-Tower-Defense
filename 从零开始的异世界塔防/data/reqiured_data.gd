@@ -4,8 +4,6 @@ var level_required_system: Array[String] = [
 	"LevelSystem",
 	"ModifierSystem",
 	"HealthSystem",
-	"MeleeSystem",
-	"RangedSystem",
 	"EntitySystem",
 	"NavPathSystem",
 ]
@@ -18,8 +16,6 @@ var required_systems: Dictionary = {
 	"NavPathSystem": NavPathSystem,
 	"ModifierSystem": ModifierSystem,
 	"NavPointSystem": NavPointSystem,
-	"MeleeSystem": MeleeSystem,
-	"RangedSystem": RangedSystem,
 }
 
 var required_templates: Dictionary = {
