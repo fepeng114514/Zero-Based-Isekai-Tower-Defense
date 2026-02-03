@@ -1,1 +1,11 @@
-{}
+{
+    "wave_spawner": {
+        "components": {
+            "spawner": {
+                "spawn_interval": 5,
+                "enemy_template": "enemy_goblin",
+                "max_enemies": 10
+            }
+        }
+    }
+}

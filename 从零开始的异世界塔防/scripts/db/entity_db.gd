@@ -1,9 +1,11 @@
 extends Node
 signal create_entity_s(entity: Entity)
 
-var templates: Dictionary = DataManager.reqiured_data.required_templates
+var templates_scenes: Dictionary = {}
+var components_scripts: Dictionary = {}
 var templates_data: Dictionary = {}
 var components_data: Dictionary = {}
+var entities_scripts: Dictionary = {}
 var enemies: Array = []
 var friendlys: Array = []
 var towers: Array = []
@@ -13,6 +15,11 @@ var entities: Array = []
 var last_id: int = 0
 
 func clean():
+	templates_scenes = {}
+	components_scripts = {}
+	templates_data = {}
+	components_data = {}
+	entities_scripts = {}
 	enemies = []
 	friendlys = []
 	towers = []
@@ -20,12 +27,28 @@ func clean():
 	auras = []
 	entities = []
 	last_id = 0
+	
+	_ready()
 
 func _ready() -> void:
 	for base_path in CS.PATH_TEMPLATES:
 		templates_data.merge(ConfigManager.get_config_data(base_path))
 	
 	components_data = ConfigManager.get_config_data(CS.PATH_COMPOTENTS)
+	
+	for t_name in templates_data.keys():
+		var template_scene_path: String = CS.PATH_TEMPLATES_SCENES % t_name
+		if ResourceLoader.exists(template_scene_path):
+			templates_scenes[t_name] = load(template_scene_path)
+			
+		var entity_script_path: String = CS.PATH_ENTITIES_SCRIPTS % t_name
+		if ResourceLoader.exists(entity_script_path):
+			entities_scripts[t_name] = load(entity_script_path)
+		
+	for c_name in components_data.keys():
+		var component_script_path: String = CS.PATH_COMPONENTS_SCRIPTS % (c_name + "_component")
+		if ResourceLoader.exists(component_script_path):
+			components_scripts[c_name] = load(component_script_path)
 
 func insert(e: Entity) -> void:
 	if entities:
@@ -48,21 +71,27 @@ func insert(e: Entity) -> void:
 	#print("插入实体: %s（%d）" % [e.template_name, e.id])
 
 func create_entity(t_name: String) -> Entity:
-	var t = templates.get(t_name)
+	var t = get_templates_scenes(t_name)
 
+	var e: Entity
 	if not t:
-		push_error("模板不存在: %s" % t_name)
-		return
+		e = Entity.new()
+	else:
+		e = t.instantiate()
+		
+	var entity_script = get_entity_script(t_name)
 	
-	var e: Entity = t.instantiate()
+	if entity_script:
+		e.set_script(entity_script)
+		
+	# 待实现数据的缓存
+	var template_data = get_template_data(t_name)
+	e.set_template_data(template_data)
+		
 	e.id = last_id
 	e.template_name = t_name
 	e.name = t_name
 	e.visible = false
-	
-	# 待实现数据的缓存
-	var template_data = get_template_data(t_name, true)
-	e.set_template_data(template_data)
 	
 	if not SystemManager.process_systems("on_create", e):
 		return e
@@ -76,13 +105,13 @@ func create_entity(t_name: String) -> Entity:
 
 func create_damage(target_id: int, min_damage: int, max_damage: int, source_id = -1, damage_factor = 1) -> Entity:
 	var d_name: String = "damage"
-	var d: Entity = templates[d_name].instantiate()
+	var d: Entity = Damage.new()
+	
 	d.target_id = target_id
 	d.source_id = source_id
 	d.value = Utils.random_int(min_damage, max_damage)
 	d.damage_factor = damage_factor
 	d.template_name = d_name
-	d.name = d_name
 
 	SystemManager.damage_queue.append(d)
 		
@@ -105,12 +134,28 @@ func remove_entity(e: Entity) -> void:
 
 func get_entity_by_id(id: int):
 	return entities[id]
+	
+func get_component_script(c_name: String, deep: bool = false):
+	var c_data = components_scripts.get(c_name)
+	
+	if c_data == null:
+		push_error("未找到组件： %s" % c_name)
+		return null
+		
+	if not c_data:
+		return null
 
-func get_component_data(c_name: String, deep: bool = false) -> Dictionary:
+	if deep:
+		return c_data.duplicate_deep()
+	
+	return c_data
+
+
+func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
 	var c_data = components_data.get(c_name)
 	
 	if c_data == null:
-		push_error("未找到组件数据： %s", c_name)
+		push_error("未找到组件数据： %s" % c_name)
 		return {}
 		
 	if not c_data:
@@ -121,11 +166,11 @@ func get_component_data(c_name: String, deep: bool = false) -> Dictionary:
 	
 	return c_data
 
-func get_template_data(t_name: String, deep: bool = false) -> Dictionary:
+func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
 	var template_data = templates_data.get(t_name)
 	
 	if template_data == null:
-		push_error("未找到模板数据： %s", t_name)
+		push_error("未找到模板数据： %s" % t_name)
 		return {}
 		
 	if not template_data:
@@ -135,6 +180,34 @@ func get_template_data(t_name: String, deep: bool = false) -> Dictionary:
 		return template_data.duplicate_deep()
 	
 	return template_data
+	
+func get_templates_scenes(t_name: String, deep: bool = false):
+	var template_scenes = templates_scenes.get(t_name)
+	
+	if template_scenes == null:
+		return null
+		
+	if not template_scenes:
+		return null
+		
+	if deep:
+		return template_scenes.duplicate()
+	
+	return template_scenes
+	
+func get_entity_script(t_name: String, deep: bool = false):
+	var entity_script = entities_scripts.get(t_name)
+	
+	if entity_script == null:
+		return null
+		
+	if not entity_script:
+		return null
+		
+	if deep:
+		return entity_script.duplicate()
+	
+	return entity_script
 
 func sort_targets(targets: Array, sort_type: String, origin: Vector2, reversed: bool = false):
 	var sort_functions = {

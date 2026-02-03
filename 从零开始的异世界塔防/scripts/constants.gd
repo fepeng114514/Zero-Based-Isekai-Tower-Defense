@@ -1,7 +1,7 @@
 class_name CS
 
 const PATH_TEMPLATES: Array = [
-	#"templates.json",
+	"templates.json",
 	"enemy_templates.json",
 	"tower_templates.json",
 	#"hero_templates.json",
@@ -10,6 +10,11 @@ const PATH_TEMPLATES: Array = [
 const PATH_COMPOTENTS: String = "components.json"
 const PATH_LEVELS: String = "levels/level_%s_data.json"
 const PATH_WAVES: String = "levels/level_%s_wave.json"
+
+const PATH_SCRIPTS: String = "res://scripts"
+const PATH_SYSTEMS_SCRIPTS: String = PATH_SCRIPTS + "/systems/%s.gd"
+const PATH_COMPONENTS_SCRIPTS: String = PATH_SCRIPTS + "/components/%s.gd"
+const PATH_ENTITIES_SCRIPTS: String = PATH_SCRIPTS + "/entities/%s.gd"
 
 const PATH_SCENES: String = "res://scenes"
 const PATH_TEMPLATES_SCENES: String = PATH_SCENES + "/templates/%s.tscn"
@@ -32,18 +37,18 @@ const STATE_MELEE: int = 1 << 1
 const STATE_RANGED: int = 1 << 2
 const STATE_BLOCK: int = 1 << 3
 
-const CN_HEALTH: String = "Health"
-const CN_HEALTH_BAR: String = "Health_bar"
-const CN_NAV_PATH: String = "NavPath"
-const CN_RALLY: String = "Rally"
-const CN_TOWER: String = "Tower"
-const CN_MODIFIER: String = "Modifier"
-const CN_AURA: String = "Aura"
-const CN_MELEE: String = "Melee"
-const CN_RANGED: String = "Ranged"
-const CN_BULLET: String = "Bullet"
-const CN_SPRITE: String = "Sprite"
-const CN_BARRACK: String = "Barrack"
+const CN_HEALTH: String = "health"
+const CN_HEALTH_BAR: String = "health_bar"
+const CN_NAV_PATH: String = "nav_path"
+const CN_RALLY: String = "rally"
+const CN_TOWER: String = "tower"
+const CN_MODIFIER: String = "modifier"
+const CN_AURA: String = "aura"
+const CN_MELEE: String = "melee"
+const CN_RANGED: String = "ranged"
+const CN_BULLET: String = "bullet"
+const CN_SPRITE: String = "sprite"
+const CN_BARRACK: String = "barrack"
 
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1

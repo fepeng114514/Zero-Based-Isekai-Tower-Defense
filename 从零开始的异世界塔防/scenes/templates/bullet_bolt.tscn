@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c77v7yq60lpig"]
 
-[ext_resource type="Script" uid="uid://d3dgr5w25248o" path="res://scripts/tower_scripts/bullet_bolt.gd" id="1_hcwl7"]
+[ext_resource type="Script" uid="uid://d3dgr5w25248o" path="res://scripts/entities/bullet_bolt.gd" id="1_hcwl7"]
 
 [node name="BulletBolt" type="Node2D"]
 script = ExtResource("1_hcwl7")

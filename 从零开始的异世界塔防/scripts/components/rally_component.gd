@@ -21,9 +21,8 @@ func rally_formation_position(count: int, idx: int):
 	if count == 1:
 		return
 		
-	for i in range(count):
-		var a: float = 2 * PI / count
-		var angle: float = (i - 1) * a - PI / 2
-		
-		var new_rally_pos: Vector2 = Utils.point_on_ellipse(rally_pos, rally_radius, angle)
-		new_rally(new_rally_pos)
+	var a: float = 2 * PI / count
+	var angle: float = (idx - 1) * a - PI / 2
+	
+	var new_rally_pos: Vector2 = Utils.point_on_ellipse(rally_pos, rally_radius, angle)
+	new_rally(new_rally_pos)

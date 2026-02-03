@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3dgc34bom6sc"]
 
-[ext_resource type="Script" uid="uid://bq3va7ys7ipss" path="res://scripts/tower_scripts/tower_mage.gd" id="1_44nfe"]
+[ext_resource type="Script" uid="uid://bq3va7ys7ipss" path="res://scripts/entities/tower_mage.gd" id="1_44nfe"]
 
 [node name="TowerMage" type="Node2D"]
 script = ExtResource("1_44nfe")

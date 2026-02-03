@@ -6,6 +6,7 @@ var id: int = -1
 var target_id: int = -1
 var source_id: int = -1
 var has_components: Dictionary = {}
+var components: Dictionary = {}
 var bans: int = 0
 var flags: int = 0
 var ts: float = 0
@@ -50,7 +51,7 @@ func on_eat(health_c: HealthComponent, d: Entity) -> void: pass
 	
 # 兵营生成士兵时调用，返回 false 不生成士兵
 func on_respawn(barrack_c: BarrackComponent, soldier: Entity) -> bool: return true
-	
+
 func get_c(c_name: String):
 	return has_components.get(c_name)
 
@@ -61,7 +62,7 @@ func set_c(c_name: String, value) -> bool:
 	return has_components.set(c_name, value)
 	
 func add_c(c_name: String) -> Node:
-	var component_node = DataManager.reqiured_data.required_components.get(c_name).new()
+	var component_node = EntityDB.get_component_script(c_name).new()
 	component_node.name = c_name
 	
 	add_child(component_node)
@@ -90,7 +91,7 @@ func merged_c_data(c_name, c_data: Dictionary, merged: Dictionary, convert_json_
 func set_template_data(template_data: Dictionary) -> void:
 	if template_data.has("base"):
 		merge_base_template(template_data, template_data.base)
-
+		
 	var keys: Array = template_data.keys()
 	
 	for key: String in keys:
@@ -105,7 +106,7 @@ func set_template_data(template_data: Dictionary) -> void:
 
 	for c_name in components.keys():
 		var override: Dictionary = components[c_name]
-		var c_data: Dictionary = EntityDB.get_component_data(c_name, true)
+		var c_data: Dictionary = EntityDB.get_component_data(c_name)
 		
 		var data = merged_c_data(c_name, c_data, override, true)
 		

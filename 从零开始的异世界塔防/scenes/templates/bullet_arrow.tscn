@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://puyhh73dyon7"]
 
-[ext_resource type="Script" uid="uid://dyhduifpdi8vu" path="res://scripts/tower_scripts/bullet_arrow.gd" id="1_11nsj"]
+[ext_resource type="Script" uid="uid://dyhduifpdi8vu" path="res://scripts/entities/bullet_arrow.gd" id="1_11nsj"]
 [ext_resource type="Texture2D" uid="uid://c1dx21e2fevvy" path="res://assets/atlas/arrow.png" id="3_aaua8"]
 
 [node name="BulletArrow" type="Node2D"]

@@ -3,6 +3,9 @@
     "cash": 1000,
     "entities": [
         {
+            "t_name": "wave_spawner"
+        },
+        {
             "t_name": "tower_mage",
             "position": "%vec2(500, 250)"
         },

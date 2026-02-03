@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Global="*res://scripts/db/global.gd"
 ConfigManager="*res://scripts/managers/config_manager.gd"
 DataManager="*res://data/data_manager.gd"
 TM="*res://scripts/managers/time_manager.gd"

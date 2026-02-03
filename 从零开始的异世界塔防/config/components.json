@@ -1,9 +1,28 @@
 {
-	"Hero": {},
-	"Tower": {
+	"entity": {
+		"template_name": "",
+		"id": "%int(-1)",
+		"target_id": "%int(-1)",
+		"source_id": "%int(-1)",
+		"has_components": {},
+		"components": {},
+		"bans": "%int(0)",
+		"flags": "%int(0)",
+		"ts": 0,
+		"waitting": false,
+		"removed": false,
+		"mod_bans": "%int(0)",
+		"mod_type_bans": "%int(0)",
+		"has_mods": {},
+		"hit_rect": "%rect2(1, 1, 1, 1)",
+		"state": "%const(STATE_IDLE)",
+		"level": 1
+	},
+	"hero": {},
+	"tower": {
 		"tower_type": ""
 	},
-	"Barrack": {
+	"barrack": {
 		"max_soldiers": 3,
 		"rally_ranged": 200,
 		"rally_pos": [],
@@ -14,7 +33,7 @@
 		"last_soldier_count": -1,
 		"ts": 0
 	},
-	"Health": {
+	"health": {
 		"hp_max": 0,
 		"hp": 0,
 		"health_bar_scale": "%vec2(1, 1)",
@@ -23,14 +42,14 @@
 		"magical_armor": 0,
 		"damage_reduction": 1
 	},
-	"NavPath": {
+	"nav_path": {
 		"nav_path": 0,
 		"nav_subpath": 0,
 		"progress_ratio": 0,
 		"speed": 0,
 		"reversed": false
 	},
-	"Rally": {
+	"rally": {
 		"speed": 100,
 		"rally_pos": "%vec2(0, 0)",
 		"rally_radius": 30,
@@ -40,7 +59,7 @@
 		"animation": "walk",
 		"can_click_rally": true
 	},
-	"Bullet": {
+	"bullet": {
 		"min_damage": 0,
 		"max_damage": 0,
 		"mod": "",
@@ -56,7 +75,7 @@
 		"rotation_direction": -1,
 		"hit_rect": "%rect2(-3, -3, 6, 6)"
 	},
-	"Melee": {
+	"melee": {
 		"block_min_range": 0,
 		"block_max_range": 0,
 		"blockers": [],
@@ -84,7 +103,7 @@
 		},
 		"order": []
 	},
-	"Ranged": {
+	"ranged": {
 		"attacks": [],
 		"attack_templates": {
 			"common": {
@@ -104,16 +123,19 @@
 		},
 		"order": []
 	},
-	"Modifier": {
+	"modifier": {
 		"mod_type": 0,
 		"allow_same": false,
 		"reset_same": true,
 		"replace_same": false
 	},
-	"Aura": {},
-	"Sprite": {},
-	"UI": {
+	"aura": {},
+	"sprite": {},
+	"ui": {
 		"can_click": true,
 		"click_rect": "rect2(1, 1, 1, 1)"
+	},
+	"spawner": {
+		"id": ""
 	}
 }

@@ -1,5 +1,4 @@
-extends Node
-class_name SpawnerWave
+extends Entity
 
 func _ready() -> void:
 	for wave: Dictionary in LevelManager.waves_data[GlobalStore.level_idx]:
@@ -27,5 +26,4 @@ func _spawner(group: Dictionary) -> void:
 			await TM.y_wait(spawn.interval)
 			
 		await TM.y_wait(spawn.next_interval)
-	
 	

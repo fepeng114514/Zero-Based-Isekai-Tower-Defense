@@ -1,7 +1,7 @@
 {
     "tower_mage": {
         "components": {
-            "Ranged": {
+            "ranged": {
                 "attacks": [
                     {
                         "attack_type": "common",
@@ -16,7 +16,7 @@
     },
     "bullet_bolt": {
         "components": {
-            "Bullet": {
+            "bullet": {
                 "min_damage": 50,
                 "max_damage": 50,
                 "speed": 300
@@ -25,7 +25,7 @@
     },
     "tower_archer": {
         "components": {
-            "Ranged": {
+            "ranged": {
                 "attacks": [
                     {
                         "attack_type": "common",
@@ -40,8 +40,8 @@
     },
     "bullet_arrow": {
         "components": {
-            "Bullet": {
-                "min_damage": 50,
+            "bullet": {
+                "min_damage": 10,
                 "max_damage": 50,
                 "flight_time": 1
             }
@@ -49,7 +49,7 @@
     },
     "tower_barrack": {
         "components": {
-            "Barrack": {
+            "barrack": {
                 "max_soldiers": 5,
                 "nav_ranged": 150,
                 "respawn_time": 5,
@@ -59,7 +59,7 @@
     },
     "soldier": {
         "components": {
-            "Melee": {
+            "melee": {
                 "block_range": 30,
                 "attacks": [
                     {
@@ -70,14 +70,14 @@
                     }
                 ]
             },
-            "Health": {
+            "health": {
                 "hp_max": 200
             }
         }
     },
     "bullet_sword": {
         "components": {
-            "Bullet": {
+            "bullet": {
                 "min_damage": 50,
                 "flight_time": 0.5,
                 "max_damage": 50
@@ -91,7 +91,7 @@
     },
     "bullet_bomb": {
         "components": {
-            "Bullet": {
+            "bullet": {
                 "min_damage": 50,
                 "max_damage": 50,
                 "flight_time": 1,

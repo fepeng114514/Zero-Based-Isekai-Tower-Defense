@@ -1,18 +1,15 @@
 {
-	"enemy": {
-		"flags": "%const(FLAG_ENEMY)"
-	},
+
 	"enemy_goblin": {
-		"base": "enemy",
 		"components": {
-			"Health": {
+			"health": {
 				"hp_max": 100,
 				"hp": 18
 			},
-			"NavPath": {
+			"nav_path": {
 				"speed": 100
 			},
-			"Melee": {
+			"melee": {
 				"block_range": 30,
 				"attacks": [
 					{

@@ -15,7 +15,13 @@ func set_required_systems(required_systems_name: Array) -> void:
 	var required_systems: Array[System] = []
 
 	for sys_name in required_systems_name:
-		var system = DataManager.reqiured_data.required_systems[sys_name]
+		var system_path: String = CS.PATH_SYSTEMS_SCRIPTS % sys_name
+		
+		if not ResourceLoader.exists(system_path):
+			push_error("未找到系统: %s" % system_path)
+			continue
+			
+		var system = load(system_path)
 
 		required_systems.append(system.new())
 
