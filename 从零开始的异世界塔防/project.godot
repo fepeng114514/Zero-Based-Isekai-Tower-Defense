@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+ConfigManager="*res://scripts/managers/config_manager.gd"
 DataManager="*res://data/data_manager.gd"
 TM="*res://scripts/managers/time_manager.gd"
 SystemManager="*res://scripts/systems/system_manager.gd"
@@ -25,6 +26,5 @@ EntityDB="*res://scripts/db/entity_db.gd"
 PathDB="*res://scripts/db/path_db.gd"
 ImageDB="*res://scripts/db/image_db.gd"
 SoundDB="*res://scripts/db/sound_db.gd"
-ConfigManager="*res://scripts/managers/config_manager.gd"
 GlobalStore="*res://scripts/db/global_store.gd"
 LevelManager="*res://scripts/managers/level_manager.gd"

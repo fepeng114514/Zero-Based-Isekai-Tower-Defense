@@ -14,6 +14,15 @@
             }
         }
     },
+    "bullet_bolt": {
+        "components": {
+            "Bullet": {
+                "min_damage": 50,
+                "max_damage": 50,
+                "speed": 300
+            }
+        }
+    },
     "tower_archer": {
         "components": {
             "Ranged": {
@@ -26,6 +35,15 @@
                         "cooldown": 1
                     }
                 ]
+            }
+        }
+    },
+    "bullet_arrow": {
+        "components": {
+            "Bullet": {
+                "min_damage": 50,
+                "max_damage": 50,
+                "flight_time": 1
             }
         }
     },
@@ -57,35 +75,6 @@
             }
         }
     },
-    "bullet_bolt": {
-        "components": {
-            "Bullet": {
-                "min_damage": 50,
-                "max_damage": 50,
-                "speed": 300
-            }
-        }
-    },
-    "bullet_arrow": {
-        "components": {
-            "Bullet": {
-                "min_damage": 50,
-                "max_damage": 50,
-                "flight_time": 1
-            }
-        }
-    },
-    "bullet_bomb": {
-        "components": {
-            "Bullet": {
-                "min_damage": 50,
-                "max_damage": 50,
-                "flight_time": 1,
-                "min_damage_radius": 0,
-                "max_damage_radius": 100
-            }
-        }
-    },
     "bullet_sword": {
         "components": {
             "Bullet": {
@@ -99,5 +88,16 @@
         "to_predict_time": 0.5,
         "min_damage_radius": 0,
         "max_damage_radius": 100
+    },
+    "bullet_bomb": {
+        "components": {
+            "Bullet": {
+                "min_damage": 50,
+                "max_damage": 50,
+                "flight_time": 1,
+                "min_damage_radius": 0,
+                "max_damage_radius": 100
+            }
+        }
     }
 }

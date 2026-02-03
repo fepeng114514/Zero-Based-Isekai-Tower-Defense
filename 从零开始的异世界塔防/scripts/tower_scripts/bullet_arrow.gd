@@ -13,19 +13,25 @@ func on_insert() -> bool:
 	B.to = B.predict_target_pos
 	B.from = position
 	
-	rotation = deg_to_rad(-90)
-	
-	var total_rotation_needed = deg_to_rad(180)
-	B.rotation_direction = -1 if B.to.x < position.x else 1
-	B.rotation_speed = total_rotation_needed / B.flight_time * B.rotation_direction
+	var direction = (B.to - position).normalized()
+	rotation = atan2(direction.y, direction.x)
 	
 	B.speed = Utils.initial_parabola_speed(position, B.to, B.flight_time, B.g)
 	ts = TM.tick_ts
 	return true
-
+	
 func on_update(delta: float) -> void:
-	position = Utils.position_in_parabola(TM.get_time(ts), B.from, B.speed, B.g)
-	rotation += B.rotation_speed * delta
+	var current_time = TM.get_time(ts)
+	var current_pos = Utils.position_in_parabola(current_time, B.from, B.speed, B.g)
+	
+	var next_time = current_time + delta
+	var next_pos = Utils.position_in_parabola(next_time, B.from, B.speed, B.g)
+	
+	position = current_pos
+	
+	var velocity = (next_pos - current_pos).normalized()
+	if velocity.length_squared() > 0:
+		rotation = atan2(velocity.y, velocity.x)
 	
 	if not B.hit_rect.has_point(B.to - position):
 		return

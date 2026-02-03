@@ -298,7 +298,7 @@ static func merge_dict_recursive(target: Dictionary, source: Dictionary, overwri
 		# 其他类型：source 覆盖 target
 		target[key] = source_value
 		
-## 创建新字典并浅合并两个字典, source 的键值会覆盖或合并到 target
+## 创建新字典并递归浅合并两个字典, source 的键值会覆盖或合并到 target
 static func merge_dict_recursive_new(target: Dictionary, source: Dictionary, overwrite: bool = true) -> Dictionary:
 	var result = deepclone(target)
 	merge_dict_recursive(result, source, overwrite)
@@ -332,7 +332,7 @@ static func deepmerge_dict_recursive(target: Dictionary, source: Dictionary, ove
 		# 其他类型：source 覆盖 target
 		target[key] = source_value
 		
-## 创建新字典并深合并两个字典, source 的键值会覆盖或合并到 target
+## 创建新字典并递归深合并两个字典, source 的键值会覆盖或合并到 target
 static func deepmerge_dict_recursive_new(target: Dictionary, source: Dictionary, overwrite: bool = true) -> Dictionary:
 	var result = deepclone(target)
 	deepmerge_dict_recursive(result, source, overwrite)
@@ -366,7 +366,7 @@ static func merge_array_recursive(target: Array, source: Array, overwrite: bool 
 		# 其他类型：source 覆盖 target
 		target[i] = source_value
 
-## 创建新数组并浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+## 创建新数组并递归浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
 static func merge_array_recursive_new(target: Array, source: Array, overwrite: bool = true) -> Array:
 	var result = deepclone(target)
 	merge_array_recursive(result, source, overwrite)
@@ -400,7 +400,7 @@ static func deepmerge_array_recursive(target: Array, source: Array, overwrite: b
 		# 其他类型：source 覆盖 target
 		target[i] = source_value
 
-## 创建新数组并深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+## 创建新数组并递归深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
 static func deepmerge_array_recursive_new(target: Array, source: Array, overwrite: bool = true) -> Array:
 	var result = deepclone(target)
 	deepmerge_array_recursive(result, source, overwrite)

@@ -7,7 +7,7 @@
             "position": "%vec2(500, 250)"
         },
         {
-            "t_name": "tower_mage",
+            "t_name": "tower_archer",
             "position": "%vec2(400, 250)"
         }
     ],

@@ -8,13 +8,12 @@ func copy_default_to_user(user_path, res_path):
 	if dir:
 		dir.make_dir_recursive(user_path.get_base_dir())
 	
-	# 复制文件
 	var error = dir.copy(res_path, user_path)
 	if error != OK:
-		push_error("复制失败，错误代码: " + str(error))
+		push_error("复制用户配置失败，错误代码: %s, 从: %s, 到: %s" % [str(error), res_path, user_path])
 		return
 		
-	print("已创建初始用户配置")
+	print("复制用户配置从: %s, 到: %s" % [res_path, user_path])
 
 func get_config_data(base_path):
 	var user_path: String = USER_PATH + base_path
