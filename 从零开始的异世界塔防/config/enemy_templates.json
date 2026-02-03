@@ -11,6 +11,17 @@
 			},
 			"NavPath": {
 				"speed": 100
+			},
+			"Melee": {
+				"block_range": 30,
+				"attacks": [
+					{
+						"attack_type": "common",
+						"min_damage": 5,
+						"max_damage": 10,
+						"cooldown": 1
+					}
+				]
 			}
 		}
 	}

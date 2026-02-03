@@ -2,7 +2,7 @@ extends Node
 class_name MeleeComponent
 
 var attacks: Array = []
-var attack_template: Dictionary = {}
+var attack_templates: Dictionary = {}
 var order: Array = []
 var block_min_range: int = 0
 var block_max_range: int = 0

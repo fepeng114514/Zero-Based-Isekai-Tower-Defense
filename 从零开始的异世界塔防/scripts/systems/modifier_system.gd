@@ -16,7 +16,7 @@ func on_insert(e: Entity) -> bool:
 
 	var t_has_mods: Dictionary = target.has_mods
 	var same_target_mods: Array = []
-	var m_component = e.get_c(CS.CN_MODIFIER)
+	var m_component: MeleeComponent = e.get_c(CS.CN_MODIFIER)
 
 	for mod_idx in t_has_mods:
 		var other_m: Entity = t_has_mods[mod_idx]

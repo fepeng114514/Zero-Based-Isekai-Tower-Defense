@@ -27,19 +27,15 @@ const LEVEL_LIST: Array = [
 	1
 ]
 
-const STATE_IDLE: String = "idle"
-const STATE_DEAD: String = "dead"
-const STATE_BLOCK: String = "block"
-const STATE_GO_NAV: String = "go_nav"
-const STATE_MELEE: String = "melee"
-const STATE_RANGED: String = "ranged"
+const STATE_IDLE: int = 1
+const STATE_MELEE: int = 1 << 1
+const STATE_RANGED: int = 1 << 2
+const STATE_BLOCK: int = 1 << 3
 
 const CN_HEALTH: String = "Health"
 const CN_HEALTH_BAR: String = "Health_bar"
 const CN_NAV_PATH: String = "NavPath"
-const CN_NAV_POINT: String = "NavPoint"
-const CN_ENEMY: String = "Enemy"
-const CN_SOLDIER: String = "Soldier"
+const CN_RALLY: String = "Rally"
 const CN_TOWER: String = "Tower"
 const CN_MODIFIER: String = "Modifier"
 const CN_AURA: String = "Aura"
@@ -47,6 +43,7 @@ const CN_MELEE: String = "Melee"
 const CN_RANGED: String = "Ranged"
 const CN_BULLET: String = "Bullet"
 const CN_SPRITE: String = "Sprite"
+const CN_BARRACK: String = "Barrack"
 
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1
@@ -62,8 +59,8 @@ const DAMAGE_MAGICAL_ARMOR: int = 1 << 16
 
 const FLAG_ENEMY: int = 1
 const FLAG_BOSS: int = 1 << 1 | FLAG_ENEMY
-const FLAG_SOLDIER: int = 1 << 2
-const FLAG_HERO: int = 1 << 3 | FLAG_SOLDIER
+const FLAG_FRIENDLY: int = 1 << 2
+const FLAG_HERO: int = 1 << 3 | FLAG_FRIENDLY
 const FLAG_TOWER: int = 1 << 4
 const FLAG_BULLET: int = 1 << 5
 const FLAG_MODIFIER: int = 1 << 6
@@ -83,12 +80,12 @@ const SEARCH_MODE_ENEMY_NEARST: String = "enemy_nearst"
 const SEARCH_MODE_ENEMY_FARTHEST: String = "enemy_farthest"
 const SEARCH_MODE_ENEMY_STRONGEST: String = "enemy_strongest"
 const SEARCH_MODE_ENEMY_WEAKEST: String = "enemy_weakest"
-const SEARCH_MODE_SOLDIER_FIRST: String = "soldier_first"
-const SEARCH_MODE_SOLDIER_LAST: String = "soldier_last"
-const SEARCH_MODE_SOLDIER_NEARST: String = "soldier_nearst"
-const SEARCH_MODE_SOLDIER_FARTHEST: String = "soldier_farthest"
-const SEARCH_MODE_SOLDIER_STRONGEST: String = "soldier_strongest"
-const SEARCH_MODE_SOLDIER_WEAKEST: String = "soldier_weakest"
+const SEARCH_MODE_FRIENDLY_FIRST: String = "friendly_first"
+const SEARCH_MODE_FRIENDLY_LAST: String = "friendly_last"
+const SEARCH_MODE_FRIENDLY_NEARST: String = "friendly_nearst"
+const SEARCH_MODE_FRIENDLY_FARTHEST: String = "friendly_farthest"
+const SEARCH_MODE_FRIENDLY_STRONGEST: String = "friendly_strongest"
+const SEARCH_MODE_FRIENDLY_WEAKEST: String = "friendly_weakest"
 
 const SORT_TYPE_PROGRESS: String = "progress"
 const SORT_TYPE_DIST: String = "dist"

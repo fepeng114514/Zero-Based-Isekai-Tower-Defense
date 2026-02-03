@@ -5,17 +5,24 @@ var level_required_system: Array[String] = [
 	"ModifierSystem",
 	"HealthSystem",
 	"EntitySystem",
+	"BarrackSystem",
+	"RallySystem",
 	"NavPathSystem",
+	"MeleeSystem",
+	"RangedSystem"
 ]
 
 var required_systems: Dictionary = {
 	"EntitySystem": EntitySystem,
+	"BarrackSystem": BarrackSystem,
 	"LevelSystem": LevelSystem,
 	"HealthSystem": HealthSystem,
 	"SpriteSystem": SpriteSystem,
 	"NavPathSystem": NavPathSystem,
 	"ModifierSystem": ModifierSystem,
-	"NavPointSystem": NavPointSystem,
+	"RallySystem": RallySystem,
+	"MeleeSystem": MeleeSystem,
+	"RangedSystem": RangedSystem
 }
 
 var required_templates: Dictionary = {
@@ -33,15 +40,13 @@ var required_components: Dictionary = {
 	"Modifier": ModifierComponent,
 	"Aura": AuraComponent,
 	"Hero": HeroComponent, 
-	"Soldier": SoldierComponent,
-	"Enemy": EnemyComponent, 
 	"Tower": TowerComponent,
 	"Melee": MeleeComponent, 
 	"Ranged": RangedComponent,
-	"CustomAttack": CustomAttackComponent,
 	"Bullet": BulletComponent,
 	"Health": HealthComponent,
 	"Sprite": SpriteComponent,
 	"NavPath": NavPathComponent,
-	"NavPoint": NavPointComponent
+	"Rally": RallyComponent,
+	"Barrack": BarrackComponent
 }

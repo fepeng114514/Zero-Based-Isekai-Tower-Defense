@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://f30rl46i8akx"]
+
+[ext_resource type="Script" uid="uid://dfevap2o4s1kd" path="res://scripts/tower_scripts/soldier.gd" id="1_ama71"]
+
+[node name="Soldier" type="Node2D"]
+script = ExtResource("1_ama71")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.61111724, 0.8841393, 0.983246, 1)
+polygon = PackedVector2Array(-1, -34, -28, 12, 29, 10)

@@ -2,7 +2,7 @@ extends Node
 class_name RangedComponent
 
 var attacks: Array = []
-var attack_template: Dictionary = {}
+var attack_templates: Dictionary = {}
 var order: Array = []
 
 func sort_attacks():

@@ -4,12 +4,56 @@
             "Ranged": {
                 "attacks": [
                     {
-                        "bullet": "bullet_sword",
+                        "attack_type": "common",
+                        "bullet": "bullet_bolt",
                         "min_range": 0,
                         "max_range": 300,
                         "cooldown": 1
                     }
                 ]
+            }
+        }
+    },
+    "tower_archer": {
+        "components": {
+            "Ranged": {
+                "attacks": [
+                    {
+                        "attack_type": "common",
+                        "bullet": "bullet_arrow",
+                        "min_range": 0,
+                        "max_range": 400,
+                        "cooldown": 1
+                    }
+                ]
+            }
+        }
+    },
+    "tower_barrack": {
+        "components": {
+            "Barrack": {
+                "max_soldiers": 5,
+                "nav_ranged": 150,
+                "respawn_time": 5,
+                "soldier": "soldier"
+            }
+        }
+    },
+    "soldier": {
+        "components": {
+            "Melee": {
+                "block_range": 30,
+                "attacks": [
+                    {
+                        "attack_type": "common",
+                        "min_damage": 30,
+                        "max_damage": 30,
+                        "cooldown": 1
+                    }
+                ]
+            },
+            "Health": {
+                "hp_max": 200
             }
         }
     },

@@ -5,7 +5,7 @@ func on_create(e: Entity) -> bool:
 	if not e.has_c(CS.CN_HEALTH):
 		return true
 
-	var health_c = e.get_c(CS.CN_HEALTH)
+	var health_c: HealthComponent = e.get_c(CS.CN_HEALTH)
 		
 	var health_bar = preload(CS.PATH_SCENES + "/health_bar.tscn").instantiate()
 	health_bar.scale = health_c.health_bar_scale
@@ -49,7 +49,7 @@ func on_update(delta) -> void:
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 	
-func take_damage(target: Entity, d: Entity, health_c):
+func take_damage(target: Entity, d: Entity, health_c: HealthComponent):
 	if d.damage_type & CS.DAMAGE_EAT:
 		target.on_eat(health_c, d)
 		
@@ -68,7 +68,7 @@ func take_damage(target: Entity, d: Entity, health_c):
 			
 		EntityDB.remove_entity(target)
 		
-func predict_damage(d: Entity, health_c):
+func predict_damage(d: Entity, health_c: HealthComponent):
 	var protection: float = 1 * health_c.damage_reduction
 	var damage_type = d.damage_type
 		

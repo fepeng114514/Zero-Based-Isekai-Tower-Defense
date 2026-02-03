@@ -1,104 +1,119 @@
 {
-    "Enemy": {},
-    "Soldier": {},
-    "Hero": {},
-    "Tower": {
-        "tower_type": ""
-    },
-    "Health": {
-        "hp_max": 0,
-        "hp": 0,
-        "health_bar_scale": "%vec2(1, 1)",
-        "health_bar_offset": "%vec2(0, -30)",
-        "physical_armor": 0,
-        "magical_armor": 0,
-        "damage_reduction": 1
-    },
-    "NavPath": {
-        "nav_path": 0,
-        "nav_subpath": 0,
-        "progress_ratio": 0,
-        "speed": 0,
-        "reversed": false
-    },
-    "NavPoint": {
-        "speed": 100,
-        "to": "%vec2(0, 0)",
-        "direction":"%vec2(1, 0)",
-        "arrived": false,
-        "animation": "walk"
-    },
-    "Bullet": {
-        "min_damage": 0,
-        "max_damage": 0,
-        "mod": "",
-        "damage_type": 1,
-        "speed": 0,
-        "rotation_speed": 0,
-        "flight_time": 0,
-        "g": 980,
-        "from": "%vec2(0, 0)",
-        "to": "%vec2(0, 0)",
-        "predict_target_pos": "%vec2(0, 0)",
-        "direction": "%vec2(1, 0)",
-        "rotation_direction": -1,
-        "hit_rect": "%rect2(-3, -3, 6, 6)"
-    },
-    "Melee": {
-        "block_min_range": 0,
-        "block_max_range": 0,
-        "blockers": [],
-        "max_blocked": 1,
-        "block_inc": 1,
-        "block_flags": 0,
-        "block_bans": 0,
-        "search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
-        "melee_slot": "%vec2(0, 0)",
-        "template": {
-            "min_damage": 0,
-            "max_damage": 0,
-            "cooldown": 0,
-            "mod": "",
-            "damage_type": "%int(0)",
-            "ts": 0,
-            "animation": "",
-            "chance": 1,
-            "flags": "%int(0)",
-            "bans": "%int(0)"
-        }
-    },
-    "Ranged": {
-        "template": {
-            "min_range": 0,
-            "max_range": 0,
-            "cooldown": 0,
-            "bullet": "",
-            "ts": 0,
-            "search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
-            "flags": "%int(0)",
-            "bans": "%int(0)",
-            "animation": "",
-            "chance": 1
-        }
-    },
-    "CustomAttack": {
-        "template": {
-            "cooldown": 0,
-            "ts": 0,
-            "animation": "",
-            "chance": 1
-        }
-    },
-    "Modifier": {
-        "mod_type": 0,
-        "allow_same": false,
-        "reset_same": true,
-        "replace_same": false
-    },
-    "Aura": {},
-    "Sprite": {},
-    "UI": {
-        "can_click": true,
-        "click_rect": "rect2(1, 1, 1, 1)"
-    }
+	"Hero": {},
+	"Tower": {
+		"tower_type": ""
+	},
+	"Barrack": {
+		"max_soldiers": 3,
+		"rally_ranged": 200,
+		"rally_pos": [],
+		"rally_radius": 30,
+		"respawn_time": 10,
+		"soldier": "soldier",
+		"soldiers_list": [],
+		"last_soldier_count": -1,
+		"ts": 0
+	},
+	"Health": {
+		"hp_max": 0,
+		"hp": 0,
+		"health_bar_scale": "%vec2(1, 1)",
+		"health_bar_offset": "%vec2(0, -30)",
+		"physical_armor": 0,
+		"magical_armor": 0,
+		"damage_reduction": 1
+	},
+	"NavPath": {
+		"nav_path": 0,
+		"nav_subpath": 0,
+		"progress_ratio": 0,
+		"speed": 0,
+		"reversed": false
+	},
+	"Rally": {
+		"speed": 100,
+		"rally_pos": "%vec2(0, 0)",
+		"rally_radius": 30,
+		"direction": "%vec2(1, 0)",
+		"arrived": false,
+		"arrived_rect": "%rect2(-3, -3, 6, 6)",
+		"animation": "walk",
+		"can_click_rally": true
+	},
+	"Bullet": {
+		"min_damage": 0,
+		"max_damage": 0,
+		"mod": "",
+		"damage_type": 1,
+		"speed": 0,
+		"rotation_speed": 0,
+		"flight_time": 0,
+		"g": 980,
+		"from": "%vec2(0, 0)",
+		"to": "%vec2(0, 0)",
+		"predict_target_pos": "%vec2(0, 0)",
+		"direction": "%vec2(1, 0)",
+		"rotation_direction": -1,
+		"hit_rect": "%rect2(-3, -3, 6, 6)"
+	},
+	"Melee": {
+		"block_min_range": 0,
+		"block_max_range": 0,
+		"blockers": [],
+		"max_blocked": 1,
+		"block_inc": 1,
+		"block_flags": 0,
+		"block_bans": 0,
+		"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
+		"melee_slot": "%vec2(0, 0)",
+		"attacks": [],
+		"attack_templates": {
+			"common": {
+				"attack_type": "common",
+				"min_damage": 0,
+				"max_damage": 0,
+				"cooldown": 0,
+				"mod": "",
+				"damage_type": "%int(0)",
+				"ts": 0,
+				"animation": "",
+				"chance": 1,
+				"flags": "%int(0)",
+				"bans": "%int(0)"
+			}
+		},
+		"order": []
+	},
+	"Ranged": {
+		"attacks": [],
+		"attack_templates": {
+			"common": {
+				"attack_type": "common",
+				"min_damage": 0,
+				"max_damage": 0,
+				"cooldown": 0,
+				"bullet": "",
+				"ts": 0,
+				"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
+				"flags": "%int(0)",
+				"bans": "%int(0)",
+				"animation": "",
+				"chance": 1,
+				"together_melee": false
+			}
+		},
+		"order": []
+	},
+	"Modifier": {
+		"mod_type": 0,
+		"allow_same": false,
+		"reset_same": true,
+		"replace_same": false
+	},
+	"Aura": {},
+	"Sprite": {},
+	"UI": {
+		"can_click": true,
+		"click_rect": "rect2(1, 1, 1, 1)"
+	}
 }

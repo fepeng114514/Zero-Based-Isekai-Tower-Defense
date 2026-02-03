@@ -15,7 +15,7 @@ func on_update(delta: float) -> void:
 		if not Utils.is_vaild_entity(e):
 			continue
 			
-		if e.waiting:
+		if e.waitting:
 			continue
 			
 		e.on_update(delta)

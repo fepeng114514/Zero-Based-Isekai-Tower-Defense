@@ -2,9 +2,11 @@ class_name Utils
 static var constants = CS.new()
 static var rng = RandomNumberGenerator.new()
 
+## 随机数生成
 static func random_int(from: int, to: int) -> int:
 	return rng.randi_range(from, to)
 
+## 判断点是否位于椭圆中
 static func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7) -> bool:
 	var a: float = radius
 	var b: float = radius * aspect
@@ -15,6 +17,7 @@ static func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: fl
 	
 	return value <= 1
 
+## 根据位于椭圆距离衰减的因子
 static func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: float, min_radius: float = 0, aspect: float = 0.7) -> float:
 	var angle: float = center.angle_to(p)
 	var a: float = radius
@@ -31,6 +34,44 @@ static func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: floa
 
 	return clampf((v_len - me_len) / (e_len - me_len), 0, 1)
 
+## 计算点位于的椭圆位置
+static func point_on_ellipse(p: Vector2, radius: float, angle: float = 0, aspect: float = 0.7):
+	var a: float = radius
+	var b: float = radius * aspect
+	var x: float = p.x + a * cos(angle)
+	var y: float = p.y + b * sin(angle)
+
+	return Vector2(x, y)
+
+## 根据距离与时间计算直线速度
+static func initial_linear_speed(from: Vector2, to: Vector2, t: float) -> Vector2:
+	var x: float = (to.x - from.x) / t
+	var y: float = (to.y - from.y) / t
+	
+	return Vector2(x, y)
+
+## 根据时间与速度计算位于直线上的位置
+static func position_in_linear(speed: Vector2, from: Vector2, t: float) -> Vector2:
+	var x: float = speed.x * t + from.x
+	var y: float = speed.y * t + from.y
+	
+	return Vector2(x, y)
+	
+## 根据距离与时间计算抛物线速度
+static func initial_parabola_speed(from: Vector2, to: Vector2, t: float, g: int) -> Vector2:
+	var x: float = (to.x - from.x) / t
+	var y: float = (to.y - from.y - g * t * t / 2) / t
+	
+	return Vector2(x, y)
+	
+## 根据时间与速度计算位于抛物线上的位置
+static func position_in_parabola(t: float, from: Vector2, speed: Vector2, g: int) -> Vector2:
+	var x: float = speed.x * t + from.x
+	var y: float = g * t * t / 2 + speed.y * t + from.y
+
+	return Vector2(x, y)
+
+## 加载 JSON 文件
 static func load_json_file(path: String):
 	if not FileAccess.file_exists(path):
 		push_error("JSON 文件不存在: " + path)
@@ -54,6 +95,7 @@ static func load_json_file(path: String):
 	
 	return json.get_data()
 
+## 递归转换 JSON 数据中的格式化字符串
 static func convert_json_data(data):
 	var new_data
 	
@@ -102,6 +144,8 @@ static var type_handlers: Dictionary = {
 				
 			return new_value
 }
+
+## 解析格式化字符串
 static func parse_json_value(value: String):
 	var regex = RegEx.new()
 	regex.compile("%(\\w+)\\(([^)]*)\\)")
@@ -121,62 +165,245 @@ static func parse_json_value(value: String):
 	
 static func get_component_name(node_name) -> String:
 	return node_name.replace("Component", "")
+
+## 浅拷贝，不同于 duplicate 此方法会安全处理不同类型
+static func clone(value):
+	if value is Dictionary:
+		var result = {}
+		for key in value:
+			result[key] = value[key]
+		return result
 	
-static func initial_linear_speed(from: Vector2, to: Vector2, t: float) -> Vector2:
-	var x: float = (to.x - from.x) / t
-	var y: float = (to.y - from.y) / t
-	
-	return Vector2(x, y)
-
-static func position_in_linear(speed: Vector2, from: Vector2, t: float) -> Vector2:
-	var x: float = speed.x * t + from.x
-	var y: float = speed.y * t + from.y
-	
-	return Vector2(x, y)
-	
-static func initial_parabola_speed(from: Vector2, to: Vector2, t: float, g: int) -> Vector2:
-	var x: float = (to.x - from.x) / t
-	var y: float = (to.y - from.y - g * t * t / 2) / t
-	
-	return Vector2(x, y)
-
-static func position_in_parabola(t: float, from: Vector2, speed: Vector2, g: int) -> Vector2:
-	var x: float = speed.x * t + from.x
-	var y: float = g * t * t / 2 + speed.y * t + from.y
-
-	return Vector2(x, y)
-
-static func merge_dict_recursive(dict1: Dictionary, dict2: Dictionary, overwrite: bool = true):
-	for key in dict2:
-		if not dict1.has(key):
-			dict1[key] = dict2[key]
-			continue
-
-		if dict1[key] is Dictionary and dict2[key] is Dictionary:
-			dict1[key] = merge_dict_recursive(dict1[key], dict2[key], overwrite)
-		elif dict1[key] is Array and dict2[key] is Array:
-			if overwrite:
-				dict1[key] = dict2[key].duplicate()
-			else:
-				dict1[key] = merge_arrays(dict1[key], dict2[key])
-		else:
-			if overwrite:
-				dict1[key] = dict2[key]
-
-static func merge_dict_recursive_new(dict1: Dictionary, dict2: Dictionary, overwrite: bool = true):
-	var new_dict: Dictionary = dict1.duplicate_deep()
-	
-	merge_dict_recursive(new_dict, dict2, overwrite)
-	
-	return new_dict
-
-static func merge_arrays(arr1: Array, arr2: Array) -> Array:
-	var result = arr1.duplicate()
-
-	for item in arr2:
-		if not item in result:
+	if value is Array:
+		var result = []
+		for item in value:
 			result.append(item)
+		return result
+	
+	# 基础类型和不可变对象直接返回
+	return value
+	
+## 深拷贝，不同于 duplicate_deep 此方法会安全处理不同类型
+static func deepclone(value):
+	# 对于字典，递归复制
+	if value is Dictionary:
+		var result = {}
+		for key in value:
+			result[key] = deepclone(value[key])
+		return result
+	
+	# 对于数组，同样递归复制
+	if value is Array:
+		var result = []
+		for item in value:
+			result.append(deepclone(item))
+		return result
+	
+	# 尝试调用对象的 duplicate 方法
+	if value is Object and value.has_method("duplicate"):
+		return value.duplicate()
+	
+	# 基础类型和不可变对象直接返回
+	return value
 
+## 深合并字典, source 的键值会覆盖或合并到 target
+static func deepmerge_dict(target: Dictionary, source: Dictionary, overwrite: bool = true) -> void:
+	for key in source:
+		var source_value = deepclone(source[key])
+		
+		# 如果 target 没有这个键，直接赋值
+		if not target.has(key):
+			target[key] = source_value
+			continue
+		
+		if not overwrite:
+			continue
+		
+		# 其他类型：source 覆盖 target
+		target[key] = source_value
+		
+## 创建新字典并深合并字典, source 的键值会覆盖或合并到 target
+static func deepmerge_dict_new(target: Dictionary, source: Dictionary, overwrite: bool = true):
+	var result = deepclone(target)
+	deepmerge_dict(result, source, overwrite)
+	return result
+
+## 浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func merge_array(target: Array, source: Array, overwrite: bool = true):
+	var target_size = target.size()
+	for i in range(source.size()):
+		var mv = source[i]
+		
+		if i >= target_size:
+			target.append(mv)
+			continue
+		
+		if not overwrite:
+			continue
+		
+		target[i] = mv
+	
+## 创建新数组并浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func merge_array_new(target: Array, source: Array, overwrite: bool = true):
+	var result = deepclone(target)
+	merge_array(result, source, overwrite)
+	return result
+		
+## 深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array(target: Array, source: Array, overwrite: bool = true):
+	var target_size = target.size()
+	for i in range(source.size()):
+		var mv = deepclone(source[i])
+		
+		if i >= target_size:
+			target.append(mv)
+			continue
+		
+		if not overwrite:
+			continue
+		
+		target[i] = mv
+
+## 创建新数组并深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array_new(target: Array, source: Array, overwrite: bool = true):
+	var result = deepclone(target)
+	deepmerge_array(result, source, overwrite)
+	return result
+	
+## 递归浅合并字典, source 的键值会覆盖或合并到 target
+static func merge_dict_recursive(target: Dictionary, source: Dictionary, overwrite: bool = true) -> void:
+	for key in source:
+		var source_value = source[key]
+		
+		# 如果 target 没有这个键，直接赋值
+		if not target.has(key):
+			target[key] = source_value
+			continue
+			
+		var target_value = target[key]
+		
+		# 字典合并字典
+		if target_value is Dictionary and source_value is Dictionary:
+			merge_dict_recursive(target_value, source_value, overwrite)
+			continue
+		
+		# 数组合并数组
+		if target_value is Array and source_value is Array:
+			merge_array_recursive(target_value, source_value, overwrite)
+			continue
+			
+		if not overwrite:
+			continue
+		
+		# 其他类型：source 覆盖 target
+		target[key] = source_value
+		
+## 创建新字典并浅合并两个字典, source 的键值会覆盖或合并到 target
+static func merge_dict_recursive_new(target: Dictionary, source: Dictionary, overwrite: bool = true) -> Dictionary:
+	var result = deepclone(target)
+	merge_dict_recursive(result, source, overwrite)
+	return result
+
+## 递归深合并字典, source 的键值会覆盖或合并到 target
+static func deepmerge_dict_recursive(target: Dictionary, source: Dictionary, overwrite: bool = true) -> void:
+	for key in source:
+		var source_value = deepclone(source[key])
+		
+		# 如果 target 没有这个键，直接赋值
+		if not target.has(key):
+			target[key] = source_value
+			continue
+			
+		var target_value = target[key]
+		
+		# 字典合并字典
+		if target_value is Dictionary and source_value is Dictionary:
+			deepmerge_dict_recursive(target_value, source_value, overwrite)
+			continue
+		
+		# 数组合并数组
+		if target_value is Array and source_value is Array:
+			deepmerge_array_recursive(target_value, source_value, overwrite)
+			continue
+			
+		if not overwrite:
+			continue
+		
+		# 其他类型：source 覆盖 target
+		target[key] = source_value
+		
+## 创建新字典并深合并两个字典, source 的键值会覆盖或合并到 target
+static func deepmerge_dict_recursive_new(target: Dictionary, source: Dictionary, overwrite: bool = true) -> Dictionary:
+	var result = deepclone(target)
+	deepmerge_dict_recursive(result, source, overwrite)
+	return result
+
+## 递归浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func merge_array_recursive(target: Array, source: Array, overwrite: bool = true) -> void:
+	for i in range(source.size()):
+		var source_value = source[i]
+		
+		# 如果 target 没有这个索引，直接追加
+		if i >= target.size():
+			target.append(source_value)
+			continue
+			
+		var target_value = target[i]
+		
+		# 字典合并字典
+		if target_value is Dictionary and source_value is Dictionary:
+			merge_dict_recursive(target_value, source_value, overwrite)
+			continue
+		
+		# 数组合并数组
+		if target_value is Array and source_value is Array:
+			merge_array_recursive(target_value, source_value, overwrite)
+			continue
+			
+		if not overwrite:
+			continue
+		
+		# 其他类型：source 覆盖 target
+		target[i] = source_value
+
+## 创建新数组并浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func merge_array_recursive_new(target: Array, source: Array, overwrite: bool = true) -> Array:
+	var result = deepclone(target)
+	merge_array_recursive(result, source, overwrite)
+	return result
+	
+## 递归深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array_recursive(target: Array, source: Array, overwrite: bool = true) -> void:
+	for i in range(source.size()):
+		var source_value = deepclone(source[i])
+		
+		# 如果 target 没有这个索引，直接追加
+		if i >= target.size():
+			target.append(source_value)
+			continue
+			
+		var target_value = target[i]
+		
+		# 字典合并字典
+		if target_value is Dictionary and source_value is Dictionary:
+			deepmerge_dict_recursive(target_value, source_value, overwrite)
+			continue
+		
+		# 数组合并数组
+		if target_value is Array and source_value is Array:
+			deepmerge_array_recursive(target_value, source_value, overwrite)
+			continue
+			
+		if not overwrite:
+			continue
+		
+		# 其他类型：source 覆盖 target
+		target[i] = source_value
+
+## 创建新数组并深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array_recursive_new(target: Array, source: Array, overwrite: bool = true) -> Array:
+	var result = deepclone(target)
+	deepmerge_array_recursive(result, source, overwrite)
 	return result
 
 static func attacks_sort_fn(a1, a2):

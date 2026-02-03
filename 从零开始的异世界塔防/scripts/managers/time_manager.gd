@@ -19,7 +19,7 @@ func is_ready_time(ts: float, time: float) -> bool:
 func get_time(ts) -> float:
 	return tick_ts - ts
 	
-func create_once_timer(time: float, break_fn = null) -> void:
+func y_wait(time: float, break_fn = null) -> void:
 	var ts = tick_ts
 	while not is_ready_time(ts, time) and (not break_fn or break_fn.call()):
 		await curren_scene.process_frame

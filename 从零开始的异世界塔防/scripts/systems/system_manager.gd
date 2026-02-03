@@ -5,6 +5,12 @@ var remove_queue: Array[Entity] = []
 var insert_queue: Array[Entity] = []
 var damage_queue: Array[Entity] = []
 
+func clean() -> void:
+	systems = []
+	remove_queue = []
+	insert_queue = []
+	damage_queue = []
+
 func set_required_systems(required_systems_name: Array) -> void:
 	var required_systems: Array[System] = []
 
@@ -19,6 +25,7 @@ func set_required_systems(required_systems_name: Array) -> void:
 		system.init()
 
 func _process(delta: float) -> void:
+	# 待优化，每个系统重复遍历所有实体
 	for system: System in systems:
 		var system_func = system.get("on_update")
 		system_func.call(delta)

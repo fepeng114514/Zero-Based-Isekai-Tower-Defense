@@ -1,0 +1,29 @@
+extends Node
+class_name RallyComponent
+
+var speed: int = 100
+var rally_pos: Vector2 = Vector2(0, 0)
+var rally_radius: int = 30
+var direction: Vector2 = Vector2.LEFT
+var arrived: bool = false
+var arrived_rect: Rect2 = Rect2(-3, -3, 6, 6)
+var animation: String = "walk"
+var can_click_rally: bool = true
+
+func new_rally(new_rally_pos: Vector2, new_rally_radius = null):
+	arrived = false
+	rally_pos = new_rally_pos
+	
+	if new_rally_radius:
+		rally_radius = new_rally_radius
+
+func rally_formation_position(count: int, idx: int):
+	if count == 1:
+		return
+		
+	for i in range(count):
+		var a: float = 2 * PI / count
+		var angle: float = (i - 1) * a - PI / 2
+		
+		var new_rally_pos: Vector2 = Utils.point_on_ellipse(rally_pos, rally_radius, angle)
+		new_rally(new_rally_pos)
