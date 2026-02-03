@@ -35,7 +35,7 @@ func on_update(delta: float) -> void: pass
 func on_path_walk(nav_path_c: NavPathComponent) -> void: pass
 
 # 实体往集结点行走时调用
-func on_nav_walk(rally_c: RallyComponent) -> void: pass
+func on_rally_walk(rally_c: RallyComponent) -> void: pass
 
 # 实体到达终点时调用
 func on_get_end(nav_path_c: NavPathComponent) -> void: pass

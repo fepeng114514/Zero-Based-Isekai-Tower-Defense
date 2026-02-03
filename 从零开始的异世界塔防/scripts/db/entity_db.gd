@@ -118,10 +118,11 @@ func create_damage(target_id: int, min_damage: int, max_damage: int, source_id =
 	return d
 	
 func insert_entity(e: Entity) -> void:
-	if not SystemManager.process_systems("on_insert", e):
-		return
+	var insert_queue: Array = SystemManager.insert_queue
+	insert_queue.append(e)
 	
-	SystemManager.insert_queue.append(e)
+	if not SystemManager.process_systems("on_insert", e):
+		insert_queue.pop_back()
 
 func remove_entity(e: Entity) -> void:
 	if not SystemManager.process_systems("on_remove", e):

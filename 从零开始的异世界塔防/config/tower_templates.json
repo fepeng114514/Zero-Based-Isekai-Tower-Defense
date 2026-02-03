@@ -1,5 +1,9 @@
 {
+    "tower": {
+		"flags": "%const(FLAG_TOWER)"
+	},
     "tower_mage": {
+        "base": "tower",
         "components": {
             "ranged": {
                 "attacks": [
@@ -24,6 +28,7 @@
         }
     },
     "tower_archer": {
+        "base": "tower",
         "components": {
             "ranged": {
                 "attacks": [
@@ -48,9 +53,10 @@
         }
     },
     "tower_barrack": {
+        "base": "tower",
         "components": {
             "barrack": {
-                "max_soldiers": 5,
+                "max_soldiers": 3,
                 "nav_ranged": 150,
                 "respawn_time": 5,
                 "soldier": "soldier"
@@ -58,6 +64,7 @@
         }
     },
     "soldier": {
+        "flags": "%const(FLAG_FRIENDLY)",
         "components": {
             "melee": {
                 "block_range": 30,

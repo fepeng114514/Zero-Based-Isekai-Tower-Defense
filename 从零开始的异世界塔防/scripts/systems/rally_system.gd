@@ -5,9 +5,9 @@ func on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_RALLY):
 		return true
 		
-	var rally_c = e.get_c(CS.CN_RALLY)
+	var rally_c: RallyComponent = e.get_c(CS.CN_RALLY)
 
-	rally_c.direction = rally_c.to.normalized()
+	rally_c.direction = (rally_c.rally_pos - e.position).normalized()
 		
 	return true
 
@@ -25,11 +25,12 @@ func on_update(delta: float) -> void:
 		
 		if rally_c.arrived:
 			continue
+			
+		e.position += rally_c.direction * rally_c.speed * delta
+		e.on_rally_walk(rally_c)
+		rally_c.direction = (rally_c.rally_pos - e.position).normalized()
 		
-		if not rally_c.arrived_rect.has_point(e.position - rally_c.rally_pos):
+		if rally_c.arrived_rect.has_point(e.position - rally_c.rally_pos):
 			rally_c.arrived = true
 			continue
-			
-		e.position = rally_c.direction * rally_c.speed
-		e.on_nav_walk()
 		# 待实现动画播放

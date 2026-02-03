@@ -25,8 +25,9 @@
 	"barrack": {
 		"max_soldiers": 3,
 		"rally_ranged": 200,
-		"rally_pos": [],
+		"rally_pos": "%vec2(500, 400)",
 		"rally_radius": 30,
+		"rally_speed": 50,
 		"respawn_time": 10,
 		"soldier": "soldier",
 		"soldiers_list": [],

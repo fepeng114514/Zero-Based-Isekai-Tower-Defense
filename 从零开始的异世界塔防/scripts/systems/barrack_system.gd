@@ -11,11 +11,7 @@ func on_insert(e: Entity) -> bool:
 	for i in range(max_soldiers):
 		var soldier = respawn_soldier(e, barrack_c)
 		
-		if not soldier:
-			continue
-		
 		var s_rally_c: RallyComponent = soldier.get_c(CS.CN_RALLY)
-		
 		s_rally_c.rally_formation_position(max_soldiers, i)
 		
 	return true
@@ -29,10 +25,12 @@ func on_update(delta: float) -> void:
 		var soldiers_list: Array = barrack_c.soldiers_list
 		var soldier_count: int = soldiers_list.size()
 		
+		# 根据重生时间生成士兵
 		if TM.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
 			if respawn_soldier(e, barrack_c):
 				barrack_c.ts = TM.tick_ts
 		
+		# 士兵数发生变化重新整队
 		if barrack_c.last_soldier_count != soldier_count:
 			for i in range(soldier_count):
 				var soldier: Entity = soldiers_list[i]
@@ -47,14 +45,17 @@ func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
 		return null
 		
 	var soldier: Entity = EntityDB.create_entity(barrack_c.soldier)
+	soldier.position = barrack.position
 	
 	if not soldier.has_c(CS.CN_RALLY):
 		var rally_c: RallyComponent = soldier.add_c(CS.CN_RALLY)
 		rally_c.can_click_rally = false
 		rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
+		rally_c.rally_radius = barrack_c.rally_radius
+		rally_c.speed = barrack_c.rally_speed
 		
 	if not barrack.on_respawn(barrack_c, soldier):
-		return null
+		return soldier
 	
 	EntityDB.insert_entity(soldier)
 	
