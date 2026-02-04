@@ -11,3 +11,27 @@ var soldier: String = "soldier"
 var soldiers_list: Array = []
 var last_soldier_count: int = -1
 var ts: float = 0
+
+## 清理无效士兵
+func clean_soldiers_list():
+	# 快速检查是否存在无效士兵
+	var has_invalidly: bool = false
+	for s in soldiers_list:
+		if is_instance_valid(s):
+			continue
+			
+		has_invalidly = true
+		break
+			
+	if not has_invalidly:
+		return
+		
+	var new_soldiers_list: Array = []
+	
+	for s in soldiers_list:
+		if not is_instance_valid(s):
+			continue 
+			
+		new_soldiers_list.append(s)
+		
+	soldiers_list = new_soldiers_list

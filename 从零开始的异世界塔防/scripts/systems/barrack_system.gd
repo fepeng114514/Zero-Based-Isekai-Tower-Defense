@@ -4,7 +4,7 @@ class_name BarrackSystem
 func on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_BARRACK):
 		return true
-		
+				
 	var barrack_c: BarrackComponent = e.get_c(CS.CN_BARRACK)
 	var max_soldiers: int = barrack_c.max_soldiers
 		
@@ -22,6 +22,8 @@ func on_update(delta: float) -> void:
 			continue
 			
 		var barrack_c: BarrackComponent = e.get_c(CS.CN_BARRACK)
+		barrack_c.clean_soldiers_list()
+		
 		var soldiers_list: Array = barrack_c.soldiers_list
 		var soldier_count: int = soldiers_list.size()
 		

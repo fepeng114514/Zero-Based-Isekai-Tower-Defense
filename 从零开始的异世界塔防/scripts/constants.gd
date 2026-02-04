@@ -49,6 +49,7 @@ const CN_RANGED: String = "ranged"
 const CN_BULLET: String = "bullet"
 const CN_SPRITE: String = "sprite"
 const CN_BARRACK: String = "barrack"
+const CN_SPAWNER: String = "spawner"
 
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1

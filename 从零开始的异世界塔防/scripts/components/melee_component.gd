@@ -13,6 +13,7 @@ var block_flags: int = 0
 var block_bans: int = 0
 var search_mode: String = CS.SEARCH_MODE_ENEMY_FIRST
 var melee_slot: Vector2 = Vector2(0, 0)
+var melee_slot_offset: Vector2 = Vector2(0, 0)
 
 func sort_attacks():
 	order = attacks.duplicate()

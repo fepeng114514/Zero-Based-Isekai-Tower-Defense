@@ -1,16 +1,25 @@
 extends Entity
+var waves_data: Array = LevelManager.waves_data[GlobalStore.level_idx]
 
-func _ready() -> void:
-	for wave: Dictionary in LevelManager.waves_data[GlobalStore.level_idx]:
+func spawner() -> void:
+	for wave_idx: int in range(waves_data.size()):
+		var wave: Dictionary = waves_data[wave_idx - 1]
+		
+		wave_idx += 1
+		if wave_idx < GlobalStore.force_wave:
+			continue
+		
 		# 每波之间的等待
 		await TM.y_wait(wave.interval)
+		GlobalStore.current_wave = wave_idx
+		GlobalStore.force_wave = wave_idx
 		
 		for group in wave.groups:
 			# 出怪组并行
-			var spawner: Callable = Callable(self, "_spawner").bind()
-			spawner.call(group)
+			var group_spawner: Callable = _group_spawner.bind()
+			group_spawner.call(group)
 
-func _spawner(group: Dictionary) -> void:
+func _group_spawner(group: Dictionary) -> void:
 	await TM.y_wait(group.delay)
 	var path: int = group.path
 	

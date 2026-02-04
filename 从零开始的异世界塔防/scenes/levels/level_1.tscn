@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dn322bbgr6nvm"]
+[gd_scene format=3 uid="uid://dn322bbgr6nvm"]
 
 [ext_resource type="Script" uid="uid://l0bojwxfygpe" path="res://scripts/base/level_base.gd" id="1_x42e6"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://scripts/path.gd" id="3_sk5k4"]
@@ -10,19 +10,19 @@ _data = {
 }
 point_count = 4
 
-[node name="level_1" type="Node2D"]
+[node name="level_1" type="Node2D" unique_id=787879478]
 script = ExtResource("1_x42e6")
 level_idx = 1
 
-[node name="Paths" type="Node" parent="."]
+[node name="Paths" type="Node" parent="." unique_id=1530672308]
 
-[node name="Path" type="Path2D" parent="Paths"]
+[node name="Path" type="Path2D" parent="Paths" unique_id=1122140574]
 position = Vector2(74, 136)
 curve = SubResource("Curve2D_q8u5g")
 script = ExtResource("3_sk5k4")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"
 
-[node name="Store" type="Node" parent="."]
+[node name="Store" type="Node" parent="." unique_id=1372666069]
 script = ExtResource("4_oc4kc")
 
-[node name="Entities" type="Node" parent="Store"]
+[node name="Entities" type="Node" parent="Store" unique_id=63539716]

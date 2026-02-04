@@ -86,6 +86,7 @@
 		"block_bans": 0,
 		"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
 		"melee_slot": "%vec2(0, 0)",
+		"melee_slot_offset": "%vec2(0, 0)",
 		"attacks": [],
 		"attack_templates": {
 			"common": {
