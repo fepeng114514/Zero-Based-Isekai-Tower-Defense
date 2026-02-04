@@ -92,7 +92,7 @@
 		"origin_pos_arrived": true,
 		"melee_slot": "%vec2(0, 0)",
 		"melee_slot_offset": "%vec2(0, 0)",
-		"melee_slot_arrived": false,
+		"melee_slot_arrived": true,
 		"arrived_rect": "%rect2(-3, -3, 6, 6)",
 		"attacks": [],
 		"attack_templates": {

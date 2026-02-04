@@ -19,7 +19,7 @@ var origin_pos: Vector2 = Vector2(0, 0)
 var origin_pos_arrived: bool = true
 var melee_slot: Vector2 = Vector2(0, 0)
 var melee_slot_offset: Vector2 = Vector2(0, 0)
-var melee_slot_arrived: bool = false
+var melee_slot_arrived: bool = true
 var arrived_rect: Rect2 = Rect2(-3, -3, 6, 6)
 
 func set_melee_slot(new_melee_slot: Vector2) -> void:

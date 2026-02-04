@@ -34,9 +34,11 @@ func process_friendly(e: Entity, melee_c: MeleeComponent):
 	melee_c.cleanup_blockeds()
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	
-	if blockeds_ids and not melee_c.melee_slot_arrived:
+	if not melee_c.melee_slot_arrived:
 		go_melee_slot(e, melee_c)
-
+		return
+	
+	if blockeds_ids and blockeds_ids.size() >= melee_c.max_blocked:
 		return
 		
 	var targets: Array = friendly_find_enemies(e, melee_c)
@@ -51,13 +53,15 @@ func process_friendly(e: Entity, melee_c: MeleeComponent):
 			return
 		
 		var t_melee_c: MeleeComponent = t.get_c(CS.CN_MELEE)
+		var t_melee_slot: Vector2 = e.position + melee_c.melee_slot_offset
 		t_melee_c.blocker_id = e.id
 		blockeds_ids.append(t.id)
+		t.state = CS.STATE_MELEE
+		t_melee_c.set_melee_slot(t_melee_slot)
 		
 	var blocked: Entity = EntityDB.get_entity_by_id(blockeds_ids[0])
 	var blocked_melee_c: MeleeComponent = blocked.get_c(CS.CN_MELEE)
 	var melee_slot: Vector2 = blocked.position + blocked_melee_c.melee_slot_offset
-	blocked.state = CS.STATE_MELEE
 	e.state = CS.STATE_MELEE
 
 	melee_c.set_origin_pos(e.position)

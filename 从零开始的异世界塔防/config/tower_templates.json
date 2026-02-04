@@ -71,6 +71,7 @@
                 "block_min_range": 0,
                 "block_max_range": 90,
                 "motion_speed": 150,
+                "melee_slot_offset": "%vec2(0, 20)",
                 "attacks": [
                     {
                         "attack_type": "common",
