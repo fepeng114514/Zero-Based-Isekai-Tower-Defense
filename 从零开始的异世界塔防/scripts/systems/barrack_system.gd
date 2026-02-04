@@ -22,7 +22,7 @@ func on_update(delta: float) -> void:
 			continue
 			
 		var barrack_c: BarrackComponent = e.get_c(CS.CN_BARRACK)
-		barrack_c.clean_soldiers_list()
+		barrack_c.cleanup_soldiers()
 		
 		var soldiers_list: Array = barrack_c.soldiers_list
 		var soldier_count: int = soldiers_list.size()
@@ -48,13 +48,17 @@ func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
 		
 	var soldier: Entity = EntityDB.create_entity(barrack_c.soldier)
 	soldier.position = barrack.position
+	var rally_c: RallyComponent
 	
 	if not soldier.has_c(CS.CN_RALLY):
-		var rally_c: RallyComponent = soldier.add_c(CS.CN_RALLY)
+		rally_c = soldier.add_c(CS.CN_RALLY)
 		rally_c.can_click_rally = false
-		rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
 		rally_c.rally_radius = barrack_c.rally_radius
 		rally_c.speed = barrack_c.rally_speed
+	else:
+		rally_c = soldier.get_c(CS.CN_RALLY)
+		
+	rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
 		
 	if not barrack.on_respawn(barrack_c, soldier):
 		return soldier

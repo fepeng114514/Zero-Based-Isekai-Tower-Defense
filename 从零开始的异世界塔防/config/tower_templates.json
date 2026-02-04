@@ -56,7 +56,7 @@
         "base": "tower",
         "components": {
             "barrack": {
-                "max_soldiers": 3,
+                "max_soldiers": 1,
                 "nav_ranged": 150,
                 "respawn_time": 5,
                 "soldier": "soldier"
@@ -67,7 +67,10 @@
         "flags": "%const(FLAG_FRIENDLY)",
         "components": {
             "melee": {
-                "block_range": 30,
+                "max_blocked": 2,
+                "block_min_range": 0,
+                "block_max_range": 90,
+                "motion_speed": 150,
                 "attacks": [
                     {
                         "attack_type": "common",
@@ -79,6 +82,9 @@
             },
             "health": {
                 "hp_max": 200
+            },
+            "rally": {
+                "speed": 150
             }
         }
     },

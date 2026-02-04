@@ -100,12 +100,12 @@ func set_template_data(template_data: Dictionary) -> void:
 		
 		set(key, property)
 
-	var components = template_data.get("components")
-	if not components:
+	var t_components = template_data.get("components")
+	if not t_components:
 		return
 
-	for c_name in components.keys():
-		var override: Dictionary = components[c_name]
+	for c_name in t_components.keys():
+		var override: Dictionary = t_components[c_name]
 		var c_data: Dictionary = EntityDB.get_component_data(c_name)
 		
 		var data = merged_c_data(c_name, c_data, override, true)

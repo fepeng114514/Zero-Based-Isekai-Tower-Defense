@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc3v5b7ci4wxv"]
+[gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
 [ext_resource type="Script" uid="uid://bgy6wevjchyl6" path="res://scripts/entities/tower_barrack.gd" id="1_nawio"]
 
-[node name="TowerBarrack" type="Node2D"]
+[node name="TowerBarrack" type="Node2D" unique_id=383018069]
 script = ExtResource("1_nawio")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=596087881]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

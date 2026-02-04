@@ -5,10 +5,10 @@ var level_required_system: Array[String] = [
 	"spawner_system",
 	"modifier_system",
 	"health_system",
+	"melee_system",
 	"entity_system",
 	"barrack_system",
 	"rally_system",
 	"nav_path_system",
-	"melee_system",
 	"ranged_system"
 ]
