@@ -7,7 +7,9 @@ static func random_int(from: int, to: int) -> int:
 	return rng.randi_range(from, to)
 
 ## 判断点是否位于椭圆中
-static func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: float = 0.7) -> bool:
+static func is_in_ellipse(
+		p: Vector2, center: Vector2, radius: float, aspect: float = 0.7
+	) -> bool:
 	var a: float = radius
 	var b: float = radius * aspect
 	var dx: float = p.x - center.x
@@ -18,7 +20,13 @@ static func is_in_ellipse(p: Vector2, center: Vector2, radius: float, aspect: fl
 	return value <= 1
 
 ## 根据位于椭圆距离衰减的因子
-static func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: float, min_radius: float = 0, aspect: float = 0.7) -> float:
+static func dist_factor_inside_ellipse(
+		p: Vector2, 
+		center: Vector2, 
+		radius: float, 
+		min_radius: float = 0, 
+		aspect: float = 0.7
+	) -> float:
 	var angle: float = center.angle_to(p)
 	var a: float = radius
 	var b: float = radius * aspect
@@ -35,7 +43,9 @@ static func dist_factor_inside_ellipse(p: Vector2, center: Vector2, radius: floa
 	return clampf((v_len - me_len) / (e_len - me_len), 0, 1)
 
 ## 计算点位于的椭圆位置
-static func point_on_ellipse(p: Vector2, radius: float, angle: float = 0, aspect: float = 0.7):
+static func point_on_ellipse(
+		p: Vector2, radius: float, angle: float = 0, aspect: float = 0.7
+	) -> Vector2:
 	var a: float = radius
 	var b: float = radius * aspect
 	var x: float = p.x + a * cos(angle)
@@ -58,14 +68,18 @@ static func position_in_linear(speed: Vector2, from: Vector2, t: float) -> Vecto
 	return Vector2(x, y)
 	
 ## 根据距离与时间计算抛物线速度
-static func initial_parabola_speed(from: Vector2, to: Vector2, t: float, g: int) -> Vector2:
+static func initial_parabola_speed(
+		from: Vector2, to: Vector2, t: float, g: int
+	) -> Vector2:
 	var x: float = (to.x - from.x) / t
 	var y: float = (to.y - from.y - g * t * t / 2) / t
 	
 	return Vector2(x, y)
 	
 ## 根据时间与速度计算位于抛物线上的位置
-static func position_in_parabola(t: float, from: Vector2, speed: Vector2, g: int) -> Vector2:
+static func position_in_parabola(
+		t: float, from: Vector2, speed: Vector2, g: int
+	) -> Vector2:
 	var x: float = speed.x * t + from.x
 	var y: float = g * t * t / 2 + speed.y * t + from.y
 
@@ -127,22 +141,26 @@ static var type_handlers: Dictionary = {
 		return Vector2(float(parts[0]), float(parts[1])),
 	"rect2": func(val): 
 		var parts = val.split(",")
-		return Rect2(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3])),
+		return (
+			Rect2(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]))
+		),
 	"color": func(val):
 		var parts = val.split(",")
-		return Color(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3])),
+		return (
+			Color(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]))
+		),
 	"const": func(val):
 		var parts = val.split(",")
 		
 		if parts.size() == 1:
 			return constants.get(parts[0])
-		else:
-			var new_value: int = 0
+		
+		var new_value: int = 0
+		
+		for p in parts:
+			new_value &= p
 			
-			for p in parts:
-				new_value &= p
-				
-			return new_value
+		return new_value
 }
 
 ## 解析格式化字符串
@@ -207,7 +225,9 @@ static func deepclone(value):
 	return value
 
 ## 深合并字典, source 的键值会覆盖或合并到 target
-static func deepmerge_dict(target: Dictionary, source: Dictionary, overwrite: bool = true) -> void:
+static func deepmerge_dict(
+		target: Dictionary, source: Dictionary, overwrite: bool = true
+	) -> void:
 	for key in source:
 		var source_value = deepclone(source[key])
 		
@@ -223,13 +243,18 @@ static func deepmerge_dict(target: Dictionary, source: Dictionary, overwrite: bo
 		target[key] = source_value
 		
 ## 创建新字典并深合并字典, source 的键值会覆盖或合并到 target
-static func deepmerge_dict_new(target: Dictionary, source: Dictionary, overwrite: bool = true):
+static func deepmerge_dict_new(
+		target: Dictionary, source: Dictionary, overwrite: bool = true
+	) -> Dictionary:
 	var result = deepclone(target)
 	deepmerge_dict(result, source, overwrite)
 	return result
 
-## 浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func merge_array(target: Array, source: Array, overwrite: bool = true):
+## 浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
+## 如果 source 更长，多出的元素会追加到 target
+static func merge_array(
+		target: Array, source: Array, overwrite: bool = true
+	) -> void:
 	var target_size = target.size()
 	for i in range(source.size()):
 		var mv = source[i]
@@ -243,14 +268,20 @@ static func merge_array(target: Array, source: Array, overwrite: bool = true):
 		
 		target[i] = mv
 	
-## 创建新数组并浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func merge_array_new(target: Array, source: Array, overwrite: bool = true):
+## 创建新数组并浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引,
+## 如果 source 更长，多出的元素会追加到 target
+static func merge_array_new(
+		target: Array, source: Array, overwrite: bool = true
+	) -> Array:
 	var result = deepclone(target)
 	merge_array(result, source, overwrite)
 	return result
 		
-## 深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func deepmerge_array(target: Array, source: Array, overwrite: bool = true):
+## 深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
+## 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array(
+		target: Array, source: Array, overwrite: bool = true
+	) -> void:
 	var target_size = target.size()
 	for i in range(source.size()):
 		var mv = deepclone(source[i])
@@ -264,14 +295,19 @@ static func deepmerge_array(target: Array, source: Array, overwrite: bool = true
 		
 		target[i] = mv
 
-## 创建新数组并深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func deepmerge_array_new(target: Array, source: Array, overwrite: bool = true):
+## 创建新数组并深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
+## 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array_new(
+		target: Array, source: Array, overwrite: bool = true
+	) -> Array:
 	var result = deepclone(target)
 	deepmerge_array(result, source, overwrite)
 	return result
 	
 ## 递归浅合并字典, source 的键值会覆盖或合并到 target
-static func merge_dict_recursive(target: Dictionary, source: Dictionary, overwrite: bool = true) -> void:
+static func merge_dict_recursive(
+		target: Dictionary, source: Dictionary, overwrite: bool = true
+	) -> void:
 	for key in source:
 		var source_value = source[key]
 		
@@ -299,13 +335,17 @@ static func merge_dict_recursive(target: Dictionary, source: Dictionary, overwri
 		target[key] = source_value
 		
 ## 创建新字典并递归浅合并两个字典, source 的键值会覆盖或合并到 target
-static func merge_dict_recursive_new(target: Dictionary, source: Dictionary, overwrite: bool = true) -> Dictionary:
+static func merge_dict_recursive_new(
+		target: Dictionary, source: Dictionary, overwrite: bool = true
+	) -> Dictionary:
 	var result = deepclone(target)
 	merge_dict_recursive(result, source, overwrite)
 	return result
 
 ## 递归深合并字典, source 的键值会覆盖或合并到 target
-static func deepmerge_dict_recursive(target: Dictionary, source: Dictionary, overwrite: bool = true) -> void:
+static func deepmerge_dict_recursive(
+		target: Dictionary, source: Dictionary, overwrite: bool = true
+	) -> void:
 	for key in source:
 		var source_value = deepclone(source[key])
 		
@@ -333,13 +373,18 @@ static func deepmerge_dict_recursive(target: Dictionary, source: Dictionary, ove
 		target[key] = source_value
 		
 ## 创建新字典并递归深合并两个字典, source 的键值会覆盖或合并到 target
-static func deepmerge_dict_recursive_new(target: Dictionary, source: Dictionary, overwrite: bool = true) -> Dictionary:
+static func deepmerge_dict_recursive_new(
+		target: Dictionary, source: Dictionary, overwrite: bool = true
+	) -> Dictionary:
 	var result = deepclone(target)
 	deepmerge_dict_recursive(result, source, overwrite)
 	return result
 
-## 递归浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func merge_array_recursive(target: Array, source: Array, overwrite: bool = true) -> void:
+## 递归浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
+## 如果 source 更长，多出的元素会追加到 target
+static func merge_array_recursive(
+		target: Array, source: Array, overwrite: bool = true
+	) -> void:
 	for i in range(source.size()):
 		var source_value = source[i]
 		
@@ -366,14 +411,20 @@ static func merge_array_recursive(target: Array, source: Array, overwrite: bool 
 		# 其他类型：source 覆盖 target
 		target[i] = source_value
 
-## 创建新数组并递归浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func merge_array_recursive_new(target: Array, source: Array, overwrite: bool = true) -> Array:
+## 创建新数组并递归浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 
+## 如果 source 更长，多出的元素会追加到 target
+static func merge_array_recursive_new(
+		target: Array, source: Array, overwrite: bool = true
+	) -> Array:
 	var result = deepclone(target)
 	merge_array_recursive(result, source, overwrite)
 	return result
 	
-## 递归深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func deepmerge_array_recursive(target: Array, source: Array, overwrite: bool = true) -> void:
+## 递归深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
+## 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array_recursive(
+		target: Array, source: Array, overwrite: bool = true
+	) -> void:
 	for i in range(source.size()):
 		var source_value = deepclone(source[i])
 		
@@ -400,19 +451,26 @@ static func deepmerge_array_recursive(target: Array, source: Array, overwrite: b
 		# 其他类型：source 覆盖 target
 		target[i] = source_value
 
-## 创建新数组并递归深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target
-static func deepmerge_array_recursive_new(target: Array, source: Array, overwrite: bool = true) -> Array:
+## 创建新数组并递归深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 
+## 如果 source 更长，多出的元素会追加到 target
+static func deepmerge_array_recursive_new(
+		target: Array, source: Array, overwrite: bool = true
+	) -> Array:
 	var result = deepclone(target)
 	deepmerge_array_recursive(result, source, overwrite)
 	return result
 
-static func attacks_sort_fn(a1, a2):
+static func attacks_sort_fn(a1, a2) -> bool:
 	var a1_chance: float = a1.chance
 	var a2_chance: float = a2.chance
 	var a1_cooldown: float = a1.cooldown
 	var a2_cooldown: float = a2.cooldown
 	
-	return (a1_chance != a2_chance and a1_chance < a2_chance) or (a1_cooldown != a2_cooldown and a1_cooldown > a2_cooldown)
+	return (
+		(a1_chance != a2_chance and a1_chance < a2_chance)
+		or (a1_cooldown != a2_cooldown and a1_cooldown > a2_cooldown)
+	)
 
-static func is_vaild_entity(e):
+## 判断实体是否有效
+static func is_vaild_entity(e) -> bool:
 	return is_instance_valid(e) and not e.removed

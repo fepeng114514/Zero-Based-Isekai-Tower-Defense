@@ -41,10 +41,7 @@ func on_update(delta) -> void:
 			
 		take_damage(target, d, health_c)
 
-	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_HEALTH):
-			continue
-			
+	for e in EntityDB.get_entities_by_group(CS.CN_HEALTH):
 		var health_c = e.get_c(CS.CN_HEALTH)
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()

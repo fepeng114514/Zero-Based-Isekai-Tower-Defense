@@ -21,10 +21,7 @@ func on_insert(e: Entity):
 	return true
 
 func on_update(delta: float) -> void:
-	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_NAV_PATH):
-			continue
-			
+	for e in EntityDB.get_entities_by_group(CS.CN_NAV_PATH):
 		var state: int = e.state
 			
 		if e.waitting or not state & CS.STATE_IDLE:

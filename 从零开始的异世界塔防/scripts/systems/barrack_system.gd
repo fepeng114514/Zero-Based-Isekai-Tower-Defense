@@ -17,10 +17,7 @@ func on_insert(e: Entity) -> bool:
 	return true
 	
 func on_update(delta: float) -> void:
-	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_BARRACK):
-			continue
-			
+	for e in EntityDB.get_entities_by_group(CS.CN_BARRACK):
 		var barrack_c: BarrackComponent = e.get_c(CS.CN_BARRACK)
 		barrack_c.cleanup_soldiers()
 		

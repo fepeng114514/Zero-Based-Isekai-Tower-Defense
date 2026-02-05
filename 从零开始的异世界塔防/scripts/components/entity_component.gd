@@ -52,6 +52,21 @@ func on_eat(health_c: HealthComponent, d: Entity) -> void: pass
 # 兵营生成士兵时调用，返回 false 不生成士兵
 func on_respawn(barrack_c: BarrackComponent, soldier: Entity) -> bool: return true
 
+func is_enemy() -> bool:
+	return flags & CS.FLAG_ENEMY
+
+func is_friendly() -> bool:
+	return flags & CS.FLAG_FRIENDLY
+
+func is_tower() -> bool:
+	return flags & CS.FLAG_TOWER
+
+func is_modifier() -> bool:
+	return flags & CS.FLAG_MODIFIER
+	
+func is_aura() -> bool:
+	return flags & CS.FLAG_AURA
+
 func get_c(c_name: String):
 	return has_components.get(c_name)
 

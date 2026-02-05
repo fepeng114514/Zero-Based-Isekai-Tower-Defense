@@ -38,6 +38,7 @@ func _process(delta: float) -> void:
 	
 	call_deferred("_process_remove_queue")
 	call_deferred("_process_insert_queue")
+	call_deferred("_process_grouping_entities")
 
 func _process_remove_queue() -> void:	
 	while remove_queue:
@@ -54,6 +55,43 @@ func _process_insert_queue() -> void:
 		EntityDB.insert(e)
 		
 		e.visible = true
+
+func _process_grouping_entities() -> void:
+	var new_entities_groups: Dictionary[String, Array] = {
+		"enemies": [],
+		"friendlys": [],
+		"towers": [],
+		"modifiers": [],
+		"auras": [],
+	}
+	var new_entities_groups_with_components: Dictionary[String, Array] = {}
+	
+	for e in EntityDB.entities:
+		if not Utils.is_vaild_entity(e):
+			continue
+
+		if e.is_enemy():
+			new_entities_groups[CS.GROUP_ENEMIES].append(e)
+		if e.is_friendly():
+			new_entities_groups[CS.GROUP_FRIENDLYS].append(e)
+		if e.is_tower():
+			new_entities_groups[CS.GROUP_TOWERS].append(e)
+		if e.is_modifier():
+			new_entities_groups[CS.GROUP_MODIFIERS].append(e)
+		if e.is_aura():
+			new_entities_groups[CS.GROUP_AURAS].append(e)
+
+		for c_name: String in e.has_components.keys():
+			if not new_entities_groups_with_components.has(c_name):
+				new_entities_groups_with_components[c_name] = []
+
+			if not e.has_c(c_name):
+				continue
+
+			new_entities_groups_with_components[c_name].append(e)
+
+	EntityDB.entities_groups = new_entities_groups
+	EntityDB.entities_groups_with_components = new_entities_groups_with_components
 
 func process_systems(fn_name, arg) -> bool:
 	for system: System in systems:

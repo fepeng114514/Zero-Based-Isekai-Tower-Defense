@@ -2,10 +2,7 @@ extends System
 class_name RallySystem
 
 func on_update(delta: float) -> void:
-	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_RALLY):
-			continue
-			
+	for e in EntityDB.get_entities_by_group(CS.CN_RALLY):
 		var state: int = e.state
 			
 		if e.waitting or not state & CS.STATE_IDLE:

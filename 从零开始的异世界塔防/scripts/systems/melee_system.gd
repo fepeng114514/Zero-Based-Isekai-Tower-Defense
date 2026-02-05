@@ -16,10 +16,7 @@ func on_insert(e: Entity) -> bool:
 	return true
 
 func on_update(delta: float) -> void:
-	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e) or not e.has_c(CS.CN_MELEE):
-			continue
-			
+	for e in EntityDB.get_entities_by_group(CS.CN_MELEE):
 		var state: int = e.state
 			
 		if e.waitting or not state & (CS.STATE_IDLE | CS.STATE_MELEE):
@@ -75,7 +72,10 @@ func friendly_find_enemies(e: Entity, melee_c: MeleeComponent):
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	
 	var filter = func(entity, origin): return entity.has_c(CS.CN_MELEE) and not entity.id in melee_c.blockeds_ids
-	var targets = EntityDB.search_targets_in_range(melee_c.search_mode, e.position, melee_c.block_min_range, melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans, filter)	
+	var targets = EntityDB.search_targets_in_range(
+		melee_c.search_mode, e.position, melee_c.block_min_range, 
+		melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans, filter
+	)	
 	
 	for t in targets:
 		if blockeds_ids.size() >= melee_c.max_blocked:
@@ -144,7 +144,7 @@ func do_attacks(e: Entity, melee_c: MeleeComponent):
 	var blocked_id: int = melee_c.blockeds_ids[0]
 	var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
 	for a: Dictionary in melee_c.order:
-		if not TM.is_ready_time(a.ts, a.cooldown) or (a.bans & blocked.flags or a.flags & blocked.bans):
+		if not can_attack(a, blocked):
 			continue
 			
 		attack(e, a, melee_c, blocked)
