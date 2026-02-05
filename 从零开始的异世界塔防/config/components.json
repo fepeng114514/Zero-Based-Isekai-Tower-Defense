@@ -8,15 +8,18 @@
 		"components": {},
 		"bans": "%int(0)",
 		"flags": "%int(0)",
+		"insert_ts": 0,
 		"ts": 0,
+		"duration": 0,
 		"waitting": false,
 		"removed": false,
 		"mod_bans": "%int(0)",
 		"mod_type_bans": "%int(0)",
-		"has_mods": {},
+		"has_mods_ids": [],
 		"hit_rect": "%rect2(1, 1, 1, 1)",
 		"state": "%const(STATE_IDLE)",
-		"level": 1
+		"level": 1,
+		"track_source": false
 	},
 	"hero": {},
 	"tower": {

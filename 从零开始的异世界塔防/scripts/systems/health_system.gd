@@ -1,6 +1,6 @@
 extends System
 
-func _on_create(e: Entity) -> bool:
+func _on_ready_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_HEALTH):
 		return true
 

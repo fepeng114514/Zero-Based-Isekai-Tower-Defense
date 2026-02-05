@@ -30,8 +30,8 @@ func _on_update(delta: float) -> void:
 
 		walk_step(e, nav_path_c)
 		
-		if nav_path_c.progress_ratio >= 1.0:
-			e._on_arrived_end(nav_path_c)
+		if nav_path_c.progress_ratio >= 1:
+			get_end(e, nav_path_c)
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent):
 	nav_path_c.progress_ratio += nav_path_c.calculate_progress_ratio()
@@ -40,5 +40,5 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent):
 	e._on_path_walk(nav_path_c)
 
 func get_end(e: Entity, nav_path_c: NavPathComponent):
-	e.on_get_end(nav_path_c)
+	e._on_arrived_end(nav_path_c)
 	EntityDB.remove_entity(e)

@@ -9,24 +9,36 @@ var has_components: Dictionary = {}
 var components: Dictionary = {}
 var bans: int = 0
 var flags: int = 0
+var insert_ts: float = 0
 var ts: float = 0
+var duration: float = -1
 var waitting: bool = false
 var removed: bool = false
 var mod_bans: int = 0
 var mod_type_bans: int = 0
-var has_mods: Dictionary = {}
+var has_mods_ids: Array[int] = []
 var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 var state: int = CS.STATE_IDLE
 var level: int = 1
+var track_source: bool = false
 
-## 创建实体时调用，返回 false 的实体跳过创建
-func _on_create() -> bool: return true
+## 准备插入实体时调用（创建实体），返回 false 的实体不会被创建
+## [br]
+## 注：此时节点还未初始化
+func _on_ready_insert() -> bool: return true
 
-## 插入实体时调用，返回 false 的实体将会在调用完毕后移除
+## 正式插入实体时调用，返回 false 的实体将会被移除
+## [br]
+## 注：此时节点已准备完毕
 func _on_insert() -> bool: return true
 	
-## 移除实体时调用，返回 false 的实体将不会被移除
-func _on_remove() -> bool: return true
+## 准备移除实体时调用，返回 false 的实体将不会被移除
+## [br]
+## 注：此时进入移除队列
+func _on_ready_remove() -> bool: return true
+
+## 正式移除实体时调用
+func _on_remove() -> void: pass
 	
 ## 实体更新时调用
 func _on_update(delta: float) -> void: pass
@@ -150,3 +162,14 @@ func y_wait(time: float = 0, break_fn = null):
 	waitting = true
 	await TM.y_wait(time, break_fn)
 	waitting = false
+
+func cleanup_has_mods():
+	var new_has_mods_ids: Array[int] = []
+	
+	for mod_id in has_mods_ids:
+		if not is_instance_valid(EntityDB.get_entity_by_id(mod_id)):
+			continue 
+			
+		new_has_mods_ids.append(id)
+		
+	has_mods_ids = new_has_mods_ids

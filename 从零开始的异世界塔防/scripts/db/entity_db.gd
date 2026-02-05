@@ -15,7 +15,7 @@ var type_groups: Dictionary[String, Array] = {
 }
 var component_groups: Dictionary[String, Array] = {}
 var entities: Array = []
-var _dirty_entities_id: Array[int] = []
+var _dirty_entities_ids: Array[int] = []
 var last_id: int = 0
 
 func _ready() -> void:
@@ -55,7 +55,7 @@ func clean():
 	}
 	component_groups = {}
 	entities = []
-	_dirty_entities_id = []
+	_dirty_entities_ids = []
 	last_id = 0
 	
 	_ready()
@@ -70,10 +70,10 @@ func get_entities_by_group(group_name: String) -> Array:
 	return []
 	
 func mark_entity_dirty_id(id: int) -> void:
-	if _dirty_entities_id.has(id):
+	if _dirty_entities_ids.has(id):
 		return
 		
-	_dirty_entities_id.append(id)
+	_dirty_entities_ids.append(id)
 
 func create_entity(t_name: String) -> Entity:
 	var t = get_templates_scenes(t_name)
@@ -98,7 +98,7 @@ func create_entity(t_name: String) -> Entity:
 	e.name = t_name
 	e.visible = false
 	
-	if not SystemManager.process_systems("_on_create", e):
+	if not SystemManager.process_systems("_on_ready_insert", e):
 		return e
 
 	create_entity_s.emit(e)
@@ -131,20 +131,16 @@ func create_damage(
 	return d
 	
 func insert_entity(e: Entity) -> void:
-	var insert_queue: Array = SystemManager.insert_queue
-	insert_queue.append(e)
-	
-	if not SystemManager.process_systems("_on_insert", e):
-		insert_queue.pop_back()
+	SystemManager.insert_queue.append(e)
 
 func remove_entity(e: Entity) -> void:
-	if not SystemManager.process_systems("_on_remove", e):
+	if not SystemManager.process_systems("_on_ready_remove", e):
 		return
 
 	SystemManager.remove_queue.append(e)
 	e.removed = true
 	e.visible = false
-	print("移除实体： %s（%d）" % [e.template_name, e.id])
+	print("移除实体： %s(%d)" % [e.template_name, e.id])
 
 func get_entity_by_id(id: int):
 	return entities[id]

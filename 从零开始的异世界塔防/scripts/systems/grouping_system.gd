@@ -1,8 +1,8 @@
 extends System
 
 func _on_update(delta: float) -> void:
-	var dirty_entities_id: Array[int] = EntityDB._dirty_entities_id
-	if dirty_entities_id.is_empty():
+	var dirty_entities_ids: Array[int] = EntityDB._dirty_entities_ids
+	if dirty_entities_ids.is_empty():
 		return
 		
 	var type_groups: Dictionary[String, Array] = EntityDB.type_groups
@@ -36,4 +36,4 @@ func _on_update(delta: float) -> void:
 
 			component_groups[c_name].append(e)
 			
-	dirty_entities_id.clear()
+	dirty_entities_ids.clear()

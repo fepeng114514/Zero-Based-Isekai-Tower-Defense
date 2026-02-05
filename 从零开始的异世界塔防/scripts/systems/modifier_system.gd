@@ -9,50 +9,67 @@ func _on_insert(e: Entity) -> bool:
 	if not is_instance_valid(target):
 		return false
 
-	# 检查是否被禁止
-	if e.bans & target.flags or target.mod_bans & e.flags:
+	# 检查是否被目标禁止
+	if e.bans & target.flags or e.flags & target.mod_bans:
 		return false
 
-	var t_has_mods: Dictionary = target.has_mods
-	var same_target_mods: Array = []
-	var m_component: MeleeComponent = e.get_c(CS.CN_MODIFIER)
+	var t_has_mods_ids: Array[int] = target.has_mods_ids
+	var same_target_mods: Array[Entity] = []
+	var mod_c: MeleeComponent = e.get_c(CS.CN_MODIFIER)
 
-	for mod_idx in t_has_mods:
-		var other_m: Entity = t_has_mods[mod_idx]
-		same_target_mods.append(other_m)
-
+	for mod_id: int in t_has_mods_ids:
+		var other_m: Entity = EntityDB.get_entity_by_id(mod_id)
+		var other_mod_c: ModifierComponent = other_m.get_c(CS.CN_MODIFIER)
+		
 		# 检查是否被其他效果禁止
-		if other_m.mod_bans & e.flags or other_m.mod_type_bans & m_component.mod_type:
+		if other_m.mod_bans & e.flags or other_m.mod_type_bans & mod_c.mod_type:
 			return false
-
-		# 处理相同效果
-		if other_m.template_name != e.template_name:
-			return true
 			
-		# 重置时间戳
-		if m_component.reset_same:
-			other_m.ts = TM.tick_ts
-			return false
-		# 替换
-		if m_component.replace_same:
+		# 检查是否被当前效果禁止
+		if e.mod_bans & other_m.flags or e.mod_type_bans & other_mod_c.mod_type:
 			EntityDB.remove_entity(other_m)
-			return true
-		# 叠加
-		if not m_component.allow_same:
-			return false
+			continue
+		
+		if other_m.template_name == e.template_name:
+			same_target_mods.append(other_m)
+			
+	if not same_target_mods:
+		t_has_mods_ids.append(e.id)
+		return true
+		
+	## 处理相同效果
+	# 按照等级降序排序
+	same_target_mods.sort_custom(func(m1: Entity, m2: Entity): return m1.level > m2.level)
+	var min_level_mod: Entity = same_target_mods[-1]
+	var max_level_mod: Entity = same_target_mods[0]
+		
+	# 重置时间戳，优先重置等级最高的
+	if mod_c.reset_same:
+		max_level_mod.ts = TM.tick_ts
+		return false
+	# 替换，优先替换等级最低的
+	if mod_c.replace_same:
+		EntityDB.remove_entity(min_level_mod)
+		t_has_mods_ids.append(e.id)
+		return true
+	# 叠加持续时间，优先与最高等级叠加
+	if mod_c.overlay_duration_same:
+		max_level_mod.ts -= e.duration
+		return false
+	# 叠加
+	if not mod_c.allow_same:
+		return false
 
-	t_has_mods[e.id] = e
+	t_has_mods_ids.append(e.id)
 	return true
 
-func _on_remove(e: Entity) -> bool:
+func _on_remove(e: Entity) -> void:
 	if not e.has_c(CS.CN_MODIFIER):
-		return true
+		return
 	
 	var target = EntityDB.get_entity_by_id(e.target_id)
 
 	if not is_instance_valid(target):
-		return true
+		return
 
-	target.has_mods.erase(e.id)
-	
-	return true
+	target.has_mods_ids.erase(e.id)

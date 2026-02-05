@@ -40,9 +40,9 @@ func _process(delta: float) -> void:
 
 func _process_remove_queue() -> void:	
 	while remove_queue:
-		var e = remove_queue.pop_front()
-		if not is_instance_valid(e):
-			continue
+		var e: Entity = remove_queue.pop_front()
+		
+		process_systems("_on_remove", e)
 			
 		EntityDB.mark_entity_dirty_id(e.id)
 		e.free()
@@ -56,6 +56,10 @@ func _process_insert_queue() -> void:
 			var entities_len: int = entities.size()
 			if e.id != entities_len:
 				push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
+		
+		if not process_systems("_on_insert", e):
+			EntityDB.remove_entity(e)
+			continue
 		
 		entities.append(e)
 		EntityDB.mark_entity_dirty_id(e.id)
