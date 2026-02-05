@@ -35,6 +35,6 @@ func on_update(delta: float) -> void:
 	for t in targets:
 		var damage_factor = Utils.dist_factor_inside_ellipse(t.position, position, B.min_damage_radius, B.max_damage_radius)
 		
-		EntityDB.create_damage(t.id, B.min_damage, B.max_damage, source_id, damage_factor)
+		EntityDB.create_damage(t.id, B.min_damage, B.max_damage, B.damage_type, B.source_id, damage_factor)
 	
 	EntityDB.remove_entity(self)

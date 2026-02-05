@@ -69,7 +69,7 @@ func take_damage(target: Entity, d: Entity, health_c: HealthComponent):
 		EntityDB.remove_entity(target)
 		
 func predict_damage(d: Entity, health_c: HealthComponent):
-	var protection: float = 1 * health_c.damage_reduction
+	var protection: float = health_c.damage_reduction
 	var damage_type = d.damage_type
 		
 	if damage_type & CS.DAMAGE_DISINTEGRATE:

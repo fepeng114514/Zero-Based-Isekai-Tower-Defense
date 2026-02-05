@@ -103,12 +103,13 @@ func create_entity(t_name: String) -> Entity:
 		
 	return e
 
-func create_damage(target_id: int, min_damage: int, max_damage: int, source_id: int = -1, damage_factor: float = 1) -> Damage:
+func create_damage(target_id: int, min_damage: int, max_damage: int, damage_type: int = CS.DAMAGE_PHYSICAL, source_id: int = -1, damage_factor: float = 1) -> Damage:
 	var d_name: String = "damage"
 	var d: Entity = Damage.new()
 	
 	d.target_id = target_id
 	d.source_id = source_id
+	d.damage_type = damage_type
 	d.value = Utils.random_int(min_damage, max_damage)
 	d.damage_factor = damage_factor
 	d.template_name = d_name

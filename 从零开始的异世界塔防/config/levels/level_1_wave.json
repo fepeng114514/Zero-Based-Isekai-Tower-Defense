@@ -7,7 +7,7 @@
                 "delay": 1,
                 "spawns": [
                     {
-                        "interval": 0.1,
+                        "interval": 0.3,
                         "name": "enemy_goblin",
                         "count": 15,
                         "next_interval": 1

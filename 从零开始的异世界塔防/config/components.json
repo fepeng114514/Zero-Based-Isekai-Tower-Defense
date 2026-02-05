@@ -102,7 +102,7 @@
 				"max_damage": 0,
 				"cooldown": 0,
 				"mod": "",
-				"damage_type": "%int(0)",
+				"damage_type": "%const(DAMAGE_PHYSICAL)",
 				"ts": 0,
 				"animation": "",
 				"chance": 1,

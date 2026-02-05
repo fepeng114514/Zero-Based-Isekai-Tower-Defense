@@ -37,7 +37,7 @@ func sort_attacks() -> void:
 ## 清理无效被拦截
 func cleanup_blockeds() -> void:
 	# 快速检查是否存在无效拦截
-	if blockeds_ids.any(func(id): return not is_instance_valid(EntityDB.get_entity_by_id(id))):
+	if not blockeds_ids.any(func(id): return not is_instance_valid(EntityDB.get_entity_by_id(id))):
 		return
 		
 	var new_blockeds_ids: Array = []

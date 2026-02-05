@@ -125,7 +125,7 @@ func merge_base_template(template_data: Dictionary, base: String):
 		
 	Utils.deepmerge_dict_recursive(template_data, base_data)
 	
-func y_wait(time: float, break_fn = null):
+func y_wait(time: float = 0, break_fn = null):
 	waitting = true
 	await TM.y_wait(time, break_fn)
 	waitting = false

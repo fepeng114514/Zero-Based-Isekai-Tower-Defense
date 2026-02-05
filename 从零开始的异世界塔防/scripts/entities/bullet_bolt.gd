@@ -27,5 +27,5 @@ func on_update(delta: float) -> void:
 	if not B.hit_rect.has_point(B.to - position):
 		return
 		
-	EntityDB.create_damage(target_id, B.min_damage, B.max_damage, source_id)
+	EntityDB.create_damage(target_id, B.min_damage, B.max_damage, B.damage_type, B.source_id)
 	EntityDB.remove_entity(self)
