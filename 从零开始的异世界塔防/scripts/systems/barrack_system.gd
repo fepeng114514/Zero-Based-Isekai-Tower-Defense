@@ -1,7 +1,6 @@
 extends System
-class_name BarrackSystem
 
-func on_insert(e: Entity) -> bool:
+func _on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_BARRACK):
 		return true
 				
@@ -16,7 +15,7 @@ func on_insert(e: Entity) -> bool:
 		
 	return true
 	
-func on_update(delta: float) -> void:
+func _on_update(delta: float) -> void:
 	for e in EntityDB.get_entities_by_group(CS.CN_BARRACK):
 		var barrack_c: BarrackComponent = e.get_c(CS.CN_BARRACK)
 		barrack_c.cleanup_soldiers()
@@ -57,7 +56,7 @@ func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
 		
 	rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
 		
-	if not barrack.on_respawn(barrack_c, soldier):
+	if not barrack._on_barrack_respawn(barrack_c, soldier):
 		return soldier
 	
 	EntityDB.insert_entity(soldier)

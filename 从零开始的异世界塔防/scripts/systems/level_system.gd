@@ -1,7 +1,6 @@
 extends System
-class_name LevelSystem
 
-func init() -> void:
+func _initialize() -> void:
 	var current_level_data = LevelManager.levels_data[GlobalStore.level_idx]
 	create_level_entities(current_level_data)
 	# create_level_tower_holders(current_level_data)

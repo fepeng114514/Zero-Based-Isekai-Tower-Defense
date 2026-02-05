@@ -1,7 +1,6 @@
 extends System
-class_name RangedSystem
 
-func on_insert(e: Entity) -> bool:
+func _on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_RANGED):
 		return true
 		
@@ -10,7 +9,7 @@ func on_insert(e: Entity) -> bool:
 
 	return true
 
-func on_update(delta: float) -> void:
+func _on_update(delta: float) -> void:
 	for e in EntityDB.get_entities_by_group(CS.CN_RANGED):
 		var state: int = e.state
 			

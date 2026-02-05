@@ -3,7 +3,7 @@ extends Entity
 @onready var B = CS.CN_BULLET
 var target
 
-func on_insert() -> bool:
+func _on_insert() -> bool:
 	target = EntityDB.get_entity_by_id(target_id)
 	
 	if not is_instance_valid(target):
@@ -23,7 +23,7 @@ func on_insert() -> bool:
 	ts = TM.tick_ts
 	return true
 
-func on_update(delta: float) -> void:
+func _on_update(delta: float) -> void:
 	position = Utils.position_in_parabola(TM.get_time(ts), B.from, B.speed, B.g)
 	rotation += B.rotation_speed * delta
 	

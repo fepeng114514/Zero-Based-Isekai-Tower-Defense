@@ -1,7 +1,6 @@
 extends System
-class_name ModifierSystem
 
-func on_insert(e: Entity) -> bool:
+func _on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_MODIFIER):
 		return true
 
@@ -27,22 +26,25 @@ func on_insert(e: Entity) -> bool:
 			return false
 
 		# 处理相同效果
-		if other_m.template_name == e.template_name:
-			# 重置时间戳
-			if m_component.reset_same:
-				other_m.ts = TM.tick_ts
-				return false
-			# 替换
-			elif m_component.replace_same:
-				EntityDB.remove_entity(other_m)
-			# 叠加
-			elif not m_component.allow_same:
-				return false
+		if other_m.template_name != e.template_name:
+			return true
+			
+		# 重置时间戳
+		if m_component.reset_same:
+			other_m.ts = TM.tick_ts
+			return false
+		# 替换
+		if m_component.replace_same:
+			EntityDB.remove_entity(other_m)
+			return true
+		# 叠加
+		if not m_component.allow_same:
+			return false
 
 	t_has_mods[e.id] = e
 	return true
 
-func on_remove(e: Entity) -> bool:
+func _on_remove(e: Entity) -> bool:
 	if not e.has_c(CS.CN_MODIFIER):
 		return true
 	

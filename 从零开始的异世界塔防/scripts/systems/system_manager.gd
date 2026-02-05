@@ -28,70 +28,40 @@ func set_required_systems(required_systems_name: Array) -> void:
 	systems = required_systems
 	
 	for system: System in systems:
-		system.init()
+		system._initialize()
 
 func _process(delta: float) -> void:
-	# 待优化，每个系统重复遍历所有实体
 	for system: System in systems:
-		var system_func = system.get("on_update")
+		var system_func = system.get("_on_update")
 		system_func.call(delta)
 	
 	call_deferred("_process_remove_queue")
 	call_deferred("_process_insert_queue")
-	call_deferred("_process_grouping_entities")
 
 func _process_remove_queue() -> void:	
 	while remove_queue:
 		var e = remove_queue.pop_front()
 		if not is_instance_valid(e):
 			continue
-		
+			
+		EntityDB.mark_entity_dirty_id(e.id)
 		e.free()
 
 func _process_insert_queue() -> void:
+	var entities: Array = EntityDB.entities
 	while insert_queue:
 		var e: Entity = insert_queue.pop_front()
+	
+		if entities:
+			var entities_len: int = entities.size()
+			if e.id != entities_len:
+				push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
 		
-		EntityDB.insert(e)
+		entities.append(e)
+		EntityDB.mark_entity_dirty_id(e.id)
+		#print("插入实体: %s（%d）" % [e.template_name, e.id])
 		
 		e.visible = true
-
-func _process_grouping_entities() -> void:
-	var new_entities_groups: Dictionary[String, Array] = {
-		"enemies": [],
-		"friendlys": [],
-		"towers": [],
-		"modifiers": [],
-		"auras": [],
-	}
-	var new_entities_groups_with_components: Dictionary[String, Array] = {}
-	
-	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e):
-			continue
-
-		if e.is_enemy():
-			new_entities_groups[CS.GROUP_ENEMIES].append(e)
-		if e.is_friendly():
-			new_entities_groups[CS.GROUP_FRIENDLYS].append(e)
-		if e.is_tower():
-			new_entities_groups[CS.GROUP_TOWERS].append(e)
-		if e.is_modifier():
-			new_entities_groups[CS.GROUP_MODIFIERS].append(e)
-		if e.is_aura():
-			new_entities_groups[CS.GROUP_AURAS].append(e)
-
-		for c_name: String in e.has_components.keys():
-			if not new_entities_groups_with_components.has(c_name):
-				new_entities_groups_with_components[c_name] = []
-
-			if not e.has_c(c_name):
-				continue
-
-			new_entities_groups_with_components[c_name].append(e)
-
-	EntityDB.entities_groups = new_entities_groups
-	EntityDB.entities_groups_with_components = new_entities_groups_with_components
 
 func process_systems(fn_name, arg) -> bool:
 	for system: System in systems:

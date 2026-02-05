@@ -1,7 +1,7 @@
 extends Entity
 var waves_data: Array = LevelManager.waves_data[GlobalStore.level_idx]
 
-func spawner() -> void:
+func _spawner() -> void:
 	for wave_idx: int in range(waves_data.size()):
 		var wave: Dictionary = waves_data[wave_idx - 1]
 		

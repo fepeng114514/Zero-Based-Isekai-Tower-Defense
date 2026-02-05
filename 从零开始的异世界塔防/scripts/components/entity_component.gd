@@ -19,38 +19,44 @@ var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 var state: int = CS.STATE_IDLE
 var level: int = 1
 
-# 创建实体时调用，返回 false 的实体跳过创建
-func on_create() -> bool: return true
+## 创建实体时调用，返回 false 的实体跳过创建
+func _on_create() -> bool: return true
 
-# 插入实体时调用，返回 false 的实体将会在调用完毕后移除
-func on_insert() -> bool: return true
+## 插入实体时调用，返回 false 的实体将会在调用完毕后移除
+func _on_insert() -> bool: return true
 	
-# 移除实体时调用，返回 false 的实体将不会被移除
-func on_remove() -> bool: return true
+## 移除实体时调用，返回 false 的实体将不会被移除
+func _on_remove() -> bool: return true
 	
-# 实体更新时调用
-func on_update(delta: float) -> void: pass
+## 实体更新时调用
+func _on_update(delta: float) -> void: pass
 	
-# 实体在路径行走时调用
-func on_path_walk(nav_path_c: NavPathComponent) -> void: pass
+## 实体在路径行走时调用
+func _on_path_walk(nav_path_c: NavPathComponent) -> void: pass
 
-# 实体往集结点行走时调用
-func on_rally_walk(rally_c: RallyComponent) -> void: pass
+## 实体往集结点行走时调用
+func _on_rally_walk(rally_c: RallyComponent) -> void: pass
 
-# 实体到达终点时调用
-func on_get_end(nav_path_c: NavPathComponent) -> void: pass
+## 实体到达路径终点时调用
+func _on_arrived_end(nav_path_c: NavPathComponent) -> void: pass
+
+## 实体到达集结点时调用
+func _on_arrived_rally(rally_c: RallyComponent) -> void: pass
 	
-# 实体受到攻击时调用
-func on_damage(health_c: HealthComponent, d: Entity) -> void: pass
+## 实体受到攻击时调用
+func _on_damage(target: Entity, d: Damage) -> void: pass
 	
-# 实体死亡时调用
-func on_dead(health_c: HealthComponent, d: Entity) -> void: pass
+## 实体死亡时调用
+func _on_dead(target: Entity, d: Damage) -> void: pass
 	
-# 实体被吃时调用
-func on_eat(health_c: HealthComponent, d: Entity) -> void: pass
+## 实体被吃时调用
+func _on_eat(target: Entity, d: Damage) -> void: pass
 	
-# 兵营生成士兵时调用，返回 false 不生成士兵
-func on_respawn(barrack_c: BarrackComponent, soldier: Entity) -> bool: return true
+## 杀死其他实体时调用
+func _on_kill(target: Entity, d: Damage) -> void: pass
+	
+## 兵营生成士兵时调用，返回 false 不生成士兵
+func _on_barrack_respawn(barrack_c: BarrackComponent, soldier: Entity) -> bool: return true
 
 func is_enemy() -> bool:
 	return flags & CS.FLAG_ENEMY

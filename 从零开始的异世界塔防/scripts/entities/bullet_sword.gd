@@ -12,7 +12,7 @@ var is_to_predict: bool = true
 var has_to_predict: bool = false
 var has_init_fall: bool = false
 
-func on_insert() -> bool:
+func _on_insert() -> bool:
 	target = EntityDB.get_entity_by_id(target_id)
 	
 	if not is_instance_valid(target):
@@ -29,7 +29,7 @@ func on_insert() -> bool:
 	ts = TM.tick_ts
 	return true
 
-func on_update(delta: float) -> void:
+func _on_update(delta: float) -> void:
 	# 停留状态
 	if is_instance_valid(target) and is_stay and not TM.is_ready_time(ts, stay_time):
 		var t_pos: Vector2 = target.position

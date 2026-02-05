@@ -1,7 +1,6 @@
 extends System
-class_name NavPathSystem
 
-func on_insert(e: Entity):
+func _on_insert(e: Entity):
 	if not e.has_c(CS.CN_NAV_PATH):
 		return true
 	
@@ -20,7 +19,7 @@ func on_insert(e: Entity):
 	e.position = subpath.to_global(path_follow.position)
 	return true
 
-func on_update(delta: float) -> void:
+func _on_update(delta: float) -> void:
 	for e in EntityDB.get_entities_by_group(CS.CN_NAV_PATH):
 		var state: int = e.state
 			
@@ -32,13 +31,13 @@ func on_update(delta: float) -> void:
 		walk_step(e, nav_path_c)
 		
 		if nav_path_c.progress_ratio >= 1.0:
-			get_end(e, nav_path_c)
+			e._on_arrived_end(nav_path_c)
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent):
 	nav_path_c.progress_ratio += nav_path_c.calculate_progress_ratio()
 		# 待实现动画播放
 	e.position = nav_path_c.get_pos_with_progress_ratio()
-	e.on_path_walk(nav_path_c)
+	e._on_path_walk(nav_path_c)
 
 func get_end(e: Entity, nav_path_c: NavPathComponent):
 	e.on_get_end(nav_path_c)

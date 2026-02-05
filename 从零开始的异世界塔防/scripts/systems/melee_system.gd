@@ -1,12 +1,11 @@
 extends System
-class_name MeleeSystem
 
 """近战系统：
 对于友方：寻找与标记被拦截者状态，友方仅前往拦截第一个敌人（前往敌人的近战位置）
 对于敌方：如果是被友方第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
 """
 
-func on_insert(e: Entity) -> bool:
+func _on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_MELEE):
 		return true
 		
@@ -15,7 +14,7 @@ func on_insert(e: Entity) -> bool:
 	
 	return true
 
-func on_update(delta: float) -> void:
+func _on_update(delta: float) -> void:
 	for e in EntityDB.get_entities_by_group(CS.CN_MELEE):
 		var state: int = e.state
 			

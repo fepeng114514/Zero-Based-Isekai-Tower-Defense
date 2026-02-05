@@ -1,20 +1,21 @@
 extends Node
 signal create_entity_s(entity: Entity)
 
-var templates_scenes: Dictionary = {}
-var components_scripts: Dictionary = {}
-var templates_data: Dictionary = {}
+var templates_scenes: Dictionary[String, PackedScene] = {}
+var components_scripts: Dictionary[String, GDScript] = {}
+var entities_scripts: Dictionary[String, GDScript] = {}
+var templates_data: Dictionary[String, Dictionary] = {}
 var components_data: Dictionary = {}
-var entities_scripts: Dictionary = {}
-var entities_groups: Dictionary = {
+var type_groups: Dictionary[String, Array] = {
 	"enemies": [],
 	"friendlys": [],
 	"towers": [],
 	"modifiers": [],
 	"auras": [],
 }
-var entities_groups_with_components: Dictionary = {}
+var component_groups: Dictionary[String, Array] = {}
 var entities: Array = []
+var _dirty_entities_id: Array[int] = []
 var last_id: int = 0
 
 func _ready() -> void:
@@ -45,36 +46,34 @@ func clean():
 	templates_data = {}
 	components_data = {}
 	entities_scripts = {}
-	entities_groups = {
+	type_groups = {
 		"enemies": [],
 		"friendlys": [],
 		"towers": [],
 		"modifiers": [],
 		"auras": [],
 	}
-	entities_groups_with_components = {}
+	component_groups = {}
 	entities = []
+	_dirty_entities_id = []
 	last_id = 0
 	
 	_ready()
 
 func get_entities_by_group(group_name: String) -> Array:
-	if group_name in entities_groups:
-		return entities_groups[group_name]
+	if group_name in type_groups:
+		return type_groups[group_name]
 	
-	if group_name in entities_groups_with_components:
-		return entities_groups_with_components[group_name]
+	if group_name in component_groups:
+		return component_groups[group_name]
 
 	return []
-
-func insert(e: Entity) -> void:
-	if entities:
-		var entities_len: int = entities.size()
-		if e.id != entities_len:
-			push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
 	
-	entities.append(e)
-	#print("插入实体: %s（%d）" % [e.template_name, e.id])
+func mark_entity_dirty_id(id: int) -> void:
+	if _dirty_entities_id.has(id):
+		return
+		
+	_dirty_entities_id.append(id)
 
 func create_entity(t_name: String) -> Entity:
 	var t = get_templates_scenes(t_name)
@@ -99,12 +98,12 @@ func create_entity(t_name: String) -> Entity:
 	e.name = t_name
 	e.visible = false
 	
-	if not SystemManager.process_systems("on_create", e):
+	if not SystemManager.process_systems("_on_create", e):
 		return e
 
 	create_entity_s.emit(e)
 	
-	print("创建实体： %s（%d）" % [t_name, last_id])
+	print("创建实体： %s(%d)" % [t_name, last_id])
 	last_id += 1
 		
 	return e
@@ -135,11 +134,11 @@ func insert_entity(e: Entity) -> void:
 	var insert_queue: Array = SystemManager.insert_queue
 	insert_queue.append(e)
 	
-	if not SystemManager.process_systems("on_insert", e):
+	if not SystemManager.process_systems("_on_insert", e):
 		insert_queue.pop_back()
 
 func remove_entity(e: Entity) -> void:
-	if not SystemManager.process_systems("on_remove", e):
+	if not SystemManager.process_systems("_on_remove", e):
 		return
 
 	SystemManager.remove_queue.append(e)

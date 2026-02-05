@@ -1,7 +1,6 @@
 extends System
-class_name HealthSystem
 
-func on_create(e: Entity) -> bool:
+func _on_create(e: Entity) -> bool:
 	if not e.has_c(CS.CN_HEALTH):
 		return true
 
@@ -15,7 +14,7 @@ func on_create(e: Entity) -> bool:
 	
 	return true
 
-func on_insert(e: Entity) -> bool:
+func _on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_HEALTH):
 		return true
 		
@@ -25,10 +24,10 @@ func on_insert(e: Entity) -> bool:
 	
 	return true
 
-func on_update(delta) -> void:
+func _on_update(delta) -> void:
 	var damage_queue = SystemManager.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
-		var d: Entity = damage_queue.pop_at(i)
+		var d: Damage = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
 		
 		if not is_instance_valid(target):
@@ -46,26 +45,33 @@ func on_update(delta) -> void:
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 	
-func take_damage(target: Entity, d: Entity, health_c: HealthComponent):
+func take_damage(target: Entity, d: Damage, health_c: HealthComponent):
+	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
+	
 	if d.damage_type & CS.DAMAGE_EAT:
-		target.on_eat(health_c, d)
-		
+		target._on_eat(target, d)
+		source._on_kill(target, d)
 		EntityDB.remove_entity(target)
 		return
 	
 	var actual_damage: int = predict_damage(d, health_c)
 	health_c.hp -= actual_damage
 	
-	target.on_damage(health_c, d)
+	target._on_damage(target, d)
 	
-	print("造成伤害: 目标: %s，来源: %s，值: %s" % [d.target_id, d.source_id, actual_damage])
+	print(
+		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
+		% [
+			target.template_name, d.target_id, source.template_name, d.source_id, actual_damage
+		]
+	)
 		
 	if health_c.hp <= 0:
-		target.on_dead(health_c, d)
-			
+		target._on_dead(target, d)
+		source._on_kill(target, d)
 		EntityDB.remove_entity(target)
 		
-func predict_damage(d: Entity, health_c: HealthComponent):
+func predict_damage(d: Damage, health_c: HealthComponent):
 	var protection: float = health_c.damage_reduction
 	var damage_type = d.damage_type
 		
