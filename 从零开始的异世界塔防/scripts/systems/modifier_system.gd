@@ -37,13 +37,15 @@ func _on_insert(e: Entity) -> bool:
 		t_has_mods_ids.append(e.id)
 		return true
 		
-	## 处理相同效果
+	# 处理相同效果
 	# 按照等级降序排序
-	same_target_mods.sort_custom(func(m1: Entity, m2: Entity): return m1.level > m2.level)
+	same_target_mods.sort_custom(
+		func(m1: Entity, m2: Entity): return m1.level > m2.level
+	)
 	var min_level_mod: Entity = same_target_mods[-1]
 	var max_level_mod: Entity = same_target_mods[0]
 		
-	# 重置时间戳，优先重置等级最高的
+	# 重置持续时间，优先重置等级最高的
 	if mod_c.reset_same:
 		max_level_mod.ts = TM.tick_ts
 		return false

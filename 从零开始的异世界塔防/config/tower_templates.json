@@ -64,7 +64,6 @@
         }
     },
     "soldier": {
-        "duration": 10,
         "flags": "%const(FLAG_FRIENDLY)",
         "components": {
             "melee": {

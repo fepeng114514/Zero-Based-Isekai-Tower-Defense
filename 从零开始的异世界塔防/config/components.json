@@ -44,7 +44,9 @@
 		"health_bar_offset": "%vec2(0, -30)",
 		"physical_armor": 0,
 		"magical_armor": 0,
-		"damage_reduction": 1
+		"damage_reduction": 0,
+		"damage_resistance": 0,
+		"vulnerable": 0
 	},
 	"nav_path": {
 		"nav_path": 0,
@@ -85,7 +87,7 @@
 		"blocker_id": null,
 		"blockeds_ids": [],
 		"max_blocked": 1,
-		"block_inc": 1,
+		"block_cost": 1,
 		"block_flags": 0,
 		"block_bans": 0,
 		"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
@@ -139,7 +141,18 @@
 		"mod_type": 0,
 		"allow_same": false,
 		"reset_same": true,
-		"replace_same": false
+		"replace_same": false,
+		"damage_factor": 1,
+		"physical_armor_factor": 1,
+		"magical_armor_factor": 1,
+		"damage_resistance_factor": 1,
+		"damage_inc": 0,
+		"physical_armor_inc": 0,
+		"magical_armor_inc": 0,
+		"damage_resistance_inc": 0,
+		"damage_reduction_inc": 0,
+		"vulnerable_factor": 1,
+		"vulnerable_inc": 0
 	},
 	"aura": {},
 	"sprite": {

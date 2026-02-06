@@ -1,4 +1,7 @@
 extends System
+"""血量系统：管理伤害与血量
+
+"""
 
 func _on_ready_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_HEALTH):
@@ -33,19 +36,19 @@ func _on_update(delta) -> void:
 		if not is_instance_valid(target):
 			continue
 			
-		var health_c = target.get_c(CS.CN_HEALTH)
+		var t_health_c = target.get_c(CS.CN_HEALTH)
 
-		if not health_c:
+		if not t_health_c:
 			continue
 			
-		take_damage(target, d, health_c)
+		take_damage(target, d, t_health_c)
 
 	for e in EntityDB.get_entities_by_group(CS.CN_HEALTH):
 		var health_c = e.get_c(CS.CN_HEALTH)
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 	
-func take_damage(target: Entity, d: Damage, health_c: HealthComponent):
+func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
 	
 	if d.damage_type & CS.DAMAGE_EAT:
@@ -54,8 +57,8 @@ func take_damage(target: Entity, d: Damage, health_c: HealthComponent):
 		EntityDB.remove_entity(target)
 		return
 	
-	var actual_damage: int = predict_damage(d, health_c)
-	health_c.hp -= actual_damage
+	var actual_damage: int = predict_damage(target, d, t_health_c, source)
+	t_health_c.hp -= actual_damage
 	
 	target._on_damage(target, d)
 	
@@ -66,27 +69,80 @@ func take_damage(target: Entity, d: Damage, health_c: HealthComponent):
 		]
 	)
 		
-	if health_c.hp <= 0:
+	if t_health_c.hp <= 0:
 		target._on_dead(target, d)
 		source._on_kill(target, d)
 		EntityDB.remove_entity(target)
 		
-func predict_damage(d: Damage, health_c: HealthComponent):
-	var protection: float = health_c.damage_reduction
+func predict_damage(
+		target: Entity, d: Damage, t_health_c: HealthComponent, source: Entity
+	) -> int:
+	var damage_factor: float = d.damage_factor
+	var vulnerable: float = 1 - t_health_c.vulnerable
+	var resistance: float = 1 - t_health_c.damage_resistance
+	var reduction: int = t_health_c.damage_reduction
+	
+	var damage_inc: int = 0
+	var physical_armor_factor: float = 1
+	var magical_armor_factor: float = 1
+	var physical_armor_inc: float = 0
+	var magical_armor_inc: float = 0
+	var vulnerable_factor: float = 1
+	var vulnerable_inc: float = 0
+	
+	# 汇总状态效果的影响
+	# 所有者
+	for mod: Entity in source.get_has_mods():
+		var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
+		damage_factor *= mod_c.damage_factor
+		damage_inc += mod_c.damage_inc
+		resistance *= mod_c.damage_resistance_factor
+		resistance += mod_c.damage_resistance_inc
+		reduction += mod_c.damage_reduction_inc
+		physical_armor_factor *= mod_c.physical_armor_factor
+		magical_armor_factor *= mod_c.magical_armor_factor
+		physical_armor_inc += mod_c.physical_armor_inc
+		magical_armor_inc += mod_c.magical_armor_inc
+		
+	# 目标
+	for mod: Entity in target.get_has_mods():
+		var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
+		vulnerable *= mod_c.vulnerable_factor
+		vulnerable += mod_c.vulnerable_inc
+	
+	# 计算护甲减伤
 	var damage_type = d.damage_type
 		
 	if damage_type & CS.DAMAGE_DISINTEGRATE:
-		return health_c.hp
+		return t_health_c.hp
 		
-	if damage_type & CS.DAMAGE_PHYSICAL:
-		protection *= health_c.physical_armor
-	if damage_type & CS.DAMAGE_MAGICAL:
-		protection *= health_c.magical_armor
-	if damage_type & CS.DAMAGE_EXPLOSION:
-		protection *= health_c.physical_armor / 2.0
-	if damage_type & CS.DAMAGE_MAGICAL_EXPLOSION:
-		protection *= health_c.magical_armor / 2.0
+	var physical_armor: float = clampf(
+		t_health_c.physical_armor * physical_armor_factor + physical_armor_inc, 
+		0,
+		1
+	)
+	var magical_armor: float = clampf(
+		t_health_c.magical_armor * magical_armor_factor + magical_armor_inc,
+		0,
+		1
+	)
 	
-	var actual_damage: int = roundi(d.value * (1 - protection) * d.damage_factor)
+	if damage_type & CS.DAMAGE_EXPLOSION:
+		resistance *= 1 - physical_armor / 2.0
+	elif damage_type & CS.DAMAGE_PHYSICAL:
+		resistance *= 1 - physical_armor
+		
+	if damage_type & CS.DAMAGE_MAGICAL_EXPLOSION:
+		resistance *= 1 - magical_armor / 2.0
+	elif damage_type & CS.DAMAGE_MAGICAL:
+		resistance *= 1 - magical_armor
+		
+	if damage_type & CS.DAMAGE_POISON:
+		resistance *= 1 - t_health_c.poison_armor
+	
+	# 计算伤害
+	var total_damage_factor: float = damage_factor * resistance * vulnerable
+	var basic_value: int = d.value - reduction + damage_inc
+	var actual_damage: int = roundi(basic_value * total_damage_factor)
 	
 	return actual_damage

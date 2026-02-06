@@ -15,7 +15,7 @@ func _on_insert(e: Entity):
 		
 	var path_follow: PathFollow2D = subpath.follow
 	
-	path_follow.progress_ratio = 0
+	path_follow.progress_ratio = 1 if nav_path_c.reversed else  0
 	e.position = subpath.to_global(path_follow.position)
 	return true
 
@@ -30,11 +30,18 @@ func _on_update(delta: float) -> void:
 
 		walk_step(e, nav_path_c)
 		
-		if nav_path_c.progress_ratio >= 1:
+		if (
+			nav_path_c.reversed 
+			and nav_path_c.progress_ratio == 0 
+			or nav_path_c.progress_ratio >= 1
+		):
 			get_end(e, nav_path_c)
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent):
-	nav_path_c.progress_ratio += nav_path_c.calculate_progress_ratio()
+	if nav_path_c.reversed:
+		nav_path_c.progress_ratio -= nav_path_c.calculate_progress_ratio()
+	else:
+		nav_path_c.progress_ratio += nav_path_c.calculate_progress_ratio()
 		# 待实现动画播放
 	e.position = nav_path_c.get_pos_with_progress_ratio()
 	e._on_path_walk(nav_path_c)

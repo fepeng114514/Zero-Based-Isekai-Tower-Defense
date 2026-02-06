@@ -60,9 +60,6 @@ const DAMAGE_DISINTEGRATE: int = 1 << 5
 const DAMAGE_POISON: int = 1 << 6
 const DAMAGE_EAT: int = 1 << 7
 
-const DAMAGE_PHYSICAL_ARMOR: int = 1 << 15
-const DAMAGE_MAGICAL_ARMOR: int = 1 << 16
-
 const FLAG_ENEMY: int = 1
 const FLAG_BOSS: int = 1 << 1 | FLAG_ENEMY
 const FLAG_FRIENDLY: int = 1 << 2
