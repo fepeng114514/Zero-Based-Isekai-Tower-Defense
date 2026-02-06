@@ -33,7 +33,7 @@ func _on_update(delta) -> void:
 		var d: Damage = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
 		
-		if not is_instance_valid(target):
+		if not target:
 			continue
 			
 		var t_health_c = target.get_c(CS.CN_HEALTH)

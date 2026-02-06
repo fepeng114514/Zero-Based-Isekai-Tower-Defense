@@ -143,7 +143,8 @@ func remove_entity(e: Entity) -> void:
 	print("移除实体： %s(%d)" % [e.template_name, e.id])
 
 func get_entity_by_id(id: int):
-	return entities[id]
+	var e = entities[id]
+	return e if is_instance_valid(e) else null
 	
 func get_component_script(c_name: String, deep: bool = false):
 	var c_data = components_scripts.get(c_name)

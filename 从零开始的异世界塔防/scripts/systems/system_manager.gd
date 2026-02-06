@@ -40,7 +40,10 @@ func _process(delta: float) -> void:
 
 func _process_remove_queue() -> void:	
 	while remove_queue:
-		var e: Entity = remove_queue.pop_front()
+		var e = remove_queue.pop_front()
+		
+		if not is_instance_valid(e):
+			continue
 		
 		process_systems("_on_remove", e)
 			

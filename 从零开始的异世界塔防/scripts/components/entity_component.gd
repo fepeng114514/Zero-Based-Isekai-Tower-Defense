@@ -167,10 +167,10 @@ func cleanup_has_mods():
 	var new_has_mods_ids: Array[int] = []
 	
 	for mod_id in has_mods_ids:
-		if not is_instance_valid(EntityDB.get_entity_by_id(mod_id)):
+		if not EntityDB.get_entity_by_id(mod_id):
 			continue 
 			
-		new_has_mods_ids.append(id)
+		new_has_mods_ids.append(mod_id)
 		
 	has_mods_ids = new_has_mods_ids
 
@@ -178,9 +178,9 @@ func get_has_mods(filter = null) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
 	for mod_id in has_mods_ids:
-		var mod: Entity = EntityDB.get_entity_by_id(mod_id)
+		var mod = EntityDB.get_entity_by_id(mod_id)
 		
-		if filter and not filter.call(mod):
+		if not mod or filter and not filter.call(mod):
 			continue
 		
 		has_mods.append(mod)

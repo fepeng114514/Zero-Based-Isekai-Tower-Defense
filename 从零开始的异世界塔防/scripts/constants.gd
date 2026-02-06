@@ -36,6 +36,7 @@ const STATE_IDLE: int = 1
 const STATE_MELEE: int = 1 << 1
 const STATE_RANGED: int = 1 << 2
 const STATE_BLOCK: int = 1 << 3
+const STATE_RALLY: int = 1 << 4
 
 const CN_HEALTH: String = "health"
 const CN_HEALTH_BAR: String = "health_bar"

@@ -6,7 +6,7 @@ func _on_insert(e: Entity) -> bool:
 
 	var target = EntityDB.get_entity_by_id(e.target_id)
 
-	if not is_instance_valid(target):
+	if not target:
 		return false
 
 	# 检查是否被目标禁止
@@ -71,7 +71,7 @@ func _on_remove(e: Entity) -> void:
 	
 	var target = EntityDB.get_entity_by_id(e.target_id)
 
-	if not is_instance_valid(target):
+	if not target:
 		return
 
 	target.has_mods_ids.erase(e.id)

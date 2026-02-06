@@ -67,6 +67,7 @@
         "flags": "%const(FLAG_FRIENDLY)",
         "components": {
             "melee": {
+                "is_passive_obstacle": true,
                 "max_blocked": 2,
                 "block_min_range": 0,
                 "block_max_range": 90,

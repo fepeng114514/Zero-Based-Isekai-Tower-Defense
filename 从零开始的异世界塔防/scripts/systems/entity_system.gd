@@ -25,8 +25,10 @@ func _on_update(delta: float) -> void:
 		if e.source_id != -1 and e.track_source:
 			var source = EntityDB.get_entity_by_id(e.source_id)
 			
-			if is_instance_valid(source):
-				e.position = source.position
+			if not source:
+				continue
+				
+			e.position = source.position
 			
 		if e.waitting:
 			continue

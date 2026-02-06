@@ -24,6 +24,7 @@ func _on_update(delta: float) -> void:
 		var melee_c: MeleeComponent = e.get_c(CS.CN_MELEE)
 		melee_c.cleanup_blocker()
 		melee_c.cleanup_blockeds()
+		melee_c.calculate_blocked_count()
 			
 		if e.flags & CS.FLAG_FRIENDLY:
 			process_friendly(e, melee_c)
@@ -35,7 +36,7 @@ func _on_update(delta: float) -> void:
 func process_friendly(e: Entity, melee_c: MeleeComponent):
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	
-	if blockeds_ids and blockeds_ids.size() >= melee_c.max_blocked:
+	if blockeds_ids and melee_c.blocked_count >= melee_c.max_blocked:
 		return
 		
 	if not melee_c.melee_slot_arrived:
@@ -44,10 +45,7 @@ func process_friendly(e: Entity, melee_c: MeleeComponent):
 		
 	var targets: Array = friendly_find_enemies(e, melee_c)
 		
-	if not targets:
-		if blockeds_ids:
-			return
-			
+	if not targets and not blockeds_ids:
 		melee_c.melee_slot_arrived = true
 		
 		if melee_c.origin_pos_arrived:
@@ -55,7 +53,7 @@ func process_friendly(e: Entity, melee_c: MeleeComponent):
 			
 		back_origin_pos(e, melee_c)
 	
-	if not targets:
+	if not targets or melee_c.is_passive_obstacle:
 		return
 		
 	var blocked: Entity = EntityDB.get_entity_by_id(blockeds_ids[0])
@@ -68,8 +66,6 @@ func process_friendly(e: Entity, melee_c: MeleeComponent):
 		melee_c.set_origin_pos(e.position)
 	
 func friendly_find_enemies(e: Entity, melee_c: MeleeComponent):
-	var blockeds_ids: Array = melee_c.blockeds_ids
-	
 	var filter = func(entity, origin): return entity.has_c(CS.CN_MELEE) and not entity.id in melee_c.blockeds_ids
 	var targets = EntityDB.search_targets_in_range(
 		melee_c.search_mode, e.position, melee_c.block_min_range, 
@@ -77,13 +73,14 @@ func friendly_find_enemies(e: Entity, melee_c: MeleeComponent):
 	)	
 	
 	for t in targets:
-		if blockeds_ids.size() >= melee_c.max_blocked:
+		melee_c.calculate_blocked_count()
+		if melee_c.blocked_count >= melee_c.max_blocked:
 			break
 		
 		var t_melee_c: MeleeComponent = t.get_c(CS.CN_MELEE)
 		var t_melee_slot: Vector2 = e.position + melee_c.melee_slot_offset
 		t_melee_c.blocker_id = e.id
-		blockeds_ids.append(t.id)
+		melee_c.blockeds_ids.append(t.id)
 		t.state = CS.STATE_MELEE
 		t_melee_c.set_melee_slot(t_melee_slot)
 		t_melee_c.set_origin_pos(t.position)
@@ -106,7 +103,11 @@ func process_enemy(e: Entity, melee_c: MeleeComponent):
 	var blocker_melee_c: MeleeComponent = blocker.get_c(CS.CN_MELEE)
 	var blocker_blockeds_ids: Array = blocker_melee_c.blockeds_ids
 	
-	if not blocker_blockeds_ids or blocker_blockeds_ids[0] == e.id:
+	if (
+		not blocker_blockeds_ids 
+		or not blocker_melee_c.is_passive_obstacle
+		and blocker_blockeds_ids[0] == e.id
+	):
 		return
 		
 	if not melee_c.melee_slot_arrived:

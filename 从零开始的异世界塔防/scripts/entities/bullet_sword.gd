@@ -15,7 +15,7 @@ var has_init_fall: bool = false
 func _on_insert() -> bool:
 	target = EntityDB.get_entity_by_id(target_id)
 	
-	if not is_instance_valid(target):
+	if not target:
 		return false
 	
 	B.to = target.position
