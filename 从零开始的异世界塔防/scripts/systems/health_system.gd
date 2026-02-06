@@ -54,7 +54,7 @@ func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	if d.damage_type & CS.DAMAGE_EAT:
 		target._on_eat(target, d)
 		source._on_kill(target, d)
-		EntityDB.remove_entity(target)
+		target.remove_entity()
 		return
 	
 	var actual_damage: int = predict_damage(target, d, t_health_c, source)
@@ -72,7 +72,7 @@ func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	if t_health_c.hp <= 0:
 		target._on_dead(target, d)
 		source._on_kill(target, d)
-		EntityDB.remove_entity(target)
+		target.remove_entity()
 		
 func predict_damage(
 		target: Entity, d: Damage, t_health_c: HealthComponent, source: Entity
@@ -85,8 +85,8 @@ func predict_damage(
 	var damage_inc: int = 0
 	var physical_armor_factor: float = 1
 	var magical_armor_factor: float = 1
-	var physical_armor_inc: float = 0
-	var magical_armor_inc: float = 0
+	var physical_armor_inc: int = 0
+	var magical_armor_inc: int = 0
 	var vulnerable_factor: float = 1
 	var vulnerable_inc: float = 0
 	
@@ -117,16 +117,35 @@ func predict_damage(
 		return t_health_c.hp
 		
 	var physical_armor: float = clampf(
-		t_health_c.physical_armor * physical_armor_factor + physical_armor_inc, 
+		(
+			t_health_c.physical_armor 
+			* physical_armor_factor 
+			+ physical_armor_inc
+		)
+		/ 100, 
 		0,
 		1
 	)
 	var magical_armor: float = clampf(
-		t_health_c.magical_armor * magical_armor_factor + magical_armor_inc,
+		(
+			t_health_c.magical_armor
+			* magical_armor_factor
+			+ magical_armor_inc
+		)
+		/ 100,
+		0,
+		1
+	)
+	var poison_armor: float = clampf(
+		t_health_c.poison_armor / 100,
 		0,
 		1
 	)
 	
+	if damage_type & CS.DAMAGE_TRUE:
+		physical_armor = 0
+		magical_armor = 0
+
 	if damage_type & CS.DAMAGE_EXPLOSION:
 		resistance *= 1 - physical_armor / 2.0
 	elif damage_type & CS.DAMAGE_PHYSICAL:
@@ -138,7 +157,7 @@ func predict_damage(
 		resistance *= 1 - magical_armor
 		
 	if damage_type & CS.DAMAGE_POISON:
-		resistance *= 1 - t_health_c.poison_armor
+		resistance *= 1 - poison_armor
 	
 	# 计算伤害
 	var total_damage_factor: float = damage_factor * resistance * vulnerable

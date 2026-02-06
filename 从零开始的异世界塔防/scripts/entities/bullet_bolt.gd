@@ -28,4 +28,4 @@ func _on_update(delta: float) -> void:
 		return
 		
 	EntityDB.create_damage(target_id, B.min_damage, B.max_damage, B.damage_type, B.source_id)
-	EntityDB.remove_entity(self)
+	remove_entity()

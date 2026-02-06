@@ -186,3 +186,21 @@ func get_has_mods(filter = null) -> Array[Entity]:
 		has_mods.append(mod)
 		
 	return has_mods
+
+func clear_has_mods() -> void:
+	for mod: Entity in get_has_mods():
+		mod.remove_entity()
+
+	has_mods_ids = []
+
+func insert_entity() -> void:
+	SystemManager.insert_queue.append(self)
+
+func remove_entity() -> void:
+	if not SystemManager.process_systems("_on_ready_remove", self):
+		return
+
+	SystemManager.remove_queue.append(self)
+	removed = true
+	visible = false
+	print("移除实体： %s(%d)" % [template_name, id])

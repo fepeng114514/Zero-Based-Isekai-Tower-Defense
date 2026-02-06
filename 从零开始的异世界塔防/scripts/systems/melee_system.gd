@@ -1,8 +1,8 @@
 extends System
 
 """近战系统：
-对于友方：寻找与标记被拦截者状态，友方仅前往拦截第一个敌人（前往敌人的近战位置）
-对于敌方：如果是被友方第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
+对于拦截者：寻找与标记被拦截者状态，仅前往拦截第一个被拦截者（前往被拦截者的近战位置）
+对于被拦截者：如果是被第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
 """
 
 func _on_insert(e: Entity) -> bool:
@@ -26,14 +26,14 @@ func _on_update(delta: float) -> void:
 		melee_c.cleanup_blockeds()
 		melee_c.calculate_blocked_count()
 			
-		if e.flags & CS.FLAG_FRIENDLY:
-			process_friendly(e, melee_c)
-		elif e.flags & CS.FLAG_ENEMY:
-			process_enemy(e, melee_c)
+		if melee_c.is_blocker:
+			process_blocker(e, melee_c)
+		elif melee_c.is_blocked:
+			process_blocked(e, melee_c)
 			
 		do_attacks(e, melee_c)
 
-func process_friendly(e: Entity, melee_c: MeleeComponent):
+func process_blocker(e: Entity, melee_c: MeleeComponent):
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	
 	if blockeds_ids and melee_c.blocked_count >= melee_c.max_blocked:
@@ -43,7 +43,7 @@ func process_friendly(e: Entity, melee_c: MeleeComponent):
 		go_melee_slot(e, melee_c)
 		return
 		
-	var targets: Array = friendly_find_enemies(e, melee_c)
+	var targets: Array = find_blocked(e, melee_c)
 		
 	if not targets and not blockeds_ids:
 		melee_c.melee_slot_arrived = true
@@ -65,7 +65,7 @@ func process_friendly(e: Entity, melee_c: MeleeComponent):
 	if melee_c.origin_pos_arrived:
 		melee_c.set_origin_pos(e.position)
 	
-func friendly_find_enemies(e: Entity, melee_c: MeleeComponent):
+func find_blocked(e: Entity, melee_c: MeleeComponent):
 	var filter = func(entity, origin): return entity.has_c(CS.CN_MELEE) and not entity.id in melee_c.blockeds_ids
 	var targets = EntityDB.search_targets_in_range(
 		melee_c.search_mode, e.position, melee_c.block_min_range, 
@@ -87,7 +87,7 @@ func friendly_find_enemies(e: Entity, melee_c: MeleeComponent):
 	
 	return targets
 	
-func process_enemy(e: Entity, melee_c: MeleeComponent):
+func process_blocked(e: Entity, melee_c: MeleeComponent):
 	var blocker_id = melee_c.blocker_id
 	
 	if blocker_id == null:

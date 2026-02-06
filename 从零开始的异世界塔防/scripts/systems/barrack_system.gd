@@ -59,7 +59,7 @@ func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
 	if not barrack._on_barrack_respawn(barrack_c, soldier):
 		return soldier
 	
-	EntityDB.insert_entity(soldier)
+	soldier.insert_entity()
 	
 	barrack_c.soldiers_list.append(soldier)
 	

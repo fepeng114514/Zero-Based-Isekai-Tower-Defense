@@ -474,3 +474,6 @@ static func attacks_sort_fn(a1, a2) -> bool:
 ## 判断实体是否有效
 static func is_vaild_entity(e) -> bool:
 	return is_instance_valid(e) and not e.removed
+
+func fts(time: float) -> float:
+	return time / CS.FPS

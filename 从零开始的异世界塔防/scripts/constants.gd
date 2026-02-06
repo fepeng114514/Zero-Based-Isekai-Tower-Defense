@@ -1,5 +1,7 @@
 class_name CS
 
+const FPS: int = 60
+
 const PATH_TEMPLATES: Array = [
 	"templates.json",
 	"enemy_templates.json",
@@ -52,6 +54,7 @@ const CN_SPRITE: String = "sprite"
 const CN_BARRACK: String = "barrack"
 const CN_SPAWNER: String = "spawner"
 
+const DAMAGE_NONE: int = 0
 const DAMAGE_PHYSICAL: int = 1
 const DAMAGE_MAGICAL: int = 1 << 1
 const DAMAGE_EXPLOSION: int = 1 << 2

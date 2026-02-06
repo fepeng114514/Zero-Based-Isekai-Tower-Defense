@@ -9,7 +9,7 @@ func create_level_entities(current_level_data) -> void:
 	for entity_data: Dictionary in current_level_data.entities:
 		var entity = EntityDB.create_entity(entity_data.t_name)
 		entity.set_template_data(entity_data)
-		EntityDB.insert_entity(entity)
+		entity.insert_entity()
 
 func create_level_tower_holders(current_level_data) -> void:
 	for entity_data: Dictionary in current_level_data.tower_holders:
@@ -17,4 +17,4 @@ func create_level_tower_holders(current_level_data) -> void:
 
 		var entity = EntityDB.create_entity(holder_name)
 		entity.set_template_data(entity_data)
-		EntityDB.insert_entity(entity)
+		entity.insert_entity()

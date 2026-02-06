@@ -27,7 +27,7 @@ func _on_insert(e: Entity) -> bool:
 			
 		# 检查是否被当前效果禁止
 		if e.mod_bans & other_m.flags or e.mod_type_bans & other_mod_c.mod_type:
-			EntityDB.remove_entity(other_m)
+			other_m.remove_entity()
 			continue
 		
 		if other_m.template_name == e.template_name:
@@ -47,16 +47,16 @@ func _on_insert(e: Entity) -> bool:
 		
 	# 重置持续时间，优先重置等级最高的
 	if mod_c.reset_same:
-		max_level_mod.ts = TM.tick_ts
+		max_level_mod.insert_ts = TM.tick_ts
 		return false
 	# 替换，优先替换等级最低的
 	if mod_c.replace_same:
-		EntityDB.remove_entity(min_level_mod)
+		min_level_mod.remove_entity()
 		t_has_mods_ids.append(e.id)
 		return true
 	# 叠加持续时间，优先与最高等级叠加
 	if mod_c.overlay_duration_same:
-		max_level_mod.ts -= e.duration
+		max_level_mod.insert_ts -= e.duration
 		return false
 	# 叠加
 	if not mod_c.allow_same:

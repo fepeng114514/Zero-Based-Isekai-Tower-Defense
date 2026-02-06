@@ -42,6 +42,6 @@ func attack(e: Entity, a: Dictionary) -> void:
 	b.source_id = e.id
 	b.position = e.position
 	
-	EntityDB.insert_entity(b)
+	b.insert_entity()
 		
 	a.ts = TM.tick_ts

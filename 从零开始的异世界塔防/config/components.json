@@ -79,20 +79,23 @@
 		"predict_target_pos": "%vec2(0, 0)",
 		"direction": "%vec2(1, 0)",
 		"rotation_direction": -1,
-		"hit_rect": "%rect2(-3, -3, 6, 6)"
+		"hit_rect": "%rect2(-3, -3, 6, 6)",
+		"ts": 0
 	},
 	"melee": {
-		"block_min_range": 0,
-		"block_max_range": 50,
-		"blocker_id": null,
-		"blockeds_ids": [],
-		"max_blocked": 1,
-		"blocked_count": 0,
-		"block_cost": 1,
 		"block_flags": 0,
 		"block_bans": 0,
+		"is_blocker": false,
+		"block_min_range": 0,
+		"block_max_range": 50,
+		"blockeds_ids": [],
+		"blocked_count": 0,
 		"is_passive_obstacle": false,
 		"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
+		"max_blocked": 1,
+		"is_blocked": false,
+		"blocker_id": null,
+		"block_cost": 1,
 		"motion_direction": "%vec2(0, 0)",
 		"motion_speed": 50,
 		"origin_pos": "%vec2(0, 0)",
@@ -154,17 +157,20 @@
 		"damage_resistance_inc": 0,
 		"damage_reduction_inc": 0,
 		"vulnerable_factor": 1,
-		"vulnerable_inc": 0
+		"vulnerable_inc": 0,
+		"min_damage": 0,
+		"max_damage": 0,
+		"damage_interval": 1,
+		"damage_type": "%const(DAMAGE_POISON)",
+		"ts": 0
 	},
-	"aura": {},
+	"aura": {
+		"ts": 0
+	},
 	"sprite": {
 		"sprite_templates": {
-			"animation": {
-
-			},
-			"image": {
-
-			}
+			"animation": {},
+			"image": {}
 		},
 		"list": []
 	},

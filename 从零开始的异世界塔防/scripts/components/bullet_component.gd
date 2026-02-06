@@ -15,3 +15,4 @@ var to: Vector2 = Vector2(0, 0)
 var predict_target_pos: Vector2 = Vector2(0, 0)
 var direction: Vector2 = Vector2.RIGHT
 var rotation_direction: int = -1
+var ts: float = 0

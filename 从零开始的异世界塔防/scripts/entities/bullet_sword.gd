@@ -26,12 +26,12 @@ func _on_insert() -> bool:
 	
 	rotation = deg_to_rad(90)
 	
-	ts = TM.tick_ts
+	B.ts = TM.tick_ts
 	return true
 
 func _on_update(delta: float) -> void:
 	# 停留状态
-	if is_instance_valid(target) and is_stay and not TM.is_ready_time(ts, stay_time):
+	if is_instance_valid(target) and is_stay and not TM.is_ready_time(B.ts, stay_time):
 		var t_pos: Vector2 = target.position
 		position = Vector2(t_pos.x, t_pos.y - stay_height)
 		B.to = position
@@ -49,11 +49,11 @@ func _on_update(delta: float) -> void:
 			B.predict_target_pos = Vector2(B.to.x, B.to.y + stay_height)
 		
 		B.speed = Utils.initial_linear_speed(position, Vector2(B.predict_target_pos.x, B.predict_target_pos.y - stay_height), to_predict_time)
-		ts = TM.tick_ts
+		B.ts = TM.tick_ts
 		
 	# 飞向预判位置
-	if is_to_predict and not TM.is_ready_time(ts, to_predict_time):
-		position = Utils.position_in_linear(B.speed, B.from, TM.get_time(ts))
+	if is_to_predict and not TM.is_ready_time(B.ts, to_predict_time):
+		position = Utils.position_in_linear(B.speed, B.from, TM.get_time(B.ts))
 		
 		return
 	
@@ -65,10 +65,10 @@ func _on_update(delta: float) -> void:
 		B.from = position
 		B.speed = Utils.initial_linear_speed(position, B.predict_target_pos, B.flight_time)
 
-		ts = TM.tick_ts
+		B.ts = TM.tick_ts
 
 	# 下落
-	position = Utils.position_in_linear(B.speed, B.from, TM.get_time(ts))
+	position = Utils.position_in_linear(B.speed, B.from, TM.get_time(B.ts))
 
 	if not B.hit_rect.has_point(B.predict_target_pos - position):
 		return
@@ -80,4 +80,4 @@ func _on_update(delta: float) -> void:
 		
 		EntityDB.create_damage(t.id, B.min_damage * damage_factor, B.max_damage * damage_factor, B.damage_type, B.source_id)
 	
-	EntityDB.remove_entity(self)
+	remove_entity()

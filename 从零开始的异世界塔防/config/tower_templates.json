@@ -1,7 +1,15 @@
 {
     "tower": {
-		"flags": "%const(FLAG_TOWER)"
-	},
+        "flags": "%const(FLAG_TOWER)"
+    },
+    "friendly": {
+        "flags": "%const(FLAG_FRIENDLY)",
+        "components": {
+            "melee": {
+                "is_blocker": true
+            }
+        }
+    },
     "tower_mage": {
         "base": "tower",
         "components": {
@@ -64,10 +72,9 @@
         }
     },
     "soldier": {
-        "flags": "%const(FLAG_FRIENDLY)",
+        "base": "friendly",
         "components": {
             "melee": {
-                "is_passive_obstacle": true,
                 "max_blocked": 2,
                 "block_min_range": 0,
                 "block_max_range": 90,

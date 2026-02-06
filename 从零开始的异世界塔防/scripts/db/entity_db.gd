@@ -129,18 +129,6 @@ func create_damage(
 	SystemManager.damage_queue.append(d)
 		
 	return d
-	
-func insert_entity(e: Entity) -> void:
-	SystemManager.insert_queue.append(e)
-
-func remove_entity(e: Entity) -> void:
-	if not SystemManager.process_systems("_on_ready_remove", e):
-		return
-
-	SystemManager.remove_queue.append(e)
-	e.removed = true
-	e.visible = false
-	print("移除实体： %s(%d)" % [e.template_name, e.id])
 
 func get_entity_by_id(id: int):
 	var e = entities[id]

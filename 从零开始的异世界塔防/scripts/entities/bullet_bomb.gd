@@ -20,11 +20,11 @@ func _on_insert() -> bool:
 	B.rotation_speed = total_rotation_needed / B.flight_time * B.rotation_direction
 	
 	B.speed = Utils.initial_parabola_speed(position, B.to, B.flight_time, B.g)
-	ts = TM.tick_ts
+	B.ts = TM.tick_ts
 	return true
 
 func _on_update(delta: float) -> void:
-	position = Utils.position_in_parabola(TM.get_time(ts), B.from, B.speed, B.g)
+	position = Utils.position_in_parabola(TM.get_time(B.ts), B.from, B.speed, B.g)
 	rotation += B.rotation_speed * delta
 	
 	if not B.hit_rect.has_point(B.to - position):
@@ -37,4 +37,4 @@ func _on_update(delta: float) -> void:
 		
 		EntityDB.create_damage(t.id, B.min_damage, B.max_damage, B.damage_type, B.source_id, damage_factor)
 	
-	EntityDB.remove_entity(self)
+	remove_entity()

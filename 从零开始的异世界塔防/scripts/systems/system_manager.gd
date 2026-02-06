@@ -61,7 +61,7 @@ func _process_insert_queue() -> void:
 				push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
 		
 		if not process_systems("_on_insert", e):
-			EntityDB.remove_entity(e)
+			e.remove_entity()
 			continue
 		
 		entities.append(e)

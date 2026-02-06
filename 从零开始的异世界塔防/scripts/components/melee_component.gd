@@ -1,20 +1,21 @@
 extends Node
 class_name MeleeComponent
 
-var attacks: Array = []
-var attack_templates: Dictionary = {}
-var order: Array = []
+var is_blocker: bool = false
+var blockeds_ids: Array[int] = []
 var block_min_range: int = 80
 var block_max_range: int = 0
-var blocker_id = null
-var blockeds_ids: Array[int] = []
+var is_passive_obstacle: bool = false
 var max_blocked: int = 1
 var blocked_count: int = 0
+var search_mode: String = CS.SEARCH_MODE_ENEMY_FIRST
+
+var is_blocked: bool = false
 var block_cost: int = 1
+var blocker_id = null
+
 var block_flags: int = 0
 var block_bans: int = 0
-var is_passive_obstacle: bool = false
-var search_mode: String = CS.SEARCH_MODE_ENEMY_FIRST
 var motion_direction: Vector2 = Vector2(0, 0)
 var motion_speed: int = 100
 var origin_pos: Vector2 = Vector2(0, 0)
@@ -23,6 +24,9 @@ var melee_slot: Vector2 = Vector2(0, 0)
 var melee_slot_offset: Vector2 = Vector2(0, 0)
 var melee_slot_arrived: bool = true
 var arrived_rect: Rect2 = Rect2(-3, -3, 6, 6)
+var attacks: Array = []
+var attack_templates: Dictionary = {}
+var order: Array = []
 
 func calculate_blocked_count():
 	var count: int = 0

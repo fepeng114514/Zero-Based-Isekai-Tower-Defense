@@ -17,11 +17,11 @@ func _on_insert() -> bool:
 	rotation = atan2(direction.y, direction.x)
 	
 	B.speed = Utils.initial_parabola_speed(position, B.to, B.flight_time, B.g)
-	ts = TM.tick_ts
+	B.ts = TM.tick_ts
 	return true
 	
 func _on_update(delta: float) -> void:
-	var current_time = TM.get_time(ts)
+	var current_time = TM.get_time(B.ts)
 	var current_pos = Utils.position_in_parabola(current_time, B.from, B.speed, B.g)
 	
 	var next_time = current_time + delta
@@ -37,4 +37,4 @@ func _on_update(delta: float) -> void:
 		return
 		
 	EntityDB.create_damage(target_id, B.min_damage, B.max_damage, B.damage_type, B.source_id)
-	EntityDB.remove_entity(self)
+	remove_entity()

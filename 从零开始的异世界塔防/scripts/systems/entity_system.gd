@@ -12,6 +12,8 @@ func _on_ready_remove(e: Entity) -> bool:
 	
 func _on_remove(e: Entity) -> void:
 	e._on_remove()
+	
+	e.clear_has_mods()
 
 func _on_update(delta: float) -> void:
 	for e in EntityDB.entities:
@@ -19,7 +21,7 @@ func _on_update(delta: float) -> void:
 			continue
 			
 		if e.duration != -1 and TM.is_ready_time(e.insert_ts, e.duration):
-			EntityDB.remove_entity(e)
+			e.remove_entity()
 			continue
 			
 		if e.source_id != -1 and e.track_source:

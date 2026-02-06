@@ -30,7 +30,7 @@ func _group_spawner(group: Dictionary) -> void:
 			var subpath = spawn.get("subpath")
 			nav_path_c.nav_path = path - 1
 			nav_path_c.nav_subpath = subpath - 1 if subpath != null else -1
-			EntityDB.insert_entity(e)
+			e.insert_entity()
 			
 			await TM.y_wait(spawn.interval)
 			

@@ -48,4 +48,4 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent):
 
 func get_end(e: Entity, nav_path_c: NavPathComponent):
 	e._on_arrived_end(nav_path_c)
-	EntityDB.remove_entity(e)
+	e.remove_entity()
