@@ -1,13 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://c77v7yq60lpig"]
+[gd_scene format=3 uid="uid://c77v7yq60lpig"]
 
-[ext_resource type="Script" uid="uid://d3dgr5w25248o" path="res://scripts/entities/bullet_bolt.gd" id="1_hcwl7"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://scripts/components/entity_component.gd" id="1_v6lno"]
 
-[node name="BulletBolt" type="Node2D"]
-script = ExtResource("1_hcwl7")
+[node name="BulletBolt" type="Node2D" unique_id=511000022]
+script = ExtResource("1_v6lno")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1810903016]
 position = Vector2(0, 1.9073486e-06)
-rotation = 4.923574
+rotation = -1.3596113
 scale = Vector2(1, 0.6333333)
 offset = Vector2(-607, -214.73685)
 polygon = PackedVector2Array(597, 203, 606, 230, 616, 200, 606, 213.1579)

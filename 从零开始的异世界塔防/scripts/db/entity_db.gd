@@ -12,6 +12,7 @@ var type_groups: Dictionary[String, Array] = {
 	"towers": [],
 	"modifiers": [],
 	"auras": [],
+	"bullets": [],
 }
 var component_groups: Dictionary[String, Array] = {}
 var entities: Array = []

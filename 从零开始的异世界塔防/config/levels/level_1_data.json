@@ -6,7 +6,7 @@
             "t_name": "wave_spawner"
         },
         {
-            "t_name": "tower_barrack",
+            "t_name": "tower_archer",
             "position": "%vec2(400, 250)"
         }
     ],

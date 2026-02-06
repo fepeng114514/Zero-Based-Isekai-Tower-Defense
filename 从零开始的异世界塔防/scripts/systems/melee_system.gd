@@ -15,7 +15,7 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e in EntityDB.get_entities_by_group(CS.CN_MELEE):
+	for e: Entity in EntityDB.get_entities_by_group(CS.CN_MELEE):
 		var state: int = e.state
 			
 		if e.waitting or not state & (CS.STATE_IDLE | CS.STATE_MELEE):

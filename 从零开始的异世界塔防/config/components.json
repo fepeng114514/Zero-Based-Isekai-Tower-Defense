@@ -68,8 +68,8 @@
 	"bullet": {
 		"min_damage": 0,
 		"max_damage": 0,
-		"mod": "",
 		"damage_type": 1,
+		"mods": [],
 		"speed": 0,
 		"rotation_speed": 0,
 		"flight_time": 0,
@@ -80,7 +80,8 @@
 		"direction": "%vec2(1, 0)",
 		"rotation_direction": -1,
 		"hit_rect": "%rect2(-3, -3, 6, 6)",
-		"ts": 0
+		"ts": 0,
+		"flight_trajectory": "%const(TRAJECTORY_LINEAR)"
 	},
 	"melee": {
 		"block_flags": 0,
@@ -111,7 +112,7 @@
 				"min_damage": 0,
 				"max_damage": 0,
 				"cooldown": 0,
-				"mod": "",
+				"mods": [],
 				"damage_type": "%const(DAMAGE_PHYSICAL)",
 				"ts": 0,
 				"animation": "",
@@ -158,10 +159,6 @@
 		"damage_reduction_inc": 0,
 		"vulnerable_factor": 1,
 		"vulnerable_inc": 0,
-		"min_damage": 0,
-		"max_damage": 0,
-		"damage_interval": 1,
-		"damage_type": "%const(DAMAGE_POISON)",
 		"ts": 0
 	},
 	"aura": {

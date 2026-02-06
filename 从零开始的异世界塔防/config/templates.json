@@ -1,4 +1,18 @@
 {
+    "modifier": {
+        "modifier": {}
+    },
+    "mod_poison": {
+        "base": "modifier",
+        "components": {
+            "min_damage": 0,
+            "max_damage": 0,
+            "damage_interval": 1,
+            "damage_type": "%const(DAMAGE_POISON)",
+            "modifier": {
+            }
+        }
+    },
     "wave_spawner": {
         "components": {
             "spawner": {

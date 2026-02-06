@@ -72,6 +72,7 @@ const FLAG_TOWER: int = 1 << 4
 const FLAG_BULLET: int = 1 << 5
 const FLAG_MODIFIER: int = 1 << 6
 const FLAG_AURA: int = 1 << 7
+const FLAG_FLYING: int = 1 << 8
 
 const MOD_TYPE_POISON: int = 1
 const MOD_TYPE_LAVA: int = 1 << 1
@@ -103,3 +104,11 @@ const GROUP_FRIENDLYS: String = "friendlys"
 const GROUP_TOWERS: String = "towers"
 const GROUP_MODIFIERS: String = "modifiers"
 const GROUP_AURAS: String = "auras"
+const GROUP_BULLETS: String = "bullets"
+
+const TRAJECTORY_LINEAR: int = 1
+const TRAJECTORY_PARABOLA: int = 1 << 1
+const TRAJECTORY_TRACKING: int = 1 << 2
+const TRAJECTORY_HOMING: int = 1 << 3
+const TRAJECTORY_INSTANT: int = 1 << 4
+const TRAJECTORY_CUSTOM: int = 1 << 5

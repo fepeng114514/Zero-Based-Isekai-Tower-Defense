@@ -26,6 +26,8 @@ func _on_update(delta: float) -> void:
 			type_groups[CS.GROUP_MODIFIERS].append(e)
 		if e.is_aura():
 			type_groups[CS.GROUP_AURAS].append(e)
+		if e.is_bullet():
+			type_groups[CS.GROUP_BULLETS].append(e)
 
 		for c_name: String in e.has_components.keys():
 			if not component_groups.has(c_name):

@@ -20,10 +20,8 @@ func _on_insert(e: Entity):
 	return true
 
 func _on_update(delta: float) -> void:
-	for e in EntityDB.get_entities_by_group(CS.CN_NAV_PATH):
-		var state: int = e.state
-			
-		if e.waitting or not state & CS.STATE_IDLE:
+	for e: Entity in EntityDB.get_entities_by_group(CS.CN_NAV_PATH):
+		if e.waitting or not e.state & CS.STATE_IDLE:
 			continue
 			
 		var nav_path_c = e.get_c(CS.CN_NAV_PATH)

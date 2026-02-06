@@ -5,6 +5,7 @@ var level_required_system: Array[String] = [
 	"level_system",
 	"spawner_system",
 	"modifier_system",
+	"bullet_system",
 	"health_system",
 	"melee_system",
 	"entity_system",

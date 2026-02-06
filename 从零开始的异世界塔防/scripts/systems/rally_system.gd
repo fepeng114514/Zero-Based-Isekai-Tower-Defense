@@ -1,7 +1,7 @@
 extends System
 
 func _on_update(delta: float) -> void:
-	for e in EntityDB.get_entities_by_group(CS.CN_RALLY):
+	for e: Entity in EntityDB.get_entities_by_group(CS.CN_RALLY):
 		if e.waitting or not e.state & (CS.STATE_IDLE | CS.STATE_RALLY):
 			continue
 			

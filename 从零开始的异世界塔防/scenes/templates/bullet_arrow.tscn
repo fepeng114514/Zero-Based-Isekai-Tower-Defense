@@ -1,11 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://puyhh73dyon7"]
+[gd_scene format=3 uid="uid://puyhh73dyon7"]
 
-[ext_resource type="Script" uid="uid://dyhduifpdi8vu" path="res://scripts/entities/bullet_arrow.gd" id="1_11nsj"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://scripts/components/entity_component.gd" id="1_nld07"]
 [ext_resource type="Texture2D" uid="uid://c1dx21e2fevvy" path="res://assets/atlas/arrow.png" id="3_aaua8"]
 
-[node name="BulletArrow" type="Node2D"]
+[node name="BulletArrow" type="Node2D" unique_id=180978837]
 rotation = -0.017453292
-script = ExtResource("1_11nsj")
+script = ExtResource("1_nld07")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1611109428]
 texture = ExtResource("3_aaua8")

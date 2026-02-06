@@ -55,7 +55,7 @@ func _on_arrived_end(nav_path_c: NavPathComponent) -> void: pass
 ## 实体到达集结点时调用
 func _on_arrived_rally(rally_c: RallyComponent) -> void: pass
 	
-## 实体受到攻击时调用
+## 实体受到伤害时调用
 func _on_damage(target: Entity, d: Damage) -> void: pass
 	
 ## 实体死亡时调用
@@ -69,6 +69,12 @@ func _on_kill(target: Entity, d: Damage) -> void: pass
 	
 ## 兵营生成士兵时调用，返回 false 不生成士兵
 func _on_barrack_respawn(barrack_c: BarrackComponent, soldier: Entity) -> bool: return true
+
+## 状态效果实体周期调用
+func _on_modifier_period(target: Entity, mod_c: ModifierComponent) -> void: pass
+
+## 子弹命中目标时调用
+func _on_bullet_hit(bullet: Entity, target: Entity) -> void: pass
 
 func is_enemy() -> bool:
 	return flags & CS.FLAG_ENEMY
@@ -84,6 +90,9 @@ func is_modifier() -> bool:
 	
 func is_aura() -> bool:
 	return flags & CS.FLAG_AURA
+
+func is_bullet() -> bool:
+	return flags & CS.FLAG_BULLET
 
 func get_c(c_name: String):
 	return has_components.get(c_name)

@@ -15,7 +15,9 @@ func _on_insert(e: Entity) -> bool:
 
 	var t_has_mods_ids: Array[int] = target.has_mods_ids
 	var same_target_mods: Array[Entity] = []
-	var mod_c: MeleeComponent = e.get_c(CS.CN_MODIFIER)
+	var mod_c: ModifierComponent = e.get_c(CS.CN_MODIFIER)
+
+	mod_c.ts = TM.tick_ts
 
 	for mod_id: int in t_has_mods_ids:
 		var other_m: Entity = EntityDB.get_entity_by_id(mod_id)
@@ -64,6 +66,20 @@ func _on_insert(e: Entity) -> bool:
 
 	t_has_mods_ids.append(e.id)
 	return true
+
+func _on_update(delta: float) -> void:
+	for e: Entity in EntityDB.get_entities_by_group(CS.CN_MODIFIER):
+		var mod_c: ModifierComponent = e.get_c(CS.CN_MODIFIER)
+		
+		# 周期效果
+		if mod_c.period_interval == -1 or not TM.is_ready_time(mod_c.ts, mod_c.period_interval):
+			continue
+
+		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+
+		e._on_modifier_period(target, mod_c)
+
+		mod_c.ts = TM.tick_ts
 
 func _on_remove(e: Entity) -> void:
 	if not e.has_c(CS.CN_MODIFIER):
