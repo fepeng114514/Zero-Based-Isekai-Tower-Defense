@@ -47,7 +47,7 @@
                 "attacks": [
                     {
                         "attack_type": "common",
-                        "bullet": "bullet_arrow",
+                        "bullet": "bullet_sword",
                         "min_range": 0,
                         "max_range": 400,
                         "cooldown": 1
@@ -60,11 +60,11 @@
         "base": "bullet",
         "components": {
             "bullet": {
+                "predict_target_pos_valid": true,
                 "flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
                 "min_damage": 10,
                 "max_damage": 50,
-                "flight_time": 1,
-                "mods": ["mod_dps"]
+                "flight_time": 1
             }
         }
     },
@@ -109,21 +109,25 @@
         "base": "bullet",
         "components": {
             "bullet": {
+                "can_arrived": false,
+                "flight_trajectory": "%const(TRAJECTORY_INSTANT)",
                 "min_damage": 50,
+                "max_damage": 50,
                 "flight_time": 0.5,
-                "max_damage": 50
+                "min_damage_radius": 0,
+                "max_damage_radius": 100
             }
         },
         "stay_height": 120,
         "stay_time": 1,
         "to_predict_time": 0.5,
-        "min_damage_radius": 0,
-        "max_damage_radius": 100
     },
     "bullet_bomb": {
         "base": "bullet",
         "components": {
             "bullet": {
+                "predict_target_pos_valid": true,
+                "flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
                 "min_damage": 50,
                 "max_damage": 50,
                 "flight_time": 1,

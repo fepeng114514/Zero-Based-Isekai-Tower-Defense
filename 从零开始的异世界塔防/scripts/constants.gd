@@ -111,4 +111,3 @@ const TRAJECTORY_PARABOLA: int = 1 << 1
 const TRAJECTORY_TRACKING: int = 1 << 2
 const TRAJECTORY_HOMING: int = 1 << 3
 const TRAJECTORY_INSTANT: int = 1 << 4
-const TRAJECTORY_CUSTOM: int = 1 << 5

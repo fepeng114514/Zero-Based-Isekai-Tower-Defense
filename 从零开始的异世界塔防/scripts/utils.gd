@@ -54,21 +54,21 @@ static func point_on_ellipse(
 	return Vector2(x, y)
 
 ## 根据距离与时间计算直线速度
-static func initial_linear_speed(from: Vector2, to: Vector2, t: float) -> Vector2:
+static func initial_linear_velocity(from: Vector2, to: Vector2, t: float) -> Vector2:
 	var x: float = (to.x - from.x) / t
 	var y: float = (to.y - from.y) / t
 	
 	return Vector2(x, y)
 
 ## 根据时间与速度计算位于直线上的位置
-static func position_in_linear(speed: Vector2, from: Vector2, t: float) -> Vector2:
-	var x: float = speed.x * t + from.x
-	var y: float = speed.y * t + from.y
+static func position_in_linear(velocity: Vector2, from: Vector2, t: float) -> Vector2:
+	var x: float = velocity.x * t + from.x
+	var y: float = velocity.y * t + from.y
 	
 	return Vector2(x, y)
 	
 ## 根据距离与时间计算抛物线速度
-static func initial_parabola_speed(
+static func initial_parabola_velocity(
 		from: Vector2, to: Vector2, t: float, g: int
 	) -> Vector2:
 	var x: float = (to.x - from.x) / t
@@ -78,10 +78,10 @@ static func initial_parabola_speed(
 	
 ## 根据时间与速度计算位于抛物线上的位置
 static func position_in_parabola(
-		t: float, from: Vector2, speed: Vector2, g: int
+		velocity: Vector2, from: Vector2, t: float, g: int
 	) -> Vector2:
-	var x: float = speed.x * t + from.x
-	var y: float = g * t * t / 2 + speed.y * t + from.y
+	var x: float = velocity.x * t + from.x
+	var y: float = g * t * t / 2 + velocity.y * t + from.y
 
 	return Vector2(x, y)
 

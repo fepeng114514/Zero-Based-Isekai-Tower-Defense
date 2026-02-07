@@ -56,7 +56,7 @@ func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
 		
 	rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
 		
-	if not barrack._on_barrack_respawn(barrack_c, soldier):
+	if not barrack._on_barrack_respawn(soldier, barrack_c):
 		return soldier
 	
 	soldier.insert_entity()

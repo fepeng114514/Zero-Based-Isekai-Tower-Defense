@@ -1,41 +1,28 @@
 extends Entity
 
-@onready var B = get_c(CS.CN_BULLET)
-var min_damage_radius: int = 0
-var max_damage_radius: int = 0
+@onready var bullet_c = get_c(CS.CN_BULLET)
 var stay_height: int = 0
 var stay_time: float = 0
 var to_predict_time: float = 0
-var target
 var is_stay: bool = true
 var is_to_predict: bool = true
 var has_to_predict: bool = false
 var has_init_fall: bool = false
 
 func _on_insert() -> bool:
-	target = EntityDB.get_entity_by_id(target_id)
-	
-	if not target:
-		return false
-	
-	B.to = target.position
-	B.from = position
-	
-	var t_pos: Vector2 = target.position
-	position = Vector2(t_pos.x, t_pos.y - stay_height)
-	
-	rotation = deg_to_rad(90)
-	
-	B.ts = TM.tick_ts
+	position.y -= stay_height
+
 	return true
 
 func _on_update(delta: float) -> void:
+	var target = EntityDB.get_entity_by_id(target_id)
+
 	# 停留状态
-	if is_instance_valid(target) and is_stay and not TM.is_ready_time(B.ts, stay_time):
+	if target and is_stay and not TM.is_ready_time(bullet_c.ts, stay_time):
 		var t_pos: Vector2 = target.position
 		position = Vector2(t_pos.x, t_pos.y - stay_height)
-		B.to = position
-		B.from = position
+		bullet_c.to = position
+		bullet_c.from = position
 		return
 	
 	# 初始化预判位置
@@ -44,16 +31,27 @@ func _on_update(delta: float) -> void:
 		has_to_predict = true
 		
 		if is_instance_valid(target):
-			B.predict_target_pos = PathDB.predict_target_pos(target, (B.flight_time + to_predict_time) * TM.fps)
+			bullet_c.predict_target_pos = PathDB.predict_target_pos(
+				target, (bullet_c.flight_time + to_predict_time) * TM.fps
+			)
 		else:
-			B.predict_target_pos = Vector2(B.to.x, B.to.y + stay_height)
+			bullet_c.predict_target_pos = Vector2(
+				bullet_c.to.x, bullet_c.to.y + stay_height
+			)
+		bullet_c.to = bullet_c.predict_target_pos
 		
-		B.speed = Utils.initial_linear_speed(position, Vector2(B.predict_target_pos.x, B.predict_target_pos.y - stay_height), to_predict_time)
-		B.ts = TM.tick_ts
+		bullet_c.velocity = Utils.initial_linear_velocity(
+			position, 
+			Vector2(bullet_c.to.x, bullet_c.to.y - stay_height), 
+			to_predict_time
+		)
+		bullet_c.ts = TM.tick_ts
 		
 	# 飞向预判位置
-	if is_to_predict and not TM.is_ready_time(B.ts, to_predict_time):
-		position = Utils.position_in_linear(B.speed, B.from, TM.get_time(B.ts))
+	if is_to_predict and not TM.is_ready_time(bullet_c.ts, to_predict_time):
+		position = Utils.position_in_linear(
+			bullet_c.velocity, bullet_c.from, TM.get_time(bullet_c.ts)
+		)
 		
 		return
 	
@@ -61,23 +59,16 @@ func _on_update(delta: float) -> void:
 	if not has_init_fall:
 		is_to_predict = false
 		has_init_fall = true
-		
-		B.from = position
-		B.speed = Utils.initial_linear_speed(position, B.predict_target_pos, B.flight_time)
+		bullet_c.can_arrived = true
+		bullet_c.from = position
 
-		B.ts = TM.tick_ts
+		bullet_c.velocity = Utils.initial_linear_velocity(
+			position, bullet_c.to, bullet_c.flight_time
+		)
+
+		bullet_c.ts = TM.tick_ts
 
 	# 下落
-	position = Utils.position_in_linear(B.speed, B.from, TM.get_time(B.ts))
-
-	if not B.hit_rect.has_point(B.predict_target_pos - position):
-		return
-	
-	var targets = EntityDB.find_enemies_in_range(position, min_damage_radius, max_damage_radius, flags, bans)
-
-	for t in targets:
-		var damage_factor = Utils.dist_factor_inside_ellipse(t.position, position, min_damage_radius, max_damage_radius)
-		
-		EntityDB.create_damage(t.id, B.min_damage, B.max_damage, B.damage_type, B.source_id, damage_factor)
-	
-	remove_entity()
+	position = Utils.position_in_linear(
+		bullet_c.velocity, bullet_c.from, TM.get_time(bullet_c.ts)
+	)

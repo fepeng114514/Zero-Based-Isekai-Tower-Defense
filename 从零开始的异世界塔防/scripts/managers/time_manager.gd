@@ -26,7 +26,8 @@ func get_time(ts) -> float:
 func y_wait(time: float = 0, break_fn = null) -> void:
 	if time == 0:
 		await curren_scene.process_frame
-	else:	
-		var ts = tick_ts
-		while not is_ready_time(ts, time) and (not break_fn or break_fn.call()):
-			await curren_scene.process_frame
+		return
+		
+	var ts = tick_ts
+	while not is_ready_time(ts, time) and (not break_fn or break_fn.call()):
+		await curren_scene.process_frame

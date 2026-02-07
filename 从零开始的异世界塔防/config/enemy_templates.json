@@ -12,7 +12,6 @@
 		"components": {
 			"health": {
 				"hp_max": 100,
-				"hp": 18,
 				"physical_armor": 50
 			},
 			"nav_path": {

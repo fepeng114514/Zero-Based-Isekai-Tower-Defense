@@ -68,16 +68,19 @@ func _on_eat(target: Entity, d: Damage) -> void: pass
 func _on_kill(target: Entity, d: Damage) -> void: pass
 	
 ## 兵营生成士兵时调用，返回 false 不生成士兵
-func _on_barrack_respawn(barrack_c: BarrackComponent, soldier: Entity) -> bool: return true
+func _on_barrack_respawn(soldier: Entity, barrack_c: BarrackComponent) -> bool: return true
 
 ## 状态效果实体周期调用
 func _on_modifier_period(target: Entity, mod_c: ModifierComponent) -> void: pass
 
 ## 子弹命中目标时调用
-func _on_bullet_hit(bullet: Entity, target: Entity) -> void: pass
+func _on_bullet_hit(target: Entity, bullet_c: BulletComponent) -> void: pass
 
 ## 子弹未命中目标时调用
-func _on_bullet_miss(bullet: Entity, target: Entity) -> void: pass
+func _on_bullet_miss(target: Entity, bullet_c: BulletComponent) -> void: pass
+
+## 计算子弹伤害系数时调用，返回值为伤害系数
+func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponent) -> float: return 1.0
 
 func is_enemy() -> bool:
 	return flags & CS.FLAG_ENEMY
