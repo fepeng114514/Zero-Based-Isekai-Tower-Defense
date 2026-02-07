@@ -1,7 +1,42 @@
 {
     "modifier": {
         "flags": "%const(FLAG_MODIFIER)",
+        "track_target": true,
         "modifier": {}
+    },
+    "aura": {
+        "flags": "%const(FLAG_AURA)",
+        "track_source": true
+    },
+    "bullet": {
+        "flags": "%const(FLAG_BULLET)"
+    },
+    "tower": {
+        "flags": "%const(FLAG_TOWER)"
+    },
+    "friendly": {
+        "flags": "%const(FLAG_FRIENDLY)",
+        "components": {
+            "melee": {
+                "is_blocker": true
+            }
+        }
+    },
+    "hero": {
+        "base": "friendly",
+        "flags": "%const(FLAG_HERO)"
+    },
+    "enemy": {
+        "flags": "%const(FLAG_ENEMY)",
+        "components": {
+            "melee": {
+                "is_blocked": true
+            }
+        }
+    },
+    "boss": {
+        "base": "enemy",
+        "flags": "%const(FLAG_BOSS)"
     },
     "mod_dps": {
         "base": "modifier",

@@ -1,18 +1,4 @@
 {
-    "tower": {
-        "flags": "%const(FLAG_TOWER)"
-    },
-    "friendly": {
-        "flags": "%const(FLAG_FRIENDLY)",
-        "components": {
-            "melee": {
-                "is_blocker": true
-            }
-        }
-    },
-    "bullet": {
-        "flags": "%const(FLAG_BULLET)"
-    },
     "tower_mage": {
         "base": "tower",
         "components": {
@@ -120,7 +106,7 @@
         },
         "stay_height": 120,
         "stay_time": 1,
-        "to_predict_time": 0.5,
+        "to_predict_time": 0.5
     },
     "bullet_bomb": {
         "base": "bullet",

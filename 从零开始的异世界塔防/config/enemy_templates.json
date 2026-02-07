@@ -1,12 +1,4 @@
 {
-	"enemy": {
-		"flags": "%const(FLAG_ENEMY)",
-		"components": {
-			"melee": {
-				"is_blocked": true
-			}
-		}
-	},
 	"enemy_goblin": {
 		"base": "enemy",
 		"components": {

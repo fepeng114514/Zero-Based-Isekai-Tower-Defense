@@ -33,7 +33,7 @@ func _on_update(delta) -> void:
 		var d: Damage = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
 		
-		if not target:
+		if not Utils.is_vaild_entity(target):
 			continue
 			
 		var t_health_c = target.get_c(CS.CN_HEALTH)
@@ -103,7 +103,6 @@ func predict_damage(
 			damage_factor *= mod_c.add_damage_factor
 			damage_inc += mod_c.add_damage_inc
 			resistance *= mod_c.damage_resistance_factor
-			resistance += mod_c.damage_resistance_inc
 			reduction += mod_c.damage_reduction_inc
 			physical_armor_factor *= mod_c.physical_armor_factor
 			magical_armor_factor *= mod_c.magical_armor_factor

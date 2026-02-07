@@ -6,7 +6,13 @@ func _on_insert(e: Entity) -> bool:
 
 	var target = EntityDB.get_entity_by_id(e.target_id)
 
-	if not target:
+	if not Utils.is_vaild_entity(target):
+		return false
+		
+	e.position = target.position
+		
+	# 检查黑白名单
+	if not Utils.is_allowed_entity(e, target):
 		return false
 
 	# 检查是否被目标禁止
@@ -33,8 +39,11 @@ func _on_insert(e: Entity) -> bool:
 			
 		# 检查是否被当前效果禁止
 		if e.mod_bans & other_m.flags or e.mod_type_bans & other_mod_c.mod_type:
-			other_m.remove_entity()
-			continue
+			if mod_c.remove_banned:
+				other_m.remove_entity()
+				continue
+			
+			return false
 		
 		if other_m.template_name == e.template_name:
 			same_target_mods.append(other_m)
@@ -94,7 +103,7 @@ func _on_remove(e: Entity) -> void:
 	
 	var target = EntityDB.get_entity_by_id(e.target_id)
 
-	if not target:
+	if not Utils.is_vaild_entity(target):
 		return
 
 	target.has_mods_ids.erase(e.id)

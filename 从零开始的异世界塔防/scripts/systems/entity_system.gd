@@ -14,6 +14,7 @@ func _on_remove(e: Entity) -> void:
 	e._on_remove()
 	
 	e.clear_has_mods()
+	e.clear_has_auras()
 
 func _on_update(delta: float) -> void:
 	for e in EntityDB.entities:

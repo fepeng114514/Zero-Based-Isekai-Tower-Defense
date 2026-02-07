@@ -6,7 +6,7 @@ func _on_insert(e: Entity) -> bool:
 
 	var bullet_c: BulletComponent = e.get_c(CS.CN_BULLET)
 	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
-	if not target:
+	if not Utils.is_vaild_entity(target):
 		return false
 
 	bullet_c.ts = TM.tick_ts
@@ -60,7 +60,7 @@ func _on_update(delta: float) -> void:
 			):
 			continue
 			
-		if not target:
+		if not Utils.is_vaild_entity(target):
 			e._on_bullet_miss(target, bullet_c)
 
 			if bullet_c.miss_remove:

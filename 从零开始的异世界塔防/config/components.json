@@ -8,6 +8,8 @@
 		"components": {},
 		"bans": "%int(0)",
 		"flags": "%int(0)",
+		"allowed_templates": [],
+		"excluded_templates": [],
 		"insert_ts": 0,
 		"ts": 0,
 		"duration": 0,
@@ -19,7 +21,8 @@
 		"hit_rect": "%rect2(1, 1, 1, 1)",
 		"state": "%const(STATE_IDLE)",
 		"level": 1,
-		"track_source": false
+		"track_source": false,
+		"track_target": false
 	},
 	"hero": {},
 	"tower": {
@@ -126,7 +129,9 @@
 				"animation": "",
 				"chance": 1,
 				"flags": "%int(0)",
-				"bans": "%int(0)"
+				"bans": "%int(0)",
+				"allowed_templates": [],
+				"excluded_templates": []
 			}
 		},
 		"order": []
@@ -144,6 +149,8 @@
 				"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
 				"flags": "%int(0)",
 				"bans": "%int(0)",
+				"allowed_templates": [],
+				"excluded_templates": [],
 				"animation": "",
 				"chance": 1,
 				"together_melee": false
@@ -156,6 +163,7 @@
 		"allow_same": false,
 		"reset_same": true,
 		"replace_same": false,
+		"remove_banned": true,
 		"add_damage_factor": 1,
 		"physical_armor_factor": 1,
 		"magical_armor_factor": 1,
@@ -163,10 +171,10 @@
 		"add_damage_inc": 0,
 		"physical_armor_inc": 0,
 		"magical_armor_inc": 0,
-		"damage_resistance_inc": 0,
 		"damage_reduction_inc": 0,
 		"vulnerable_factor": 1,
 		"vulnerable_inc": 0,
+		"speed_factor": 1,
 		"ts": 0,
 		"min_damage": 10,
 		"max_damage": 10,
@@ -174,7 +182,21 @@
 		"period_interval": 1
 	},
 	"aura": {
-		"ts": 0
+		"aura_type": "int(0)",
+		"allow_same": false,
+		"reset_same": true,
+		"replace_same": false,
+		"overlay_duration_same": false,
+		"remove_banned": true,
+		"min_radius": 0,
+		"max_radius": 0,
+		"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
+		"ts": 0,
+		"mods": [],
+		"period_interval": 1,
+		"min_damage": 0,
+		"max_damage": 0,
+		"damage_type": "%const(DAMAGE_TRUE)"
 	},
 	"sprite": {
 		"sprite_templates": {

@@ -131,6 +131,27 @@ func create_damage(
 		
 	return d
 
+func create_mods(
+		target_id: int,
+		source_id: int = -1,
+		mods: Array = [],
+		auto_insert: bool = true
+	) -> Array[Entity]:
+
+	var created_mods: Array[Entity] = []
+
+	for t_name: String in mods:
+		var mod = create_entity(t_name)
+		mod.target_id = target_id
+		mod.source_id = source_id
+
+		if auto_insert:
+			mod.insert_entity()
+
+		created_mods.append(mod)
+
+	return created_mods
+
 func create_damage_and_mods(
 		target_id: int,
 		min_damage: int,
@@ -144,12 +165,7 @@ func create_damage_and_mods(
 		target_id, min_damage, max_damage, damage_type, source_id, damage_factor
 	)
 	
-	for t_name: String in mods:
-		var mod = create_entity(t_name)
-		mod.target_id = target_id
-		mod.source_id = source_id
-
-		mod.insert_entity()
+	create_mods(target_id, source_id, mods)
 
 func get_entity_by_id(id: int):
 	if id == -1:

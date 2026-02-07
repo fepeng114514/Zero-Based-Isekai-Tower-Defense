@@ -30,7 +30,7 @@ func get_pos_with_progress_ratio(subpath: Path2D, progress_ratio) -> Vector2:
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 	var nav_path_c = target.get_c(CS.CN_NAV_PATH)
 	
-	if not nav_path_c:
+	if not nav_path_c or target.state & CS.STATE_MELEE:
 		return target.position
 	
 	var subpath: Path2D = get_subpath(nav_path_c.nav_path, nav_path_c.nav_subpath)

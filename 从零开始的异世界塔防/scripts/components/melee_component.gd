@@ -34,7 +34,7 @@ func calculate_blocked_count():
 	for id in blockeds_ids:
 		var b = EntityDB.get_entity_by_id(id)
 		
-		if not b:
+		if not Utils.is_vaild_entity(b):
 			continue
 			
 		var b_melee_c: MeleeComponent = b.get_c(CS.CN_MELEE)
@@ -61,7 +61,7 @@ func get_blocked(filter = null) -> Array[Entity]:
 	for id in blockeds_ids:
 		var e = EntityDB.get_entity_by_id(id)
 		
-		if not e or filter and not filter.call():
+		if not Utils.is_vaild_entity(e) or filter and not filter.call(e):
 			continue
 		
 		blocked_list.append(e)

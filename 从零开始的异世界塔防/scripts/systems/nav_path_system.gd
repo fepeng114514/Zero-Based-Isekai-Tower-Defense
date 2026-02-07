@@ -25,6 +25,7 @@ func _on_update(delta: float) -> void:
 			continue
 			
 		var nav_path_c = e.get_c(CS.CN_NAV_PATH)
+		nav_path_c.speed = get_mod_speed_factor(e)
 
 		walk_step(e, nav_path_c)
 		
@@ -34,6 +35,15 @@ func _on_update(delta: float) -> void:
 			or nav_path_c.progress_ratio >= 1
 		):
 			get_end(e, nav_path_c)
+
+func get_mod_speed_factor(e: Entity):
+	var speed_factor: float = 1
+
+	for mod: Entity in e.get_has_auras():
+		var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
+		speed_factor *= mod_c.speed_factor
+	
+	return speed_factor
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent):
 	if nav_path_c.reversed:

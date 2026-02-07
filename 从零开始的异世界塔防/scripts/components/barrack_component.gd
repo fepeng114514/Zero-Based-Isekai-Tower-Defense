@@ -15,13 +15,13 @@ var ts: float = 0
 ## 清理无效士兵
 func cleanup_soldiers():
 	# 快速检查是否存在无效士兵
-	if not soldiers_list.any(func(s): return not is_instance_valid(s)):
+	if not soldiers_list.any(func(s): return not Utils.is_vaild_entity(s)):
 		return
 		
 	var new_soldiers_list: Array = []
 	
 	for s in soldiers_list:
-		if not is_instance_valid(s):
+		if not Utils.is_vaild_entity(s):
 			continue 
 			
 		new_soldiers_list.append(s)

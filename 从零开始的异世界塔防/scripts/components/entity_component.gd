@@ -9,6 +9,8 @@ var has_components: Dictionary = {}
 var components: Dictionary = {}
 var bans: int = 0
 var flags: int = 0
+var allowed_templates: Array = []
+var excluded_templates: Array = []
 var insert_ts: float = 0
 var ts: float = 0
 var duration: float = -1
@@ -16,11 +18,15 @@ var waitting: bool = false
 var removed: bool = false
 var mod_bans: int = 0
 var mod_type_bans: int = 0
+var aura_bans: int = 0
+var aura_type_bans: int = 0
 var has_mods_ids: Array[int] = []
+var has_auras_ids: Array[int] = []
 var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 var state: int = CS.STATE_IDLE
 var level: int = 1
 var track_source: bool = false
+var track_target: bool = false
 
 ## 准备插入实体时调用（创建实体），返回 false 的实体不会被创建
 ## [br]
@@ -72,6 +78,9 @@ func _on_barrack_respawn(soldier: Entity, barrack_c: BarrackComponent) -> bool: 
 
 ## 状态效果实体周期调用
 func _on_modifier_period(target: Entity, mod_c: ModifierComponent) -> void: pass
+
+## 光环实体周期调用
+func _on_aura_period(targets: Array[Entity], aura_c: AuraComponent) -> void: pass
 
 ## 子弹命中目标时调用
 func _on_bullet_hit(target: Entity, bullet_c: BulletComponent) -> void: pass
@@ -195,7 +204,7 @@ func get_has_mods(filter = null) -> Array[Entity]:
 	for mod_id in has_mods_ids:
 		var mod = EntityDB.get_entity_by_id(mod_id)
 		
-		if not mod or filter and not filter.call(mod):
+		if not Utils.is_vaild_entity(mod) or filter and not filter.call(mod):
 			continue
 		
 		has_mods.append(mod)
@@ -207,6 +216,25 @@ func clear_has_mods() -> void:
 		mod.remove_entity()
 
 	has_mods_ids.clear()
+
+func get_has_auras(filter = null) -> Array[Entity]:
+	var has_auras: Array[Entity] = []
+	
+	for aura_id in has_auras_ids:
+		var aura = EntityDB.get_entity_by_id(aura_id)
+		
+		if not Utils.is_vaild_entity(aura) or filter and not filter.call(aura):
+			continue
+		
+		has_auras.append(aura)
+		
+	return has_auras
+
+func clear_has_auras() -> void:
+	for aura: Entity in get_has_auras():
+		aura.remove_entity()
+
+	has_auras_ids.clear()
 
 func insert_entity() -> void:
 	SystemManager.insert_queue.append(self)

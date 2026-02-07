@@ -473,7 +473,18 @@ static func attacks_sort_fn(a1, a2) -> bool:
 
 ## 判断实体是否有效
 static func is_vaild_entity(e) -> bool:
-	return is_instance_valid(e) and not e.removed
+	return e and is_instance_valid(e) and not e.removed
+
+static func is_allowed_entity(e, target: Entity):
+	var t_template_name: String = target.template_name
+	
+	return (
+		(
+			not e.allowed_templates
+			or t_template_name in e.allowed_templates
+		)
+		and t_template_name not in e.excluded_templates
+	)
 
 func fts(time: float) -> float:
 	return time / CS.FPS

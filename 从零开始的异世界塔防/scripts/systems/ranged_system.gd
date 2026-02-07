@@ -20,23 +20,20 @@ func _on_update(delta: float) -> void:
 	
 		for a: Dictionary in ranged_c.order:
 			if (
-				not state & CS.STATE_IDLE and
-				(not a.together_melee or state & CS.STATE_MELEE)
+				not state & CS.STATE_IDLE 
+				and (not a.together_melee or state & CS.STATE_MELEE)
 			):
 				continue
 				
-			if not TM.is_ready_time(a.ts, a.cooldown):
-				continue
+			var target = EntityDB.search_target(
+				a.search_mode, e.position, a.min_range, a.max_range, a.flags, a.bans
+			)
+			if not can_attack(a, target):
+				return
 				
-			attack(e, a)
+			attack(e, a, target)
 	
-func attack(e: Entity, a: Dictionary) -> void:
-	var target = EntityDB.search_target(
-		a.search_mode, e.position, a.min_range, a.max_range, a.flags, a.bans
-	)
-	if not target:
-		return
-		
+func attack(e: Entity, a: Dictionary, target: Entity) -> void:
 	var b = EntityDB.create_entity(a.bullet)
 	b.target_id = target.id
 	b.source_id = e.id
