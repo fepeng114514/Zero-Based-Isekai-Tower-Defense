@@ -150,5 +150,7 @@ func do_attacks(e: Entity, melee_c: MeleeComponent):
 		attack(e, a, melee_c, blocked)
 
 func attack(e: Entity, a: Dictionary, melee_c: MeleeComponent, blocked: Entity):
-	EntityDB.create_damage(blocked.id, a.min_damage, a.max_damage, a.damage_type, e.id)
+	EntityDB.create_damage_and_mods(
+		blocked.id, a.min_damage, a.max_damage, a.damage_type, e.id, 1, a.mods
+	)
 	a.ts = TM.tick_ts

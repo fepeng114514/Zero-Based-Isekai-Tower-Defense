@@ -4,7 +4,10 @@ class_name BulletComponent
 var min_damage: int = 0
 var max_damage: int = 0
 var damage_type: int = 1
-var mods: Array[String] = []
+var min_damage_radius: float = 0
+var max_damage_radius: float = 0
+var search_mode: String = CS.SEARCH_MODE_ENEMY_FIRST
+var mods: Array = []
 var speed = 0
 var rotation_speed: float = 0
 var hit_rect: Rect2 = Rect2(-3, -3, 6, 6)
@@ -17,3 +20,5 @@ var direction: Vector2 = Vector2.RIGHT
 var rotation_direction: int = -1
 var ts: float = 0
 var flight_trajectory: int = CS.TRAJECTORY_LINEAR
+var hit_remove: bool = true
+var miss_remove: bool = true

@@ -65,13 +65,18 @@ func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	print(
 		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
 		% [
-			target.template_name, d.target_id, source.template_name, d.source_id, actual_damage
+			target.template_name, 
+			d.target_id, 
+			source.template_name if source else "unknow", 
+			d.source_id, 
+			actual_damage
 		]
 	)
 		
 	if t_health_c.hp <= 0:
 		target._on_dead(target, d)
-		source._on_kill(target, d)
+		if source:
+			source._on_kill(target, d)
 		target.remove_entity()
 		
 func predict_damage(
@@ -92,17 +97,18 @@ func predict_damage(
 	
 	# 汇总状态效果的影响
 	# 所有者
-	for mod: Entity in source.get_has_mods():
-		var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
-		damage_factor *= mod_c.damage_factor
-		damage_inc += mod_c.damage_inc
-		resistance *= mod_c.damage_resistance_factor
-		resistance += mod_c.damage_resistance_inc
-		reduction += mod_c.damage_reduction_inc
-		physical_armor_factor *= mod_c.physical_armor_factor
-		magical_armor_factor *= mod_c.magical_armor_factor
-		physical_armor_inc += mod_c.physical_armor_inc
-		magical_armor_inc += mod_c.magical_armor_inc
+	if source:
+		for mod: Entity in source.get_has_mods():
+			var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
+			damage_factor *= mod_c.add_damage_factor
+			damage_inc += mod_c.add_damage_inc
+			resistance *= mod_c.damage_resistance_factor
+			resistance += mod_c.damage_resistance_inc
+			reduction += mod_c.damage_reduction_inc
+			physical_armor_factor *= mod_c.physical_armor_factor
+			magical_armor_factor *= mod_c.magical_armor_factor
+			physical_armor_inc += mod_c.physical_armor_inc
+			magical_armor_inc += mod_c.magical_armor_inc
 		
 	# 目标
 	for mod: Entity in target.get_has_mods():

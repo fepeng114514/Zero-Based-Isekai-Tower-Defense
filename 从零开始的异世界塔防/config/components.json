@@ -69,6 +69,9 @@
 		"min_damage": 0,
 		"max_damage": 0,
 		"damage_type": 1,
+		"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
+		"min_damage_radius": 0,
+		"max_damage_radius": 0,
 		"mods": [],
 		"speed": 0,
 		"rotation_speed": 0,
@@ -81,7 +84,9 @@
 		"rotation_direction": -1,
 		"hit_rect": "%rect2(-3, -3, 6, 6)",
 		"ts": 0,
-		"flight_trajectory": "%const(TRAJECTORY_LINEAR)"
+		"flight_trajectory": "%const(TRAJECTORY_LINEAR)",
+		"hit_remove": true,
+		"miss_remove": true
 	},
 	"melee": {
 		"block_flags": 0,
@@ -148,18 +153,22 @@
 		"allow_same": false,
 		"reset_same": true,
 		"replace_same": false,
-		"damage_factor": 1,
+		"add_damage_factor": 1,
 		"physical_armor_factor": 1,
 		"magical_armor_factor": 1,
 		"damage_resistance_factor": 1,
-		"damage_inc": 0,
+		"add_damage_inc": 0,
 		"physical_armor_inc": 0,
 		"magical_armor_inc": 0,
 		"damage_resistance_inc": 0,
 		"damage_reduction_inc": 0,
 		"vulnerable_factor": 1,
 		"vulnerable_inc": 0,
-		"ts": 0
+		"ts": 0,
+		"min_damage": 10,
+		"max_damage": 10,
+		"damage_type": "%const(DAMAGE_TRUE)",
+		"period_interval": 1
 	},
 	"aura": {
 		"ts": 0

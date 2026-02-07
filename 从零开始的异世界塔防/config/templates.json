@@ -1,15 +1,16 @@
 {
     "modifier": {
+        "flags": "%const(FLAG_MODIFIER)",
         "modifier": {}
     },
-    "mod_poison": {
+    "mod_dps": {
         "base": "modifier",
         "components": {
-            "min_damage": 0,
-            "max_damage": 0,
-            "damage_interval": 1,
-            "damage_type": "%const(DAMAGE_POISON)",
             "modifier": {
+                "period_interval": 0.1,
+                "min_damage": 5,
+                "max_damage": 5,
+                "damage_type": "%const(DAMAGE_TRUE)"
             }
         }
     },

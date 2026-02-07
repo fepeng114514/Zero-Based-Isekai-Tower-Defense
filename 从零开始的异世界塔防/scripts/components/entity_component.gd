@@ -76,6 +76,9 @@ func _on_modifier_period(target: Entity, mod_c: ModifierComponent) -> void: pass
 ## 子弹命中目标时调用
 func _on_bullet_hit(bullet: Entity, target: Entity) -> void: pass
 
+## 子弹未命中目标时调用
+func _on_bullet_miss(bullet: Entity, target: Entity) -> void: pass
+
 func is_enemy() -> bool:
 	return flags & CS.FLAG_ENEMY
 
@@ -200,7 +203,7 @@ func clear_has_mods() -> void:
 	for mod: Entity in get_has_mods():
 		mod.remove_entity()
 
-	has_mods_ids = []
+	has_mods_ids.clear()
 
 func insert_entity() -> void:
 	SystemManager.insert_queue.append(self)

@@ -131,8 +131,31 @@ func create_damage(
 		
 	return d
 
+func create_damage_and_mods(
+		target_id: int,
+		min_damage: int,
+		max_damage: int,
+		damage_type: int,
+		source_id: int = -1,
+		damage_factor: float = 1,
+		mods: Array = []
+	) -> void:
+	create_damage(
+		target_id, min_damage, max_damage, damage_type, source_id, damage_factor
+	)
+	
+	for t_name: String in mods:
+		var mod = create_entity(t_name)
+		mod.target_id = target_id
+		mod.source_id = source_id
+
+		mod.insert_entity()
+
 func get_entity_by_id(id: int):
-	var e = entities[id]
+	if id == -1:
+		return null
+
+	var e = entities.get(id)
 	return e if is_instance_valid(e) else null
 	
 func get_component_script(c_name: String, deep: bool = false):

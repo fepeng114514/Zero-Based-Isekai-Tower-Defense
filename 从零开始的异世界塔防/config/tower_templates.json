@@ -63,7 +63,8 @@
                 "flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
                 "min_damage": 10,
                 "max_damage": 50,
-                "flight_time": 1
+                "flight_time": 1,
+                "mods": ["mod_dps"]
             }
         }
     },

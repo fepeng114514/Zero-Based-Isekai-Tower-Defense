@@ -35,8 +35,8 @@ func _process(delta: float) -> void:
 		var system_func = system.get("_on_update")
 		system_func.call(delta)
 	
-	call_deferred("_process_remove_queue")
 	call_deferred("_process_insert_queue")
+	call_deferred("_process_remove_queue")
 
 func _process_remove_queue() -> void:	
 	while remove_queue:
@@ -61,6 +61,7 @@ func _process_insert_queue() -> void:
 				push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
 		
 		if not process_systems("_on_insert", e):
+			entities.append(e)
 			e.remove_entity()
 			continue
 		

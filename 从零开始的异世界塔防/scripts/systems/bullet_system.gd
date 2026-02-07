@@ -9,6 +9,8 @@ func _on_insert(e: Entity) -> bool:
 	if not target:
 		return false
 
+	bullet_c.ts = TM.tick_ts
+
 	if bullet_c.flight_trajectory & CS.TRAJECTORY_LINEAR:
 		trajectory_liniear_init(e, bullet_c, target)
 	elif bullet_c.flight_trajectory & CS.TRAJECTORY_PARABOLA:
@@ -20,12 +22,11 @@ func _on_insert(e: Entity) -> bool:
 	# elif bullet_c.flight_trajectory & CS.TRAJECTORY_INSTANT:
 	# 	trajectory_instant_init(e, bullet_c, target)
 	# elif bullet_c.flight_trajectory & CS.TRAJECTORY_CUSTOM:
-	# 	e.custom_bullet_trajectory_init(e, bullet_c, target)
+	# 	return true
 	else:
 		push_error("未知子弹飞行轨迹类型: %s, 子弹: %s(%d)" % [bullet_c.flight_trajectory, e.template_name, e.id])
 		return false
 
-	bullet_c.ts = TM.tick_ts
 	return true
 
 func _on_update(delta: float) -> void:
@@ -44,29 +45,61 @@ func _on_update(delta: float) -> void:
 		# 	trajectory_homing_update(e, bullet_c, target)
 		# elif bullet_c.flight_trajectory & CS.TRAJECTORY_INSTANT:
 		# 	trajectory_instant_update(e, bullet_c, target)
-		# elif bullet_c.flight_trajectory & CS.TRAJECTORY_CUSTOM:
-		# 	e.custom_bullet_trajectory_update(e, bullet_c, target)
 
 		if not bullet_c.hit_rect.has_point(bullet_c.to - e.position):
 			continue
 			
+		if not target:
+			e._on_bullet_miss(e, target)
+
+			if bullet_c.miss_remove:
+				e.remove_entity()
+
+			continue
+
 		hit(e, bullet_c, target)
 		
 func hit(e: Entity, bullet_c: BulletComponent, target: Entity):
+	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
+		var targets = EntityDB.search_targets_in_range(
+			bullet_c.search_mode, 
+			bullet_c.to, 
+			bullet_c.min_damage_radius, 
+			bullet_c.max_damage_radius, 
+			e.flags,
+			e.bans,
+		)
+
+		for t in targets:
+			EntityDB.create_damage_and_mods(
+				t.id, 
+				bullet_c.min_damage, 
+				bullet_c.max_damage, 
+				bullet_c.damage_type, 
+				e.id, 
+				1,
+				bullet_c.mods
+			)
+	else:
+		EntityDB.create_damage_and_mods(
+			target.id, 
+			bullet_c.min_damage, 
+			bullet_c.max_damage, 
+			bullet_c.damage_type, 
+			e.id, 
+			1,
+			bullet_c.mods
+		)
+
 	e._on_bullet_hit(e, target)
 
-	EntityDB.create_damage(
-		e.target_id, 
-		bullet_c.min_damage, 
-		bullet_c.max_damage, 
-		bullet_c.damage_type, 
-		e.source_id
-	)
-	e.remove_entity()
+	if bullet_c.hit_remove:
+		e.remove_entity()
 
 func trajectory_liniear_init(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
+	bullet_c.ts = TM.tick_ts
 	bullet_c.predict_target_pos = PathDB.predict_target_pos(
 		target, bullet_c.flight_time * TM.fps
 	)
@@ -82,6 +115,7 @@ func trajectory_liniear_init(
 func trajectory_liniear_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
+	bullet_c.ts = TM.tick_ts
 	bullet_c.to = bullet_c.predict_target_pos
 
 	bullet_c.direction = (bullet_c.to - e.position).normalized()
@@ -92,28 +126,35 @@ func trajectory_liniear_update(
 func trajectory_parabola_init(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
+	bullet_c.ts = TM.tick_ts
 	bullet_c.predict_target_pos = PathDB.predict_target_pos(
 		target, bullet_c.flight_time * TM.fps
 	)
 	bullet_c.to = bullet_c.predict_target_pos
 	bullet_c.from = e.position
-	bullet_c.direction = (bullet_c.to - e.position).normalized()
-	e.look_at(bullet_c.to)
 	
 	bullet_c.speed = Utils.initial_parabola_speed(
 		e.position, bullet_c.to, bullet_c.flight_time, bullet_c.g
 	)
+	
+	var current_time: float = TM.get_time(bullet_c.ts)
+	var next_time: float = current_time + TM.frame_length
+	var next_pos = Utils.position_in_parabola(
+		next_time, bullet_c.from, bullet_c.speed, bullet_c.g
+	)
+	e.look_at(next_pos)
+	
 
 func trajectory_parabola_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
-	var current_time = TM.get_time(bullet_c.ts)
-	var current_pos = Utils.position_in_parabola(
+	var current_time: float = TM.get_time(bullet_c.ts)
+	var current_pos: Vector2 = Utils.position_in_parabola(
 		current_time, bullet_c.from, bullet_c.speed, bullet_c.g
 	)
 	
-	var next_time = current_time + TM.frame_length
-	var next_pos = Utils.position_in_parabola(
+	var next_time: float = current_time + TM.frame_length
+	var next_pos: Vector2 = Utils.position_in_parabola(
 		next_time, bullet_c.from, bullet_c.speed, bullet_c.g
 	)
 	
@@ -124,6 +165,7 @@ func trajectory_parabola_update(
 func trajectory_tracking_init(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
+	bullet_c.ts = TM.tick_ts
 	bullet_c.to = target.position
 	bullet_c.from = e.position
 	bullet_c.direction = (bullet_c.to - e.position).normalized()
@@ -134,6 +176,8 @@ func trajectory_tracking_update(
 	) -> void:
 	if is_instance_valid(target):
 		bullet_c.to = target.position
+		
+	bullet_c.ts = TM.tick_ts
 	
 	bullet_c.direction = (bullet_c.to - e.position).normalized()
 	e.position += bullet_c.direction * bullet_c.speed * TM.frame_length

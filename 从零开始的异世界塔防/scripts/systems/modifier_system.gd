@@ -20,7 +20,11 @@ func _on_insert(e: Entity) -> bool:
 	mod_c.ts = TM.tick_ts
 
 	for mod_id: int in t_has_mods_ids:
-		var other_m: Entity = EntityDB.get_entity_by_id(mod_id)
+		var other_m = EntityDB.get_entity_by_id(mod_id)
+		
+		if not other_m:
+			continue
+		
 		var other_mod_c: ModifierComponent = other_m.get_c(CS.CN_MODIFIER)
 		
 		# 检查是否被其他效果禁止
@@ -49,7 +53,7 @@ func _on_insert(e: Entity) -> bool:
 		
 	# 重置持续时间，优先重置等级最高的
 	if mod_c.reset_same:
-		max_level_mod.insert_ts = TM.tick_ts
+		max_level_mod.insert_ts -= TM.tick_ts
 		return false
 	# 替换，优先替换等级最低的
 	if mod_c.replace_same:
@@ -68,7 +72,7 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_by_group(CS.CN_MODIFIER):
+	for e: Entity in EntityDB.get_entities_by_group(CS.GROUP_MODIFIERS):
 		var mod_c: ModifierComponent = e.get_c(CS.CN_MODIFIER)
 		
 		# 周期效果
@@ -76,6 +80,9 @@ func _on_update(delta: float) -> void:
 			continue
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+		
+		if mod_c.min_damage > 0 or mod_c.max_damage > 0:
+			EntityDB.create_damage(e.target_id, mod_c.min_damage, mod_c.max_damage, mod_c.damage_type, e.id)
 
 		e._on_modifier_period(target, mod_c)
 
