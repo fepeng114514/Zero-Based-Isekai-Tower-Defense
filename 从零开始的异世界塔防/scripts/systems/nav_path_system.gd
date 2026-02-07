@@ -25,7 +25,7 @@ func _on_update(delta: float) -> void:
 			continue
 			
 		var nav_path_c = e.get_c(CS.CN_NAV_PATH)
-		nav_path_c.speed = get_mod_speed_factor(e)
+		nav_path_c.speed = nav_path_c.speed * get_mod_speed_factor(e)
 
 		walk_step(e, nav_path_c)
 		
