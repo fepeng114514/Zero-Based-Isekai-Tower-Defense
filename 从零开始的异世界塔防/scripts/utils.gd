@@ -1,4 +1,4 @@
-class_name Utils
+class_name U
 static var constants = CS.new()
 static var rng = RandomNumberGenerator.new()
 
@@ -486,5 +486,8 @@ static func is_allowed_entity(e, target: Entity):
 		and t_template_name not in e.excluded_templates
 	)
 
-func fts(time: float) -> float:
+static func fts(time: float) -> float:
 	return time / CS.FPS
+
+static func to_percent(num: float) -> float:
+	return num / 100

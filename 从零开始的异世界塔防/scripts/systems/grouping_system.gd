@@ -13,7 +13,7 @@ func _on_update(delta: float) -> void:
 	component_groups.clear()
 	
 	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e):
+		if not U.is_vaild_entity(e):
 			continue
 
 		if e.is_enemy():

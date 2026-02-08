@@ -123,7 +123,7 @@ func create_damage(
 	d.target_id = target_id
 	d.source_id = source_id
 	d.damage_type = damage_type
-	d.value = Utils.random_int(min_damage, max_damage)
+	d.value = U.random_int(min_damage, max_damage)
 	d.damage_factor = damage_factor
 	d.template_name = d_name
 
@@ -152,20 +152,24 @@ func create_mods(
 
 	return created_mods
 
-func create_damage_and_mods(
-		target_id: int,
-		min_damage: int,
-		max_damage: int,
-		damage_type: int,
+func create_auras(
 		source_id: int = -1,
-		damage_factor: float = 1,
-		mods: Array = []
-	) -> void:
-	create_damage(
-		target_id, min_damage, max_damage, damage_type, source_id, damage_factor
-	)
-	
-	create_mods(target_id, source_id, mods)
+		auras: Array = [],
+		auto_insert: bool = true
+	) -> Array[Entity]:
+
+	var created_auras: Array[Entity] = []
+
+	for t_name: String in auras:
+		var aura = create_entity(t_name)
+		aura.source_id = source_id
+
+		if auto_insert:
+			aura.insert_entity()
+
+		created_auras.append(aura)
+
+	return created_auras
 
 func get_entity_by_id(id: int):
 	if id == -1:
@@ -292,8 +296,8 @@ func find_targets_in_range(
 		func(e): return (
 			is_instance_valid(e)
 			and not (bans & e.flags or e.bans & flags)
-			and Utils.is_in_ellipse(e.position, origin, max_range)
-			and not Utils.is_in_ellipse(e.position, origin, min_range)
+			and U.is_in_ellipse(e.position, origin, max_range)
+			and not U.is_in_ellipse(e.position, origin, min_range)
 			and (not filter or filter.call(e, origin))
 		)
 	)

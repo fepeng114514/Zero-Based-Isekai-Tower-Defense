@@ -1,31 +1,64 @@
 extends Node2D
 class_name Entity
 
+"""实体类:
+游戏中所有具有行为和属性的对象都可以被表示为实体，例如:
+敌人、友军、塔、子弹、状态效果等。实体类负责管理实体的基本属性和组件，
+并提供一些通用的接口和事件回调，供系统和组件调用。
+"""
+
+## 模板名称
 var template_name: String = ""
+## 实体唯一 ID
 var id: int = -1
-var target_id: int = -1
-var source_id: int = -1
+## 拥有的所有组件对象
 var has_components: Dictionary = {}
+## 初始组件数据，不包含任何后续修改的数据
 var components: Dictionary = {}
-var bans: int = 0
-var flags: int = 0
+## 所有者或来源 ID，通常为生成实体的实体 ID
+var source_id: int = -1
+## 实体标识符，使用位运算表示
+var flags: int = CS.FLAG_NONE
+## 目标实体 ID，通常用于子弹、状态效果等需要指定目标的实体
+var target_id: int = -1
+## 禁止的实体标识符，使用位运算表示，表示该实体不能与哪些标识的实体进行交互
+var bans: int = CS.FLAG_NONE
+## 白名单实体模板名称列表，表示该实体只能与这些模板名称的实体进行交互，通常用于状态效果
 var allowed_templates: Array = []
+## 黑名单实体模板名称列表，表示该实体不能与这些模板名称的实体进行交互，通常用于状态效果
 var excluded_templates: Array = []
+## 插入时间戳，单位为秒
 var insert_ts: float = 0
+## 时间戳，单位为秒，通常用于持续时间、子弹飞行时间等
 var ts: float = 0
+## 持续时间，单位为秒，通常用于状态效果持续时间等
 var duration: float = -1
-var waitting: bool = false
-var removed: bool = false
-var mod_bans: int = 0
-var mod_type_bans: int = 0
-var aura_bans: int = 0
-var aura_type_bans: int = 0
+## 禁止的状态效果标识符，使用位运算表示，表示该实体不能与哪些状态效果进行交互，通常用于状态效果互斥
+var mod_bans: int = CS.FLAG_NONE
+## 禁止的状态效果类型标识符，使用位运算表示，表示该实体不能与哪些类型的状态效果进行交互，通常用于状态效果互斥
+var mod_type_bans: int = CS.MOD_TYPE_NONE
+## 已拥有的状态效果 ID 列表，表示该实体当前拥有的状态效果实体 ID 列表，通常用于状态效果管理
 var has_mods_ids: Array[int] = []
+## 禁止的光环标识符，使用位运算表示，表示该实体不能与哪些光环进行交互，通常用于光环互斥
+var aura_bans: int = CS.FLAG_NONE
+## 禁止的光环类型标识符，使用位运算表示，表示该实体不能与哪些类型的光环进行交互，通常用于光环互斥
+var aura_type_bans: int = CS.AURA_TYPE_NONE
+## 插入实体时创建的光环模板名称列表
+var auras_list: Array = []
+## 已拥有的光环 ID 列表，表示该实体当前拥有的光环实体 ID 列表，通常用于光环管理
 var has_auras_ids: Array[int] = []
 var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
+## 实体状态，通常用于区分实体的不同阶段或行为模式
 var state: int = CS.STATE_IDLE
+## 等待状态，表示实体正在等待某个事件或条件，通常用于协程等待
+var waitting: bool = false
+## 移除状态，表示实体正在被移除
+var removed: bool = false
+## 实体等级，通常用于区分实体的强度或阶段
 var level: int = 1
+## 追踪来源实体，通常用于光环等需要持续追踪的实体
 var track_source: bool = false
+## 追踪目标实体，通常用于状态效果等需要持续追踪的实体
 var track_target: bool = false
 
 ## 准备插入实体时调用（创建实体），返回 false 的实体不会被创建
@@ -138,10 +171,10 @@ func merged_c_data(c_name, c_data: Dictionary, merged: Dictionary, convert_json_
 			var template: Dictionary = result.attack_templates[ma.attack_type]
 			attacks.append(template)
 	
-	Utils.deepmerge_dict_recursive(result, merged)
+	U.deepmerge_dict_recursive(result, merged)
 	
 	if convert_json_data:
-		return Utils.convert_json_data(result)
+		return U.convert_json_data(result)
 
 	return result
 
@@ -153,7 +186,7 @@ func set_template_data(template_data: Dictionary) -> void:
 	
 	for key: String in keys:
 		var property = template_data[key]
-		property = Utils.convert_json_data(property)
+		property = U.convert_json_data(property)
 		
 		set(key, property)
 
@@ -180,7 +213,7 @@ func merge_base_template(template_data: Dictionary, base: String):
 	if base_data.has("base"):
 		merge_base_template(template_data, base_data.base)
 		
-	Utils.deepmerge_dict_recursive(template_data, base_data)
+	U.deepmerge_dict_recursive(template_data, base_data)
 	
 func y_wait(time: float = 0, break_fn = null):
 	waitting = true
@@ -204,7 +237,7 @@ func get_has_mods(filter = null) -> Array[Entity]:
 	for mod_id in has_mods_ids:
 		var mod = EntityDB.get_entity_by_id(mod_id)
 		
-		if not Utils.is_vaild_entity(mod) or filter and not filter.call(mod):
+		if not U.is_vaild_entity(mod) or filter and not filter.call(mod):
 			continue
 		
 		has_mods.append(mod)
@@ -223,7 +256,7 @@ func get_has_auras(filter = null) -> Array[Entity]:
 	for aura_id in has_auras_ids:
 		var aura = EntityDB.get_entity_by_id(aura_id)
 		
-		if not Utils.is_vaild_entity(aura) or filter and not filter.call(aura):
+		if not U.is_vaild_entity(aura) or filter and not filter.call(aura):
 			continue
 		
 		has_auras.append(aura)

@@ -64,6 +64,7 @@ const DAMAGE_DISINTEGRATE: int = 1 << 5
 const DAMAGE_POISON: int = 1 << 6
 const DAMAGE_EAT: int = 1 << 7
 
+const FLAG_NONE: int = 0
 const FLAG_ENEMY: int = 1
 const FLAG_BOSS: int = 1 << 1 | FLAG_ENEMY
 const FLAG_FRIENDLY: int = 1 << 2
@@ -74,11 +75,16 @@ const FLAG_MODIFIER: int = 1 << 6
 const FLAG_AURA: int = 1 << 7
 const FLAG_FLYING: int = 1 << 8
 
+const MOD_TYPE_NONE: int = 0
 const MOD_TYPE_POISON: int = 1
 const MOD_TYPE_LAVA: int = 1 << 1
 const MOD_TYPE_BLEED: int = 1 << 2
 const MOD_TYPE_FREEZE: int = 1 << 3
 const MOD_TYPE_STUN: int = 1 << 4
+
+const AURA_TYPE_NONE: int = 0
+const AURA_TYPE_BUFF: int = 1
+const AURA_TYPE_DEBUFF: int = 1 << 1
 
 const NAME_TOWER_HOLDER: String = "tower_holder_%s"
 

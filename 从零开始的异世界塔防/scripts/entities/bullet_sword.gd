@@ -40,7 +40,7 @@ func _on_update(delta: float) -> void:
 			)
 		bullet_c.to = bullet_c.predict_target_pos
 		
-		bullet_c.velocity = Utils.initial_linear_velocity(
+		bullet_c.velocity = U.initial_linear_velocity(
 			position, 
 			Vector2(bullet_c.to.x, bullet_c.to.y - stay_height), 
 			to_predict_time
@@ -49,7 +49,7 @@ func _on_update(delta: float) -> void:
 		
 	# 飞向预判位置
 	if is_to_predict and not TM.is_ready_time(bullet_c.ts, to_predict_time):
-		position = Utils.position_in_linear(
+		position = U.position_in_linear(
 			bullet_c.velocity, bullet_c.from, TM.get_time(bullet_c.ts)
 		)
 		
@@ -62,13 +62,23 @@ func _on_update(delta: float) -> void:
 		bullet_c.can_arrived = true
 		bullet_c.from = position
 
-		bullet_c.velocity = Utils.initial_linear_velocity(
+		bullet_c.velocity = U.initial_linear_velocity(
 			position, bullet_c.to, bullet_c.flight_time
 		)
 
 		bullet_c.ts = TM.tick_ts
 
 	# 下落
-	position = Utils.position_in_linear(
+	position = U.position_in_linear(
 		bullet_c.velocity, bullet_c.from, TM.get_time(bullet_c.ts)
+	)
+
+func _on_bullet_calculate_damage_factor(
+		target: Entity, bullet_c: BulletComponent
+	) -> float:
+	return U.dist_factor_inside_ellipse(
+		target.position, 
+		position, 
+		bullet_c.min_damage_radius, 
+		bullet_c.max_damage_radius
 	)

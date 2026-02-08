@@ -5,6 +5,9 @@ func _on_ready_insert(e: Entity) -> bool:
 
 func _on_insert(e: Entity) -> bool:
 	e.insert_ts = TM.tick_ts
+
+	EntityDB.create_auras(e.id, e.auras_list)
+
 	return e._on_insert()
 	
 func _on_ready_remove(e: Entity) -> bool:
@@ -18,7 +21,7 @@ func _on_remove(e: Entity) -> void:
 
 func _on_update(delta: float) -> void:
 	for e in EntityDB.entities:
-		if not Utils.is_vaild_entity(e):
+		if not U.is_vaild_entity(e):
 			continue
 			
 		if e.duration != -1 and TM.is_ready_time(e.insert_ts, e.duration):

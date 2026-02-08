@@ -7,7 +7,7 @@ func _on_insert(e: Entity) -> bool:
 	var aura_c: AuraComponent = e.get_c(CS.CN_AURA)
 	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
 
-	if not Utils.is_vaild_entity(source):
+	if not U.is_vaild_entity(source):
 		return false
 
 	e.position = source.position
@@ -97,7 +97,7 @@ func _on_remove(e: Entity) -> void:
 	
 	var source = EntityDB.get_entity_by_id(e.source_id)
 
-	if not Utils.is_vaild_entity(source):
+	if not U.is_vaild_entity(source):
 		return
 	
 	source.has_auras_ids.erase(e.id) 

@@ -1,6 +1,7 @@
 extends Node
 class_name ModifierComponent
 
+## 状态效果类型，使用位运算表示
 var mod_type: int = 0
 var allow_same: bool = false
 var reset_same: bool = true

@@ -2,7 +2,7 @@ extends Node2D
 #
 #func split_atlas_and_create_animations():
 	#var atlas_texture = preload(CS.PATH_ATLAS_ASSETS % name + ".png")
-	#var data = Utils.load_json_file(CS.PATH_ATLAS_ASSETS % name + ".json")
+	#var data = U.load_json_file(CS.PATH_ATLAS_ASSETS % name + ".json")
 	#
 	## 创建SpriteFrames资源用于存储动画
 	#var sprite_frames = SpriteFrames.new()

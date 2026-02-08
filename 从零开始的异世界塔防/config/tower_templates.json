@@ -46,7 +46,7 @@
         "base": "bullet",
         "components": {
             "bullet": {
-                "predict_target_pos_valid": true,
+                "predict_pos_disabled": true,
                 "flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
                 "min_damage": 10,
                 "max_damage": 50,
@@ -112,7 +112,7 @@
         "base": "bullet",
         "components": {
             "bullet": {
-                "predict_target_pos_valid": true,
+                "predict_pos_disabled": true,
                 "flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
                 "min_damage": 50,
                 "max_damage": 50,

@@ -33,7 +33,7 @@ func _on_update(delta) -> void:
 		var d: Damage = damage_queue.pop_at(i)
 		var target = EntityDB.get_entity_by_id(d.target_id)
 		
-		if not Utils.is_vaild_entity(target):
+		if not U.is_vaild_entity(target):
 			continue
 			
 		var t_health_c = target.get_c(CS.CN_HEALTH)
@@ -122,27 +122,25 @@ func predict_damage(
 		return t_health_c.hp
 		
 	var physical_armor: float = clampf(
-		(
+		U.to_percent(
 			t_health_c.physical_armor 
 			* physical_armor_factor 
 			+ physical_armor_inc
-		)
-		/ 100, 
+		), 
 		0,
 		1
 	)
 	var magical_armor: float = clampf(
-		(
+		U.to_percent(
 			t_health_c.magical_armor
 			* magical_armor_factor
 			+ magical_armor_inc
-		)
-		/ 100,
+		),
 		0,
 		1
 	)
 	var poison_armor: float = clampf(
-		t_health_c.poison_armor / 100,
+		U.to_percent(t_health_c.poison_armor),
 		0,
 		1
 	)

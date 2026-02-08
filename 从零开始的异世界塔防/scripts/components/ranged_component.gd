@@ -7,4 +7,4 @@ var order: Array = []
 
 func sort_attacks() -> void:
 	order = attacks.duplicate()
-	order.sort_custom(Utils.attacks_sort_fn)
+	order.sort_custom(U.attacks_sort_fn)

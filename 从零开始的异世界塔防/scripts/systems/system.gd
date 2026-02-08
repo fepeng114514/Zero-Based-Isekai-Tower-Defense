@@ -27,8 +27,8 @@ func _on_update(delta: float) -> void: pass
 
 func can_attack(a: Dictionary, target: Entity) -> bool:
 	return (
-		Utils.is_vaild_entity(target)
+		U.is_vaild_entity(target)
 		and TM.is_ready_time(a.ts, a.cooldown) 
 		and not (a.bans & target.flags or a.flags & target.bans)
-		and Utils.is_allowed_entity(a, target)
+		and U.is_allowed_entity(a, target)
 	)

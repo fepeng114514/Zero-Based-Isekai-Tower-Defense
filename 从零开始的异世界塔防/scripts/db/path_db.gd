@@ -9,7 +9,7 @@ func get_subpath(path_idx: int, subpath_idx: int) -> Path2D:
 	return paths[path_idx].subpaths[subpath_idx]
 
 func get_random_subpath(path_idx: int):
-	return Utils.random_int(0, paths[path_idx].subpaths.size() - 1)
+	return U.random_int(0, paths[path_idx].subpaths.size() - 1)
 
 func calculate_progress_ratio(speed: int, subpath: Path2D, time: float = 1) -> float:
 	var distance_moved = speed * time * TM.frame_length

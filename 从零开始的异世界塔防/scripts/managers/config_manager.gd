@@ -20,9 +20,9 @@ func get_config_data(base_path):
 	var res_path: String = RES_PATH + base_path
 	
 	if Global.IS_DEBUG:
-		return Utils.load_json_file(res_path)
+		return U.load_json_file(res_path)
 	
 	if not FileAccess.file_exists(user_path):
 		copy_default_to_user(user_path, res_path)
 		
-	return Utils.load_json_file(user_path)
+	return U.load_json_file(user_path)
