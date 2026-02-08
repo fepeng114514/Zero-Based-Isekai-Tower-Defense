@@ -467,10 +467,12 @@ func search_target(
 			return find_extreme_friendly(
 				CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true
 			)
+			
+	return null
 
 func search_targets_in_range(
 		search_mode, origin, min_range, max_range, flags, bans, filter = null
-	):
+	) -> Array:
 	match search_mode:
 		CS.SEARCH_MODE_ENEMY_FIRST:
 			return find_sorted_enemies(
@@ -520,3 +522,5 @@ func search_targets_in_range(
 			return find_sorted_friendlys(
 				CS.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true
 			)
+			
+	return []

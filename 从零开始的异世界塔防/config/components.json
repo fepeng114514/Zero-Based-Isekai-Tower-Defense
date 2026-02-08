@@ -132,8 +132,8 @@
 				"ts": 0,
 				"animation": "",
 				"chance": 1,
-				"flags": "%int(0)",
-				"bans": "%int(0)",
+				"flags": "%const(FLAG_NONE)",
+				"bans": "%const(FLAG_NONE)",
 				"allowed_templates": [],
 				"excluded_templates": []
 			}
@@ -151,8 +151,8 @@
 				"bullet": "",
 				"ts": 0,
 				"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
-				"flags": "%int(0)",
-				"bans": "%int(0)",
+				"flags": "%const(FLAG_NONE)",
+				"bans": "%const(FLAG_NONE)",
 				"allowed_templates": [],
 				"excluded_templates": [],
 				"animation": "",
@@ -163,7 +163,7 @@
 		"order": []
 	},
 	"modifier": {
-		"mod_type": 0,
+		"mod_type": "%const(FLAG_NONE)",
 		"allow_same": false,
 		"reset_same": true,
 		"replace_same": false,
@@ -186,7 +186,7 @@
 		"period_interval": 1
 	},
 	"aura": {
-		"aura_type": "int(0)",
+		"aura_type": "%const(AURA_NONE)",
 		"allow_same": false,
 		"reset_same": true,
 		"replace_same": false,

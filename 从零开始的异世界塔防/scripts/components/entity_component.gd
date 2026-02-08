@@ -113,7 +113,7 @@ func _on_barrack_respawn(soldier: Entity, barrack_c: BarrackComponent) -> bool: 
 func _on_modifier_period(target: Entity, mod_c: ModifierComponent) -> void: pass
 
 ## 光环实体周期调用
-func _on_aura_period(targets: Array[Entity], aura_c: AuraComponent) -> void: pass
+func _on_aura_period(targets: Array, aura_c: AuraComponent) -> void: pass
 
 ## 子弹命中目标时调用
 func _on_bullet_hit(target: Entity, bullet_c: BulletComponent) -> void: pass

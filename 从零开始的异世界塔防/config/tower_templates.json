@@ -28,12 +28,15 @@
     },
     "tower_archer": {
         "base": "tower",
+        "auras_list": [
+            "aura_dps"
+        ],
         "components": {
             "ranged": {
                 "attacks": [
                     {
                         "attack_type": "common",
-                        "bullet": "bullet_sword",
+                        "bullet": "bullet_arrow",
                         "min_range": 0,
                         "max_range": 400,
                         "cooldown": 1
