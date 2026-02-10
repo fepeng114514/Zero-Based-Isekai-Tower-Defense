@@ -45,7 +45,7 @@ var melee_slot: Vector2 = Vector2(0, 0)
 var melee_slot_offset: Vector2 = Vector2(0, 0)
 ## 是否已经到达近战位置，表示实体是否已经到达近战位置
 var melee_slot_arrived: bool = true
-var arrived_rect: Rect2 = Rect2(-3, -3, 6, 6)
+var arrived_dist: int = 5
 ## 近战攻击列表，表示实体当前拥有的近战攻击列表
 var attacks: Array = []
 ## 近战攻击模板
@@ -57,7 +57,7 @@ func calculate_blocked_count():
 	var count: int = 0
 	
 	for id in blockeds_ids:
-		var b = EntityDB.get_entity_by_id(id)
+		var b = E.get_entity_by_id(id)
 		
 		if not U.is_vaild_entity(b):
 			continue
@@ -84,7 +84,7 @@ func get_blocked(filter = null) -> Array[Entity]:
 	var blocked_list: Array[Entity] = []
 	
 	for id in blockeds_ids:
-		var e = EntityDB.get_entity_by_id(id)
+		var e = E.get_entity_by_id(id)
 		
 		if not U.is_vaild_entity(e) or filter and not filter.call(e):
 			continue
@@ -96,13 +96,13 @@ func get_blocked(filter = null) -> Array[Entity]:
 ## 清理无效被拦截
 func cleanup_blockeds() -> void:
 	# 快速检查是否存在无效拦截
-	if not blockeds_ids.any(func(id): return not EntityDB.get_entity_by_id(id)):
+	if not blockeds_ids.any(func(id): return not E.get_entity_by_id(id)):
 		return
 		
 	var new_blockeds_ids: Array[int] = []
 	
 	for id in blockeds_ids:
-		if not EntityDB.get_entity_by_id(id):
+		if not E.get_entity_by_id(id):
 			continue 
 			
 		new_blockeds_ids.append(id)
@@ -114,5 +114,5 @@ func cleanup_blocker() -> void:
 	if blocker_id == null:
 		return
 	
-	if not EntityDB.get_entity_by_id(blocker_id):
+	if not E.get_entity_by_id(blocker_id):
 		blocker_id = null

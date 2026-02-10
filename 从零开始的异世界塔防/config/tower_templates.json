@@ -28,9 +28,6 @@
     },
     "tower_archer": {
         "base": "tower",
-        "auras_list": [
-            "aura_dps"
-        ],
         "components": {
             "ranged": {
                 "attacks": [

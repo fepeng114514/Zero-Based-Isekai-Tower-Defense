@@ -15,7 +15,7 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_by_group(CS.CN_MELEE):
+	for e: Entity in E.get_entities_group(CS.CN_MELEE):
 		var state: int = e.state
 			
 		if e.waitting or not state & (CS.STATE_IDLE | CS.STATE_MELEE):
@@ -56,7 +56,7 @@ func process_blocker(e: Entity, melee_c: MeleeComponent):
 	if not targets or melee_c.is_passive_obstacle:
 		return
 		
-	var blocked: Entity = EntityDB.get_entity_by_id(blockeds_ids[0])
+	var blocked: Entity = E.get_entity_by_id(blockeds_ids[0])
 	var blocked_melee_c: MeleeComponent = blocked.get_c(CS.CN_MELEE)
 	var melee_slot: Vector2 = blocked.position + blocked_melee_c.melee_slot_offset
 	e.state = CS.STATE_MELEE
@@ -67,7 +67,7 @@ func process_blocker(e: Entity, melee_c: MeleeComponent):
 	
 func find_blocked(e: Entity, melee_c: MeleeComponent):
 	var filter = func(entity, origin): return entity.has_c(CS.CN_MELEE) and not entity.id in melee_c.blockeds_ids
-	var targets = EntityDB.search_targets_in_range(
+	var targets = E.search_targets_in_range(
 		melee_c.search_mode, e.position, melee_c.block_min_range, 
 		melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans, filter
 	)	
@@ -99,7 +99,7 @@ func process_blocked(e: Entity, melee_c: MeleeComponent):
 		back_origin_pos(e, melee_c)
 		return
 	
-	var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
+	var blocker: Entity = E.get_entity_by_id(blocker_id)
 	var blocker_melee_c: MeleeComponent = blocker.get_c(CS.CN_MELEE)
 	var blocker_blockeds_ids: Array = blocker_melee_c.blockeds_ids
 	
@@ -121,7 +121,7 @@ func go_melee_slot(e: Entity, melee_c: MeleeComponent):
 	melee_c.motion_direction = (melee_c.melee_slot - e.position).normalized()
 	e.position += melee_c.motion_direction * melee_c.motion_speed * TM.frame_length
 	
-	if not melee_c.arrived_rect.has_point(melee_c.melee_slot - e.position):
+	if not U.is_at_destination(e.position, melee_c.melee_slot, melee_c.arrived_dist):
 		return
 		
 	melee_c.melee_slot_arrived = true
@@ -130,7 +130,7 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent):
 	melee_c.motion_direction = (melee_c.origin_pos - e.position).normalized()
 	e.position += melee_c.motion_direction * melee_c.motion_speed * TM.frame_length
 	
-	if not melee_c.arrived_rect.has_point(melee_c.origin_pos - e.position):
+	if not U.is_at_destination(e.position, melee_c.origin_pos, melee_c.arrived_dist):
 		return
 		
 	melee_c.origin_pos_arrived = true
@@ -142,7 +142,7 @@ func do_attacks(e: Entity, melee_c: MeleeComponent):
 		return
 		
 	var blocked_id: int = melee_c.blockeds_ids[0]
-	var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
+	var blocked: Entity = E.get_entity_by_id(blocked_id)
 	for a: Dictionary in melee_c.order:
 		if not can_attack(a, blocked):
 			continue
@@ -150,8 +150,8 @@ func do_attacks(e: Entity, melee_c: MeleeComponent):
 		attack(e, a, melee_c, blocked)
 
 func attack(e: Entity, a: Dictionary, melee_c: MeleeComponent, blocked: Entity):
-	EntityDB.create_damage(
+	E.create_damage(
 		blocked.id, a.min_damage, a.max_damage, a.damage_type, e.id
 	)
-	EntityDB.create_mods(blocked.id, e.id, a.mods)
+	E.create_mods(blocked.id, e.id, a.mods)
 	a.ts = TM.tick_ts

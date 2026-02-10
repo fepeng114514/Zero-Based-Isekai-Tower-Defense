@@ -1,6 +1,9 @@
 {
     "life": 20,
     "cash": 1000,
+    "max_subpath": 3,
+    "subpath_spacing": 25,
+    "node_count": 198,
     "entities": [
         {
             "t_name": "wave_spawner"

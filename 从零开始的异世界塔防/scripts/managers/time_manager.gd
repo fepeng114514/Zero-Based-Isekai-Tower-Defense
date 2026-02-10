@@ -10,12 +10,6 @@ var frame_length: float = 0
 var fps: float = 0
 @onready var curren_scene = get_tree()
 
-func _process(delta: float) -> void:
-	tick_ts += delta
-	tick += 1
-	frame_length = delta
-	fps = Engine.get_frames_per_second()
-	
 func is_ready_time(ts: float, time: float) -> bool:
 	return tick_ts - ts > time
 	

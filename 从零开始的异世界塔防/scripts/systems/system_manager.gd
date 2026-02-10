@@ -47,11 +47,11 @@ func _process_remove_queue() -> void:
 		
 		process_systems("_on_remove", e)
 			
-		EntityDB.mark_entity_dirty_id(e.id)
+		E.mark_entity_dirty_id(e.id)
 		e.free()
 
 func _process_insert_queue() -> void:
-	var entities: Array = EntityDB.entities
+	var entities: Array = E.entities
 	while insert_queue:
 		var e: Entity = insert_queue.pop_front()
 	
@@ -66,7 +66,7 @@ func _process_insert_queue() -> void:
 			continue
 		
 		entities.append(e)
-		EntityDB.mark_entity_dirty_id(e.id)
+		E.mark_entity_dirty_id(e.id)
 		#print("插入实体: %s（%d）" % [e.template_name, e.id])
 		
 		e.visible = true

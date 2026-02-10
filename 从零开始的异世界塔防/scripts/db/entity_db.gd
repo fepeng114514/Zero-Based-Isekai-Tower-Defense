@@ -1,6 +1,11 @@
 extends Node
 signal create_entity_s(entity: Entity)
 
+"""待优化:
+1. 索敌的空间索引优化
+2. 对象池
+"""
+
 var templates_scenes: Dictionary[String, PackedScene] = {}
 var components_scripts: Dictionary[String, GDScript] = {}
 var entities_scripts: Dictionary[String, GDScript] = {}
@@ -61,15 +66,6 @@ func clean():
 	
 	_ready()
 
-func get_entities_by_group(group_name: String) -> Array:
-	if group_name in type_groups:
-		return type_groups[group_name]
-	
-	if group_name in component_groups:
-		return component_groups[group_name]
-
-	return []
-	
 func mark_entity_dirty_id(id: int) -> void:
 	if _dirty_entities_ids.has(id):
 		return
@@ -109,6 +105,33 @@ func create_entity(t_name: String) -> Entity:
 		
 	return e
 
+func create_entities(t_names: Array, auto_insert: bool = true) -> Array[Entity]:
+	var created_entities: Array[Entity] = []
+
+	for t_name: String in t_names:
+		var e: Entity = create_entity(t_name)
+
+		if auto_insert:
+			e.insert_entity()
+
+		created_entities.append(e)
+
+	return created_entities
+	
+func create_entities_at_pos(t_names: Array, pos: Vector2, auto_insert: bool = true) -> Array[Entity]:
+	var created_entities: Array[Entity] = []
+
+	for t_name: String in t_names:
+		var e: Entity = create_entity(t_name)
+		e.set_pos(pos)
+
+		if auto_insert:
+			e.insert_entity()
+
+		created_entities.append(e)
+
+	return created_entities
+
 func create_damage(
 		target_id: int,
 		min_damage: int,
@@ -123,7 +146,7 @@ func create_damage(
 	d.target_id = target_id
 	d.source_id = source_id
 	d.damage_type = damage_type
-	d.value = U.random_int(min_damage, max_damage)
+	d.value = randi_range(min_damage, max_damage)
 	d.damage_factor = damage_factor
 	d.template_name = d_name
 
@@ -171,6 +194,15 @@ func create_auras(
 
 	return created_auras
 
+func get_entities_group(group_name: String) -> Array:
+	if group_name in type_groups:
+		return type_groups[group_name]
+	
+	if group_name in component_groups:
+		return component_groups[group_name]
+
+	return []
+	
 func get_entity_by_id(id: int):
 	if id == -1:
 		return null
@@ -192,7 +224,6 @@ func get_component_script(c_name: String, deep: bool = false):
 		return c_data.duplicate_deep()
 	
 	return c_data
-
 
 func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
 	var c_data = components_data.get(c_name)
@@ -252,18 +283,21 @@ func get_entity_script(t_name: String, deep: bool = false):
 	
 	return entity_script
 
+func get_vaild_entities() -> Array:
+	return entities.filter(func(e): return U.is_vaild_entity(e))
+
 func sort_targets(
 		targets: Array, sort_type: String, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_functions = {
 		CS.SORT_TYPE_PROGRESS: func(e1, e2):
 			var p1 = (
-				e1.get_c(CS.CN_NAV_PATH).progress_ratio
+				e1.get_c(CS.CN_NAV_PATH).nav_progress
 				if e1.has_c(CS.CN_NAV_PATH) else 0
 			)
 		
 			var p2 = (
-				e2.get_c(CS.CN_NAV_PATH).progress_ratio
+				e2.get_c(CS.CN_NAV_PATH).nav_progress
 				if e2.has_c(CS.CN_NAV_PATH) else 0
 			)
 			
@@ -345,7 +379,7 @@ func find_enemies_in_range(
 		filter = null
 	) -> Array:
 	return find_targets_in_range(
-		get_entities_by_group(CS.GROUP_ENEMIES), origin, min_range, max_range, flags, bans, filter
+		get_entities_group(CS.GROUP_ENEMIES), origin, min_range, max_range, flags, bans, filter
 	)
 
 func find_sorted_enemies(
@@ -359,7 +393,7 @@ func find_sorted_enemies(
 		reversed: bool = false
 	) -> Array:
 	return find_sorted_targets(
-		get_entities_by_group(CS.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		get_entities_group(CS.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
 
 func find_extreme_enemy(
@@ -373,7 +407,7 @@ func find_extreme_enemy(
 		reversed: bool = false
 	):
 	return find_extreme_target(
-		get_entities_by_group(CS.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		get_entities_group(CS.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
 
 func find_friendlys_in_range(
@@ -385,7 +419,7 @@ func find_friendlys_in_range(
 		filter = null
 	) -> Array:
 	return find_targets_in_range(
-		get_entities_by_group(CS.GROUP_FRIENDLYS), origin, min_range, max_range, flags, bans, filter
+		get_entities_group(CS.GROUP_FRIENDLYS), origin, min_range, max_range, flags, bans, filter
 	)
 
 func find_sorted_friendlys(
@@ -399,7 +433,7 @@ func find_sorted_friendlys(
 		reversed: bool = false
 	) -> Array:
 	return find_sorted_targets(
-		get_entities_by_group(CS.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		get_entities_group(CS.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
 
 func find_extreme_friendly(
@@ -413,7 +447,7 @@ func find_extreme_friendly(
 		reversed: bool = false
 	):
 	return find_extreme_target(
-		get_entities_by_group(CS.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		get_entities_group(CS.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
 
 func search_target(

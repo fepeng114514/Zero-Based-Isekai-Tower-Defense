@@ -10,7 +10,7 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_by_group(CS.CN_RANGED):
+	for e: Entity in E.get_entities_group(CS.CN_RANGED):
 		var state: int = e.state
 			
 		if e.waitting:
@@ -25,7 +25,7 @@ func _on_update(delta: float) -> void:
 			):
 				continue
 				
-			var target = EntityDB.search_target(
+			var target = E.search_target(
 				a.search_mode, e.position, a.min_range, a.max_range, a.flags, a.bans
 			)
 			if not can_attack(a, target):
@@ -34,7 +34,7 @@ func _on_update(delta: float) -> void:
 			attack(e, a, target)
 	
 func attack(e: Entity, a: Dictionary, target: Entity) -> void:
-	var b = EntityDB.create_entity(a.bullet)
+	var b = E.create_entity(a.bullet)
 	b.target_id = target.id
 	b.source_id = e.id
 	b.position = e.position

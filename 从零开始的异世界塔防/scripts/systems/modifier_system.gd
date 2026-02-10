@@ -4,7 +4,7 @@ func _on_insert(e: Entity) -> bool:
 	if not e.has_c(CS.CN_MODIFIER):
 		return true
 
-	var target = EntityDB.get_entity_by_id(e.target_id)
+	var target = E.get_entity_by_id(e.target_id)
 
 	if not U.is_vaild_entity(target):
 		return false
@@ -26,7 +26,7 @@ func _on_insert(e: Entity) -> bool:
 	mod_c.ts = TM.tick_ts
 
 	for mod_id: int in t_has_mods_ids:
-		var other_m = EntityDB.get_entity_by_id(mod_id)
+		var other_m = E.get_entity_by_id(mod_id)
 		
 		if not other_m:
 			continue
@@ -81,27 +81,33 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_by_group(CS.GROUP_MODIFIERS):
+	for e: Entity in E.get_entities_group(CS.GROUP_MODIFIERS):
 		var mod_c: ModifierComponent = e.get_c(CS.CN_MODIFIER)
 		
 		# 周期效果
-		if mod_c.period_interval == -1 or not TM.is_ready_time(mod_c.ts, mod_c.period_interval):
+		if mod_c.cycle_time == -1 or not TM.is_ready_time(mod_c.ts, mod_c.cycle_time):
 			continue
 
-		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+		# 最大周期数
+		if mod_c.max_cycle != -1 and mod_c.curren_cycle > mod_c.max_cycle:
+			e.remove_entity()
+			return
+
+		var target: Entity = E.get_entity_by_id(e.target_id)
 		
 		if mod_c.min_damage > 0 or mod_c.max_damage > 0:
-			EntityDB.create_damage(e.target_id, mod_c.min_damage, mod_c.max_damage, mod_c.damage_type, e.id)
+			E.create_damage(e.target_id, mod_c.min_damage, mod_c.max_damage, mod_c.damage_type, e.id)
 
 		e._on_modifier_period(target, mod_c)
 
+		mod_c.curren_cycle += 1
 		mod_c.ts = TM.tick_ts
 
 func _on_remove(e: Entity) -> void:
 	if not e.has_c(CS.CN_MODIFIER):
 		return
 	
-	var target = EntityDB.get_entity_by_id(e.target_id)
+	var target = E.get_entity_by_id(e.target_id)
 
 	if not U.is_vaild_entity(target):
 		return

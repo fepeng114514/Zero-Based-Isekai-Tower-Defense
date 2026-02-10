@@ -23,4 +23,6 @@ var min_damage: int = 0
 var max_damage: int = 0
 var damage_type: int = CS.DAMAGE_TRUE
 var ts: float = 0
-var period_interval: float = 1
+var cycle_time: float = 1
+var max_cycle: int = -1
+var curren_cycle: int = 0

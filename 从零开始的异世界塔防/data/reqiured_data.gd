@@ -2,6 +2,7 @@ extends Resource
 
 var level_required_system: Array[String] = [
 	"grouping_system",
+	"time_system",
 	"level_system",
 	"spawner_system",
 	"aura_system",

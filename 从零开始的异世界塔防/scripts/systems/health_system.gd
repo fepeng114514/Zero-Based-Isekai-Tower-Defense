@@ -31,7 +31,7 @@ func _on_update(delta) -> void:
 	var damage_queue = SystemManager.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Damage = damage_queue.pop_at(i)
-		var target = EntityDB.get_entity_by_id(d.target_id)
+		var target = E.get_entity_by_id(d.target_id)
 		
 		if not U.is_vaild_entity(target):
 			continue
@@ -43,13 +43,13 @@ func _on_update(delta) -> void:
 			
 		take_damage(target, d, t_health_c)
 
-	for e: Entity in EntityDB.get_entities_by_group(CS.CN_HEALTH):
+	for e: Entity in E.get_entities_group(CS.CN_HEALTH):
 		var health_c = e.get_c(CS.CN_HEALTH)
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 	
 func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
-	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
+	var source: Entity = E.get_entity_by_id(d.source_id)
 	
 	if d.damage_type & CS.DAMAGE_EAT:
 		target._on_eat(target, d)

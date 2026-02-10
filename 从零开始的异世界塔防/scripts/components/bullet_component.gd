@@ -19,6 +19,8 @@ var max_damage_radius: int = 0
 var search_mode: String = CS.SEARCH_MODE_ENEMY_FIRST
 ## 子弹携带的状态效果模板名称列表，表示子弹命中目标时将附加的状态效果模板名称列表
 var mods: Array = []
+## 子弹携带的实体名称列表
+var payloads: Array = []
 ## 子弹数值速度，表示子弹的飞行速度，单位为像素/秒
 var speed = 0
 ## 方向向量，表示子弹的飞行方向
@@ -47,7 +49,7 @@ var can_arrived: bool = true
 var predict_target_pos: Vector2 = Vector2(0, 0)
 ## 是否禁用预判目标位置，表示子弹是否禁用预判目标位置，通常用于某些特殊的子弹，例如瞬发子弹等
 var predict_pos_disabled: bool = false
-var hit_rect: Rect2 = Rect2(-3, -3, 6, 6)
+var hit_dist: int = 5
 ## 击中目标后是否移除子弹实体，通常用于一次性子弹
 var hit_remove: bool = true
 ## 未击中目标时是否移除子弹实体

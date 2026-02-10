@@ -6,7 +6,7 @@ var rally_pos: Vector2 = Vector2(0, 0)
 var rally_radius: int = 30
 var direction: Vector2 = Vector2.LEFT
 var arrived: bool = false
-var arrived_rect: Rect2 = Rect2(-3, -3, 6, 6)
+var arrived_dist: int = 5
 var animation: String = "walk"
 var can_click_rally: bool = true
 

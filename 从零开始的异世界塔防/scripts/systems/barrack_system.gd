@@ -16,7 +16,7 @@ func _on_insert(e: Entity) -> bool:
 	return true
 	
 func _on_update(delta: float) -> void:
-	for e in EntityDB.get_entities_by_group(CS.CN_BARRACK):
+	for e in E.get_entities_group(CS.CN_BARRACK):
 		var barrack_c: BarrackComponent = e.get_c(CS.CN_BARRACK)
 		barrack_c.cleanup_soldiers()
 		
@@ -42,7 +42,7 @@ func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
 	if barrack_c.soldiers_list.size() >= barrack_c.max_soldiers:
 		return null
 		
-	var soldier: Entity = EntityDB.create_entity(barrack_c.soldier)
+	var soldier: Entity = E.create_entity(barrack_c.soldier)
 	soldier.position = barrack.position
 	var rally_c: RallyComponent
 	

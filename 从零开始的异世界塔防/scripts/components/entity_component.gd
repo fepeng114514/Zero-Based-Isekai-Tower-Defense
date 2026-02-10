@@ -13,7 +13,7 @@ var template_name: String = ""
 var id: int = -1
 ## 拥有的所有组件对象
 var has_components: Dictionary = {}
-## 初始组件数据，不包含任何后续修改的数据
+## 初始组件数据，不包含任何后续修改的数据，用于序列化
 var components: Dictionary = {}
 ## 所有者或来源 ID，通常为生成实体的实体 ID
 var source_id: int = -1
@@ -52,6 +52,8 @@ var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 var state: int = CS.STATE_IDLE
 ## 等待状态，表示实体正在等待某个事件或条件，通常用于协程等待
 var waitting: bool = false
+## 等待计时器
+var waittimer: float = 0
 ## 移除状态，表示实体正在被移除
 var removed: bool = false
 ## 实体等级，通常用于区分实体的强度或阶段
@@ -152,7 +154,7 @@ func set_c(c_name: String, value) -> bool:
 	return has_components.set(c_name, value)
 	
 func add_c(c_name: String) -> Node:
-	var component_node = EntityDB.get_component_script(c_name).new()
+	var component_node = E.get_component_script(c_name).new()
 	component_node.name = c_name
 	
 	add_child(component_node)
@@ -196,7 +198,7 @@ func set_template_data(template_data: Dictionary) -> void:
 
 	for c_name in t_components.keys():
 		var override: Dictionary = t_components[c_name]
-		var c_data: Dictionary = EntityDB.get_component_data(c_name)
+		var c_data: Dictionary = E.get_component_data(c_name)
 		
 		var data = merged_c_data(c_name, c_data, override, true)
 		
@@ -208,23 +210,38 @@ func set_template_data(template_data: Dictionary) -> void:
 			component_node.set(key, property)
 
 func merge_base_template(template_data: Dictionary, base: String):
-	var base_data: Dictionary = EntityDB.get_template_data(base)
+	var base_data: Dictionary = E.get_template_data(base)
 	
 	if base_data.has("base"):
 		merge_base_template(template_data, base_data.base)
 		
 	U.deepmerge_dict_recursive(template_data, base_data)
 	
+## 协程等待
 func y_wait(time: float = 0, break_fn = null):
 	waitting = true
 	await TM.y_wait(time, break_fn)
 	waitting = false
 
+## 开始等待计时器，与协程等待不同的是:
+## [br]
+## 1. 不会从上次暂停的位置继续
+## [br]
+## 2. 可被外部调用
+## [br]
+## 等待 0 秒表示等待一帧
+func start_waittimer(time: float = 0):
+	if time == 0:
+		waittimer = 0.01
+		return
+
+	waittimer = time
+
 func cleanup_has_mods():
 	var new_has_mods_ids: Array[int] = []
 	
 	for mod_id in has_mods_ids:
-		if not EntityDB.get_entity_by_id(mod_id):
+		if not E.get_entity_by_id(mod_id):
 			continue 
 			
 		new_has_mods_ids.append(mod_id)
@@ -235,7 +252,7 @@ func get_has_mods(filter = null) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
 	for mod_id in has_mods_ids:
-		var mod = EntityDB.get_entity_by_id(mod_id)
+		var mod = E.get_entity_by_id(mod_id)
 		
 		if not U.is_vaild_entity(mod) or filter and not filter.call(mod):
 			continue
@@ -254,7 +271,7 @@ func get_has_auras(filter = null) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
 	for aura_id in has_auras_ids:
-		var aura = EntityDB.get_entity_by_id(aura_id)
+		var aura = E.get_entity_by_id(aura_id)
 		
 		if not U.is_vaild_entity(aura) or filter and not filter.call(aura):
 			continue
@@ -280,3 +297,29 @@ func remove_entity() -> void:
 	removed = true
 	visible = false
 	print("移除实体： %s(%d)" % [template_name, id])
+
+## 设定实体位置，根据拥有的组件智能赋值
+func set_pos(pos: Vector2) -> void:
+	position = pos
+	
+	if has_c(CS.CN_RALLY):
+		var rally_c: RallyComponent = get_c(CS.CN_RALLY)
+		
+		rally_c.new_rally(pos)
+	
+	if has_c(CS.CN_NAV_PATH):
+		set_nav_path_at_pos(pos)
+
+func set_nav_path_at_pos(pos):
+	var source = E.get_entity_by_id(source_id)
+	var node: PathNode
+
+	if U.is_vaild_entity(source) and source.has_c(CS.CN_NAV_PATH):
+		var s_nav_path_c: NavPathComponent = source.get_c(CS.CN_NAV_PATH)
+		node = PathDB.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
+	else:
+		node = PathDB.get_nearst_node(pos)
+
+	var nav_path_c: NavPathComponent = get_c(CS.CN_NAV_PATH)
+	nav_path_c.set_nav_path(node.pi, node.spi)
+	nav_path_c.set_nav_ni(node.ni)

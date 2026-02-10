@@ -1,10 +1,5 @@
 class_name U
 static var constants = CS.new()
-static var rng = RandomNumberGenerator.new()
-
-## 随机数生成
-static func random_int(from: int, to: int) -> int:
-	return rng.randi_range(from, to)
 
 ## 判断点是否位于椭圆中
 static func is_in_ellipse(
@@ -84,6 +79,9 @@ static func position_in_parabola(
 	var y: float = g * t * t / 2 + velocity.y * t + from.y
 
 	return Vector2(x, y)
+
+static func is_at_destination(current_pos: Vector2, target_pos: Vector2, threshold: float = 5.0) -> bool:
+	return current_pos.distance_to(target_pos) <= threshold
 
 ## 加载 JSON 文件
 static func load_json_file(path: String):

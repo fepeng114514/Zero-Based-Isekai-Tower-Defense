@@ -11,7 +11,7 @@ func _on_insert(e: Entity) -> bool:
 		return true
 
 	var bullet_c: BulletComponent = e.get_c(CS.CN_BULLET)
-	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+	var target: Entity = E.get_entity_by_id(e.target_id)
 	if not U.is_vaild_entity(target):
 		return false
 
@@ -44,10 +44,10 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_by_group(CS.GROUP_BULLETS):
+	for e: Entity in E.get_entities_group(CS.GROUP_BULLETS):
 		var bullet_c: BulletComponent = e.get_c(CS.CN_BULLET)
 
-		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+		var target: Entity = E.get_entity_by_id(e.target_id)
 
 		if bullet_c.flight_trajectory & CS.TRAJECTORY_LINEAR:
 			trajectory_liniear_update(e, bullet_c, target)
@@ -59,26 +59,27 @@ func _on_update(delta: float) -> void:
 		# 	trajectory_homing_update(e, bullet_c, target)
 
 		e.rotation += bullet_c.rotation_speed * delta
-
-		if (
-				not bullet_c.can_arrived 
-				or not bullet_c.hit_rect.has_point(bullet_c.to - e.position)
-			):
+		
+		if not bullet_c.can_arrived:
 			continue
 			
-		if not U.is_vaild_entity(target):
+		if U.is_at_destination(e.position, target.position, bullet_c.hit_dist):
+			hit(e, bullet_c, target)
+
+		if (
+			not U.is_vaild_entity(target)
+			or U.is_at_destination(e.position, bullet_c.to, bullet_c.hit_dist)
+		):
 			e._on_bullet_miss(target, bullet_c)
 
 			if bullet_c.miss_remove:
 				e.remove_entity()
 
 			continue
-
-		hit(e, bullet_c, target)
 		
 func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
-		var targets = EntityDB.search_targets_in_range(
+		var targets = E.search_targets_in_range(
 			bullet_c.search_mode, 
 			bullet_c.to, 
 			bullet_c.min_damage_radius, 
@@ -91,7 +92,7 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 			var damage_factor: float = e._on_bullet_calculate_damage_factor(
 				t, bullet_c
 			)
-			EntityDB.create_damage(
+			E.create_damage(
 				t.id, 
 				bullet_c.min_damage, 
 				bullet_c.max_damage, 
@@ -99,12 +100,13 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 				e.id, 
 				damage_factor
 			)
-			EntityDB.create_mods(t.id, e.id, bullet_c.mods)
+			E.create_mods(t.id, e.id, bullet_c.mods)
+			E.create_entities_at_pos(bullet_c.payloads, e.position)
 	else:
 		var damage_factor: float = e._on_bullet_calculate_damage_factor(
 			target, bullet_c
 		)
-		EntityDB.create_damage(
+		E.create_damage(
 			target.id, 
 			bullet_c.min_damage, 
 			bullet_c.max_damage, 
@@ -112,7 +114,8 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 			e.id, 
 			damage_factor
 		)
-		EntityDB.create_mods(target.id, e.id, bullet_c.mods)
+		E.create_mods(target.id, e.id, bullet_c.mods)
+		E.create_entities_at_pos(bullet_c.payloads, e.position)
 
 	e._on_bullet_hit(target, bullet_c)
 

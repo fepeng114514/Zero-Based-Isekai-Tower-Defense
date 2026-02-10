@@ -44,7 +44,7 @@
             "modifier": {
                 "allow_same": false,
                 "reset_same": false,
-                "period_interval": 0.1,
+                "cycle_time": 0.1,
                 "min_damage": 5,
                 "max_damage": 5,
                 "damage_type": "%const(DAMAGE_TRUE)"
@@ -57,7 +57,7 @@
             "aura": {
                 "allow_same": true,
                 "reset_same": false,
-                "period_interval": 0.1,
+                "cycle_time": 0.1,
                 "mods": ["mod_dps"],
                 "min_radius": 0,
                 "max_radius": 200,
