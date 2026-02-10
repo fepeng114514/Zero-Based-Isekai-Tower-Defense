@@ -77,7 +77,7 @@
 		"rally_radius": 30,
 		"direction": "%vec2(1, 0)",
 		"arrived": false,
-		"arrived_dist": 5,
+		"arrived_dist": 10,
 		"animation": "walk",
 		"can_click_rally": true
 	},
@@ -103,7 +103,7 @@
 		"can_arrived": true,
 		"predict_target_pos": "%vec2(0, 0)",
 		"predict_pos_disabled": false,
-		"hit_dist": 5,
+		"hit_dist": 10,
 		"hit_remove": true,
 		"miss_remove": true
 	},
@@ -128,7 +128,7 @@
 		"melee_slot": "%vec2(0, 0)",
 		"melee_slot_offset": "%vec2(0, 0)",
 		"melee_slot_arrived": true,
-		"arrived_dist": 5,
+		"arrived_dist": 10,
 		"attacks": [],
 		"attack_templates": {
 			"common": {

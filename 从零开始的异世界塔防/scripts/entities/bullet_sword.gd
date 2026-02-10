@@ -32,7 +32,7 @@ func _on_update(delta: float) -> void:
 		
 		if is_instance_valid(target):
 			bullet_c.predict_target_pos = PathDB.predict_target_pos(
-				target, (bullet_c.flight_time + to_predict_time) * TM.fps
+				target, (bullet_c.flight_time + to_predict_time)
 			)
 		else:
 			bullet_c.predict_target_pos = Vector2(

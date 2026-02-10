@@ -18,7 +18,7 @@ func _on_insert(e: Entity) -> bool:
 	bullet_c.ts = TM.tick_ts
 	if bullet_c.predict_pos_disabled:
 		bullet_c.predict_target_pos = PathDB.predict_target_pos(
-			target, bullet_c.flight_time * TM.fps
+			target, bullet_c.flight_time
 		)
 	else:
 		bullet_c.predict_target_pos = target.position
@@ -63,12 +63,20 @@ func _on_update(delta: float) -> void:
 		if not bullet_c.can_arrived:
 			continue
 			
-		if U.is_at_destination(e.position, target.position, bullet_c.hit_dist):
-			hit(e, bullet_c, target)
-
 		if (
-			not U.is_vaild_entity(target)
-			or U.is_at_destination(e.position, bullet_c.to, bullet_c.hit_dist)
+			U.is_vaild_entity(target) 
+			and U.is_at_destination(
+				e.position, target.position, bullet_c.hit_dist
+			)
+		):
+			hit(e, bullet_c, target)
+			continue
+			
+		if (
+			not U.is_vaild_entity(target) 
+			or U.is_at_destination(
+				e.position, bullet_c.to, bullet_c.hit_dist
+			)
 		):
 			e._on_bullet_miss(target, bullet_c)
 
@@ -89,38 +97,29 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 		)
 
 		for t in targets:
-			var damage_factor: float = e._on_bullet_calculate_damage_factor(
-				t, bullet_c
-			)
-			E.create_damage(
-				t.id, 
-				bullet_c.min_damage, 
-				bullet_c.max_damage, 
-				bullet_c.damage_type, 
-				e.id, 
-				damage_factor
-			)
-			E.create_mods(t.id, e.id, bullet_c.mods)
-			E.create_entities_at_pos(bullet_c.payloads, e.position)
+			damege_target(e, bullet_c, t)
 	else:
-		var damage_factor: float = e._on_bullet_calculate_damage_factor(
-			target, bullet_c
-		)
-		E.create_damage(
-			target.id, 
-			bullet_c.min_damage, 
-			bullet_c.max_damage, 
-			bullet_c.damage_type, 
-			e.id, 
-			damage_factor
-		)
-		E.create_mods(target.id, e.id, bullet_c.mods)
-		E.create_entities_at_pos(bullet_c.payloads, e.position)
+		damege_target(e, bullet_c, target)
 
 	e._on_bullet_hit(target, bullet_c)
 
 	if bullet_c.hit_remove:
 		e.remove_entity()
+		
+func damege_target(e: Entity, bullet_c: BulletComponent, target: Entity):
+	var damage_factor: float = e._on_bullet_calculate_damage_factor(
+			target, bullet_c
+		)
+	E.create_damage(
+		target.id, 
+		bullet_c.min_damage, 
+		bullet_c.max_damage, 
+		bullet_c.damage_type, 
+		e.id, 
+		damage_factor
+	)
+	E.create_mods(target.id, e.id, bullet_c.mods)
+	E.create_entities_at_pos(bullet_c.payloads, e.position)
 
 func trajectory_liniear_init(
 		e: Entity, bullet_c: BulletComponent, target: Entity

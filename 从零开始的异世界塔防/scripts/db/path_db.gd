@@ -85,19 +85,12 @@ func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 		
 	var nav_path_c: NavPathComponent = target.get_c(CS.CN_NAV_PATH)
 	var progress: float = nav_path_c.nav_progress
+	var walk_lenth: float = nav_path_c.speed * walk_time
 	
 	if nav_path_c.reversed:
-		progress -= (
-			nav_path_c.speed 
-			* TM.frame_length 
-			* walk_time
-		)
+		progress -= walk_lenth
 	else:
-		progress += (
-			nav_path_c.speed 
-			* TM.frame_length 
-			* walk_time
-		)
+		progress += walk_lenth
 	var predict_pos: Vector2 = nav_path_c.get_progress_pos(progress)
 	
 	return predict_pos
@@ -155,9 +148,9 @@ func get_nearst_node(
 				node.dist_squared = node.pos.distance_squared_to(origin)
 				
 				if (
-					not nearst_node
-					or node.dist_squared 
-					< nearst_node.dist_squared
+						not nearst_node
+						or node.dist_squared 
+						< nearst_node.dist_squared
 				):
 					nearst_node = node
 

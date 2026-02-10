@@ -45,7 +45,7 @@ var melee_slot: Vector2 = Vector2(0, 0)
 var melee_slot_offset: Vector2 = Vector2(0, 0)
 ## 是否已经到达近战位置，表示实体是否已经到达近战位置
 var melee_slot_arrived: bool = true
-var arrived_dist: int = 5
+var arrived_dist: int = 10
 ## 近战攻击列表，表示实体当前拥有的近战攻击列表
 var attacks: Array = []
 ## 近战攻击模板
