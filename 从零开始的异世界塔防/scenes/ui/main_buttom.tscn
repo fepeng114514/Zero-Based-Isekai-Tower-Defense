@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dxr20bhgt2p2y"]
+
+[sub_resource type="Theme" id="Theme_2p1s2"]
+
+[node name="MainButtom" type="Button" unique_id=946227739]
+size_flags_horizontal = 4
+theme = SubResource("Theme_2p1s2")
+theme_override_font_sizes/font_size = 25
+text = "Test"

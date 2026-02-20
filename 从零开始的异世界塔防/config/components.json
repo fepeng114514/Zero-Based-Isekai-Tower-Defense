@@ -27,7 +27,8 @@
 		"removed": false,
 		"level": 1,
 		"track_source": false,
-		"track_target": false
+		"track_target": false,
+		"last_position": "%vec2(0, 0)"
 	},
 	"hero": {},
 	"tower": {
@@ -66,7 +67,7 @@
 		"reversed": false,
 		"origin_speed": 0,
 		"ts": 0,
-		"end_ratio": 1,
+		"end_ni": -1,
 		"loop": false,
 		"loop_times": -1,
 		"loop_count": 0

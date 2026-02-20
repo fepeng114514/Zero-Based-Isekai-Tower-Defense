@@ -1,7 +1,7 @@
 extends System
 
 func _on_update(delta: float) -> void:
-	for e: Entity in E.get_entities_group(CS.CN_RALLY):
+	for e: Entity in EntityDB.get_entities_group(CS.CN_RALLY):
 		if e.waitting or not e.state & (CS.STATE_IDLE | CS.STATE_RALLY):
 			continue
 			
@@ -14,7 +14,7 @@ func _on_update(delta: float) -> void:
 
 func walk_step(e: Entity, rally_c: RallyComponent):
 	rally_c.direction = (rally_c.rally_pos - e.position).normalized()
-	e.position += rally_c.direction * rally_c.speed * TM.frame_length
+	e.position += rally_c.direction * rally_c.speed * TimeDB.frame_length
 	e._on_rally_walk(rally_c)
 	
 	if not U.is_at_destination(rally_c.rally_pos, e.position, rally_c.arrived_dist):

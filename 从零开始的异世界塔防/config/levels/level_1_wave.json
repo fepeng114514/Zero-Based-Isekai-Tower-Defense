@@ -1,31 +1,33 @@
 [
-    {
-        "interval": 1,
-        "groups": [
-            {
-                "path": 1,
-                "delay": 1,
-                "spawns": [
-                    {
-                        "interval": 0.3,
-                        "name": "enemy_goblin",
-                        "count": 15,
-                        "next_interval": 1
-                    },
-                    {
-                        "interval": 1,
-                        "name": "enemy_goblin",
-                        "count": 5,
-                        "next_interval": 1
-                    },
-                    {
-                        "interval": 1,
-                        "name": "enemy_goblin",
-                        "count": 5,
-                        "next_interval": 1
-                    }
-                ]
-            }
-        ]
-    }
+	{
+		"interval": 1,
+		"groups": [
+			{
+				"pathway": 1,
+				"delay": 1,
+				"spawns": [
+					{
+						"interval": 0.3,
+						"name": "enemy_goblin",
+						"count": 15,
+						"next_interval": 1,
+						"reversed": true,
+						"loop": true
+					},
+					{
+						"interval": 1,
+						"name": "enemy_goblin",
+						"count": 5,
+						"next_interval": 1
+					},
+					{
+						"interval": 1,
+						"name": "enemy_goblin",
+						"count": 5,
+						"next_interval": 1
+					}
+				]
+			}
+		]
+	}
 ]

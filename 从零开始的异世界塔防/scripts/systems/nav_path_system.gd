@@ -8,29 +8,35 @@ func _on_insert(e: Entity):
 	var nav_pi: int = nav_path_c.nav_pi
 
 	if nav_path_c.nav_spi == -1:
-		nav_path_c.nav_spi = PathDB.get_random_subpath(nav_pi).idx
+		nav_path_c.nav_spi = PathDB.get_random_subpathway(nav_pi).idx
+		
+	if nav_path_c.end_ni < 0:
+		nav_path_c.end_ni = PathDB.node_count + nav_path_c.end_ni
 		
 	nav_path_c.origin_speed = nav_path_c.speed
-	var node: PathNode = nav_path_c.get_path_node()
-	nav_path_c.set_nav_ni(node.ni)
+
+	var node: PathwayNode = nav_path_c.get_pathway_node()
+	nav_path_c.set_pathway_node(node)
 	e.position = node.pos
+
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in E.get_entities_group(CS.CN_NAV_PATH):
+	for e: Entity in EntityDB.get_entities_group(CS.CN_NAV_PATH):
 		if e.waitting or not e.state & CS.STATE_IDLE:
 			continue
 			
 		var nav_path_c: NavPathComponent = e.get_c(CS.CN_NAV_PATH)
 		nav_path_c.speed = nav_path_c.origin_speed * get_mod_speed_factor(e)
 		var reversed: bool = nav_path_c.reversed
+		var end_ni: int = nav_path_c.end_ni
 
 		walk_step(e, nav_path_c, reversed)
 		
-		if reversed and nav_path_c.nav_ratio == 1 - nav_path_c.end_ratio:
-			get_end(e, nav_path_c, reversed)
-		elif not reversed and nav_path_c.nav_ratio == nav_path_c.end_ratio:
-			get_end(e, nav_path_c, reversed)
+		if reversed and nav_path_c.nav_ni == PathDB.node_count - 1 - end_ni:
+			arrived_end(e, nav_path_c, reversed)
+		elif not reversed and nav_path_c.nav_ni == end_ni:
+			arrived_end(e, nav_path_c, reversed)
 
 func get_mod_speed_factor(e: Entity):
 	var speed_factor: float = 1
@@ -42,17 +48,19 @@ func get_mod_speed_factor(e: Entity):
 	return speed_factor
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
-	var walk_lenth: float = nav_path_c.speed * TM.frame_length
+	var walk_lenth: float = nav_path_c.speed * TimeDB.frame_length
 	
 	if reversed:
 		nav_path_c.nav_progress -= walk_lenth
 	else:
 		nav_path_c.nav_progress += walk_lenth
 		
+	nav_path_c.nav_ratio = nav_path_c.get_ratio()
 	e.position = nav_path_c.get_progress_pos()
+	
 	var nav_ni: int = nav_path_c.nav_ni
 	var next_ni: int = nav_ni
-	var next_node: PathNode = nav_path_c.get_path_node(next_ni)
+	var next_node: PathwayNode = nav_path_c.get_pathway_node(next_ni)
 	
 	if reversed:
 		while (
@@ -60,34 +68,30 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 				and nav_path_c.nav_progress <= next_node.progress
 		):
 			next_ni -= 1
-			next_node = nav_path_c.get_path_node(next_ni)
+			next_node = nav_path_c.get_pathway_node(next_ni)
 	else:
 		while (
 				next_ni + 1 < PathDB.node_count 
 				and nav_path_c.nav_progress >= next_node.progress
 		):
 			next_ni += 1
-			next_node = nav_path_c.get_path_node(next_ni)
+			next_node = nav_path_c.get_pathway_node(next_ni)
 
-	if reversed and nav_path_c.nav_progress <= next_node.progress:
-		nav_path_c.set_nav_ni(next_node.ni)
-	elif not reversed and nav_path_c.nav_progress >= next_node.progress:
-		nav_path_c.set_nav_ni(next_node.ni)
+	if nav_ni != next_ni:
+		nav_path_c.nav_ni = next_ni
 
 	e._on_path_walk(nav_path_c)
 
-func get_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
+func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 	nav_path_c.reversed = not reversed
 	
-	var node_idx: int = PathDB.node_count - 1 if nav_path_c.reversed else 0
-	var node: PathNode = nav_path_c.get_path_node(node_idx)
-	nav_path_c.set_nav_ni(node.ni)
-	e.position = node.pos
+	var node: PathwayNode = nav_path_c.get_pathway_node()
+	nav_path_c.set_pathway_node(node)
 		
 	e._on_arrived_end(nav_path_c)
 	
 	nav_path_c.loop_count += 1
-	print("到达终点: %s(%d)， 到达次数 %d" % [e.template_name, e.id, nav_path_c.loop_count])
+	print_debug("到达终点: %s(%d), 到达次数 %d" % [e.template_name, e.id, nav_path_c.loop_count])
 	
 	if (
 			not nav_path_c.loop 

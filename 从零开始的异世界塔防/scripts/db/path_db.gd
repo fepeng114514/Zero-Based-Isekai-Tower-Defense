@@ -1,83 +1,91 @@
 extends Node
 
-var paths: Array[Path] = []
+"""
+路径数据库，存储所有路径的数据
+"""
+
+var pathways: Array[Pathway] = []
 var last_pi: int = 0
-var max_subpath: int = 3
-var subpath_spacing: int = 25
-var node_count: int = 198
+var max_subpathway: int = 3
+var subpathway_spacing: float = 33.33
+var node_count: int = 256
 
-func clean():
-	paths = []
+func load(level_data: Dictionary) -> void:
+	pathways = []
+	last_pi = 0
+	max_subpathway = level_data.get("max_subpathway", max_subpathway)
+	subpathway_spacing = level_data.get("subpathway_spacing", subpathway_spacing)
+	node_count = level_data.get("node_count", node_count)
 
-func get_path_count() -> int:
-	return paths.size()
+func get_pathway_count() -> int:
+	return pathways.size()
 
-func get_pathway(pi: int) -> Path:
-	return paths[pi]
+func get_pathway(pi: int) -> Pathway:
+	return pathways[pi]
 
-func get_subpath(pi: int, spi: int) -> Subpath:
-	var path: Path = paths[pi]
-	var subpath: Subpath = path.subpaths[spi]
-	return subpath
+func get_subpathway(pi: int, spi: int) -> Subpathway:
+	var pathway: Pathway = pathways[pi]
+	var subpathway: Subpathway = pathway.subpathways[spi]
+	return subpathway
 
-func get_path_node(pi: int, spi: int, ni: int) -> PathNode:
-	var path: Path = paths[pi]
-	var subpath: Subpath = path.subpaths[spi]
-	var node: PathNode = subpath.nodes[ni]
+func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
+	var pathway: Pathway = pathways[pi]
+	var subpathway: Subpathway = pathway.subpathways[spi]
+	var node: PathwayNode = subpathway.nodes[ni]
 
 	return node
 	
 func get_middle_spi() -> int:
-	return roundi(1.0 * max_subpath / 2)
+	return roundi(1.0 * max_subpathway / 2)
 
-func get_active_paths() -> Array[Path]:
-	return paths.filter(func(p: Path): return p.active)
+func get_active_pathways() -> Array[Pathway]:
+	return pathways.filter(func(p: Pathway): return p.active)
 
-func get_random_path() -> Path:
-	return get_active_paths().pick_random()
+func get_random_path() -> Pathway:
+	return get_active_pathways().pick_random()
 
 func get_random_pi() -> int:
-	return randi_range(0, get_path_count() - 1)
+	return randi_range(0, get_pathway_count() - 1)
 
-func get_random_subpath(pi = null) -> Subpath:
+func get_random_subpathway(pi = null) -> Subpathway:
 	if not pi:
 		pi = get_random_pi()
 	else:
 		push_warning("路径 %s 已被禁用" % pi)
 		return null
 
-	var path: Path = paths[pi]
+	var pathway: Pathway = pathways[pi]
 
-	return path.subpaths.pick_random()
+	return pathway.subpathways.pick_random()
 
 func get_ratio(pi: int, spi: int, progress: float) -> float:
-	var subpath: Subpath = get_subpath(pi, spi)
+	var subpathway: Subpathway = get_subpathway(pi, spi)
 		
-	var delta = progress / subpath.length
+	var delta = progress / subpathway.length
 	return clampf(delta, 0, 1)
 	
 func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
-	var subpath: Subpath = get_subpath(pi, spi)
-	var path_follow = subpath.follow
+	var subpathway: Subpathway = get_subpathway(pi, spi)
+	var path_follow = subpathway.follow
 		
 	path_follow.progress_ratio = ratio
 	var position: Vector2 = path_follow.position
 	
-	return subpath.to_global(position)
+	return subpathway.to_global(position)
 
 func get_progress_by_ratio(pi: int, spi: int, ratio: float) -> float:
-	var subpath: Subpath = get_subpath(pi, spi)
+	var subpathway: Subpathway = get_subpathway(pi, spi)
 
-	return subpath.length * ratio
+	return subpathway.length * ratio
 	
 func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
-	var subpath: Subpath = get_subpath(pi, spi)
-	var path_follow = subpath.follow
+	var subpathway: Subpathway = get_subpathway(pi, spi)
+	var path_follow = subpathway.follow
 		
 	path_follow.progress = progress
 	var position: Vector2 = path_follow.position
 	
-	return subpath.to_global(position)
+	return subpathway.to_global(position)
 	
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 	if not target.has_c(CS.CN_NAV_PATH) or target.state & (CS.STATE_MELEE | CS.STATE_RANGED):
@@ -100,11 +108,11 @@ func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 ## 可指定搜索的路径与子路径，不指定将会在所有路径搜索
 func get_nearst_nodes_list(
 		origin: Vector2, 
-		pi_l: Array = range(get_path_count()), 
-		spi_l: Array = range(max_subpath),
+		pi_l: Array = range(get_pathway_count()), 
+		spi_l: Array = range(max_subpathway),
 		valid_only: bool = true
-	) -> Array[PathNode]:
-	var nodes: Array[PathNode] = []
+	) -> Array[PathwayNode]:
+	var nodes: Array[PathwayNode] = []
 
 	for pi: int in pi_l:
 		if valid_only and not get_pathway(pi).is_active():
@@ -112,9 +120,9 @@ func get_nearst_nodes_list(
 			continue
 
 		for spi: int in spi_l:
-			var subpath: Subpath = get_subpath(pi, spi)
+			var subpathway: Subpathway = get_subpathway(pi, spi)
 
-			for node: PathNode in subpath.nodes:
+			for node: PathwayNode in subpathway.nodes:
 				node.dist_squared = node.pos.distance_squared_to(origin)
 
 				nodes.append(node)
@@ -131,10 +139,10 @@ func get_nearst_nodes_list(
 ## 可指定搜索的路径、子路径，不指定将会在所有路径搜索
 func get_nearst_node(
 		origin: Vector2, 
-		pi_l: Array = range(get_path_count()), 
-		spi_l: Array = range(max_subpath),
+		pi_l: Array = range(get_pathway_count()), 
+		spi_l: Array = range(max_subpathway),
 		valid_only: bool = true
-	) -> PathNode:
+	) -> PathwayNode:
 	var nearst_node = null
 	
 	for pi: int in pi_l:
@@ -142,9 +150,9 @@ func get_nearst_node(
 			continue
 		
 		for spi: int in spi_l:
-			var subpath: Subpath = get_subpath(pi, spi)
+			var subpathway: Subpathway = get_subpathway(pi, spi)
 			
-			for node: PathNode in subpath.nodes:
+			for node: PathwayNode in subpathway.nodes:
 				node.dist_squared = node.pos.distance_squared_to(origin)
 				
 				if (

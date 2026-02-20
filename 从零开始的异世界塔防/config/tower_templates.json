@@ -1,125 +1,125 @@
 {
-    "tower_mage": {
-        "base": "tower",
-        "components": {
-            "ranged": {
-                "attacks": [
-                    {
-                        "attack_type": "common",
-                        "bullet": "bullet_bolt",
-                        "min_range": 0,
-                        "max_range": 300,
-                        "cooldown": 1
-                    }
-                ]
-            }
-        }
-    },
-    "bullet_bolt": {
-        "base": "bullet",
-        "components": {
-            "bullet": {
-                "flight_trajectory": "%const(TRAJECTORY_TRACKING)",
-                "min_damage": 50,
-                "max_damage": 50,
-                "speed": 300
-            }
-        }
-    },
-    "tower_archer": {
-        "base": "tower",
-        "components": {
-            "ranged": {
-                "attacks": [
-                    {
-                        "attack_type": "common",
-                        "bullet": "bullet_arrow",
-                        "min_range": 0,
-                        "max_range": 400,
-                        "cooldown": 1
-                    }
-                ]
-            }
-        }
-    },
-    "bullet_arrow": {
-        "base": "bullet",
-        "components": {
-            "bullet": {
-                "predict_pos_disabled": true,
-                "flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
-                "min_damage": 10,
-                "max_damage": 50,
-                "flight_time": 1
-            }
-        }
-    },
-    "tower_barrack": {
-        "base": "tower",
-        "components": {
-            "barrack": {
-                "max_soldiers": 1,
-                "nav_ranged": 150,
-                "respawn_time": 5,
-                "soldier": "soldier"
-            }
-        }
-    },
-    "soldier": {
-        "base": "friendly",
-        "components": {
-            "melee": {
-                "max_blocked": 2,
-                "block_min_range": 0,
-                "block_max_range": 90,
-                "motion_speed": 150,
-                "melee_slot_offset": "%vec2(0, 20)",
-                "attacks": [
-                    {
-                        "attack_type": "common",
-                        "min_damage": 30,
-                        "max_damage": 30,
-                        "cooldown": 1
-                    }
-                ]
-            },
-            "health": {
-                "hp_max": 200
-            },
-            "rally": {
-                "speed": 150
-            }
-        }
-    },
-    "bullet_sword": {
-        "base": "bullet",
-        "components": {
-            "bullet": {
-                "can_arrived": false,
-                "flight_trajectory": "%const(TRAJECTORY_INSTANT)",
-                "min_damage": 50,
-                "max_damage": 50,
-                "flight_time": 0.5,
-                "min_damage_radius": 0,
-                "max_damage_radius": 100
-            }
-        },
-        "stay_height": 120,
-        "stay_time": 1,
-        "to_predict_time": 0.5
-    },
-    "bullet_bomb": {
-        "base": "bullet",
-        "components": {
-            "bullet": {
-                "predict_pos_disabled": true,
-                "flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
-                "min_damage": 50,
-                "max_damage": 50,
-                "flight_time": 1,
-                "min_damage_radius": 0,
-                "max_damage_radius": 100
-            }
-        }
-    }
+	"tower_mage": {
+		"base": "tower",
+		"components": {
+			"ranged": {
+				"attacks": [
+					{
+						"attack_type": "common",
+						"bullet": "bullet_bolt",
+						"min_range": 0,
+						"max_range": 300,
+						"cooldown": 1
+					}
+				]
+			}
+		}
+	},
+	"bullet_bolt": {
+		"base": "bullet",
+		"components": {
+			"bullet": {
+				"flight_trajectory": "%const(TRAJECTORY_TRACKING)",
+				"min_damage": 50,
+				"max_damage": 50,
+				"speed": 300
+			}
+		}
+	},
+	"tower_archer": {
+		"base": "tower",
+		"components": {
+			"ranged": {
+				"attacks": [
+					{
+						"attack_type": "common",
+						"bullet": "bullet_arrow",
+						"min_range": 0,
+						"max_range": 400,
+						"cooldown": 1
+					}
+				]
+			}
+		}
+	},
+	"bullet_arrow": {
+		"base": "bullet",
+		"components": {
+			"bullet": {
+				"predict_pos_disabled": true,
+				"flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
+				"min_damage": 10,
+				"max_damage": 50,
+				"flight_time": 1
+			}
+		}
+	},
+	"tower_barrack": {
+		"base": "tower",
+		"components": {
+			"barrack": {
+				"max_soldiers": 1,
+				"nav_ranged": 150,
+				"respawn_time": 5,
+				"soldier": "soldier"
+			}
+		}
+	},
+	"soldier": {
+		"base": "friendly",
+		"components": {
+			"melee": {
+				"max_blocked": 2,
+				"block_min_range": 0,
+				"block_max_range": 90,
+				"motion_speed": 150,
+				"melee_slot_offset": "%vec2(0, 20)",
+				"attacks": [
+					{
+						"attack_type": "common",
+						"min_damage": 30,
+						"max_damage": 30,
+						"cooldown": 1
+					}
+				]
+			},
+			"health": {
+				"hp_max": 200
+			},
+			"rally": {
+				"speed": 150
+			}
+		}
+	},
+	"bullet_sword": {
+		"base": "bullet",
+		"components": {
+			"bullet": {
+				"can_arrived": false,
+				"flight_trajectory": "%const(TRAJECTORY_INSTANT)",
+				"min_damage": 50,
+				"max_damage": 50,
+				"flight_time": 0.5,
+				"min_damage_radius": 0,
+				"max_damage_radius": 100
+			}
+		},
+		"stay_height": 120,
+		"stay_time": 1,
+		"to_predict_time": 0.5
+	},
+	"bullet_bomb": {
+		"base": "bullet",
+		"components": {
+			"bullet": {
+				"predict_pos_disabled": true,
+				"flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
+				"min_damage": 50,
+				"max_damage": 50,
+				"flight_time": 1,
+				"min_damage_radius": 0,
+				"max_damage_radius": 100
+			}
+		}
+	}
 }

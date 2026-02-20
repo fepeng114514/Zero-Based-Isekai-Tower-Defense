@@ -28,10 +28,10 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta) -> void:
-	var damage_queue = SystemManager.damage_queue
+	var damage_queue = SystemMgr.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Damage = damage_queue.pop_at(i)
-		var target = E.get_entity_by_id(d.target_id)
+		var target = EntityDB.get_entity_by_id(d.target_id)
 		
 		if not U.is_vaild_entity(target):
 			continue
@@ -41,15 +41,15 @@ func _on_update(delta) -> void:
 		if not t_health_c:
 			continue
 			
-		take_damage(target, d, t_health_c)
+		_take_damage(target, d, t_health_c)
 
-	for e: Entity in E.get_entities_group(CS.CN_HEALTH):
+	for e: Entity in EntityDB.get_entities_group(CS.CN_HEALTH):
 		var health_c = e.get_c(CS.CN_HEALTH)
 		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 	
-func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
-	var source: Entity = E.get_entity_by_id(d.source_id)
+func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
+	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
 	
 	if d.damage_type & CS.DAMAGE_EAT:
 		target._on_eat(target, d)
@@ -57,12 +57,12 @@ func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 		target.remove_entity()
 		return
 	
-	var actual_damage: int = predict_damage(target, d, t_health_c, source)
+	var actual_damage: int = _predict_damage(target, d, t_health_c, source)
 	t_health_c.hp -= actual_damage
 	
 	target._on_damage(target, d)
 	
-	print(
+	print_debug(
 		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
 		% [
 			target.template_name, 
@@ -79,7 +79,7 @@ func take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 			source._on_kill(target, d)
 		target.remove_entity()
 		
-func predict_damage(
+func _predict_damage(
 		target: Entity, d: Damage, t_health_c: HealthComponent, source: Entity
 	) -> int:
 	var damage_factor: float = d.damage_factor

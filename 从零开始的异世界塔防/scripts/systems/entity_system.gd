@@ -4,9 +4,9 @@ func _on_ready_insert(e: Entity) -> bool:
 	return e._on_ready_insert()
 
 func _on_insert(e: Entity) -> bool:
-	e.insert_ts = TM.tick_ts
+	e.insert_ts = TimeDB.tick_ts
 
-	E.create_auras(e.id, e.auras_list)
+	EntityDB.create_auras(e.id, e.auras_list)
 
 	return e._on_insert()
 	
@@ -20,13 +20,13 @@ func _on_remove(e: Entity) -> void:
 	e.clear_has_auras()
 
 func _on_update(delta: float) -> void:
-	for e: Entity in E.get_vaild_entities():
-		if e.duration != -1 and TM.is_ready_time(e.insert_ts, e.duration):
+	for e: Entity in EntityDB.get_vaild_entities():
+		if e.duration != -1 and TimeDB.is_ready_time(e.insert_ts, e.duration):
 			e.remove_entity()
 			continue
 			
 		if e.source_id != -1 and e.track_source:
-			var source = E.get_entity_by_id(e.source_id)
+			var source = EntityDB.get_entity_by_id(e.source_id)
 			
 			if not source:
 				continue
@@ -37,3 +37,5 @@ func _on_update(delta: float) -> void:
 			continue
 			
 		e._on_update(delta)
+		
+		e.last_position = e.position

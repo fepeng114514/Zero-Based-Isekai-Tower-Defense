@@ -1,22 +1,24 @@
 {
-    "life": 20,
-    "cash": 1000,
-    "max_subpath": 3,
-    "subpath_spacing": 25,
-    "node_count": 198,
-    "entities": [
-        {
-            "t_name": "wave_spawner"
-        },
-        {
-            "t_name": "tower_archer",
-            "position": "%vec2(400, 250)"
-        }
-    ],
-    "tower_holders": [
-        {
-            "style": "grass",
-            "position": "%vec2(500, 500)"
-        }
-    ]
+	"life": 20,
+	"cash": 1000,
+	"max_subpathway": 3,
+	"subpathway_spacing": 33,
+	"node_count": 256,
+	"entities": [
+		{
+			"t_name": "wave_spawner"
+		},
+	],
+	"tower_holders": [
+		{
+			"style": "grass",
+			"position": "%vec2(500, 500)"
+		}
+	],
+	"required_atlas": [
+		"enemies",
+	],
+	"required_sounds": [
+		
+	]
 }

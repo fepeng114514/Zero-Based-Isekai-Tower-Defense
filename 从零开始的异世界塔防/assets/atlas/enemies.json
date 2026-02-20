@@ -1,0 +1,132 @@
+{
+    "enemies-1.png": {
+        "enemy_goblin%walk%1": {
+            "quad": [
+                94,
+                3,
+                26,
+                34
+            ],
+            "alias": [
+                "enemy_goblin%walk%2"
+            ]
+        },
+        "enemy_goblin%walk%10": {
+            "quad": [
+                65,
+                3,
+                27,
+                32
+            ],
+            "alias": [
+                "enemy_goblin%walk%11"
+            ]
+        },
+        "enemy_goblin%walk%12": {
+            "quad": [
+                34,
+                43,
+                28,
+                34
+            ],
+            "alias": [
+                "enemy_goblin%walk%13"
+            ]
+        },
+        "enemy_goblin%walk%14": {
+            "quad": [
+                3,
+                3,
+                29,
+                37
+            ],
+            "alias": [
+                "enemy_goblin%walk%15"
+            ]
+        },
+        "enemy_goblin%walk%16": {
+            "quad": [
+                34,
+                79,
+                28,
+                39
+            ],
+            "alias": [
+                "enemy_goblin%walk%17"
+            ]
+        },
+        "enemy_goblin%walk%18": {
+            "quad": [
+                65,
+                37,
+                27,
+                38
+            ],
+            "alias": []
+        },
+        "enemy_goblin%walk%19": {
+            "quad": [
+                94,
+                73,
+                24,
+                36
+            ],
+            "alias": [
+                "enemy_goblin%walk%20"
+            ]
+        },
+        "enemy_goblin%walk%21": {
+            "quad": [
+                94,
+                39,
+                26,
+                32
+            ],
+            "alias": [
+                "enemy_goblin%walk%22"
+            ]
+        },
+        "enemy_goblin%walk%3": {
+            "quad": [
+                3,
+                42,
+                29,
+                37
+            ],
+            "alias": [
+                "enemy_goblin%walk%4"
+            ]
+        },
+        "enemy_goblin%walk%5": {
+            "quad": [
+                3,
+                81,
+                29,
+                39
+            ],
+            "alias": [
+                "enemy_goblin%walk%6"
+            ]
+        },
+        "enemy_goblin%walk%7": {
+            "quad": [
+                34,
+                3,
+                29,
+                38
+            ],
+            "alias": []
+        },
+        "enemy_goblin%walk%8": {
+            "quad": [
+                65,
+                77,
+                27,
+                36
+            ],
+            "alias": [
+                "enemy_goblin%walk%9"
+            ]
+        }
+    }
+}

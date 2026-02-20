@@ -15,10 +15,10 @@ func _on_insert() -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	var target = E.get_entity_by_id(target_id)
+	var target = EntityDB.get_entity_by_id(target_id)
 
 	# 停留状态
-	if target and is_stay and not TM.is_ready_time(bullet_c.ts, stay_time):
+	if target and is_stay and not TimeDB.is_ready_time(bullet_c.ts, stay_time):
 		var t_pos: Vector2 = target.position
 		position = Vector2(t_pos.x, t_pos.y - stay_height)
 		bullet_c.to = position
@@ -45,12 +45,12 @@ func _on_update(delta: float) -> void:
 			Vector2(bullet_c.to.x, bullet_c.to.y - stay_height), 
 			to_predict_time
 		)
-		bullet_c.ts = TM.tick_ts
+		bullet_c.ts = TimeDB.tick_ts
 		
 	# 飞向预判位置
-	if is_to_predict and not TM.is_ready_time(bullet_c.ts, to_predict_time):
+	if is_to_predict and not TimeDB.is_ready_time(bullet_c.ts, to_predict_time):
 		position = U.position_in_linear(
-			bullet_c.velocity, bullet_c.from, TM.get_time(bullet_c.ts)
+			bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
 		)
 		
 		return
@@ -66,11 +66,11 @@ func _on_update(delta: float) -> void:
 			position, bullet_c.to, bullet_c.flight_time
 		)
 
-		bullet_c.ts = TM.tick_ts
+		bullet_c.ts = TimeDB.tick_ts
 
 	# 下落
 	position = U.position_in_linear(
-		bullet_c.velocity, bullet_c.from, TM.get_time(bullet_c.ts)
+		bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
 	)
 
 func _on_bullet_calculate_damage_factor(

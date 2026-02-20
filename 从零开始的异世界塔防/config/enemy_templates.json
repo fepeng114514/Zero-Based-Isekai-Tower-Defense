@@ -7,7 +7,7 @@
 				"physical_armor": 50
 			},
 			"nav_path": {
-				"speed": 100
+				"speed": 133
 			},
 			"melee": {
 				"block_range": 30,

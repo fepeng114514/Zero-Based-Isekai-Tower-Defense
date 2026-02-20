@@ -57,7 +57,7 @@ func calculate_blocked_count():
 	var count: int = 0
 	
 	for id in blockeds_ids:
-		var b = E.get_entity_by_id(id)
+		var b = EntityDB.get_entity_by_id(id)
 		
 		if not U.is_vaild_entity(b):
 			continue
@@ -84,7 +84,7 @@ func get_blocked(filter = null) -> Array[Entity]:
 	var blocked_list: Array[Entity] = []
 	
 	for id in blockeds_ids:
-		var e = E.get_entity_by_id(id)
+		var e = EntityDB.get_entity_by_id(id)
 		
 		if not U.is_vaild_entity(e) or filter and not filter.call(e):
 			continue
@@ -96,13 +96,13 @@ func get_blocked(filter = null) -> Array[Entity]:
 ## 清理无效被拦截
 func cleanup_blockeds() -> void:
 	# 快速检查是否存在无效拦截
-	if not blockeds_ids.any(func(id): return not E.get_entity_by_id(id)):
+	if not blockeds_ids.any(func(id): return not EntityDB.get_entity_by_id(id)):
 		return
 		
 	var new_blockeds_ids: Array[int] = []
 	
 	for id in blockeds_ids:
-		if not E.get_entity_by_id(id):
+		if not EntityDB.get_entity_by_id(id):
 			continue 
 			
 		new_blockeds_ids.append(id)
@@ -114,5 +114,5 @@ func cleanup_blocker() -> void:
 	if blocker_id == null:
 		return
 	
-	if not E.get_entity_by_id(blocker_id):
+	if not EntityDB.get_entity_by_id(blocker_id):
 		blocker_id = null

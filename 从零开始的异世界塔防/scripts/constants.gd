@@ -12,6 +12,7 @@ const PATH_TEMPLATES: Array = [
 const PATH_COMPOTENTS: String = "components.json"
 const PATH_LEVELS: String = "levels/level_%s_data.json"
 const PATH_WAVES: String = "levels/level_%s_wave.json"
+const PATH_ANIMATIONS: String = "animations.json"
 
 const PATH_SCRIPTS: String = "res://scripts"
 const PATH_SYSTEMS_SCRIPTS: String = PATH_SCRIPTS + "/systems/%s.gd"
@@ -20,15 +21,14 @@ const PATH_ENTITIES_SCRIPTS: String = PATH_SCRIPTS + "/entities/%s.gd"
 
 const PATH_SCENES: String = "res://scenes"
 const PATH_TEMPLATES_SCENES: String = PATH_SCENES + "/templates/%s.tscn"
-const PATH_LEVELS_SCENES: String = PATH_SCENES + "/levels/level_%s_data.tscn"
-const PATH_WAVES_SCENES: String = PATH_SCENES + "/levels/level_%s_wave.tscn"
+const PATH_LEVELS_SCENES: String = PATH_SCENES + "/levels/level_%s.tscn"
 
 const PATH_RESOURCES: String = "res://resources"
 
 const PATH_DATAS: String = "res://data"
 
 const PATH_ASSETS: String = "res://assets"
-const PATH_ATLAS_ASSETS: String = PATH_ASSETS + "/atlas/%"
+const PATH_ATLAS_ASSETS: String = PATH_ASSETS + "/atlas/%s"
 
 const LEVEL_LIST: Array = [
 	1

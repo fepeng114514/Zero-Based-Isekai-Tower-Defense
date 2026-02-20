@@ -1,7 +1,9 @@
 extends Node
 signal create_entity_s(entity: Entity)
 
-"""待优化:
+"""
+实体数据库，所有实体数据
+待优化:
 1. 索敌的空间索引优化
 2. 对象池
 """
@@ -24,29 +26,8 @@ var entities: Array = []
 var _dirty_entities_ids: Array[int] = []
 var last_id: int = 0
 
-func _ready() -> void:
-	for base_path in CS.PATH_TEMPLATES:
-		templates_data.merge(ConfigManager.get_config_data(base_path))
-	
-	components_data = ConfigManager.get_config_data(CS.PATH_COMPOTENTS)
-	
-	for t_name in templates_data.keys():
-		var template_scene_path: String = CS.PATH_TEMPLATES_SCENES % t_name
-		if ResourceLoader.exists(template_scene_path):
-			templates_scenes[t_name] = load(template_scene_path)
-			
-		var entity_script_path: String = CS.PATH_ENTITIES_SCRIPTS % t_name
-		if ResourceLoader.exists(entity_script_path):
-			entities_scripts[t_name] = load(entity_script_path)
-		
-	for c_name in components_data.keys():
-		var component_script_path: String = (
-			CS.PATH_COMPONENTS_SCRIPTS % (c_name + "_component")
-		)
-		if ResourceLoader.exists(component_script_path):
-			components_scripts[c_name] = load(component_script_path)
-
-func clean():
+## 初始化
+func load() -> void:
 	templates_scenes = {}
 	components_scripts = {}
 	templates_data = {}
@@ -58,20 +39,49 @@ func clean():
 		"towers": [],
 		"modifiers": [],
 		"auras": [],
+		"bullets": [],
 	}
 	component_groups = {}
 	entities = []
 	_dirty_entities_ids = []
 	last_id = 0
 	
-	_ready()
+	_load_templates_data()
+	_load_components_data()
+	
+## 加载实体模板数据
+func _load_templates_data():
+	for base_path in CS.PATH_TEMPLATES:
+		templates_data.merge(ConfigMgr.get_config_data(base_path))
+	
+	for t_name in templates_data.keys():
+		var template_scene_path: String = CS.PATH_TEMPLATES_SCENES % t_name
+		if ResourceLoader.exists(template_scene_path):
+			templates_scenes[t_name] = load(template_scene_path)
+			
+		var entity_script_path: String = CS.PATH_ENTITIES_SCRIPTS % t_name
+		if ResourceLoader.exists(entity_script_path):
+			entities_scripts[t_name] = load(entity_script_path)
+		
+## 加载组件数据
+func _load_components_data():
+	components_data = ConfigMgr.get_config_data(CS.PATH_COMPOTENTS)
+	
+	for c_name in components_data.keys():
+		var component_script_path: String = (
+			CS.PATH_COMPONENTS_SCRIPTS % (c_name + "_component")
+		)
+		if ResourceLoader.exists(component_script_path):
+			components_scripts[c_name] = load(component_script_path)
 
+## 标记新增加或移除的实体
 func mark_entity_dirty_id(id: int) -> void:
 	if _dirty_entities_ids.has(id):
 		return
 		
 	_dirty_entities_ids.append(id)
 
+## 创建实体
 func create_entity(t_name: String) -> Entity:
 	var t = get_templates_scenes(t_name)
 
@@ -86,7 +96,7 @@ func create_entity(t_name: String) -> Entity:
 	if entity_script:
 		e.set_script(entity_script)
 		
-	# 待实现数据的缓存
+	# 待实现数据的缓存，这里会多次解析 json 模板数据
 	var template_data = get_template_data(t_name)
 	e.set_template_data(template_data)
 		
@@ -95,16 +105,17 @@ func create_entity(t_name: String) -> Entity:
 	e.name = t_name
 	e.visible = false
 	
-	if not SystemManager.process_systems("_on_ready_insert", e):
+	# 调用所有系统的准备插入回调函数，遇到返回 false 的系统不插入实体
+	if not SystemMgr.call_systems("_on_ready_insert", e):
 		return e
 
 	create_entity_s.emit(e)
-	
-	print("创建实体： %s(%d)" % [t_name, last_id])
+	print_debug("创建实体: %s(%d)" % [t_name, last_id])
 	last_id += 1
 		
 	return e
 
+## 批量创建实体
 func create_entities(t_names: Array, auto_insert: bool = true) -> Array[Entity]:
 	var created_entities: Array[Entity] = []
 
@@ -118,6 +129,7 @@ func create_entities(t_names: Array, auto_insert: bool = true) -> Array[Entity]:
 
 	return created_entities
 	
+## 创建实体在指定位置
 func create_entities_at_pos(t_names: Array, pos: Vector2, auto_insert: bool = true) -> Array[Entity]:
 	var created_entities: Array[Entity] = []
 
@@ -132,6 +144,7 @@ func create_entities_at_pos(t_names: Array, pos: Vector2, auto_insert: bool = tr
 
 	return created_entities
 
+## 创建伤害实体
 func create_damage(
 		target_id: int,
 		min_damage: int,
@@ -150,10 +163,11 @@ func create_damage(
 	d.damage_factor = damage_factor
 	d.template_name = d_name
 
-	SystemManager.damage_queue.append(d)
+	SystemMgr.damage_queue.append(d)
 		
 	return d
 
+## 批量创建状态效果实体
 func create_mods(
 		target_id: int,
 		source_id: int = -1,
@@ -175,6 +189,7 @@ func create_mods(
 
 	return created_mods
 
+## 批量创建光环实体
 func create_auras(
 		source_id: int = -1,
 		auras: Array = [],
@@ -194,6 +209,7 @@ func create_auras(
 
 	return created_auras
 
+## 根据组名获取组内所有实体
 func get_entities_group(group_name: String) -> Array:
 	if group_name in type_groups:
 		return type_groups[group_name]
@@ -202,7 +218,8 @@ func get_entities_group(group_name: String) -> Array:
 		return component_groups[group_name]
 
 	return []
-	
+
+## 根据 id 索引实体
 func get_entity_by_id(id: int):
 	if id == -1:
 		return null
@@ -210,6 +227,7 @@ func get_entity_by_id(id: int):
 	var e = entities.get(id)
 	return e if is_instance_valid(e) else null
 	
+## 获取组件脚本
 func get_component_script(c_name: String, deep: bool = false):
 	var c_data = components_scripts.get(c_name)
 	
@@ -225,6 +243,7 @@ func get_component_script(c_name: String, deep: bool = false):
 	
 	return c_data
 
+## 获取组件数据
 func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
 	var c_data = components_data.get(c_name)
 	
@@ -240,6 +259,7 @@ func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
 	
 	return c_data
 
+## 获取模板数据
 func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
 	var template_data = templates_data.get(t_name)
 	
@@ -255,6 +275,7 @@ func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
 	
 	return template_data
 	
+## 获取实体模板场景
 func get_templates_scenes(t_name: String, deep: bool = false):
 	var template_scenes = templates_scenes.get(t_name)
 	
@@ -269,6 +290,7 @@ func get_templates_scenes(t_name: String, deep: bool = false):
 	
 	return template_scenes
 	
+## 获取实体脚本
 func get_entity_script(t_name: String, deep: bool = false):
 	var entity_script = entities_scripts.get(t_name)
 	
@@ -283,9 +305,11 @@ func get_entity_script(t_name: String, deep: bool = false):
 	
 	return entity_script
 
+## 获取所有有效实体
 func get_vaild_entities() -> Array:
 	return entities.filter(func(e): return U.is_vaild_entity(e))
 
+## 排序目标
 func sort_targets(
 		targets: Array, sort_type: String, origin: Vector2, reversed: bool = false
 	) -> void:
@@ -362,7 +386,7 @@ func find_extreme_target(
 		flags: int,
 		bans: int,
 		filter = null,
-	reversed: bool = false
+		reversed: bool = false
 	):
 	var targets = find_targets_in_range(
 		target_pool, origin, min_range, max_range, flags, bans, filter

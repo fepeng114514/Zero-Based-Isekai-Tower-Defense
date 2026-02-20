@@ -1,5 +1,8 @@
 extends Node
 
+"""
+音效数据库
+"""
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

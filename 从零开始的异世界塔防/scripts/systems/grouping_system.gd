@@ -1,18 +1,18 @@
 extends System
 
 func _on_update(delta: float) -> void:
-	var dirty_entities_ids: Array[int] = E._dirty_entities_ids
+	var dirty_entities_ids: Array[int] = EntityDB._dirty_entities_ids
 	if dirty_entities_ids.is_empty():
 		return
 		
-	var type_groups: Dictionary[String, Array] = E.type_groups
-	var component_groups: Dictionary[String, Array] = E.component_groups
+	var type_groups: Dictionary[String, Array] = EntityDB.type_groups
+	var component_groups: Dictionary[String, Array] = EntityDB.component_groups
 		
 	for group in type_groups.values():
 		group.clear()
 	component_groups.clear()
 	
-	for e: Entity in E.get_vaild_entities():
+	for e: Entity in EntityDB.get_vaild_entities():
 		if e.is_enemy():
 			type_groups[CS.GROUP_ENEMIES].append(e)
 		if e.is_friendly():

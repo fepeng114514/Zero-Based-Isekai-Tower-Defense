@@ -1,5 +1,5 @@
 extends Entity
-var waves_data: Array = LevelManager.waves_data[GlobalStore.level_idx]
+var waves_data: Array = LevelMgr.waves_data[GlobalStore.level_idx]
 
 func _spawner() -> void:
 	for wave_idx: int in range(waves_data.size()):
@@ -10,7 +10,7 @@ func _spawner() -> void:
 			continue
 		
 		# 每波之间的等待
-		await TM.y_wait(wave.interval)
+		await TimeDB.y_wait(wave.interval)
 		GlobalStore.current_wave = wave_idx
 		GlobalStore.force_wave = wave_idx
 		
@@ -23,34 +23,30 @@ func _spawner() -> void:
 	GlobalStore.waves_finished = true
 
 func _group_spawner(group: Dictionary) -> void:
-	await TM.y_wait(group.delay)
-	var path: int = group.path
+	await TimeDB.y_wait(group.delay)
+	var pathway: int = group.pathway
 	
 	for spawn: Dictionary in group.spawns:
 		for i: int in range(spawn.count):
-			var e: Entity = E.create_entity(spawn.name)
+			var e: Entity = EntityDB.create_entity(spawn.name)
 			
 			if e.has_c(CS.CN_NAV_PATH):
 				var nav_path_c: NavPathComponent = e.get_c(CS.CN_NAV_PATH)
-				var spi = spawn.get("subpath")
+				var spi = spawn.get("subpathway")
 				
-				nav_path_c.reversed = true if spawn.get("reversed") else false
-				nav_path_c.loop = true if spawn.get("loop") else false
+				nav_path_c.reversed = spawn.get("reversed", false)
+				nav_path_c.loop = spawn.get("loop", false)
+				nav_path_c.loop_times = spawn.get("loop_times", nav_path_c.loop_times)
 				
-				var loop_times = spawn.get("loop_times")
-				
-				if loop_times != null:
-					nav_path_c.loop_times = loop_times
-				var node: PathNode = nav_path_c.get_path_node(
+				var node: PathwayNode = nav_path_c.get_pathway_node(
 					PathDB.node_count - 1 if nav_path_c.reversed else 0
 				)
 				nav_path_c.set_nav_path(
-					path - 1, spi - 1 if spi != null else -1
+					pathway - 1, spi - 1 if spi != null else -1, node.ni
 				)
-				nav_path_c.set_nav_ni(node.ni)
 			
 			e.insert_entity()
 			
-			await TM.y_wait(spawn.interval)
+			await TimeDB.y_wait(spawn.interval)
 			
-		await TM.y_wait(spawn.next_interval)
+		await TimeDB.y_wait(spawn.next_interval)
