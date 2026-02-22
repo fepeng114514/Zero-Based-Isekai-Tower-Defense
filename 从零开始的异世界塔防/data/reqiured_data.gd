@@ -10,6 +10,7 @@ var level_required_system: Array[String] = [
 	"bullet_system",
 	"health_system",
 	"melee_system",
+	"sprite_system",
 	"entity_system",
 	"barrack_system",
 	"rally_system",

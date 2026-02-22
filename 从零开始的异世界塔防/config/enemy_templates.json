@@ -11,12 +11,20 @@
 			},
 			"melee": {
 				"block_range": 30,
-				"attacks": [
+				"list": [
 					{
-						"attack_type": "common",
+						"type": "single",
 						"min_damage": 5,
 						"max_damage": 10,
 						"cooldown": 1
+					}
+				]
+			},
+			"sprite": {
+				"list": [
+					{
+						"type": "animation",
+						"sprite_name": "enemy_goblin"
 					}
 				]
 			}

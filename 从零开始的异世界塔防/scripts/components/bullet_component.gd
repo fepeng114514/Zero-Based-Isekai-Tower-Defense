@@ -10,13 +10,13 @@ var min_damage: int = 0
 ## 最大伤害，表示子弹造成的最大伤害值
 var max_damage: int = 0
 ## 伤害类型，表示子弹造成的伤害类型，使用位运算表示
-var damage_type: int = CS.DAMAGE_PHYSICAL
+var damage_type: int = C.DAMAGE_PHYSICAL
 ## 最小伤害半径，表示子弹造成伤害的范围，单位为像素，通常用于范围伤害的子弹
 var min_damage_radius: int = 0
 ## 最大伤害半径，表示子弹造成最大伤害的范围，单位为像素，通常用于范围伤害的子弹
 var max_damage_radius: int = 0
 ## 范围伤害的搜索模式，表示子弹在造成范围伤害时的目标选择策略，默认为优先敌人
-var search_mode: String = CS.SEARCH_MODE_ENEMY_FIRST
+var search_mode: String = C.SEARCH_MODE_ENEMY_FIRST
 ## 子弹携带的状态效果模板名称列表，表示子弹命中目标时将附加的状态效果模板名称列表
 var mods: Array = []
 ## 子弹携带的实体名称列表
@@ -38,7 +38,7 @@ var ts: float = 0
 ## 重力加速度，表示子弹受到的重力加速度，单位为像素/秒^2，通常用于抛物线飞行轨迹的子弹
 var g: int = 980
 ## 飞行轨迹类型，表示子弹的飞行轨迹类型，例如线性、抛物线等，使用常量表示
-var flight_trajectory: int = CS.TRAJECTORY_LINEAR
+var flight_trajectory: int = C.TRAJECTORY_LINEAR
 ## 起始位置，表示子弹的起始位置，单位为像素
 var from: Vector2 = Vector2(0, 0)
 ## 目标位置，表示子弹的目标位置，单位为像素

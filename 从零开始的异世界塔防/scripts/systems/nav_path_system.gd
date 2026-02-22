@@ -1,10 +1,10 @@
 extends System
 
 func _on_insert(e: Entity):
-	if not e.has_c(CS.CN_NAV_PATH):
+	if not e.has_c(C.CN_NAV_PATH):
 		return true
 	
-	var nav_path_c: NavPathComponent = e.get_c(CS.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 	var nav_pi: int = nav_path_c.nav_pi
 
 	if nav_path_c.nav_spi == -1:
@@ -22,11 +22,11 @@ func _on_insert(e: Entity):
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(CS.CN_NAV_PATH):
-		if e.waitting or not e.state & CS.STATE_IDLE:
+	for e: Entity in EntityDB.get_entities_group(C.CN_NAV_PATH):
+		if e.waitting or not e.state & C.STATE_IDLE:
 			continue
 			
-		var nav_path_c: NavPathComponent = e.get_c(CS.CN_NAV_PATH)
+		var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 		nav_path_c.speed = nav_path_c.origin_speed * get_mod_speed_factor(e)
 		var reversed: bool = nav_path_c.reversed
 		var end_ni: int = nav_path_c.end_ni
@@ -42,12 +42,14 @@ func get_mod_speed_factor(e: Entity):
 	var speed_factor: float = 1
 
 	for mod: Entity in e.get_has_auras():
-		var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
+		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
 		speed_factor *= mod_c.speed_factor
 	
 	return speed_factor
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
+	e.play_animation("walk")
+	
 	var walk_lenth: float = nav_path_c.speed * TimeDB.frame_length
 	
 	if reversed:
@@ -80,7 +82,7 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 	if nav_ni != next_ni:
 		nav_path_c.nav_ni = next_ni
 
-	e._on_path_walk(nav_path_c)
+	e._on_pathway_walk(nav_path_c)
 
 func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 	nav_path_c.reversed = not reversed

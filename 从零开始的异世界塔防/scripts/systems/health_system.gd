@@ -4,24 +4,24 @@ extends System
 """
 
 func _on_ready_insert(e: Entity) -> bool:
-	if not e.has_c(CS.CN_HEALTH):
+	if not e.has_c(C.CN_HEALTH):
 		return true
 
-	var health_c: HealthComponent = e.get_c(CS.CN_HEALTH)
+	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
 		
-	var health_bar = preload(CS.PATH_SCENES + "/health_bar.tscn").instantiate()
+	var health_bar = preload(C.PATH_SCENES + "/health_bar.tscn").instantiate()
 	health_bar.scale = health_c.health_bar_scale
 	health_bar.position = health_c.health_bar_offset
 	e.add_child(health_bar)
-	e.set_c(CS.CN_HEALTH_BAR, health_bar)
+	e.set_c(C.CN_HEALTH_BAR, health_bar)
 	
 	return true
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(CS.CN_HEALTH):
+	if not e.has_c(C.CN_HEALTH):
 		return true
 		
-	var health_c = e.get_c(CS.CN_HEALTH)
+	var health_c = e.get_c(C.CN_HEALTH)
 
 	health_c.hp = health_c.hp_max
 	
@@ -36,22 +36,23 @@ func _on_update(delta) -> void:
 		if not U.is_vaild_entity(target):
 			continue
 			
-		var t_health_c = target.get_c(CS.CN_HEALTH)
+		var t_health_c = target.get_c(C.CN_HEALTH)
 
 		if not t_health_c:
 			continue
 			
 		_take_damage(target, d, t_health_c)
-
-	for e: Entity in EntityDB.get_entities_group(CS.CN_HEALTH):
-		var health_c = e.get_c(CS.CN_HEALTH)
-		var health_bar = e.get_c(CS.CN_HEALTH_BAR)
+		
+	var process_func: Callable = func(e: Entity, health_c: HealthComponent):
+		var health_bar = e.get_c(C.CN_HEALTH_BAR)
 		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
-	
+
+	process_entities(C.CN_HEALTH, process_func)
+		
 func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
 	
-	if d.damage_type & CS.DAMAGE_EAT:
+	if d.damage_type & C.DAMAGE_EAT:
 		target._on_eat(target, d)
 		source._on_kill(target, d)
 		target.remove_entity()
@@ -62,7 +63,7 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	
 	target._on_damage(target, d)
 	
-	print_debug(
+	print_verbose(
 		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
 		% [
 			target.template_name, 
@@ -99,7 +100,7 @@ func _predict_damage(
 	# 所有者
 	if source:
 		for mod: Entity in source.get_has_mods():
-			var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
+			var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
 			damage_factor *= mod_c.add_damage_factor
 			damage_inc += mod_c.add_damage_inc
 			resistance *= mod_c.damage_resistance_factor
@@ -111,14 +112,14 @@ func _predict_damage(
 		
 	# 目标
 	for mod: Entity in target.get_has_mods():
-		var mod_c: ModifierComponent = mod.get_c(CS.CN_MODIFIER)
+		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
 		vulnerable *= mod_c.vulnerable_factor
 		vulnerable += mod_c.vulnerable_inc
 	
 	# 计算护甲减伤
 	var damage_type = d.damage_type
 		
-	if damage_type & CS.DAMAGE_DISINTEGRATE:
+	if damage_type & C.DAMAGE_DISINTEGRATE:
 		return t_health_c.hp
 		
 	var physical_armor: float = clampf(
@@ -145,21 +146,21 @@ func _predict_damage(
 		1
 	)
 	
-	if damage_type & CS.DAMAGE_TRUE:
+	if damage_type & C.DAMAGE_TRUE:
 		physical_armor = 0
 		magical_armor = 0
 
-	if damage_type & CS.DAMAGE_EXPLOSION:
+	if damage_type & C.DAMAGE_EXPLOSION:
 		resistance *= 1 - physical_armor / 2.0
-	elif damage_type & CS.DAMAGE_PHYSICAL:
+	elif damage_type & C.DAMAGE_PHYSICAL:
 		resistance *= 1 - physical_armor
 		
-	if damage_type & CS.DAMAGE_MAGICAL_EXPLOSION:
+	if damage_type & C.DAMAGE_MAGICAL_EXPLOSION:
 		resistance *= 1 - magical_armor / 2.0
-	elif damage_type & CS.DAMAGE_MAGICAL:
+	elif damage_type & C.DAMAGE_MAGICAL:
 		resistance *= 1 - magical_armor
 		
-	if damage_type & CS.DAMAGE_POISON:
+	if damage_type & C.DAMAGE_POISON:
 		resistance *= 1 - poison_armor
 	
 	# 计算伤害

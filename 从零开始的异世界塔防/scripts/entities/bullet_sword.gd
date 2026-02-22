@@ -1,6 +1,6 @@
 extends Entity
 
-@onready var bullet_c = get_c(CS.CN_BULLET)
+@onready var bullet_c = get_c(C.CN_BULLET)
 var stay_height: int = 0
 var stay_time: float = 0
 var to_predict_time: float = 0
@@ -76,9 +76,9 @@ func _on_update(delta: float) -> void:
 func _on_bullet_calculate_damage_factor(
 		target: Entity, bullet_c: BulletComponent
 	) -> float:
-	return U.dist_factor_inside_ellipse(
-		target.position, 
+	return U.dist_factor_inside_radius(
 		position, 
+		target.position, 
 		bullet_c.min_damage_radius, 
 		bullet_c.max_damage_radius
 	)

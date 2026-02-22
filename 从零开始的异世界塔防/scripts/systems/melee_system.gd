@@ -6,22 +6,22 @@ extends System
 """
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(CS.CN_MELEE):
+	if not e.has_c(C.CN_MELEE):
 		return true
 		
-	var melee_c: MeleeComponent = e.get_c(CS.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
 	melee_c.sort_attacks()
 	
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(CS.CN_MELEE):
+	for e: Entity in EntityDB.get_entities_group(C.CN_MELEE):
 		var state: int = e.state
 			
-		if e.waitting or not state & (CS.STATE_IDLE | CS.STATE_MELEE):
+		if e.waitting or not state & (C.STATE_IDLE | C.STATE_MELEE):
 			continue
 		
-		var melee_c: MeleeComponent = e.get_c(CS.CN_MELEE)
+		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
 		melee_c.cleanup_blocker()
 		melee_c.cleanup_blockeds()
 		melee_c.calculate_blocked_count()
@@ -57,16 +57,16 @@ func process_blocker(e: Entity, melee_c: MeleeComponent):
 		return
 		
 	var blocked: Entity = EntityDB.get_entity_by_id(blockeds_ids[0])
-	var blocked_melee_c: MeleeComponent = blocked.get_c(CS.CN_MELEE)
+	var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
 	var melee_slot: Vector2 = blocked.position + blocked_melee_c.melee_slot_offset
-	e.state = CS.STATE_MELEE
+	e.state = C.STATE_MELEE
 
 	melee_c.set_melee_slot(melee_slot)
 	if melee_c.origin_pos_arrived:
 		melee_c.set_origin_pos(e.position)
 	
 func find_blocked(e: Entity, melee_c: MeleeComponent):
-	var filter = func(entity, origin): return entity.has_c(CS.CN_MELEE) and not entity.id in melee_c.blockeds_ids
+	var filter = func(entity, origin): return entity.has_c(C.CN_MELEE) and not entity.id in melee_c.blockeds_ids
 	var targets = EntityDB.search_targets_in_range(
 		melee_c.search_mode, e.position, melee_c.block_min_range, 
 		melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans, filter
@@ -77,11 +77,11 @@ func find_blocked(e: Entity, melee_c: MeleeComponent):
 		if melee_c.blocked_count >= melee_c.max_blocked:
 			break
 		
-		var t_melee_c: MeleeComponent = t.get_c(CS.CN_MELEE)
+		var t_melee_c: MeleeComponent = t.get_c(C.CN_MELEE)
 		var t_melee_slot: Vector2 = e.position + melee_c.melee_slot_offset
 		t_melee_c.blocker_id = e.id
 		melee_c.blockeds_ids.append(t.id)
-		t.state = CS.STATE_MELEE
+		t.state = C.STATE_MELEE
 		t_melee_c.set_melee_slot(t_melee_slot)
 		t_melee_c.set_origin_pos(t.position)
 	
@@ -100,7 +100,7 @@ func process_blocked(e: Entity, melee_c: MeleeComponent):
 		return
 	
 	var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
-	var blocker_melee_c: MeleeComponent = blocker.get_c(CS.CN_MELEE)
+	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
 	var blocker_blockeds_ids: Array = blocker_melee_c.blockeds_ids
 	
 	if (
@@ -134,7 +134,7 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent):
 		return
 		
 	melee_c.origin_pos_arrived = true
-	e.state = CS.STATE_IDLE
+	e.state = C.STATE_IDLE
 	return
 
 func do_attacks(e: Entity, melee_c: MeleeComponent):

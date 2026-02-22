@@ -1,6 +1,9 @@
 extends Node
 class_name System
 
+var blacklist_state: int = C.STATE_NONE
+var whitelist_state: int = C.STATE_NONE
+
 ## 系统初始化时调用
 func _initialize() -> void: pass
 
@@ -32,3 +35,13 @@ func can_attack(a: Dictionary, target: Entity) -> bool:
 		and not (a.bans & target.flags or a.flags & target.bans)
 		and U.is_allowed_entity(a, target)
 	)
+
+## 遍历实体组中所有实体，其中 process_func 需要有两个形参: entity 实体 与 compotent 组件
+func process_entities(group_name: String, process_func: Callable) -> void:
+	for e: Entity in EntityDB.get_entities_group(group_name):
+		if e.state & blacklist_state or (whitelist_state and not e.state & whitelist_state):
+			continue
+		
+		var component = e.get_c(group_name)
+		
+		process_func.call(e, component)

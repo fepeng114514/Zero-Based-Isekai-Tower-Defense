@@ -8,8 +8,8 @@
 		"flags": "%const(FLAG_NONE)",
 		"target_id": "%int(-1)",
 		"bans": "%const(FLAG_NONE)",
-		"allowed_templates": [],
-		"excluded_templates": [],
+		"whitelist_template": [],
+		"blacklist_template": [],
 		"insert_ts": 0,
 		"ts": 0,
 		"duration": 0,
@@ -130,10 +130,10 @@
 		"melee_slot_offset": "%vec2(0, 0)",
 		"melee_slot_arrived": true,
 		"arrived_dist": 10,
-		"attacks": [],
-		"attack_templates": {
-			"common": {
-				"attack_type": "common",
+		"list": [],
+		"templates": {
+			"single": {
+				"type": "single",
 				"min_damage": 0,
 				"max_damage": 0,
 				"cooldown": 0,
@@ -144,17 +144,17 @@
 				"chance": 1,
 				"flags": "%const(FLAG_NONE)",
 				"bans": "%const(FLAG_NONE)",
-				"allowed_templates": [],
-				"excluded_templates": []
+				"whitelist_template": [],
+				"blacklist_template": []
 			}
 		},
 		"order": []
 	},
 	"ranged": {
-		"attacks": [],
-		"attack_templates": {
-			"common": {
-				"attack_type": "common",
+		"list": [],
+		"templates": {
+			"single": {
+				"type": "single",
 				"min_damage": 0,
 				"max_damage": 0,
 				"cooldown": 0,
@@ -163,8 +163,8 @@
 				"search_mode": "%const(SEARCH_MODE_ENEMY_FIRST)",
 				"flags": "%const(FLAG_NONE)",
 				"bans": "%const(FLAG_NONE)",
-				"allowed_templates": [],
-				"excluded_templates": [],
+				"whitelist_template": [],
+				"blacklist_template": [],
 				"animation": "",
 				"chance": 1,
 				"together_melee": false
@@ -217,11 +217,18 @@
 		"current_cycle": 0
 	},
 	"sprite": {
-		"sprite_templates": {
-			"animation": {},
-			"image": {}
+		"templates": {
+			"animation": {
+				"type": "animation",
+				"sprite_name": ""
+			},
+			"image": {
+				"type": "image",
+				"sprite_name": ""
+			}
 		},
-		"list": []
+		"list": [],
+		"node_list": []
 	},
 	"ui": {
 		"can_click": true,

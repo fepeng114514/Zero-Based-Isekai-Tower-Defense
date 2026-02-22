@@ -28,7 +28,7 @@ func copy_default_to_user(user_path, res_path):
 	
 	var error = dir.copy(res_path, user_path)
 	if error != OK:
-		push_error("复制用户配置失败，错误代码: %s, 从: %s, 到: %s" % [str(error), res_path, user_path])
+		printerr("复制用户配置失败，错误代码: %s, 源: %s, 目标: %s" % [str(error), res_path, user_path])
 		return
 		
-	print_debug("复制用户配置从: %s, 到: %s" % [res_path, user_path])
+	print_debug("复制用户配置: 源: %s, 目标: %s" % [res_path, user_path])

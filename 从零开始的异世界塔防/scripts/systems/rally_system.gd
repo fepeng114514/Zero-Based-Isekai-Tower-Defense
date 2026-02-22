@@ -1,14 +1,14 @@
 extends System
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(CS.CN_RALLY):
-		if e.waitting or not e.state & (CS.STATE_IDLE | CS.STATE_RALLY):
+	for e: Entity in EntityDB.get_entities_group(C.CN_RALLY):
+		if e.waitting or not e.state & (C.STATE_IDLE | C.STATE_RALLY):
 			continue
 			
-		var rally_c: RallyComponent = e.get_c(CS.CN_RALLY)
+		var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
 		
 		if not rally_c.arrived:
-			e.state = CS.STATE_RALLY
+			e.state = C.STATE_RALLY
 			walk_step(e, rally_c)
 			continue
 
@@ -20,6 +20,6 @@ func walk_step(e: Entity, rally_c: RallyComponent):
 	if not U.is_at_destination(rally_c.rally_pos, e.position, rally_c.arrived_dist):
 		return
 		
-	e.state = CS.STATE_IDLE
+	e.state = C.STATE_IDLE
 	rally_c.arrived = true
 	e._on_arrived_rally(rally_c)

@@ -51,7 +51,6 @@ func get_random_subpathway(pi = null) -> Subpathway:
 	if not pi:
 		pi = get_random_pi()
 	else:
-		push_warning("路径 %s 已被禁用" % pi)
 		return null
 
 	var pathway: Pathway = pathways[pi]
@@ -88,10 +87,10 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	return subpathway.to_global(position)
 	
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
-	if not target.has_c(CS.CN_NAV_PATH) or target.state & (CS.STATE_MELEE | CS.STATE_RANGED):
+	if not target.has_c(C.CN_NAV_PATH) or target.state & (C.STATE_MELEE | C.STATE_RANGED):
 		return target.position
 		
-	var nav_path_c: NavPathComponent = target.get_c(CS.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
 	var progress: float = nav_path_c.nav_progress
 	var walk_lenth: float = nav_path_c.speed * walk_time
 	
@@ -116,7 +115,7 @@ func get_nearst_nodes_list(
 
 	for pi: int in pi_l:
 		if valid_only and not get_pathway(pi).is_active():
-			push_warning("get_nearst_point: 路径 %s 已被禁用" % pi)
+			print_debug("路径 %s 已被禁用" % pi)
 			continue
 
 		for spi: int in spi_l:

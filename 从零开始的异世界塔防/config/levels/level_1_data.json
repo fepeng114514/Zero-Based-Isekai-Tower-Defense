@@ -7,7 +7,7 @@
 	"entities": [
 		{
 			"t_name": "wave_spawner"
-		},
+		}
 	],
 	"tower_holders": [
 		{
@@ -16,7 +16,7 @@
 		}
 	],
 	"required_atlas": [
-		"enemies",
+		"enemies"
 	],
 	"required_sounds": [
 		

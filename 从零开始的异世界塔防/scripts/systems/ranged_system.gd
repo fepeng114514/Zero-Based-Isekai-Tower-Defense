@@ -1,27 +1,27 @@
 extends System
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(CS.CN_RANGED):
+	if not e.has_c(C.CN_RANGED):
 		return true
 		
-	var ranged_c = e.get_c(CS.CN_RANGED)
+	var ranged_c = e.get_c(C.CN_RANGED)
 	ranged_c.sort_attacks()
 
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(CS.CN_RANGED):
+	for e: Entity in EntityDB.get_entities_group(C.CN_RANGED):
 		var state: int = e.state
 			
 		if e.waitting:
 			continue
 			
-		var ranged_c: RangedComponent = e.get_c(CS.CN_RANGED)
+		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
 		for a: Dictionary in ranged_c.order:
 			if (
-				not state & CS.STATE_IDLE 
-				and (not a.together_melee or state & CS.STATE_MELEE)
+				not state & C.STATE_IDLE 
+				and (not a.together_melee or state & C.STATE_MELEE)
 			):
 				continue
 				

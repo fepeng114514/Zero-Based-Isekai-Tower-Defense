@@ -10,22 +10,20 @@ var remove_queue: Array[Entity] = []
 var insert_queue: Array[Entity] = []
 var damage_queue: Array[Entity] = []
 
-func clean() -> void:
+func load(required_systems_name: Array) -> void:
 	systems = []
 	remove_queue = []
 	insert_queue = []
 	damage_queue = []
-
-## 设定需要的系统
-func set_required_systems(required_systems_name: Array) -> void:
+	
 	var required_systems: Array[System] = []
 
 	# 加载需要的系统
 	for sys_name in required_systems_name:
-		var system_path: String = CS.PATH_SYSTEMS_SCRIPTS % sys_name
+		var system_path: String = C.PATH_SYSTEMS_SCRIPTS % sys_name
 		
 		if not ResourceLoader.exists(system_path):
-			push_error("未找到系统: %s" % system_path)
+			printerr("未找到系统: %s" % system_path)
 			continue
 			
 		var system = load(system_path)
@@ -39,9 +37,10 @@ func set_required_systems(required_systems_name: Array) -> void:
 		system._initialize()
 
 ## 系统主循环
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	for system: System in systems:
 		var system_func = system.get("_on_update")
+		
 		system_func.call(delta)
 	
 	# 帧末尾处理插入与移除
@@ -58,7 +57,7 @@ func _process_insert_queue() -> void:
 		if entities:
 			var entities_len: int = entities.size()
 			if e.id != entities_len:
-				push_error("实体列表长度未与实体 id 对应： id %d，长度 %d" % [e.id, entities_len])
+				printerr("实体列表长度未与实体 id 对应: id %d, 长度 %d" % [e.id, entities_len])
 		
 		# 调用所有系统中的插入回调函数，遇到一个返回 false 的系统表示当前实体不能插入，中断并移除当前实体
 		if not call_systems("_on_insert", e):
@@ -68,7 +67,7 @@ func _process_insert_queue() -> void:
 		
 		entities.append(e)
 		EntityDB.mark_entity_dirty_id(e.id)
-		#print_debug("插入实体: %s（%d）" % [e.template_name, e.id])
+		print_verbose("插入实体: %s(%d)" % [e.template_name, e.id])
 		
 		e.visible = true
 

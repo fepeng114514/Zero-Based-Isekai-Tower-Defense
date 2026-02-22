@@ -3,9 +3,9 @@
 		"base": "tower",
 		"components": {
 			"ranged": {
-				"attacks": [
+				"list": [
 					{
-						"attack_type": "common",
+						"type": "single",
 						"bullet": "bullet_bolt",
 						"min_range": 0,
 						"max_range": 300,
@@ -30,9 +30,9 @@
 		"base": "tower",
 		"components": {
 			"ranged": {
-				"attacks": [
+				"list": [
 					{
-						"attack_type": "common",
+						"type": "single",
 						"bullet": "bullet_arrow",
 						"min_range": 0,
 						"max_range": 400,
@@ -74,9 +74,9 @@
 				"block_max_range": 90,
 				"motion_speed": 150,
 				"melee_slot_offset": "%vec2(0, 20)",
-				"attacks": [
+				"list": [
 					{
-						"attack_type": "common",
+						"type": "single",
 						"min_damage": 30,
 						"max_damage": 30,
 						"cooldown": 1

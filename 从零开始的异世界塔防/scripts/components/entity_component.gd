@@ -18,15 +18,15 @@ var components: Dictionary = {}
 ## 所有者或来源 ID，通常为生成实体的实体 ID
 var source_id: int = -1
 ## 实体标识符，使用位运算表示
-var flags: int = CS.FLAG_NONE
+var flags: int = C.FLAG_NONE
 ## 目标实体 ID，通常用于子弹、状态效果等需要指定目标的实体
 var target_id: int = -1
 ## 禁止的实体标识符，使用位运算表示，表示该实体不能与哪些标识的实体进行交互
-var bans: int = CS.FLAG_NONE
+var bans: int = C.FLAG_NONE
 ## 白名单实体模板名称列表，表示该实体只能与这些模板名称的实体进行交互，通常用于状态效果
-var allowed_templates: Array = []
+var whitelist_template: Array = []
 ## 黑名单实体模板名称列表，表示该实体不能与这些模板名称的实体进行交互，通常用于状态效果
-var excluded_templates: Array = []
+var blacklist_template: Array = []
 ## 插入时间戳，单位为秒
 var insert_ts: float = 0
 ## 时间戳，单位为秒，通常用于持续时间、子弹飞行时间等
@@ -34,22 +34,22 @@ var ts: float = 0
 ## 持续时间，单位为秒，通常用于状态效果持续时间等
 var duration: float = -1
 ## 禁止的状态效果标识符，使用位运算表示，表示该实体不能与哪些状态效果进行交互，通常用于状态效果互斥
-var mod_bans: int = CS.FLAG_NONE
+var mod_bans: int = C.FLAG_NONE
 ## 禁止的状态效果类型标识符，使用位运算表示，表示该实体不能与哪些类型的状态效果进行交互，通常用于状态效果互斥
-var mod_type_bans: int = CS.MOD_TYPE_NONE
+var mod_type_bans: int = C.MOD_TYPE_NONE
 ## 已拥有的状态效果 ID 列表，表示该实体当前拥有的状态效果实体 ID 列表，通常用于状态效果管理
 var has_mods_ids: Array[int] = []
 ## 禁止的光环标识符，使用位运算表示，表示该实体不能与哪些光环进行交互，通常用于光环互斥
-var aura_bans: int = CS.FLAG_NONE
+var aura_bans: int = C.FLAG_NONE
 ## 禁止的光环类型标识符，使用位运算表示，表示该实体不能与哪些类型的光环进行交互，通常用于光环互斥
-var aura_type_bans: int = CS.AURA_TYPE_NONE
+var aura_type_bans: int = C.AURA_TYPE_NONE
 ## 插入实体时创建的光环模板名称列表
 var auras_list: Array = []
 ## 已拥有的光环 ID 列表，表示该实体当前拥有的光环实体 ID 列表，通常用于光环管理
 var has_auras_ids: Array[int] = []
 var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 ## 实体状态，通常用于区分实体的不同阶段或行为模式
-var state: int = CS.STATE_IDLE
+var state: int = C.STATE_IDLE
 ## 等待状态，表示实体正在等待某个事件或条件，通常用于协程等待
 var waitting: bool = false
 ## 等待计时器
@@ -87,7 +87,7 @@ func _on_remove() -> void: pass
 func _on_update(delta: float) -> void: pass
 	
 ## 实体在路径行走时调用
-func _on_path_walk(nav_path_c: NavPathComponent) -> void: pass
+func _on_pathway_walk(nav_path_c: NavPathComponent) -> void: pass
 
 ## 实体往集结点行走时调用
 func _on_rally_walk(rally_c: RallyComponent) -> void: pass
@@ -129,25 +129,29 @@ func _on_bullet_miss(target: Entity, bullet_c: BulletComponent) -> void: pass
 func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponent) -> float: return 1.0
 
 func is_enemy() -> bool:
-	return flags & CS.FLAG_ENEMY
+	return flags & C.FLAG_ENEMY
 
 func is_friendly() -> bool:
-	return flags & CS.FLAG_FRIENDLY
+	return flags & C.FLAG_FRIENDLY
 
 func is_tower() -> bool:
-	return flags & CS.FLAG_TOWER
+	return flags & C.FLAG_TOWER
 
 func is_modifier() -> bool:
-	return flags & CS.FLAG_MODIFIER
+	return flags & C.FLAG_MODIFIER
 	
 func is_aura() -> bool:
-	return flags & CS.FLAG_AURA
+	return flags & C.FLAG_AURA
 
 func is_bullet() -> bool:
-	return flags & CS.FLAG_BULLET
+	return flags & C.FLAG_BULLET
 
 func get_c(c_name: String):
-	return has_components.get(c_name)
+	if not has_c(c_name):
+		printerr("未找到组件: %s" % c_name)
+		return null
+	
+	return has_components[c_name]
 
 func has_c(c_name: String) -> bool:
 	return has_components.has(c_name)
@@ -156,24 +160,28 @@ func set_c(c_name: String, value) -> bool:
 	return has_components.set(c_name, value)
 	
 func add_c(c_name: String) -> Node:
-	var component_node = EntityDB.get_component_script(c_name).new()
+	var component_script: GDScript = EntityDB.get_component_script(c_name)
+	var component_node: Node = component_script.new()
 	component_node.name = c_name
 	
 	add_child(component_node)
 	has_components[c_name] = component_node
 	return component_node
 
-func merged_c_data(c_name, c_data: Dictionary, merged: Dictionary, convert_json_data: bool = false):
+func merged_c_data(
+		c_data: Dictionary, merged: Dictionary, convert_json_data: bool = false
+	) -> Dictionary:
 	var result = c_data.duplicate_deep()
 	
-	if merged.has("attacks") and result.has("attack_templates"):
-		var attacks: Array = result.attacks
-		var merged_attacks: Array = merged.attacks
+	# 处理合并列表
+	if merged.has("list") and result.has("templates"):
+		var list: Array = result.list
+		var merged_list: Array = merged.list
 				
-		for i in merged_attacks.size():
-			var ma: Dictionary = merged_attacks[i]
-			var template: Dictionary = result.attack_templates[ma.attack_type]
-			attacks.append(template)
+		for i: int in merged_list.size():
+			var item: Dictionary = merged_list[i]
+			var template: Dictionary = result.templates[item.type]
+			list.append(template)
 	
 	U.deepmerge_dict_recursive(result, merged)
 	
@@ -185,10 +193,8 @@ func merged_c_data(c_name, c_data: Dictionary, merged: Dictionary, convert_json_
 func set_template_data(template_data: Dictionary) -> void:
 	if template_data.has("base"):
 		merge_base_template(template_data, template_data.base)
-		
-	var keys: Array = template_data.keys()
 	
-	for key: String in keys:
+	for key: String in template_data.keys():
 		var property = template_data[key]
 		property = U.convert_json_data(property)
 		
@@ -202,7 +208,7 @@ func set_template_data(template_data: Dictionary) -> void:
 		var override: Dictionary = t_components[c_name]
 		var c_data: Dictionary = EntityDB.get_component_data(c_name)
 		
-		var data = merged_c_data(c_name, c_data, override, true)
+		var data = merged_c_data(c_data, override, true)
 		
 		var component_node: Node = add_c(c_name)
 
@@ -304,23 +310,47 @@ func remove_entity() -> void:
 func set_pos(pos: Vector2) -> void:
 	position = pos
 	
-	if has_c(CS.CN_RALLY):
-		var rally_c: RallyComponent = get_c(CS.CN_RALLY)
+	if has_c(C.CN_RALLY):
+		var rally_c: RallyComponent = get_c(C.CN_RALLY)
 		
 		rally_c.new_rally(pos)
 	
-	if has_c(CS.CN_NAV_PATH):
+	if has_c(C.CN_NAV_PATH):
 		set_nav_path_at_pos(pos)
 
 func set_nav_path_at_pos(pos):
 	var source = EntityDB.get_entity_by_id(source_id)
 	var node: PathwayNode
 
-	if U.is_vaild_entity(source) and source.has_c(CS.CN_NAV_PATH):
-		var s_nav_path_c: NavPathComponent = source.get_c(CS.CN_NAV_PATH)
+	if U.is_vaild_entity(source) and source.has_c(C.CN_NAV_PATH):
+		var s_nav_path_c: NavPathComponent = source.get_c(C.CN_NAV_PATH)
 		node = PathDB.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
 	else:
 		node = PathDB.get_nearst_node(pos)
 
-	var nav_path_c: NavPathComponent = get_c(CS.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = get_c(C.CN_NAV_PATH)
 	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
+	
+func get_animation(anim_name: String, sprite_idx: int = 0) -> AnimatedSprite2D:
+	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	var sprite: AnimatedSprite2D = sprite_c.node_list[sprite_idx]
+	
+	return sprite
+	
+func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
+	var sprite: AnimatedSprite2D = get_animation(anim_name, sprite_idx)
+	
+	sprite.play(anim_name)
+	
+func wait_animation(
+		anim_name: String, sprite_idx: int = 0, times: int = 1, break_fn = null
+	) -> void:
+	var sprite: AnimatedSprite2D = get_animation(anim_name, sprite_idx)
+	var loop_count: int = 0
+	
+	waitting = true
+	while loop_count < times and (not break_fn or break_fn.call()):
+		loop_count += 1
+		await sprite.animation_looped
+		
+	waitting = false

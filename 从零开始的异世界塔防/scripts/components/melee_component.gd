@@ -16,7 +16,7 @@ var block_min_range: int = 80
 ## 拦截最大范围，单位为像素
 var block_max_range: int = 0
 ## 搜索模式，表示实体在寻找被拦截者时的目标选择策略，默认为优先敌人
-var search_mode: String = CS.SEARCH_MODE_ENEMY_FIRST
+var search_mode: String = C.SEARCH_MODE_ENEMY_FIRST
 ## 最大可以被拦截数量，表示实体最多可以同时拦截多少个被拦截者，超过该数量后将不再拦截新的被拦截者
 var max_blocked: int = 1
 ## 拦截数量，表示实体当前已经拦截的被拦截者数量，通常用于判断是否可以继续拦截新的被拦截者
@@ -45,11 +45,12 @@ var melee_slot: Vector2 = Vector2(0, 0)
 var melee_slot_offset: Vector2 = Vector2(0, 0)
 ## 是否已经到达近战位置，表示实体是否已经到达近战位置
 var melee_slot_arrived: bool = true
+## 到达近战位置的阈值
 var arrived_dist: int = 10
 ## 近战攻击列表，表示实体当前拥有的近战攻击列表
-var attacks: Array = []
+var list: Array = []
 ## 近战攻击模板
-var attack_templates: Dictionary = {}
+var templates: Dictionary = {}
 ## 已排序的近战攻击列表
 var order: Array = []
 
@@ -62,7 +63,7 @@ func calculate_blocked_count():
 		if not U.is_vaild_entity(b):
 			continue
 			
-		var b_melee_c: MeleeComponent = b.get_c(CS.CN_MELEE)
+		var b_melee_c: MeleeComponent = b.get_c(C.CN_MELEE)
 			
 		count += b_melee_c.block_cost
 		
@@ -77,7 +78,7 @@ func set_origin_pos(new_origin_pos: Vector2) -> void:
 	origin_pos = new_origin_pos
 
 func sort_attacks() -> void:
-	order = attacks.duplicate()
+	order = list.duplicate()
 	order.sort_custom(U.attacks_sort_fn)
 
 func get_blocked(filter = null) -> Array[Entity]:

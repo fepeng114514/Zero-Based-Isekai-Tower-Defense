@@ -1,10 +1,10 @@
 extends System
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(CS.CN_AURA):
+	if not e.has_c(C.CN_AURA):
 		return true
 
-	var aura_c: AuraComponent = e.get_c(CS.CN_AURA)
+	var aura_c: AuraComponent = e.get_c(C.CN_AURA)
 	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
 
 	if not U.is_vaild_entity(source):
@@ -22,7 +22,7 @@ func _on_insert(e: Entity) -> bool:
 		if not other_a:
 			continue
 		
-		var other_aura_c: AuraComponent = other_a.get_c(CS.CN_AURA)
+		var other_aura_c: AuraComponent = other_a.get_c(C.CN_AURA)
 		
 		# 检查是否被其他光环禁止
 		if other_aura_c.aura_bans & e.flags or other_aura_c.aura_type_bans & aura_c.aura_type:
@@ -73,8 +73,8 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(CS.GROUP_AURAS):
-		var aura_c: AuraComponent = e.get_c(CS.CN_AURA)
+	for e: Entity in EntityDB.get_entities_group(C.GROUP_AURAS):
+		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
 		var targets: Array = EntityDB.search_targets_in_range(aura_c.search_mode, e.position, aura_c.min_radius, aura_c.max_radius, e.flags, e.bans)
 
 		# 周期效果
@@ -98,7 +98,7 @@ func _on_update(delta: float) -> void:
 		aura_c.ts = TimeDB.tick_ts
 
 func _on_remove(e: Entity) -> void:
-	if not e.has_c(CS.CN_AURA):
+	if not e.has_c(C.CN_AURA):
 		return
 	
 	var source = EntityDB.get_entity_by_id(e.source_id)

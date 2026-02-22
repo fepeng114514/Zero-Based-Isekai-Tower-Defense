@@ -3,7 +3,7 @@ extends System
 func _initialize() -> void:
 	var level_data = LevelMgr.levels_data[GlobalStore.level_idx]
 	
-	ImageDB.load_atlas_group(level_data.required_atlas)
+	ImageDB.load(level_data.required_atlas)
 	AnimDB.load()
 	EntityDB.load()
 	PathDB.load(level_data)
@@ -19,7 +19,7 @@ func create_level_entities(level_data) -> void:
 
 func create_level_tower_holders(level_data) -> void:
 	for entity_data: Dictionary in level_data.tower_holders:
-		var holder_name: String = CS.NAME_TOWER_HOLDER % entity_data.style
+		var holder_name: String = C.NAME_TOWER_HOLDER % entity_data.style
 
 		var entity = EntityDB.create_entity(holder_name)
 		entity.set_template_data(entity_data)

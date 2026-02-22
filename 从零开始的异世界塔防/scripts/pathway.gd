@@ -33,7 +33,7 @@ func is_active() -> bool:
 	return active
 
 func create_subpathway(spacing: float) -> Subpathway:
-	var subpathway = Subpathway.new()
+	var subpathway := Subpathway.new()
 	subpathway.spacing = spacing
 	subpathway.origin_path = self
 	add_child(subpathway)
@@ -45,12 +45,12 @@ func create_subpathway(spacing: float) -> Subpathway:
 	return subpathway
 
 func add_line_visualization(subpathway: Subpathway, color: Color):
-	var line = Line2D.new()
+	var line := Line2D.new()
 	line.width = 3.0
 	line.default_color = color
 	
 	# 从曲线获取点
-	var c = subpathway.curve
+	var c: Curve2D = subpathway.curve
 	line.points = c.get_baked_points()
 	
 	subpathway.add_child(line)

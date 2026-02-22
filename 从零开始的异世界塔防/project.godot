@@ -29,11 +29,11 @@ TimeDB="*res://scripts/db/time_db.gd"
 SystemMgr="*res://scripts/systems/system_manager.gd"
 EntityDB="*res://scripts/db/entity_db.gd"
 PathDB="*res://scripts/db/path_db.gd"
-ImageDB="*res://scripts/db/image_db.gd"
-SoundDB="*res://scripts/db/sound_db.gd"
 GlobalStore="*res://scripts/db/global_store.gd"
 LevelMgr="*res://scripts/managers/level_manager.gd"
+ImageDB="*uid://vrs8o2ekiglw"
 AnimDB="*uid://bmr4i31he7oo5"
+SoundDB="*uid://cc025jxyxcxmc"
 
 [display]
 

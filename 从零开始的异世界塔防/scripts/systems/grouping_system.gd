@@ -14,17 +14,17 @@ func _on_update(delta: float) -> void:
 	
 	for e: Entity in EntityDB.get_vaild_entities():
 		if e.is_enemy():
-			type_groups[CS.GROUP_ENEMIES].append(e)
+			type_groups[C.GROUP_ENEMIES].append(e)
 		if e.is_friendly():
-			type_groups[CS.GROUP_FRIENDLYS].append(e)
+			type_groups[C.GROUP_FRIENDLYS].append(e)
 		if e.is_tower():
-			type_groups[CS.GROUP_TOWERS].append(e)
+			type_groups[C.GROUP_TOWERS].append(e)
 		if e.is_modifier():
-			type_groups[CS.GROUP_MODIFIERS].append(e)
+			type_groups[C.GROUP_MODIFIERS].append(e)
 		if e.is_aura():
-			type_groups[CS.GROUP_AURAS].append(e)
+			type_groups[C.GROUP_AURAS].append(e)
 		if e.is_bullet():
-			type_groups[CS.GROUP_BULLETS].append(e)
+			type_groups[C.GROUP_BULLETS].append(e)
 
 		for c_name: String in e.has_components.keys():
 			if not component_groups.has(c_name):

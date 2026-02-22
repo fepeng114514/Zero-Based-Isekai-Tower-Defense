@@ -1,7 +1,7 @@
 extends System
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(CS.CN_MODIFIER):
+	if not e.has_c(C.CN_MODIFIER):
 		return true
 
 	var target = EntityDB.get_entity_by_id(e.target_id)
@@ -21,7 +21,7 @@ func _on_insert(e: Entity) -> bool:
 
 	var t_has_mods_ids: Array[int] = target.has_mods_ids
 	var same_target_mods: Array[Entity] = []
-	var mod_c: ModifierComponent = e.get_c(CS.CN_MODIFIER)
+	var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 
 	mod_c.ts = TimeDB.tick_ts
 
@@ -31,7 +31,7 @@ func _on_insert(e: Entity) -> bool:
 		if not other_m:
 			continue
 		
-		var other_mod_c: ModifierComponent = other_m.get_c(CS.CN_MODIFIER)
+		var other_mod_c: ModifierComponent = other_m.get_c(C.CN_MODIFIER)
 		
 		# 检查是否被其他效果禁止
 		if other_m.mod_bans & e.flags or other_m.mod_type_bans & mod_c.mod_type:
@@ -81,8 +81,8 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(CS.GROUP_MODIFIERS):
-		var mod_c: ModifierComponent = e.get_c(CS.CN_MODIFIER)
+	for e: Entity in EntityDB.get_entities_group(C.GROUP_MODIFIERS):
+		var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 		
 		# 周期效果
 		if mod_c.cycle_time == -1 or not TimeDB.is_ready_time(mod_c.ts, mod_c.cycle_time):
@@ -104,7 +104,7 @@ func _on_update(delta: float) -> void:
 		mod_c.ts = TimeDB.tick_ts
 
 func _on_remove(e: Entity) -> void:
-	if not e.has_c(CS.CN_MODIFIER):
+	if not e.has_c(C.CN_MODIFIER):
 		return
 	
 	var target = EntityDB.get_entity_by_id(e.target_id)

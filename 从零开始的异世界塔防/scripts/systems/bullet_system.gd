@@ -7,10 +7,10 @@ extends System
 """
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(CS.CN_BULLET):
+	if not e.has_c(C.CN_BULLET):
 		return true
 
-	var bullet_c: BulletComponent = e.get_c(CS.CN_BULLET)
+	var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 	if not U.is_vaild_entity(target):
 		return false
@@ -30,32 +30,32 @@ func _on_insert(e: Entity) -> bool:
 
 	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.position.x else 1
 
-	if bullet_c.flight_trajectory & CS.TRAJECTORY_LINEAR:
+	if bullet_c.flight_trajectory & C.TRAJECTORY_LINEAR:
 		trajectory_liniear_init(e, bullet_c, target)
-	elif bullet_c.flight_trajectory & CS.TRAJECTORY_PARABOLA:
+	elif bullet_c.flight_trajectory & C.TRAJECTORY_PARABOLA:
 		trajectory_parabola_init(e, bullet_c, target)
-	elif bullet_c.flight_trajectory & CS.TRAJECTORY_TRACKING:
+	elif bullet_c.flight_trajectory & C.TRAJECTORY_TRACKING:
 		trajectory_tracking_init(e, bullet_c, target)
-	#elif bullet_c.flight_trajectory & CS.TRAJECTORY_HOMING:
+	#elif bullet_c.flight_trajectory & C.TRAJECTORY_HOMING:
 	#	trajectory_homing_init(e, bullet_c, target)
-	elif bullet_c.flight_trajectory & CS.TRAJECTORY_INSTANT:
+	elif bullet_c.flight_trajectory & C.TRAJECTORY_INSTANT:
 		trajectory_instant_init(e, bullet_c, target)
 
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(CS.GROUP_BULLETS):
-		var bullet_c: BulletComponent = e.get_c(CS.CN_BULLET)
+	for e: Entity in EntityDB.get_entities_group(C.GROUP_BULLETS):
+		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 
-		if bullet_c.flight_trajectory & CS.TRAJECTORY_LINEAR:
+		if bullet_c.flight_trajectory & C.TRAJECTORY_LINEAR:
 			trajectory_liniear_update(e, bullet_c, target)
-		elif bullet_c.flight_trajectory & CS.TRAJECTORY_PARABOLA:
+		elif bullet_c.flight_trajectory & C.TRAJECTORY_PARABOLA:
 			trajectory_parabola_update(e, bullet_c, target)
-		elif bullet_c.flight_trajectory & CS.TRAJECTORY_TRACKING:
+		elif bullet_c.flight_trajectory & C.TRAJECTORY_TRACKING:
 			trajectory_tracking_update(e, bullet_c, target)
-		# elif bullet_c.flight_trajectory & CS.TRAJECTORY_HOMING:
+		# elif bullet_c.flight_trajectory & C.TRAJECTORY_HOMING:
 		# 	trajectory_homing_update(e, bullet_c, target)
 
 		e.rotation += bullet_c.rotation_speed * delta

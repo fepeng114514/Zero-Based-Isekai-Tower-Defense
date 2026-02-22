@@ -1,4 +1,4 @@
-class_name CS
+class_name C
 
 const FPS: int = 60
 
@@ -34,6 +34,7 @@ const LEVEL_LIST: Array = [
 	1
 ]
 
+const STATE_NONE: int = 0
 const STATE_IDLE: int = 1
 const STATE_MELEE: int = 1 << 1
 const STATE_RANGED: int = 1 << 2

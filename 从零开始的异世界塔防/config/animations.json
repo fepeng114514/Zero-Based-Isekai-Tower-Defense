@@ -1,6 +1,14 @@
-{
-	"enemy_goblin_walk": {
+[
+	{
+		"prefix": "enemy_goblin",
+		"name": "default",
+		"from": 1,
+		"to": 1
+	},
+	{
+		"prefix": "enemy_goblin",
+		"name": "walk",
 		"from": 1,
 		"to": 22
 	}
-}
+]

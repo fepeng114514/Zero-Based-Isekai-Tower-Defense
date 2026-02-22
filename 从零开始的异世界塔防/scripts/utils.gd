@@ -1,50 +1,77 @@
 class_name U
-static var constants = CS.new()
+static var constants := C.new()
+
+## 判断点是否在圆中
+static func is_in_radius(center: Vector2, point: Vector2, radius: float) -> bool:
+	return center.distance_to(point) <= radius
+	
+## 计算根据点与圆的距离衰减的因子
+static func dist_factor_inside_radius(
+		center: Vector2, 
+		point: Vector2, 
+		max_radius: float, 
+		min_radius: float = 0, 
+	) -> float:
+	var dist: float = center.distance_to(point)
+	
+	if min_radius == 0:
+		return dist / max_radius
+		
+	var ring_dist: float = dist - min_radius
+	var ring_radius: float = max_radius - min_radius
+		
+	return ring_dist / ring_radius
+	
+## 计算点在指定方向和距离上的另一个点
+static func point_on_circle(
+		point: Vector2, radius: float, angle: float = 0
+	) -> Vector2:
+	return point + Vector2.from_angle(angle) * radius
 
 ## 判断点是否位于椭圆中
 static func is_in_ellipse(
-		p: Vector2, center: Vector2, radius: float, aspect: float = 0.7
+		center: Vector2, point: Vector2, radius: float, aspect: float = 0.7
 	) -> bool:
 	var a: float = radius
 	var b: float = radius * aspect
-	var dx: float = p.x - center.x
-	var dy: float = p.y - center.y
+	var dx: float = point.x - center.x
+	var dy: float = point.y - center.y
 	
 	var value = (dx / a) ** 2 + (dy / b) ** 2
 	
 	return value <= 1
 
-## 根据位于椭圆距离衰减的因子
+## 计算根据点与椭圆的距离衰减的因子
 static func dist_factor_inside_ellipse(
-		p: Vector2, 
 		center: Vector2, 
-		radius: float, 
+		point: Vector2, 
+		max_radius: float, 
 		min_radius: float = 0, 
 		aspect: float = 0.7
 	) -> float:
-	var angle: float = center.angle_to(p)
-	var a: float = radius
-	var b: float = radius * aspect
-	var v_len: float = Vector2(p.x - center.x, p.y - center.y).length()
+	var angle: float = center.angle_to(point)
+	var a: float = max_radius
+	var b: float = max_radius * aspect
+	var v_len: float = Vector2(point.x - center.x, point.y - center.y).length()
 	var e_len: float = Vector2(a * cos(angle), b * sin(angle)).length()
 
 	if min_radius == 0:
-		return clampf(v_len / e_len, 0, 1)
+		return v_len / e_len
 		
 	var ma: float = min_radius
 	var mb: float = min_radius * aspect
 	var me_len: float = Vector2(ma * cos(angle), mb * sin(angle)).length()
 
-	return clampf((v_len - me_len) / (e_len - me_len), 0, 1)
+	return (v_len - me_len) / (e_len - me_len)
 
-## 计算点位于的椭圆位置
+## 计算点在指定方向和距离上椭圆空间的另一个点
 static func point_on_ellipse(
-		p: Vector2, radius: float, angle: float = 0, aspect: float = 0.7
+		point: Vector2, radius: float, angle: float = 0, aspect: float = 0.7
 	) -> Vector2:
 	var a: float = radius
 	var b: float = radius * aspect
-	var x: float = p.x + a * cos(angle)
-	var y: float = p.y + b * sin(angle)
+	var x: float = point.x + a * cos(angle)
+	var y: float = point.y + b * sin(angle)
 
 	return Vector2(x, y)
 
@@ -86,23 +113,23 @@ static func is_at_destination(current_pos: Vector2, target_pos: Vector2, thresho
 ## 加载 JSON 文件
 static func load_json_file(path: String):
 	if not FileAccess.file_exists(path):
-		push_error("JSON 文件不存在: " + path)
+		printerr("JSON 文件不存在: " + path)
 		return null
 	
-	var file = FileAccess.open(path, FileAccess.READ)
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
-		push_error("无法打开文件: " + path)
+		printerr("无法打开文件: " + path)
 		return null
 	
-	var content = file.get_as_text()
+	var content: String = file.get_as_text()
 	file.close()
 	
-	var json = JSON.new()
-	var parse_result = json.parse(content)
+	var json := JSON.new()
+	var parse_result: int = json.parse(content)
 	
 	if parse_result != OK:
-		push_error("JSON 解析错误: " + json.get_error_message())
-		push_error("错误行: " + str(json.get_error_line()))
+		printerr("JSON 解析错误: " + json.get_error_message())
+		printerr("错误行: " + str(json.get_error_line()))
 		return null
 	
 	return json.get_data()
@@ -163,20 +190,20 @@ static var type_handlers: Dictionary = {
 
 ## 解析格式化字符串
 static func parse_json_value(value: String):
-	var regex = RegEx.new()
+	var regex := RegEx.new()
 	regex.compile("%(\\w+)\\(([^)]*)\\)")
 	
-	var result = regex.search(value)
+	var result: RegExMatch = regex.search(value)
 	if not result:
 		return value
 	
-	var type_name = result.get_string(1)
-	var default_str = result.get_string(2)
+	var type_name: String = result.get_string(1)
+	var default_str: String = result.get_string(2)
 	
 	if type_name not in type_handlers:
 		return value
 
-	var handler = type_handlers[type_name]
+	var handler: Callable = type_handlers[type_name]
 	return handler.call(default_str) if default_str != "" else null
 	
 static func get_component_name(node_name) -> String:
@@ -478,14 +505,14 @@ static func is_allowed_entity(e, target: Entity):
 	
 	return (
 		(
-			not e.allowed_templates
-			or t_template_name in e.allowed_templates
+			not e.whitelist_template
+			or t_template_name in e.whitelist_template
 		)
-		and t_template_name not in e.excluded_templates
+		and t_template_name not in e.blacklist_template
 	)
 
 static func fts(time: float) -> float:
-	return time / CS.FPS
+	return time / C.FPS
 
 static func to_percent(num: float) -> float:
 	return num / 100

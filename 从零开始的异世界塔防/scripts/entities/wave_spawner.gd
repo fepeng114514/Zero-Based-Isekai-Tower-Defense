@@ -30,8 +30,8 @@ func _group_spawner(group: Dictionary) -> void:
 		for i: int in range(spawn.count):
 			var e: Entity = EntityDB.create_entity(spawn.name)
 			
-			if e.has_c(CS.CN_NAV_PATH):
-				var nav_path_c: NavPathComponent = e.get_c(CS.CN_NAV_PATH)
+			if e.has_c(C.CN_NAV_PATH):
+				var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 				var spi = spawn.get("subpathway")
 				
 				nav_path_c.reversed = spawn.get("reversed", false)
