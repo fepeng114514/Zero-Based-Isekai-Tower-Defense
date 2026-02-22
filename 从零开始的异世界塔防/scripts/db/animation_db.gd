@@ -6,10 +6,12 @@ extends Node
 
 var animations_db: Dictionary = {}
 
+
 func load() -> void:
 	animations_db = {}
 	
 	_load_sprite_frames()
+
 
 ## 加载动画
 func _load_sprite_frames() -> void:
@@ -38,6 +40,7 @@ func _load_sprite_frames() -> void:
 			var texture_name: String = "%s_%04d" % [prefix, idx]
 			var frame: AtlasTexture = ImageDB.get_image(texture_name)
 			sprite_frames.add_frame(anim_name, frame)
+		
 		
 ## 根据动画完整名称获取动画
 func get_animation(anim_name: String) -> SpriteFrames:

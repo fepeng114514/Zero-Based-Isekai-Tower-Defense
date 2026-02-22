@@ -9,10 +9,12 @@ var is_to_predict: bool = true
 var has_to_predict: bool = false
 var has_init_fall: bool = false
 
+
 func _on_insert() -> bool:
 	position.y -= stay_height
 
 	return true
+
 
 func _on_update(delta: float) -> void:
 	var target = EntityDB.get_entity_by_id(target_id)
@@ -72,6 +74,7 @@ func _on_update(delta: float) -> void:
 	position = U.position_in_linear(
 		bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
 	)
+
 
 func _on_bullet_calculate_damage_factor(
 		target: Entity, bullet_c: BulletComponent

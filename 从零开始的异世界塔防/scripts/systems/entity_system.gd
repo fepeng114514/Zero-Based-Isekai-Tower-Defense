@@ -1,7 +1,9 @@
 extends System
 
+
 func _on_ready_insert(e: Entity) -> bool:
 	return e._on_ready_insert()
+
 
 func _on_insert(e: Entity) -> bool:
 	e.insert_ts = TimeDB.tick_ts
@@ -10,14 +12,17 @@ func _on_insert(e: Entity) -> bool:
 
 	return e._on_insert()
 	
+
 func _on_ready_remove(e: Entity) -> bool:
 	return e._on_ready_remove()
 	
+
 func _on_remove(e: Entity) -> void:
 	e._on_remove()
 	
 	e.clear_has_mods()
 	e.clear_has_auras()
+
 
 func _on_update(delta: float) -> void:
 	for e: Entity in EntityDB.get_vaild_entities():

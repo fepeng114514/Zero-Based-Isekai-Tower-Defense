@@ -1,16 +1,20 @@
 extends System
 
+
+func _ready() -> void:
+	whitelist_state = C.STATE_IDLE | C.STATE_RALLY
+	wait_entity = true
+
+
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.CN_RALLY):
-		if e.waitting or not e.state & (C.STATE_IDLE | C.STATE_RALLY):
-			continue
-			
+	process_entities(C.CN_RALLY, func(e: Entity):
 		var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
 		
 		if not rally_c.arrived:
 			e.state = C.STATE_RALLY
 			walk_step(e, rally_c)
-			continue
+			return
+	)
 
 func walk_step(e: Entity, rally_c: RallyComponent):
 	rally_c.direction = (rally_c.rally_pos - e.position).normalized()

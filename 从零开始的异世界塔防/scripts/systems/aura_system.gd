@@ -1,5 +1,6 @@
 extends System
 
+
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_AURA):
 		return true
@@ -72,14 +73,15 @@ func _on_insert(e: Entity) -> bool:
 
 	return true
 
+
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.GROUP_AURAS):
+	process_entities(C.GROUP_AURAS, func(e: Entity):
 		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
 		var targets: Array = EntityDB.search_targets_in_range(aura_c.search_mode, e.position, aura_c.min_radius, aura_c.max_radius, e.flags, e.bans)
 
 		# 周期效果
 		if aura_c.cycle_time == -1 or not TimeDB.is_ready_time(aura_c.ts, aura_c.cycle_time):
-			continue
+			return
 
 		# 最大周期数
 		if aura_c.max_cycle != -1 and aura_c.curren_cycle > aura_c.max_cycle:
@@ -96,6 +98,8 @@ func _on_update(delta: float) -> void:
 
 		aura_c.curren_cycle += 1
 		aura_c.ts = TimeDB.tick_ts
+	)
+
 
 func _on_remove(e: Entity) -> void:
 	if not e.has_c(C.CN_AURA):

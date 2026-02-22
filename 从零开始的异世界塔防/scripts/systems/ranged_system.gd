@@ -1,5 +1,10 @@
 extends System
 
+
+func _ready() -> void:
+	wait_entity = true
+
+
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_RANGED):
 		return true
@@ -9,13 +14,11 @@ func _on_insert(e: Entity) -> bool:
 
 	return true
 
+
 func _on_update(delta: float) -> void:
 	for e: Entity in EntityDB.get_entities_group(C.CN_RANGED):
 		var state: int = e.state
-			
-		if e.waitting:
-			continue
-			
+
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
 		for a: Dictionary in ranged_c.order:
@@ -33,6 +36,7 @@ func _on_update(delta: float) -> void:
 				
 			attack(e, a, target)
 	
+
 func attack(e: Entity, a: Dictionary, target: Entity) -> void:
 	var b = EntityDB.create_entity(a.bullet)
 	b.target_id = target.id

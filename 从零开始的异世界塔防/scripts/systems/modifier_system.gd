@@ -1,5 +1,6 @@
 extends System
 
+
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_MODIFIER):
 		return true
@@ -80,13 +81,14 @@ func _on_insert(e: Entity) -> bool:
 	t_has_mods_ids.append(e.id)
 	return true
 
+
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.GROUP_MODIFIERS):
+	process_entities(C.GROUP_MODIFIERS, func(e: Entity):
 		var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 		
 		# 周期效果
 		if mod_c.cycle_time == -1 or not TimeDB.is_ready_time(mod_c.ts, mod_c.cycle_time):
-			continue
+			return
 
 		# 最大周期数
 		if mod_c.max_cycle != -1 and mod_c.curren_cycle > mod_c.max_cycle:
@@ -102,6 +104,7 @@ func _on_update(delta: float) -> void:
 
 		mod_c.curren_cycle += 1
 		mod_c.ts = TimeDB.tick_ts
+	)
 
 func _on_remove(e: Entity) -> void:
 	if not e.has_c(C.CN_MODIFIER):

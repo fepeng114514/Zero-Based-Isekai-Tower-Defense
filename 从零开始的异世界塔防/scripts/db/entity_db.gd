@@ -27,6 +27,7 @@ var _dirty_entities_ids: Array[int] = []
 var last_id: int = 0
 var cached_templates: Dictionary = {}
 
+
 func load() -> void:
 	templates_scenes = {}
 	components_scripts = {}
@@ -49,6 +50,7 @@ func load() -> void:
 	_load_templates_data()
 	_load_components_data()
 	
+
 ## 加载实体模板数据
 func _load_templates_data():
 	for base_path: String in C.PATH_TEMPLATES:
@@ -63,6 +65,7 @@ func _load_templates_data():
 		if ResourceLoader.exists(entity_script_path):
 			entities_scripts[t_name] = load(entity_script_path)
 		
+
 ## 加载组件数据
 func _load_components_data():
 	components_data = ConfigMgr.get_config_data(C.PATH_COMPOTENTS)
@@ -74,12 +77,14 @@ func _load_components_data():
 		if ResourceLoader.exists(component_script_path):
 			components_scripts[c_name] = load(component_script_path)
 
+
 ## 标记新增加或移除的实体
 func mark_entity_dirty_id(id: int) -> void:
 	if _dirty_entities_ids.has(id):
 		return
 		
 	_dirty_entities_ids.append(id)
+
 
 ## 创建实体
 func create_entity(t_name: String) -> Entity:
@@ -114,6 +119,7 @@ func create_entity(t_name: String) -> Entity:
 		
 	return e
 
+
 ## 批量创建实体
 func create_entities(t_names: Array, auto_insert: bool = true) -> Array[Entity]:
 	var created_entities: Array[Entity] = []
@@ -128,6 +134,7 @@ func create_entities(t_names: Array, auto_insert: bool = true) -> Array[Entity]:
 
 	return created_entities
 	
+
 ## 创建实体在指定位置
 func create_entities_at_pos(t_names: Array, pos: Vector2, auto_insert: bool = true) -> Array[Entity]:
 	var created_entities: Array[Entity] = []
@@ -142,6 +149,7 @@ func create_entities_at_pos(t_names: Array, pos: Vector2, auto_insert: bool = tr
 		created_entities.append(e)
 
 	return created_entities
+
 
 ## 创建伤害实体
 func create_damage(
@@ -166,6 +174,7 @@ func create_damage(
 		
 	return d
 
+
 ## 批量创建状态效果实体
 func create_mods(
 		target_id: int,
@@ -188,6 +197,7 @@ func create_mods(
 
 	return created_mods
 
+
 ## 批量创建光环实体
 func create_auras(
 		source_id: int = -1,
@@ -208,6 +218,7 @@ func create_auras(
 
 	return created_auras
 
+
 ## 根据组名获取组内所有实体
 func get_entities_group(group_name: String) -> Array:
 	if group_name in type_groups:
@@ -218,6 +229,7 @@ func get_entities_group(group_name: String) -> Array:
 
 	return []
 
+
 ## 根据 id 索引实体
 func get_entity_by_id(id: int):
 	if id == -1:
@@ -226,6 +238,7 @@ func get_entity_by_id(id: int):
 	var e = entities.get(id)
 	return e if is_instance_valid(e) else null
 	
+
 ## 获取组件脚本
 func get_component_script(c_name: String, deep: bool = false) -> GDScript:
 	var c_scripts: GDScript = components_scripts.get(c_name)
@@ -241,6 +254,7 @@ func get_component_script(c_name: String, deep: bool = false) -> GDScript:
 		return c_scripts.duplicate_deep()
 	
 	return c_scripts
+
 
 ## 获取组件数据
 func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
@@ -258,6 +272,7 @@ func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
 	
 	return c_data
 
+
 ## 获取模板数据
 func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
 	var template_data = templates_data.get(t_name)
@@ -274,6 +289,7 @@ func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
 	
 	return template_data
 	
+
 ## 获取实体模板场景
 func get_templates_scenes(t_name: String, deep: bool = false):
 	var template_scenes = templates_scenes.get(t_name)
@@ -289,6 +305,7 @@ func get_templates_scenes(t_name: String, deep: bool = false):
 	
 	return template_scenes
 	
+
 ## 获取实体脚本
 func get_entity_script(t_name: String, deep: bool = false):
 	var entity_script = entities_scripts.get(t_name)
@@ -304,9 +321,11 @@ func get_entity_script(t_name: String, deep: bool = false):
 	
 	return entity_script
 
+
 ## 获取所有有效实体
 func get_vaild_entities() -> Array:
 	return entities.filter(func(e): return U.is_vaild_entity(e))
+
 
 ## 排序目标
 func sort_targets(
@@ -340,6 +359,7 @@ func sort_targets(
 	if sort_type in sort_functions:
 		targets.sort_custom(sort_functions[sort_type])
 
+
 func find_targets_in_range(
 		target_pool: Array,
 		origin: Vector2,
@@ -359,6 +379,7 @@ func find_targets_in_range(
 		)
 	)
 
+
 func find_sorted_targets(
 		target_pool: Array,
 		sort_type: String,
@@ -375,6 +396,7 @@ func find_sorted_targets(
 	)
 	sort_targets(targets, sort_type, origin, reversed)
 	return targets
+
 
 func find_extreme_target(
 		target_pool: Array,
@@ -393,6 +415,7 @@ func find_extreme_target(
 	sort_targets(targets, sort_type, origin, reversed)
 	return targets[0] if targets else null
 
+
 func find_enemies_in_range(
 		origin: Vector2,
 		min_range: int,
@@ -404,6 +427,7 @@ func find_enemies_in_range(
 	return find_targets_in_range(
 		get_entities_group(C.GROUP_ENEMIES), origin, min_range, max_range, flags, bans, filter
 	)
+
 
 func find_sorted_enemies(
 		sort_type: String,
@@ -419,6 +443,7 @@ func find_sorted_enemies(
 		get_entities_group(C.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
 
+
 func find_extreme_enemy(
 		sort_type: String,
 		origin: Vector2,
@@ -433,6 +458,7 @@ func find_extreme_enemy(
 		get_entities_group(C.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
 
+
 func find_friendlys_in_range(
 		origin: Vector2,
 		min_range: int,
@@ -444,6 +470,7 @@ func find_friendlys_in_range(
 	return find_targets_in_range(
 		get_entities_group(C.GROUP_FRIENDLYS), origin, min_range, max_range, flags, bans, filter
 	)
+
 
 func find_sorted_friendlys(
 		sort_type: String,
@@ -459,6 +486,7 @@ func find_sorted_friendlys(
 		get_entities_group(C.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
 
+
 func find_extreme_friendly(
 		sort_type: String,
 		origin: Vector2,
@@ -472,6 +500,7 @@ func find_extreme_friendly(
 	return find_extreme_target(
 		get_entities_group(C.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
 	)
+
 
 func search_target(
 		search_mode, origin, min_range, max_range, flags, bans, filter = null
@@ -526,6 +555,7 @@ func search_target(
 			)
 			
 	return null
+
 
 func search_targets_in_range(
 		search_mode, origin, min_range, max_range, flags, bans, filter = null

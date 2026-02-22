@@ -7,6 +7,7 @@ extends Node
 const RES_PATH: String = "res://config/"
 const USER_PATH: String = "user://config/"
 	
+
 ## 获取配置数据
 func get_config_data(base_path):
 	var user_path: String = USER_PATH + base_path
@@ -19,6 +20,7 @@ func get_config_data(base_path):
 		copy_default_to_user(user_path, res_path)
 		
 	return U.load_json_file(user_path)
+
 
 ## 复制默认配置到 user://
 func copy_default_to_user(user_path, res_path):

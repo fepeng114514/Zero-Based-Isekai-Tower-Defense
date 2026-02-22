@@ -1,8 +1,10 @@
 extends Button
 
 
+
 func _ready():
 	pressed.connect(_button_pressed)
+
 
 func _button_pressed():
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
@@ -14,6 +16,7 @@ func _button_pressed():
 	
 	add_child(dialog)
 	dialog.popup_centered()
+
 
 func _on_quit_confirmed():
 	get_tree().quit()

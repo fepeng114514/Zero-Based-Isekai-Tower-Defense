@@ -10,6 +10,7 @@ var max_subpathway: int = 3
 var subpathway_spacing: float = 33.33
 var node_count: int = 256
 
+
 func load(level_data: Dictionary) -> void:
 	pathways = []
 	last_pi = 0
@@ -17,16 +18,20 @@ func load(level_data: Dictionary) -> void:
 	subpathway_spacing = level_data.get("subpathway_spacing", subpathway_spacing)
 	node_count = level_data.get("node_count", node_count)
 
+
 func get_pathway_count() -> int:
 	return pathways.size()
 
+
 func get_pathway(pi: int) -> Pathway:
 	return pathways[pi]
+
 
 func get_subpathway(pi: int, spi: int) -> Subpathway:
 	var pathway: Pathway = pathways[pi]
 	var subpathway: Subpathway = pathway.subpathways[spi]
 	return subpathway
+
 
 func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
 	var pathway: Pathway = pathways[pi]
@@ -35,17 +40,22 @@ func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
 
 	return node
 	
+
 func get_middle_spi() -> int:
 	return roundi(1.0 * max_subpathway / 2)
+
 
 func get_active_pathways() -> Array[Pathway]:
 	return pathways.filter(func(p: Pathway): return p.active)
 
+
 func get_random_path() -> Pathway:
 	return get_active_pathways().pick_random()
 
+
 func get_random_pi() -> int:
 	return randi_range(0, get_pathway_count() - 1)
+
 
 func get_random_subpathway(pi = null) -> Subpathway:
 	if not pi:
@@ -57,12 +67,14 @@ func get_random_subpathway(pi = null) -> Subpathway:
 
 	return pathway.subpathways.pick_random()
 
+
 func get_ratio(pi: int, spi: int, progress: float) -> float:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 		
 	var delta = progress / subpathway.length
 	return clampf(delta, 0, 1)
 	
+
 func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 	var path_follow = subpathway.follow
@@ -72,11 +84,13 @@ func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	
 	return subpathway.to_global(position)
 
+
 func get_progress_by_ratio(pi: int, spi: int, ratio: float) -> float:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 
 	return subpathway.length * ratio
 	
+
 func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 	var path_follow = subpathway.follow
@@ -86,6 +100,7 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	
 	return subpathway.to_global(position)
 	
+
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 	if not target.has_c(C.CN_NAV_PATH) or target.state & (C.STATE_MELEE | C.STATE_RANGED):
 		return target.position
@@ -101,6 +116,7 @@ func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 	var predict_pos: Vector2 = nav_path_c.get_progress_pos(progress)
 	
 	return predict_pos
+
 
 ## 获取指定路径上按距离排序的所有节点
 ## [br]
@@ -132,6 +148,7 @@ func get_nearst_nodes_list(
 		)
 	)
 	return nodes
+	
 
 ## 获取最近的路径上的一个节点
 ## [br]

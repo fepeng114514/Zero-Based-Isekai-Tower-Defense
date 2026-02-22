@@ -1,5 +1,6 @@
 extends System
 
+
 func _on_update(delta: float) -> void:
 	var dirty_entities_ids: Array[int] = EntityDB._dirty_entities_ids
 	if dirty_entities_ids.is_empty():

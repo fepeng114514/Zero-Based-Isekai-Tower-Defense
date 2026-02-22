@@ -26,5 +26,6 @@ var damage_reduction: int = 0
 ## 易伤值，表示实体的易伤值，易伤可以百分比增加实体受到的伤害值
 var vulnerable: float = 0
 
+
 func get_hp_percent() -> float:
 	return float(hp) / float(hp_max)

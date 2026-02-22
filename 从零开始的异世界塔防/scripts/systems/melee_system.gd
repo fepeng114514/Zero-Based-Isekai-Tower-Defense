@@ -5,6 +5,12 @@ extends System
 对于被拦截者：如果是被第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
 """
 
+
+func _ready() -> void:
+	whitelist_state = C.STATE_IDLE | C.STATE_MELEE
+	wait_entity = true
+
+
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_MELEE):
 		return true
@@ -14,13 +20,9 @@ func _on_insert(e: Entity) -> bool:
 	
 	return true
 
+
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.CN_MELEE):
-		var state: int = e.state
-			
-		if e.waitting or not state & (C.STATE_IDLE | C.STATE_MELEE):
-			continue
-		
+	process_entities(C.CN_MELEE, func(e: Entity):
 		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
 		melee_c.cleanup_blocker()
 		melee_c.cleanup_blockeds()
@@ -32,6 +34,7 @@ func _on_update(delta: float) -> void:
 			process_blocked(e, melee_c)
 			
 		do_attacks(e, melee_c)
+	)
 
 func process_blocker(e: Entity, melee_c: MeleeComponent):
 	var blockeds_ids: Array = melee_c.blockeds_ids
@@ -65,6 +68,7 @@ func process_blocker(e: Entity, melee_c: MeleeComponent):
 	if melee_c.origin_pos_arrived:
 		melee_c.set_origin_pos(e.position)
 	
+
 func find_blocked(e: Entity, melee_c: MeleeComponent):
 	var filter = func(entity, origin): return entity.has_c(C.CN_MELEE) and not entity.id in melee_c.blockeds_ids
 	var targets = EntityDB.search_targets_in_range(
@@ -87,6 +91,7 @@ func find_blocked(e: Entity, melee_c: MeleeComponent):
 	
 	return targets
 	
+
 func process_blocked(e: Entity, melee_c: MeleeComponent):
 	var blocker_id = melee_c.blocker_id
 	
@@ -117,6 +122,7 @@ func process_blocked(e: Entity, melee_c: MeleeComponent):
 	if not melee_c.melee_slot_arrived:
 		go_melee_slot(e, melee_c)
 
+
 func go_melee_slot(e: Entity, melee_c: MeleeComponent):
 	melee_c.motion_direction = (melee_c.melee_slot - e.position).normalized()
 	e.position += melee_c.motion_direction * melee_c.motion_speed * TimeDB.frame_length
@@ -126,6 +132,7 @@ func go_melee_slot(e: Entity, melee_c: MeleeComponent):
 		
 	melee_c.melee_slot_arrived = true
 	
+
 func back_origin_pos(e: Entity, melee_c: MeleeComponent):
 	melee_c.motion_direction = (melee_c.origin_pos - e.position).normalized()
 	e.position += melee_c.motion_direction * melee_c.motion_speed * TimeDB.frame_length
@@ -136,6 +143,7 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent):
 	melee_c.origin_pos_arrived = true
 	e.state = C.STATE_IDLE
 	return
+
 
 func do_attacks(e: Entity, melee_c: MeleeComponent):
 	if not melee_c.blockeds_ids:
@@ -148,6 +156,7 @@ func do_attacks(e: Entity, melee_c: MeleeComponent):
 			continue
 			
 		attack(e, a, melee_c, blocked)
+
 
 func attack(e: Entity, a: Dictionary, melee_c: MeleeComponent, blocked: Entity):
 	EntityDB.create_damage(

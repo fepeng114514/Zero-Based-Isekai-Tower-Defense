@@ -6,6 +6,7 @@ extends System
 同时触发相关事件回调。如果子弹飞行到达目标位置但未命中目标，系统将触发未命中事件回调。
 """
 
+
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_BULLET):
 		return true
@@ -43,8 +44,9 @@ func _on_insert(e: Entity) -> bool:
 
 	return true
 
+
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.GROUP_BULLETS):
+	process_entities(C.GROUP_BULLETS, func(e: Entity): 
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
@@ -61,7 +63,7 @@ func _on_update(delta: float) -> void:
 		e.rotation += bullet_c.rotation_speed * delta
 		
 		if not bullet_c.can_arrived:
-			continue
+			return
 			
 		if (
 			U.is_vaild_entity(target) 
@@ -70,7 +72,7 @@ func _on_update(delta: float) -> void:
 			)
 		):
 			hit(e, bullet_c, target)
-			continue
+			return
 			
 		if (
 			not U.is_vaild_entity(target) 
@@ -83,8 +85,9 @@ func _on_update(delta: float) -> void:
 			if bullet_c.miss_remove:
 				e.remove_entity()
 
-			continue
-		
+			return
+	)
+
 func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
 		var targets = EntityDB.search_targets_in_range(
@@ -106,6 +109,7 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	if bullet_c.hit_remove:
 		e.remove_entity()
 		
+
 func damege_target(e: Entity, bullet_c: BulletComponent, target: Entity):
 	var damage_factor: float = e._on_bullet_calculate_damage_factor(
 			target, bullet_c
@@ -121,6 +125,7 @@ func damege_target(e: Entity, bullet_c: BulletComponent, target: Entity):
 	EntityDB.create_mods(target.id, e.id, bullet_c.mods)
 	EntityDB.create_entities_at_pos(bullet_c.payloads, e.position)
 
+
 func trajectory_liniear_init(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
@@ -128,10 +133,12 @@ func trajectory_liniear_init(
 		bullet_c.from, bullet_c.to, bullet_c.flight_time
 	)
 
+
 func trajectory_liniear_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
 	e.position = U.position_in_linear(bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts))
+
 
 func trajectory_parabola_init(
 		e: Entity, bullet_c: BulletComponent, target: Entity
@@ -147,6 +154,7 @@ func trajectory_parabola_init(
 	)
 	e.look_at(next_pos)
 	
+
 func trajectory_parabola_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
@@ -164,10 +172,12 @@ func trajectory_parabola_update(
 	
 	e.look_at(next_pos)
 
+
 func trajectory_tracking_init(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
 	e.look_at(bullet_c.to)
+
 
 func trajectory_tracking_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
@@ -178,6 +188,7 @@ func trajectory_tracking_update(
 	bullet_c.direction = (bullet_c.to - e.position).normalized()
 	e.position += bullet_c.direction * bullet_c.speed * TimeDB.frame_length
 	e.look_at(bullet_c.to)
+
 
 func trajectory_instant_init(e: Entity, bullet_c: BulletComponent, target: Entity):
 	e.position = target.position

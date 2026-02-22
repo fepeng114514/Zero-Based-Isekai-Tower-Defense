@@ -1,6 +1,7 @@
 extends Entity
 var waves_data: Array = LevelMgr.waves_data[GlobalStore.level_idx]
 
+
 func _spawner() -> void:
 	for wave_idx: int in range(waves_data.size()):
 		var wave: Dictionary = waves_data[wave_idx - 1]
@@ -21,6 +22,7 @@ func _spawner() -> void:
 			
 	# 所有波次释放完毕
 	GlobalStore.waves_finished = true
+
 
 func _group_spawner(group: Dictionary) -> void:
 	await TimeDB.y_wait(group.delay)

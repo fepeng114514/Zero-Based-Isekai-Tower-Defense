@@ -1,5 +1,6 @@
 extends System
 
+
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_BARRACK):
 		return true
@@ -15,8 +16,9 @@ func _on_insert(e: Entity) -> bool:
 		
 	return true
 	
+
 func _on_update(delta: float) -> void:
-	for e in EntityDB.get_entities_group(C.CN_BARRACK):
+	process_entities(C.CN_BARRACK, func(e: Entity):
 		var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
 		barrack_c.cleanup_soldiers()
 		
@@ -37,6 +39,8 @@ func _on_update(delta: float) -> void:
 				s_rally_c.rally_formation_position(soldier_count, i)
 		
 		barrack_c.last_soldier_count = soldier_count
+	)
+		
 
 func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
 	if barrack_c.soldiers_list.size() >= barrack_c.max_soldiers:

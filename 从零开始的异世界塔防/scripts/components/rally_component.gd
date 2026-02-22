@@ -10,12 +10,14 @@ var arrived_dist: int = 10
 var animation: String = "walk"
 var can_click_rally: bool = true
 
+
 func new_rally(new_rally_pos: Vector2, new_rally_radius = null):
 	arrived = false
 	rally_pos = new_rally_pos
 	
 	if new_rally_radius:
 		rally_radius = new_rally_radius
+
 
 func rally_formation_position(count: int, idx: int):
 	if count == 1:

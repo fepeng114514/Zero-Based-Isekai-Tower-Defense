@@ -54,6 +54,7 @@ var templates: Dictionary = {}
 ## 已排序的近战攻击列表
 var order: Array = []
 
+
 func calculate_blocked_count():
 	var count: int = 0
 	
@@ -69,17 +70,21 @@ func calculate_blocked_count():
 		
 	blocked_count = count
 
+
 func set_melee_slot(new_melee_slot: Vector2) -> void:
 	melee_slot_arrived = false
 	melee_slot = new_melee_slot
 	
+
 func set_origin_pos(new_origin_pos: Vector2) -> void:
 	origin_pos_arrived = false
 	origin_pos = new_origin_pos
 
+
 func sort_attacks() -> void:
 	order = list.duplicate()
 	order.sort_custom(U.attacks_sort_fn)
+
 
 func get_blocked(filter = null) -> Array[Entity]:
 	var blocked_list: Array[Entity] = []
@@ -93,6 +98,7 @@ func get_blocked(filter = null) -> Array[Entity]:
 		blocked_list.append(e)
 		
 	return blocked_list
+
 
 ## 清理无效被拦截
 func cleanup_blockeds() -> void:
@@ -110,6 +116,7 @@ func cleanup_blockeds() -> void:
 		
 	blockeds_ids = new_blockeds_ids
 	
+
 ## 清理无效拦截者
 func cleanup_blocker() -> void:
 	if blocker_id == null:

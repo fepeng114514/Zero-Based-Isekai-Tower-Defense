@@ -7,12 +7,14 @@ extends Node
 var image_db: Dictionary[String, AtlasTexture] = {}
 var atlas_uses: Array[String] = []
 	
+
 func load(required_atlas: Array) -> void:
 	image_db = {}
 	atlas_uses = []
 
 	_load_atlas(required_atlas)
 	
+
 func _load_atlas(required_atlas: Array) -> void:
 	for atlas_name in required_atlas:
 		var path: String = C.PATH_ATLAS_ASSETS % atlas_name
@@ -24,6 +26,7 @@ func _load_atlas(required_atlas: Array) -> void:
 		atlas_uses.append(path)
 		print_debug("加载图集: %s" % path)
 		_parse_atlas_data(path)
+
 
 ## 解析图集数据
 func _parse_atlas_data(path: String) -> void:
@@ -57,6 +60,7 @@ func _parse_atlas_data(path: String) -> void:
 			
 			print_verbose("加载图像: %s" % img_name)
 
+
 ## 创建图集纹理
 func _create_atlas_texture(
 		img_data: Dictionary, atlas_file: Texture2D
@@ -70,6 +74,7 @@ func _create_atlas_texture(
 
 	return atlas_texture
 	
+
 ## 获取纹理
 func get_image(img_name: String) -> AtlasTexture:
 	if not image_db.has(img_name):

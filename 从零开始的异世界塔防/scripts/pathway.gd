@@ -6,6 +6,7 @@ var last_spi: int = 0
 var active: bool = true
 var idx: int = -1
 
+
 func _ready():
 	PathDB.pathways.append(self)
 	idx = PathDB.last_pi
@@ -23,14 +24,18 @@ func _ready():
 
 	PathDB.last_pi += 1
 	
+
 func enable() -> void:
 	active = true
+
 
 func disable() -> void:
 	active = false
 
+
 func is_active() -> bool:
 	return active
+
 
 func create_subpathway(spacing: float) -> Subpathway:
 	var subpathway := Subpathway.new()
@@ -43,6 +48,7 @@ func create_subpathway(spacing: float) -> Subpathway:
 	last_spi += 1
 
 	return subpathway
+
 
 func add_line_visualization(subpathway: Subpathway, color: Color):
 	var line := Line2D.new()

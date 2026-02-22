@@ -8,6 +8,7 @@ var nodes: Array[PathwayNode] = []
 var length: float = 0
 var origin_path: Pathway
 
+
 func _ready() -> void:
 	idx = origin_path.last_spi
 
@@ -19,6 +20,7 @@ func _ready() -> void:
 	curve = create_offset_curve()
 	length = curve.get_baked_length()
 	nodes = get_equally_spaced_nodes()
+
 
 func create_offset_curve() -> Curve2D:
 	var origin_path_curve: Curve2D = origin_path.curve
@@ -72,6 +74,7 @@ func create_offset_curve() -> Curve2D:
 		new_curve.add_point(point, in_vec, out_vec)
 	
 	return new_curve
+
 
 func get_equally_spaced_nodes() -> Array[PathwayNode]:
 	var nodes_list: Array[PathwayNode] = []

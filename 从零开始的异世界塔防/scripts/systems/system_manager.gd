@@ -10,6 +10,7 @@ var remove_queue: Array[Entity] = []
 var insert_queue: Array[Entity] = []
 var damage_queue: Array[Entity] = []
 
+
 func load(required_systems_name: Array) -> void:
 	systems = []
 	remove_queue = []
@@ -36,6 +37,7 @@ func load(required_systems_name: Array) -> void:
 	for system: System in systems:
 		system._initialize()
 
+
 ## 系统主循环
 func _physics_process(delta: float) -> void:
 	for system: System in systems:
@@ -46,6 +48,7 @@ func _physics_process(delta: float) -> void:
 	# 帧末尾处理插入与移除
 	call_deferred("_process_insert_queue")
 	call_deferred("_process_remove_queue")
+
 
 ## 处理实体插入队列
 func _process_insert_queue() -> void:
@@ -71,6 +74,7 @@ func _process_insert_queue() -> void:
 		
 		e.visible = true
 
+
 ## 处理实体移除队列
 func _process_remove_queue() -> void:	
 	while remove_queue:
@@ -84,6 +88,7 @@ func _process_remove_queue() -> void:
 			
 		EntityDB.mark_entity_dirty_id(e.id)
 		e.free()
+
 
 ## 调用所有系统中的指定回调函数
 func call_systems(fn_name: String, arg) -> bool:

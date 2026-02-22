@@ -1,5 +1,11 @@
 extends System
 
+
+func _ready() -> void:
+	whitelist_state = C.STATE_IDLE
+	wait_entity = true
+
+
 func _on_insert(e: Entity):
 	if not e.has_c(C.CN_NAV_PATH):
 		return true
@@ -21,11 +27,9 @@ func _on_insert(e: Entity):
 
 	return true
 
+
 func _on_update(delta: float) -> void:
 	for e: Entity in EntityDB.get_entities_group(C.CN_NAV_PATH):
-		if e.waitting or not e.state & C.STATE_IDLE:
-			continue
-			
 		var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 		nav_path_c.speed = nav_path_c.origin_speed * get_mod_speed_factor(e)
 		var reversed: bool = nav_path_c.reversed
@@ -38,6 +42,7 @@ func _on_update(delta: float) -> void:
 		elif not reversed and nav_path_c.nav_ni == end_ni:
 			arrived_end(e, nav_path_c, reversed)
 
+
 func get_mod_speed_factor(e: Entity):
 	var speed_factor: float = 1
 
@@ -46,6 +51,7 @@ func get_mod_speed_factor(e: Entity):
 		speed_factor *= mod_c.speed_factor
 	
 	return speed_factor
+
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 	e.play_animation("walk")
@@ -83,6 +89,7 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 		nav_path_c.nav_ni = next_ni
 
 	e._on_pathway_walk(nav_path_c)
+
 
 func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 	nav_path_c.reversed = not reversed

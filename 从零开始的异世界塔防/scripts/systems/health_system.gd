@@ -3,6 +3,7 @@ extends System
 
 """
 
+
 func _on_ready_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_HEALTH):
 		return true
@@ -17,6 +18,7 @@ func _on_ready_insert(e: Entity) -> bool:
 	
 	return true
 
+
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_HEALTH):
 		return true
@@ -27,7 +29,19 @@ func _on_insert(e: Entity) -> bool:
 	
 	return true
 
+
 func _on_update(delta) -> void:
+	_process_damege_queue()
+
+	process_entities(C.CN_HEALTH, func(e: Entity):
+		var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
+		var health_bar: Node = e.get_c(C.CN_HEALTH_BAR)
+		health_bar.fg.scale.x = (
+			health_bar.origin_fg_scale.x * health_c.get_hp_percent()
+		)
+	)
+		
+func _process_damege_queue() -> void:
 	var damage_queue = SystemMgr.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Damage = damage_queue.pop_at(i)
@@ -42,13 +56,7 @@ func _on_update(delta) -> void:
 			continue
 			
 		_take_damage(target, d, t_health_c)
-		
-	var process_func: Callable = func(e: Entity, health_c: HealthComponent):
-		var health_bar = e.get_c(C.CN_HEALTH_BAR)
-		health_bar.fg.scale.x = health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 
-	process_entities(C.CN_HEALTH, process_func)
-		
 func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
 	
@@ -80,6 +88,7 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 			source._on_kill(target, d)
 		target.remove_entity()
 		
+
 func _predict_damage(
 		target: Entity, d: Damage, t_health_c: HealthComponent, source: Entity
 	) -> int:

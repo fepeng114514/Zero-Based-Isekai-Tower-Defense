@@ -1,5 +1,6 @@
 extends Entity
 
+
 func _on_bullet_calculate_damage_factor(
 		target: Entity, bullet_c: BulletComponent
 	) -> float:

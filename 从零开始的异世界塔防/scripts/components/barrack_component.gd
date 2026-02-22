@@ -26,6 +26,7 @@ var soldiers_list: Array = []
 ## 上一次士兵数量，表示上一次生成士兵时的士兵数量，用于检测士兵数量变化
 var last_soldier_count: int = -1
 
+
 ## 清理无效士兵
 func cleanup_soldiers():
 	# 快速检查是否存在无效士兵
