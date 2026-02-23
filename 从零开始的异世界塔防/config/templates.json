@@ -1,77 +1,257 @@
 {
-    "modifier": {
-        "flags": "%const(FLAG_MODIFIER)",
-        "track_target": true,
-        "modifier": {}
-    },
-    "aura": {
-        "flags": "%const(FLAG_AURA)",
-        "track_source": true
-    },
-    "bullet": {
-        "flags": "%const(FLAG_BULLET)"
-    },
-    "tower": {
-        "flags": "%const(FLAG_TOWER)"
-    },
-    "friendly": {
-        "flags": "%const(FLAG_FRIENDLY)",
-        "components": {
-            "melee": {
-                "is_blocker": true
-            }
-        }
-    },
-    "hero": {
-        "base": "friendly",
-        "flags": "%const(FLAG_HERO)"
-    },
-    "enemy": {
-        "flags": "%const(FLAG_ENEMY)",
-        "components": {
-            "melee": {
-                "is_blocked": true
-            }
-        }
-    },
-    "boss": {
-        "base": "enemy",
-        "flags": "%const(FLAG_BOSS)"
-    },
-    "mod_dps": {
-        "base": "modifier",
-        "components": {
-            "modifier": {
-                "allow_same": false,
-                "reset_same": false,
-                "cycle_time": 0.1,
-                "min_damage": 5,
-                "max_damage": 5,
-                "damage_type": "%const(DAMAGE_TRUE)"
-            }
-        }
-    },
-    "aura_dps": {
-        "base": "aura",
-        "components": {
-            "aura": {
-                "allow_same": true,
-                "reset_same": false,
-                "cycle_time": 0.1,
-                "mods": ["mod_dps"],
-                "min_radius": 0,
-                "max_radius": 200,
-                "damage_type": "%const(DAMAGE_TRUE)"
-            }
-        }
-    },
-    "wave_spawner": {
-        "components": {
-            "spawner": {
-                "spawn_interval": 5,
-                "enemy_template": "enemy_goblin",
-                "max_enemies": 10
-            }
-        }
-    }
+	"basics": {
+		"modifier": {
+			"flags": "%const(FLAG_MODIFIER)",
+			"track_target": true,
+			"modifier": {}
+		},
+		"aura": {
+			"flags": "%const(FLAG_AURA)",
+			"track_source": true
+		},
+		"bullet": {
+			"flags": "%const(FLAG_BULLET)"
+		},
+		"tower": {
+			"flags": "%const(FLAG_TOWER)"
+		},
+		"friendly": {
+			"flags": "%const(FLAG_FRIENDLY)",
+			"components": {
+				"melee": {
+					"is_blocker": true
+				}
+			}
+		},
+		"hero": {
+			"base": "friendly",
+			"flags": "%const(FLAG_HERO)"
+		},
+		"enemy": {
+			"flags": "%const(FLAG_ENEMY)",
+			"components": {
+				"melee": {
+					"is_blocked": true
+				}
+			}
+		},
+		"boss": {
+			"base": "enemy",
+			"flags": "%const(FLAG_BOSS)"
+		},
+		"mod_dps": {
+			"base": "modifier",
+			"components": {
+				"modifier": {
+					"allow_same": false,
+					"reset_same": false,
+					"cycle_time": 0.1,
+					"min_damage": 5,
+					"max_damage": 5,
+					"damage_type": "%const(DAMAGE_TRUE)"
+				}
+			}
+		},
+		"aura_dps": {
+			"base": "aura",
+			"components": {
+				"aura": {
+					"allow_same": true,
+					"reset_same": false,
+					"cycle_time": 0.1,
+					"mods": [
+                        "mod_dps"
+					],
+					"min_radius": 0,
+					"max_radius": 200,
+					"damage_type": "%const(DAMAGE_TRUE)"
+				}
+			}
+		},
+		"wave_spawner": {
+			"components": {
+				"spawner": {
+					"spawn_interval": 5,
+					"enemy_template": "enemy_goblin",
+					"max_enemies": 10
+				}
+			}
+		}
+	},
+	"towers": {
+		"tower_mage": {
+			"base": "tower",
+			"components": {
+				"ranged": {
+					"list": [
+						{
+							"type": "single",
+							"bullet": "bullet_bolt",
+							"min_range": 0,
+							"max_range": 300,
+							"cooldown": 1
+						}
+					]
+				}
+			}
+		},
+		"bullet_bolt": {
+			"base": "bullet",
+			"components": {
+				"bullet": {
+					"flight_trajectory": "%const(TRAJECTORY_TRACKING)",
+					"min_damage": 50,
+					"max_damage": 50,
+					"speed": 300
+				}
+			}
+		},
+		"tower_archer": {
+			"base": "tower",
+			"components": {
+				"ranged": {
+					"list": [
+						{
+							"type": "single",
+							"bullet": "bullet_arrow",
+							"min_range": 0,
+							"max_range": 400,
+							"cooldown": 1
+						}
+					]
+				},
+				"sprite": {
+					"list": [
+						{
+							"type": "image",
+							"sprite_name": "tower_archer_lvl1_shooter_0001"
+						}
+					]
+				}
+			}
+		},
+		"bullet_arrow": {
+			"base": "bullet",
+			"components": {
+				"bullet": {
+					"predict_pos_disabled": true,
+					"flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
+					"min_damage": 10,
+					"max_damage": 50,
+					"flight_time": 1
+				},
+				"sprite": {
+					"list": [
+						{
+							"type": "image",
+							"sprite_name": "arrow"
+						}
+					]
+				}
+			}
+		},
+		"tower_barrack": {
+			"base": "tower",
+			"components": {
+				"barrack": {
+					"max_soldiers": 1,
+					"nav_ranged": 150,
+					"respawn_time": 5,
+					"soldier": "soldier"
+				}
+			}
+		},
+		"soldier": {
+			"base": "friendly",
+			"components": {
+				"melee": {
+					"max_blocked": 2,
+					"block_min_range": 0,
+					"block_max_range": 90,
+					"motion_speed": 150,
+					"melee_slot_offset": "%vec2(0, 20)",
+					"list": [
+						{
+							"type": "single",
+							"min_damage": 30,
+							"max_damage": 30,
+							"cooldown": 1
+						}
+					]
+				},
+				"health": {
+					"hp_max": 200
+				},
+				"rally": {
+					"speed": 150
+				}
+			}
+		},
+		"bullet_sword": {
+			"base": "bullet",
+			"components": {
+				"bullet": {
+					"can_arrived": false,
+					"flight_trajectory": "%const(TRAJECTORY_INSTANT)",
+					"min_damage": 50,
+					"max_damage": 50,
+					"flight_time": 0.5,
+					"min_damage_radius": 0,
+					"max_damage_radius": 100
+				}
+			},
+			"stay_height": 120,
+			"stay_time": 1,
+			"to_predict_time": 0.5
+		},
+		"bullet_bomb": {
+			"base": "bullet",
+			"components": {
+				"bullet": {
+					"predict_pos_disabled": true,
+					"flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
+					"min_damage": 50,
+					"max_damage": 50,
+					"flight_time": 1,
+					"min_damage_radius": 0,
+					"max_damage_radius": 100
+				}
+			}
+		}
+	},
+	"enemies": {
+		"enemy_goblin": {
+			"base": "enemy",
+			"components": {
+				"health": {
+					"hp_max": 100,
+					"physical_armor": 50
+				},
+				"nav_path": {
+					"speed": 133
+				},
+				"melee": {
+					"block_range": 30,
+					"list": [
+						{
+							"type": "single",
+							"min_damage": 5,
+							"max_damage": 10,
+							"cooldown": 1
+						}
+					]
+				},
+				"sprite": {
+					"list": [
+						{
+							"type": "animation",
+							"sprite_name": "enemy_goblin"
+						}
+					]
+				}
+			}
+		}
+	},
+	"bosses": {},
+	"hero": {}
 }

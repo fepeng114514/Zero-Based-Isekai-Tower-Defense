@@ -7,6 +7,10 @@
 	"entities": [
 		{
 			"t_name": "wave_spawner"
+		},
+		{
+			"t_name": "tower_archer",
+			"position": "%vec2(400, 250)"
 		}
 	],
 	"tower_holders": [
@@ -15,10 +19,6 @@
 			"position": "%vec2(500, 500)"
 		}
 	],
-	"required_atlas": [
-		"enemies"
-	],
-	"required_sounds": [
-		
-	]
+	"required_atlas": [],
+	"required_sounds": []
 }

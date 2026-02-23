@@ -29,7 +29,7 @@ func _on_insert(e: Entity):
 
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.CN_NAV_PATH):
+	process_entities(C.CN_NAV_PATH, func(e: Entity):
 		var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 		nav_path_c.speed = nav_path_c.origin_speed * get_mod_speed_factor(e)
 		var reversed: bool = nav_path_c.reversed
@@ -41,7 +41,7 @@ func _on_update(delta: float) -> void:
 			arrived_end(e, nav_path_c, reversed)
 		elif not reversed and nav_path_c.nav_ni == end_ni:
 			arrived_end(e, nav_path_c, reversed)
-
+	)
 
 func get_mod_speed_factor(e: Entity):
 	var speed_factor: float = 1

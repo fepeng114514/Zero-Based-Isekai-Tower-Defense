@@ -50,10 +50,14 @@ var has_auras_ids: Array[int] = []
 var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
 ## 实体状态，通常用于区分实体的不同阶段或行为模式
 var state: int = C.STATE_IDLE
-## 等待状态，表示实体正在等待某个事件或条件，通常用于协程等待
-var waitting: bool = false
-## 等待计时器
-var waittimer: float = 0
+## 协程等待状态
+var y_waiting: bool = false
+## 等待状态
+var waiting: bool = false
+## 等待计时
+var wait_clock: float = 0
+## 等待完毕执行的函数队列，需要形参: Entity
+var wait_action_queue: Array = []
 ## 移除状态，表示实体正在被移除
 var removed: bool = false
 ## 实体等级，通常用于区分实体的强度或阶段
@@ -259,24 +263,38 @@ func merge_base_template(template_data: Dictionary, base: String):
 
 ## 协程等待
 func y_wait(time: float = 0, break_fn = null):
-	waitting = true
+	y_waiting = true
 	await TimeDB.y_wait(time, break_fn)
-	waitting = false
+	y_waiting = false
 
 
-## 开始等待计时器，与协程等待不同的是:
+## 开始等待，与协程等待不同的是:
 ## [br]
 ## 1. 不会从上次暂停的位置继续
 ## [br]
 ## 2. 可被外部调用
 ## [br]
 ## 等待 0 秒表示等待一帧
-func start_waittimer(time: float = 0):
-	if time == 0:
-		waittimer = 0.01
+func wait(time: float = 0, reset: bool = true) -> void:
+	if not reset and waiting:
 		return
 
-	waittimer = time
+	waiting = true
+	if time == 0:
+		wait_clock = 0.01
+		return
+
+	wait_clock = time
+
+
+## 将函数增加到等待完成后执行的函数队列，需要形参: Entity
+func insert_wait_action_queue(action_func: Callable) -> void:
+	wait_action_queue.append(action_func)
+
+
+## 检查实体是否在等待
+func is_waiting() -> bool:
+	return y_waiting or waiting
 
 
 func cleanup_has_mods():
@@ -374,15 +392,19 @@ func set_nav_path_at_pos(pos):
 	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
 	
 
-func get_animation(sprite_idx: int = 0) -> AnimatedSprite2D:
+func get_animated_sprite(sprite_idx: int = 0) -> AnimatedSprite2D:
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
-	var sprite: AnimatedSprite2D = sprite_c.node_list[sprite_idx]
+	var sprite = sprite_c.node_list[sprite_idx]
+	
+	if not sprite is AnimatedSprite2D:
+		printerr
+		return null
 	
 	return sprite
 	
 
 func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
-	var sprite: AnimatedSprite2D = get_animation(sprite_idx)
+	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	
 	sprite.play(anim_name)
 	
@@ -390,12 +412,12 @@ func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
 func wait_animation(
 		anim_name: String, sprite_idx: int = 0, times: int = 1, break_fn = null
 	) -> void:
-	var sprite: AnimatedSprite2D = get_animation(sprite_idx)
+	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	var loop_count: int = 0
 	
-	waitting = true
+	y_waiting = true
 	while loop_count < times and (not break_fn or break_fn.call()):
 		loop_count += 1
 		await sprite.animation_looped
 		
-	waitting = false
+	y_waiting = false

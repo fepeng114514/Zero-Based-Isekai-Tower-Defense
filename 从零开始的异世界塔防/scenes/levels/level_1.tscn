@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dn322bbgr6nvm"]
 
-[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://scripts/pathway.gd" id="3_sk5k4"]
+[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://scripts/classes/pathway.gd" id="3_sk5k4"]
 [ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://scripts/store.gd" id="4_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://scenes/levels/01地图.png" id="4_x42e6"]
 

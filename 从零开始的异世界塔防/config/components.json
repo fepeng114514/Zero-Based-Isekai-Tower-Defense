@@ -22,8 +22,9 @@
 		"auras_list": [],
 		"hit_rect": "%rect2(1, 1, 1, 1)",
 		"state": "%const(STATE_IDLE)",
-		"waitting": false,
-		"waittimer": 0,
+		"y_waiting": false,
+		"wait_clock": 0,
+		"wait_action_queue": [],
 		"removed": false,
 		"level": 1,
 		"track_source": false,
@@ -141,6 +142,7 @@
 				"damage_type": "%const(DAMAGE_PHYSICAL)",
 				"ts": 0,
 				"animation": "",
+				"delay": 0,
 				"chance": 1,
 				"flags": "%const(FLAG_NONE)",
 				"bans": "%const(FLAG_NONE)",
@@ -166,6 +168,7 @@
 				"whitelist_template": [],
 				"blacklist_template": [],
 				"animation": "",
+				"delay": 0,
 				"chance": 1,
 				"together_melee": false
 			}
@@ -235,6 +238,9 @@
 		"click_rect": "rect2(1, 1, 1, 1)"
 	},
 	"spawner": {
-		"id": ""
+		"spawner_name": "",
+		"start_animation": "",
+		"loop_animation": "",
+		"end_animation": ""
 	}
 }

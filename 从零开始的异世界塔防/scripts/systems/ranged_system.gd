@@ -18,7 +18,6 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(delta: float) -> void:
 	for e: Entity in EntityDB.get_entities_group(C.CN_RANGED):
 		var state: int = e.state
-
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
 		for a: Dictionary in ranged_c.order:
@@ -34,15 +33,15 @@ func _on_update(delta: float) -> void:
 			if not can_attack(a, target):
 				return
 				
-			attack(e, a, target)
-	
+			e.play_animation("shoot")
+			e.wait(a.delay, false)
 
-func attack(e: Entity, a: Dictionary, target: Entity) -> void:
-	var b = EntityDB.create_entity(a.bullet)
-	b.target_id = target.id
-	b.source_id = e.id
-	b.position = e.position
-	
-	b.insert_entity()
-		
-	a.ts = TimeDB.tick_ts
+			e.insert_wait_action_queue(func(this: Entity):
+				var b = EntityDB.create_entity(a.bullet)
+				b.target_id = target.id
+				b.source_id = this.id
+				b.position = this.position
+				
+				b.insert_entity()
+					
+				a.ts = TimeDB.tick_ts)

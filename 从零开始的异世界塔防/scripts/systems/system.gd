@@ -45,7 +45,7 @@ func can_attack(a: Dictionary, target: Entity) -> bool:
 	)
 
 
-## 遍历实体组中所有实体，其中 process_func 需要有一个形参: entity 实体
+## 遍历实体组中所有实体，其中 process_func 需要形参: Entity
 func process_entities(group_name: String, process_func: Callable) -> void:
 	for e: Entity in EntityDB.get_entities_group(group_name):
 		if (
@@ -54,7 +54,7 @@ func process_entities(group_name: String, process_func: Callable) -> void:
 		):
 			continue
 
-		if wait_entity and e.waitting:
+		if wait_entity and e.is_waiting():
 			continue
 		
 		process_func.call(e)

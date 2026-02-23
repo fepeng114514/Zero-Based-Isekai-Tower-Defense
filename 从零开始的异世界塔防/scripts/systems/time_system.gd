@@ -15,4 +15,14 @@ func _on_update(delta: float) -> void:
 
 func process_entity_timer(delta: float) -> void:
 	for e: Entity in EntityDB.get_vaild_entities():
-		e.waittimer -= delta
+		if e.wait_clock <= 0:
+			e.y_waiting = false
+
+			for action_func: Callable in e.wait_action_queue:
+				action_func.call(e)
+
+			e.wait_action_queue = []
+
+			continue
+
+		e.wait_clock -= delta

@@ -4,7 +4,8 @@ extends System
 func _initialize() -> void:
 	var level_data = LevelMgr.levels_data[GlobalStore.level_idx]
 	
-	ImageDB.load(level_data.required_atlas)
+	ImageDB.load()
+	ImageDB.load_atlas_group(level_data.required_atlas)
 	AnimDB.load()
 	EntityDB.load()
 	PathDB.load(level_data)
