@@ -1,10 +1,10 @@
 extends Node
 
-"""
-动画数据库，存储所有动画资源
+"""动画数据库:
+	存储所有 SpriteFrames 动画资源
 """
 
-var animations_db: Dictionary = {}
+var animations_db: Dictionary[String, SpriteFrames] = {}
 
 
 func load() -> void:

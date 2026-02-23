@@ -2,7 +2,7 @@ extends Node
 class_name BarrackComponent
 
 """兵营组件:
-负责生成士兵并管理士兵列表
+	负责生成士兵并管理士兵列表
 """
 
 ## 集结范围，表示士兵的可集结范围，单位为像素

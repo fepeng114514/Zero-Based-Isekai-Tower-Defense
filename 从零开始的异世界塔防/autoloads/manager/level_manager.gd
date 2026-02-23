@@ -1,7 +1,7 @@
 extends Node
 
-"""
-关卡管理器，管理进入关卡与关卡数据
+"""关卡管理器:
+	管理进入关卡与关卡数据
 """
 
 var levels_data: Dictionary = {}

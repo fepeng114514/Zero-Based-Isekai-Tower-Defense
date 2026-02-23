@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ct4xjfpp6wdor"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://scripts/components/entity_component.gd" id="1_nld07"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://components/entity_component.gd" id="1_nld07"]
 
 [node name="BulletArrow" type="Node2D" unique_id=180978837]
 rotation = -0.017453292

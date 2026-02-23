@@ -1,11 +1,11 @@
 extends Node
 signal create_entity_s(entity: Entity)
 
-"""
-实体数据库，所有实体数据
-待优化:
-1. 索敌的空间索引优化
-2. 对象池
+"""实体数据库:
+	存储所有实体与相关数据
+	待优化:
+		1. 索敌的空间索引优化
+		2. 对象池
 """
 
 var templates_scenes: Dictionary[String, PackedScene] = {}

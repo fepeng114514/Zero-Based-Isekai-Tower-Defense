@@ -1,7 +1,7 @@
 extends Node
 
-"""
-配置管理器，加载配置
+"""配置管理器:
+	管理加载配置
 """
 
 const RES_PATH: String = "res://config/"

@@ -1,7 +1,7 @@
 extends Node
 
-"""
-图像数据库，存储所有图像
+"""图像数据库:
+	存储所有 AtlasTexture 图像资源
 """
 
 var image_db: Dictionary[String, AtlasTexture] = {}
@@ -31,16 +31,16 @@ func load_atlas_group(required_atlas: Array) -> void:
 ## 解析图集数据
 func _parse_atlas_data(path: String) -> void:
 	"""图集格式
-	"图集名.png": {	# 来自哪个图集，主要用于多图集的打包
-		"图像名": {
-			"quad": [	# 图像位置（矩形）
-				3,
-				3,
-				2729,
-				1536
-			],
-			"alias": []	# 别名
-		},
+		"图集名.png": {	# 来自哪个图集，主要用于多图集的打包
+			"图像名": {
+				"quad": [	# 图像位置（矩形）
+					3,
+					3,
+					2729,
+					1536
+				],
+				"alias": []	# 别名
+			},
 	"""
 	var atlas_data = U.load_json_file(path + ".json")
 	

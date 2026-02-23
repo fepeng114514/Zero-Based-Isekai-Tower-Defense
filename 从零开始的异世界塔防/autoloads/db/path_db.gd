@@ -1,7 +1,7 @@
 extends Node
 
-"""
-路径数据库，存储所有路径的数据
+"""路径数据库:
+	存储所有路径
 """
 
 var pathways: Array[Pathway] = []
