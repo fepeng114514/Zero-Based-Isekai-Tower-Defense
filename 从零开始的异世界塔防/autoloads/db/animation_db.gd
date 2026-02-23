@@ -15,7 +15,7 @@ func load() -> void:
 
 ## 加载动画
 func _load_sprite_frames() -> void:
-	var anim_datas: Array = ConfigMgr.get_config_data(C.PATH_ANIMATIONS)
+	var anim_datas: Array = ConfigMgr.get_config_data(C.PATH_ANIMATIONS_DATA)
 	
 	for anim_data: Dictionary in anim_datas:
 		var prefix: String = anim_data.prefix

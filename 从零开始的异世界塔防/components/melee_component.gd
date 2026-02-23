@@ -15,8 +15,8 @@ var is_passive_obstacle: bool = false
 var block_min_range: int = 80
 ## 拦截最大范围，单位为像素
 var block_max_range: int = 0
-## 搜索模式，表示实体在寻找被拦截者时的目标选择策略，默认为优先敌人
-var search_mode: String = C.SEARCH_MODE_ENEMY_FIRST
+## 搜索模式，表示实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
+var search_mode: String = C.SEARCH_ENEMY_FIRST
 ## 最大可以被拦截数量，表示实体最多可以同时拦截多少个被拦截者，超过该数量后将不再拦截新的被拦截者
 var max_blocked: int = 1
 ## 拦截数量，表示实体当前已经拦截的被拦截者数量，通常用于判断是否可以继续拦截新的被拦截者

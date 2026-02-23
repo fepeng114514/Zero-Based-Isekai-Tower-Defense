@@ -71,7 +71,10 @@ func process_blocker(e: Entity, melee_c: MeleeComponent):
 	
 
 func find_blocked(e: Entity, melee_c: MeleeComponent):
-	var filter = func(entity, origin): return entity.has_c(C.CN_MELEE) and not entity.id in melee_c.blockeds_ids
+	var filter = func(entity, origin): return (
+		entity.has_c(C.CN_MELEE) and not entity.id in melee_c.blockeds_ids
+	)
+
 	var targets = EntityDB.search_targets_in_range(
 		melee_c.search_mode, e.position, melee_c.block_min_range, 
 		melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans, filter

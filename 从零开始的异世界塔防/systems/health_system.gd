@@ -1,4 +1,5 @@
 extends System
+
 """血量系统:
 	管理伤害造成与血条更新拦截
 """
@@ -10,7 +11,7 @@ func _on_ready_insert(e: Entity) -> bool:
 
 	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
 		
-	var health_bar = preload(C.PATH_SCENES + "/health_bar.tscn").instantiate()
+	var health_bar = preload(C.PATH_SCENES % "health_bar").instantiate()
 	health_bar.scale = health_c.health_bar_scale
 	health_bar.position = health_c.health_bar_offset
 	e.add_child(health_bar)

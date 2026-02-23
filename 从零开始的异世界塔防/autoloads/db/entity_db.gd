@@ -53,12 +53,12 @@ func load() -> void:
 
 ## 加载实体模板数据
 func _load_templates_data():
-	var templates_group: Dictionary = ConfigMgr.get_config_data(C.PATH_TEMPLATES)
+	var templates_group: Dictionary = ConfigMgr.get_config_data(C.PATH_TEMPLATES_DATA)
 	for group: Dictionary in templates_group.values():
 		templates_data.merge(group)
 	
 	for t_name: String in templates_data.keys():
-		var template_scene_path: String = C.PATH_TEMPLATES_SCENES % t_name
+		var template_scene_path: String = C.PATH_ENTITIES_SCENES % t_name
 		if ResourceLoader.exists(template_scene_path):
 			templates_scenes[t_name] = load(template_scene_path)
 			
@@ -69,11 +69,11 @@ func _load_templates_data():
 
 ## 加载组件数据
 func _load_components_data():
-	components_data = ConfigMgr.get_config_data(C.PATH_COMPOTENTS)
+	components_data = ConfigMgr.get_config_data(C.PATH_COMPONENTS_DATA)
 	
 	for c_name: String in components_data.keys():
 		var component_script_path: String = (
-			C.PATH_COMPONENTS_SCRIPTS % (c_name + "_component")
+			C.PATH_COMPONENTS % (c_name + "_component")
 		)
 		if ResourceLoader.exists(component_script_path):
 			components_scripts[c_name] = load(component_script_path)
@@ -333,7 +333,7 @@ func sort_targets(
 		targets: Array, sort_type: String, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_functions = {
-		C.SORT_TYPE_PROGRESS: func(e1, e2):
+		C.SORT_PROGRESS: func(e1, e2):
 			var p1 = (
 				e1.get_c(C.CN_NAV_PATH).nav_progress
 				if e1.has_c(C.CN_NAV_PATH) else 0
@@ -346,12 +346,12 @@ func sort_targets(
 			
 			return p1 > p2 if not reversed else p1 < p2,
 		
-		C.SORT_TYPE_HP: func(e1, e2):
+		C.SORT_HP: func(e1, e2):
 			var h1 = e1.get_c(C.CN_HEALTH).hp if e1.has_c(C.CN_HEALTH) else 0
 			var h2 = e2.get_c(C.CN_HEALTH).hp if e2.has_c(C.CN_HEALTH) else 0
 			return h1 > h2 if not reversed else h1 < h2,
 		
-		C.SORT_TYPE_DIST: func(e1, e2):
+		C.SORT_DIST: func(e1, e2):
 			var d1 = e1.position.distance_squared_to(origin)
 			var d2 = e2.position.distance_squared_to(origin)
 			return d1 > d2 if not reversed else d1 < d2
@@ -507,52 +507,52 @@ func search_target(
 		search_mode, origin, min_range, max_range, flags, bans, filter = null
 	):
 	match search_mode:
-		C.SEARCH_MODE_ENEMY_FIRST:
+		C.SEARCH_ENEMY_FIRST:
 			return find_extreme_enemy(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_ENEMY_LAST:
+		C.SEARCH_ENEMY_LAST:
 			return find_extreme_enemy(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_ENEMY_NEARST:
+		C.SEARCH_ENEMY_NEARST:
 			return find_extreme_enemy(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_ENEMY_FARTHEST:
+		C.SEARCH_ENEMY_FARTHEST:
 			return find_extreme_enemy(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true)
-		C.SEARCH_MODE_ENEMY_STRONGEST:
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true)
+		C.SEARCH_ENEMY_STRONGEST:
 			return find_extreme_enemy(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_ENEMY_WEAKEST:
+		C.SEARCH_ENEMY_WEAKEST:
 			return find_extreme_enemy(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_FRIENDLY_FIRST:
+		C.SEARCH_FRIENDLY_FIRST:
 			return find_extreme_friendly(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_FRIENDLY_LAST:
+		C.SEARCH_FRIENDLY_LAST:
 			return find_extreme_friendly(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_FRIENDLY_NEARST:
+		C.SEARCH_FRIENDLY_NEARST:
 			return find_extreme_friendly(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_FRIENDLY_FARTHEST:
+		C.SEARCH_FRIENDLY_FARTHEST:
 			return find_extreme_friendly(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_FRIENDLY_STRONGEST:
+		C.SEARCH_FRIENDLY_STRONGEST:
 			return find_extreme_friendly(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_FRIENDLY_WEAKEST:
+		C.SEARCH_FRIENDLY_WEAKEST:
 			return find_extreme_friendly(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
 			)
 			
 	return null
@@ -562,53 +562,53 @@ func search_targets_in_range(
 		search_mode, origin, min_range, max_range, flags, bans, filter = null
 	) -> Array:
 	match search_mode:
-		C.SEARCH_MODE_ENEMY_FIRST:
+		C.SEARCH_ENEMY_FIRST:
 			return find_sorted_enemies(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_ENEMY_LAST:
+		C.SEARCH_ENEMY_LAST:
 			return find_sorted_enemies(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_ENEMY_NEARST:
+		C.SEARCH_ENEMY_NEARST:
 			return find_sorted_enemies(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_ENEMY_FARTHEST:
+		C.SEARCH_ENEMY_FARTHEST:
 			return find_sorted_enemies(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_ENEMY_STRONGEST:
+		C.SEARCH_ENEMY_STRONGEST:
 			return find_sorted_enemies(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_ENEMY_WEAKEST:
+		C.SEARCH_ENEMY_WEAKEST:
 			return find_sorted_enemies(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_FRIENDLY_FIRST:
+		C.SEARCH_FRIENDLY_FIRST:
 			return find_sorted_friendlys(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_FRIENDLY_LAST:
+		C.SEARCH_FRIENDLY_LAST:
 			return find_sorted_friendlys(
-				C.SORT_TYPE_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_FRIENDLY_NEARST:
+		C.SEARCH_FRIENDLY_NEARST:
 			return find_sorted_friendlys(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_FRIENDLY_FARTHEST:
+		C.SEARCH_FRIENDLY_FARTHEST:
 			return find_sorted_friendlys(
-				C.SORT_TYPE_DIST, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true
 			)
-		C.SEARCH_MODE_FRIENDLY_STRONGEST:
+		C.SEARCH_FRIENDLY_STRONGEST:
 			return find_sorted_friendlys(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
 			)
-		C.SEARCH_MODE_FRIENDLY_WEAKEST:
+		C.SEARCH_FRIENDLY_WEAKEST:
 			return find_sorted_friendlys(
-				C.SORT_TYPE_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
 			)
 			
 	return []

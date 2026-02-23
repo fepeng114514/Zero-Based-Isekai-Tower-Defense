@@ -16,7 +16,7 @@ var min_damage_radius: int = 0
 ## 最大伤害半径，表示子弹造成最大伤害的范围，单位为像素，通常用于范围伤害的子弹
 var max_damage_radius: int = 0
 ## 范围伤害的搜索模式，表示子弹在造成范围伤害时的目标选择策略，默认为优先敌人
-var search_mode: String = C.SEARCH_MODE_ENEMY_FIRST
+var search_mode: String = C.SEARCH_ENEMY_FIRST
 ## 子弹携带的状态效果模板名称列表，表示子弹命中目标时将附加的状态效果模板名称列表
 var mods: Array = []
 ## 子弹携带的实体名称列表

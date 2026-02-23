@@ -36,13 +36,13 @@ var duration: float = -1
 ## 禁止的状态效果标识符，使用位运算表示，表示该实体不能与哪些状态效果进行交互，通常用于状态效果互斥
 var mod_bans: int = C.FLAG_NONE
 ## 禁止的状态效果类型标识符，使用位运算表示，表示该实体不能与哪些类型的状态效果进行交互，通常用于状态效果互斥
-var mod_type_bans: int = C.MOD_TYPE_NONE
+var mod_type_bans: int = C.MOD_NONE
 ## 已拥有的状态效果 ID 列表，表示该实体当前拥有的状态效果实体 ID 列表，通常用于状态效果管理
 var has_mods_ids: Array[int] = []
 ## 禁止的光环标识符，使用位运算表示，表示该实体不能与哪些光环进行交互，通常用于光环互斥
 var aura_bans: int = C.FLAG_NONE
 ## 禁止的光环类型标识符，使用位运算表示，表示该实体不能与哪些类型的光环进行交互，通常用于光环互斥
-var aura_type_bans: int = C.AURA_TYPE_NONE
+var aura_type_bans: int = C.AURA_NONE
 ## 插入实体时创建的光环模板名称列表
 var auras_list: Array = []
 ## 已拥有的光环 ID 列表，表示该实体当前拥有的光环实体 ID 列表，通常用于光环管理

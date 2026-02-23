@@ -19,12 +19,12 @@ class_name C
 
 """
 	========================================
-	基础配置
+	基础常量
 	========================================
 """
 ## 帧率
 const FPS: int = 60
-
+const NAME_TOWER_HOLDER: String = "tower_holder_%s"
 
 """
 	========================================
@@ -85,6 +85,10 @@ const DIR_ENTITIES_SCRIPTS: String = DIR_SCRIPTS + "/entities"
 """
 ## 路径模板：关卡场景
 const PATH_LEVELS_SCENES: String = DIR_LEVELS_SCENES + "/level_%s.tscn"
+## 路径模板：图集图像场景
+const PATH_ATLAS_ASSETS_PNG: String = DIR_ASSETS + "/%s.png"
+## 路径模板：场景
+const PATH_SCENES: String = DIR_SCENES + "/%s.tscn"
 ## 路径模板：实体场景
 const PATH_ENTITIES_SCENES: String = DIR_ENTITIES_SCENES + "/%s.tscn"
 ## 路径模板：系统

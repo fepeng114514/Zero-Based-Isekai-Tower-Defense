@@ -21,7 +21,7 @@ func load(required_systems_name: Array) -> void:
 
 	# 加载需要的系统
 	for sys_name in required_systems_name:
-		var system_path: String = C.PATH_SYSTEMS_SCRIPTS % sys_name
+		var system_path: String = C.PATH_SYSTEMS % sys_name
 		
 		if not ResourceLoader.exists(system_path):
 			printerr("未找到系统: %s" % system_path)

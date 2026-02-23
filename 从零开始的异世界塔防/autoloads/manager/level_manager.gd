@@ -10,8 +10,8 @@ var waves_data: Dictionary = {}
 
 func _ready() -> void:
 	for level_idx in C.LEVEL_LIST:
-		levels_data[level_idx] = ConfigMgr.get_config_data(C.PATH_LEVELS % level_idx)
-		waves_data[level_idx] = ConfigMgr.get_config_data(C.PATH_WAVES % level_idx)
+		levels_data[level_idx] = ConfigMgr.get_config_data(C.PATH_LEVEL_DATA % level_idx)
+		waves_data[level_idx] = ConfigMgr.get_config_data(C.PATH_WAVE_DATA % level_idx)
 
 
 func enter_level(idx: int) -> void:

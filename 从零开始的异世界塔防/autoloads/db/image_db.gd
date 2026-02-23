@@ -17,7 +17,7 @@ func load() -> void:
 
 func load_atlas_group(required_atlas: Array) -> void:
 	for atlas_name in required_atlas:
-		var path: String = C.PATH_ATLAS_ASSETS % atlas_name
+		var path: String = C.DIR_ATLAS_ASSETS % atlas_name
 
 		if path in atlas_uses:
 			print_debug("跳过重复加载图集: %s" % path)
@@ -46,7 +46,7 @@ func _parse_atlas_data(path: String) -> void:
 	
 	for atlas_name: String in atlas_data.keys():
 		var images_data: Dictionary = atlas_data[atlas_name]
-		var atlas_path: String = C.PATH_ATLAS_ASSETS % atlas_name
+		var atlas_path: String = C.PATH_ATLAS_ASSETS_PNG % atlas_name
 		var atlas_file: Texture2D = load(atlas_path)
 		
 		for img_name: String in images_data.keys():
