@@ -89,7 +89,7 @@ func mark_entity_dirty_id(id: int) -> void:
 
 ## 创建实体
 func create_entity(t_name: String) -> Entity:
-	var t = get_templates_scenes(t_name)
+	var t: PackedScene = get_templates_scenes(t_name)
 
 	var e: Entity
 	if not t:
@@ -292,7 +292,7 @@ func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
 	
 
 ## 获取实体模板场景
-func get_templates_scenes(t_name: String, deep: bool = false):
+func get_templates_scenes(t_name: String, deep: bool = false) -> PackedScene:
 	var template_scenes = templates_scenes.get(t_name)
 	
 	if template_scenes == null:

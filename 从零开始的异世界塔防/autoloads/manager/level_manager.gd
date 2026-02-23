@@ -15,7 +15,14 @@ func _ready() -> void:
 
 
 func enter_level(idx: int) -> void:
+	var level_data = levels_data[GlobalStore.level_idx]
+	
 	GlobalStore.level_idx = idx
 	
-	SystemMgr.load(C.LEVEL_REQUIRED_SYSTEMS)
+	ImageDB.load()
+	ImageDB.load_atlas_group(level_data.required_atlas)
+	AnimDB.load()
+	EntityDB.load()
+	PathDB.load(level_data)
+	
 	get_tree().change_scene_to_file(C.PATH_LEVELS_SCENES % idx)

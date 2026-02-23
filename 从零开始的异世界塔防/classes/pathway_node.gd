@@ -8,7 +8,7 @@ var spi: int = -1
 ## 路径节点索引
 var ni: int = -1
 ## 点位
-var pos: Vector2 = Vector2.ZERO
+var pos := Vector2.ZERO
 ## 位于的路径比率
 var ratio: float = 0
 ## 位于的路径位置

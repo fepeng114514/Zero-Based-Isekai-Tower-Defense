@@ -62,13 +62,12 @@ func _process_insert_queue() -> void:
 			if e.id != entities_len:
 				printerr("实体列表长度未与实体 id 对应: id %d, 长度 %d" % [e.id, entities_len])
 		
+		entities.append(e)
 		# 调用所有系统中的插入回调函数，遇到一个返回 false 的系统表示当前实体不能插入，中断并移除当前实体
 		if not call_systems("_on_insert", e):
-			entities.append(e)
 			e.remove_entity()
 			continue
 		
-		entities.append(e)
 		EntityDB.mark_entity_dirty_id(e.id)
 		print_verbose("插入实体: %s(%d)" % [e.template_name, e.id])
 		

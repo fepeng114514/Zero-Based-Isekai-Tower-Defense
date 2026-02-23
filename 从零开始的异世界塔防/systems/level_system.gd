@@ -3,12 +3,6 @@ extends System
 
 func _initialize() -> void:
 	var level_data = LevelMgr.levels_data[GlobalStore.level_idx]
-	
-	ImageDB.load()
-	ImageDB.load_atlas_group(level_data.required_atlas)
-	AnimDB.load()
-	EntityDB.load()
-	PathDB.load(level_data)
 
 	create_level_entities(level_data)
 	# create_level_tower_holders(level_data)

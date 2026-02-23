@@ -24,9 +24,9 @@ var payloads: Array = []
 ## 子弹数值速度，表示子弹的飞行速度，单位为像素/秒
 var speed = 0
 ## 方向向量，表示子弹的飞行方向
-var direction: Vector2 = Vector2.RIGHT
+var direction := Vector2.RIGHT
 ## 子弹向量速度，表示子弹的飞行方向和速度，单位为像素/秒，通常用于非线性飞行轨迹的子弹
-var velocity: Vector2 = Vector2.ZERO
+var velocity := Vector2.ZERO
 ## 子弹旋转速度，表示子弹的旋转速度，单位为弧度/秒
 var rotation_speed: float = 0
 ## 子弹旋转方向，表示子弹旋转的方向，1 表示顺时针旋转，-1 表示逆时针旋转
@@ -40,13 +40,13 @@ var g: int = 980
 ## 飞行轨迹类型，表示子弹的飞行轨迹类型，例如线性、抛物线等，使用常量表示
 var flight_trajectory: int = C.TRAJECTORY_LINEAR
 ## 起始位置，表示子弹的起始位置，单位为像素
-var from: Vector2 = Vector2(0, 0)
+var from := Vector2.ZERO
 ## 目标位置，表示子弹的目标位置，单位为像素
-var to: Vector2 = Vector2(0, 0)
+var to := Vector2.ZERO
 ## 是否可以到达目标位置，表示子弹是否可以飞行到目标位置
 var can_arrived: bool = true
 ## 预判目标位置，表示子弹根据目标的移动速度和方向预判的目标位置，单位为像素
-var predict_target_pos: Vector2 = Vector2(0, 0)
+var predict_target_pos := Vector2.ZERO
 ## 是否禁用预判目标位置，表示子弹是否禁用预判目标位置，通常用于某些特殊的子弹，例如瞬发子弹等
 var predict_pos_disabled: bool = false
 var hit_dist: int = 10

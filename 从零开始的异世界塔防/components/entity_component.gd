@@ -7,6 +7,7 @@ class_name Entity
 	并提供一些通用的接口和事件回调，供系统和组件调用。
 """
 
+#region 属性
 ## 模板名称
 var template_name: String = ""
 ## 实体唯一 ID
@@ -47,7 +48,7 @@ var aura_type_bans: int = C.AURA_NONE
 var auras_list: Array = []
 ## 已拥有的光环 ID 列表，表示该实体当前拥有的光环实体 ID 列表，通常用于光环管理
 var has_auras_ids: Array[int] = []
-var hit_rect: Rect2 = Rect2(1, 1, 1, 1)
+var hit_rect := Rect2(1, 1, 1, 1)
 ## 实体状态，通常用于区分实体的不同阶段或行为模式
 var state: int = C.STATE_IDLE
 ## 协程等待状态
@@ -67,8 +68,11 @@ var track_source: bool = false
 ## 追踪目标实体，通常用于状态效果等需要持续追踪的实体
 var track_target: bool = false
 ## 上一帧位置
-var last_position: Vector2 = Vector2(0, 0)
+var last_position := Vector2.ZERO
+#endregion
 
+
+#region 回调函数
 ## 准备插入实体时调用（创建实体），返回 false 的实体不会被创建
 ## [br]
 ## 注：此时节点还未初始化
@@ -149,8 +153,10 @@ func _on_bullet_miss(target: Entity, bullet_c: BulletComponent) -> void: pass
 
 ## 计算子弹伤害系数时调用，返回值为伤害系数
 func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponent) -> float: return 1.0
+#endregion
 
 
+#region 标识相关方法
 func is_enemy() -> bool:
 	return flags & C.FLAG_ENEMY
 
@@ -173,8 +179,10 @@ func is_aura() -> bool:
 
 func is_bullet() -> bool:
 	return flags & C.FLAG_BULLET
+#endregion
 
 
+#region 组件相关方法
 func get_c(c_name: String):
 	if not has_c(c_name):
 		printerr("未找到组件: %s" % c_name)
@@ -222,6 +230,7 @@ func merged_c_data(
 		return U.convert_json_data(result)
 
 	return result
+#endregion
 
 
 func set_template_data(template_data: Dictionary) -> void:
@@ -392,6 +401,8 @@ func set_nav_path_at_pos(pos):
 	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
 	
 
+#region 动画相关方法
+## 获取指定索引的动画精灵
 func get_animated_sprite(sprite_idx: int = 0) -> AnimatedSprite2D:
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	var sprite = sprite_c.node_list[sprite_idx]
@@ -402,13 +413,15 @@ func get_animated_sprite(sprite_idx: int = 0) -> AnimatedSprite2D:
 	
 	return sprite
 	
-
+	
+## 播放动画
 func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
 	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	
 	sprite.play(anim_name)
 	
 
+## 等待动画播放完成
 func wait_animation(
 		anim_name: String, sprite_idx: int = 0, times: int = 1, break_fn = null
 	) -> void:
@@ -421,3 +434,4 @@ func wait_animation(
 		await sprite.animation_looped
 		
 	y_waiting = false
+#endregion

@@ -116,15 +116,16 @@
 							"bullet": "bullet_arrow",
 							"min_range": 0,
 							"max_range": 400,
-							"cooldown": 1
+							"cooldown": 1,
+							"delay": "%fts(7)"
 						}
 					]
 				},
 				"sprite": {
 					"list": [
 						{
-							"type": "image",
-							"sprite_name": "tower_archer_lvl1_shooter_0001"
+							"type": "animated",
+							"sprite_name": "tower_archer_lvl1_shooter"
 						}
 					]
 				}
@@ -244,7 +245,7 @@
 				"sprite": {
 					"list": [
 						{
-							"type": "animation",
+							"type": "animated",
 							"sprite_name": "goblin"
 						}
 					]

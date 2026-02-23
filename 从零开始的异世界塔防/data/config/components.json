@@ -221,8 +221,8 @@
 	},
 	"sprite": {
 		"templates": {
-			"animation": {
-				"type": "animation",
+			"animated": {
+				"type": "animated",
 				"sprite_name": ""
 			},
 			"image": {

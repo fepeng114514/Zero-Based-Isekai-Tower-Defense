@@ -6,6 +6,7 @@ var whitelist_state: int = C.STATE_NONE
 var wait_entity: bool = false
 
 
+#region 回调函数
 ## 系统初始化时调用
 func _initialize() -> void: pass
 
@@ -34,6 +35,7 @@ func _on_remove(e: Entity) -> void: pass
 
 ## 更新实体时调用
 func _on_update(delta: float) -> void: pass
+#endregion
 
 
 func can_attack(a: Dictionary, target: Entity) -> bool:

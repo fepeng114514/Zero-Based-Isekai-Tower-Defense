@@ -17,20 +17,29 @@ class_name C
 """
 
 
-"""
-	========================================
-	基础常量
-	========================================
-"""
+#region 基础常量
 ## 帧率
 const FPS: int = 60
 const NAME_TOWER_HOLDER: String = "tower_holder_%s"
+#endregion
 
-"""
-	========================================
-	数据文件路径
-	========================================
-"""
+#region 日志级别
+## 日志级别：调试信息
+const LOG_DEBUG: int = 0
+## 日志级别：普通信息
+const LOG_INFO: int = 1
+## 日志级别：警告
+const LOG_WARN: int = 2
+## 日志级别：错误
+const LOG_ERR: int = 3
+## 日志级别：致命错误
+const LOG_FATAL: int = 4
+## 日志级别：不输出任何日志
+const LOG_NONE: int = 5
+#endregion
+
+
+#region 数据文件路径
 ## 路径：模板数据
 const PATH_TEMPLATES_DATA: String = "templates.json"
 ## 路径：组件数据
@@ -41,13 +50,10 @@ const PATH_ANIMATIONS_DATA: String = "animations.json"
 const PATH_LEVEL_DATA: String = "levels/level_%s_data.json"
 ## 路径：波次数据
 const PATH_WAVE_DATA: String = "levels/level_%s_wave.json"
+#endregion
 
 
-"""
-	========================================
-	资源目录
-	========================================
-"""
+#region 资源目录
 ## 目录：资产
 const DIR_ASSETS: String = "res://assets"
 ## 目录：自动加载
@@ -76,13 +82,10 @@ const DIR_ENTITIES_SCENES: String = DIR_SCENES + "/entities"
 const DIR_LEVELS_SCENES: String = DIR_SCENES + "/levels"
 ## 目录：实体脚本
 const DIR_ENTITIES_SCRIPTS: String = DIR_SCRIPTS + "/entities"
+#endregion
 
 
-"""
-	========================================
-	路径模板
-	========================================
-"""
+#region 路径模板
 ## 路径模板：关卡场景
 const PATH_LEVELS_SCENES: String = DIR_LEVELS_SCENES + "/level_%s.tscn"
 ## 路径模板：图集数据
@@ -97,32 +100,26 @@ const PATH_SYSTEMS: String = DIR_SYSTEMS + "/%s.gd"
 const PATH_COMPONENTS: String = DIR_COMPONENTS + "/%s.gd"
 ## 路径模板：实体脚本
 const PATH_ENTITIES_SCRIPTS: String = DIR_ENTITIES_SCRIPTS + "/%s.gd"
+#endregion
 
 
-"""
-	========================================
-	状态标志 (位运算)
-	========================================
-"""
+#region 状态标志 (位运算)
 ## 状态：无
 const STATE_NONE: int = 0
-## 状态：空闲中
+## 状态：空闲
 const STATE_IDLE: int = 1
-## 状态：近战攻击中
+## 状态：近战攻击
 const STATE_MELEE: int = 1 << 1
-## 状态：远程攻击中
+## 状态：远程攻击
 const STATE_RANGED: int = 1 << 2
 ## 状态：被阻塞
 const STATE_BLOCK: int = 1 << 3
 ## 状态：前往集结点
 const STATE_RALLY: int = 1 << 4
+#endregion
 
 
-"""
-	========================================
-	伤害类型 (位运算)
-	========================================
-"""
+#region 伤害类型 (位运算)
 ## 伤害类型：无
 const DAMAGE_NONE: int = 0
 ## 伤害类型：物伤
@@ -141,13 +138,10 @@ const DAMAGE_DISINTEGRATE: int = 1 << 5
 const DAMAGE_POISON: int = 1 << 6
 ## 伤害类型：吃
 const DAMAGE_EAT: int = 1 << 7
+#endregion
 
 
-"""
-	========================================
-	实体标志 (位运算)
-	========================================
-"""
+#region 实体标志 (位运算)
 ## 标识：无
 const FLAG_NONE: int = 0
 ## 标识：敌人
@@ -168,13 +162,10 @@ const FLAG_MODIFIER: int = 1 << 6
 const FLAG_AURA: int = 1 << 7
 ## 标识：飞行
 const FLAG_FLYING: int = 1 << 8
+#endregion
 
 
-"""
-	========================================
-	状态效果类型 (位运算)
-	========================================
-"""
+#region 状态效果类型 (位运算)
 ## 状态效果类型：无
 const MOD_NONE: int = 0
 ## 状态效果类型：毒
@@ -187,26 +178,20 @@ const MOD_BLEED: int = 1 << 2
 const MOD_FREEZE: int = 1 << 3
 ## 状态效果类型：眩晕
 const MOD_STUN: int = 1 << 4
+#endregion
 
 
-"""
-	========================================
-	光环类型 (位运算)
-	========================================
-"""
+#region 光环类型 (位运算)
 ## 光环类型：无
 const AURA_NONE: int = 0
 ## 光环类型：正面效果
 const AURA_BUFF: int = 1
 ## 光环类型：负面效果
 const AURA_DEBUFF: int = 1 << 1
+#endregion
 
 
-"""
-	========================================
-	轨迹类型 (位运算)
-	========================================
-"""
+#region 轨迹类型 (位运算)
 ## 轨迹：直线
 const TRAJECTORY_LINEAR: int = 1
 ## 轨迹：抛物线
@@ -215,13 +200,10 @@ const TRAJECTORY_PARABOLA: int = 1 << 1
 const TRAJECTORY_TRACKING: int = 1 << 2
 ## 轨迹：瞬移
 const TRAJECTORY_INSTANT: int = 1 << 3
+#endregion
 
 
-"""
-	========================================
-	组件名称 (StringName)
-	========================================
-"""
+#region 组件名称 (StringName)
 ## 组件名称：血量
 const CN_HEALTH: StringName = &"health"
 ## 组件名称：血条
@@ -248,13 +230,10 @@ const CN_SPRITE: StringName = &"sprite"
 const CN_BARRACK: StringName = &"barrack"
 ## 组件名称：生成器
 const CN_SPAWNER: StringName = &"spawner"
+#endregion
 
 
-"""
-	========================================
-	组名称 (StringName)
-	========================================
-"""
+#region 组名称 (StringName)
 ## 组名：敌人
 const GROUP_ENEMIES: StringName = &"enemies"
 ## 组名：友军
@@ -267,12 +246,10 @@ const GROUP_MODIFIERS: StringName = &"modifiers"
 const GROUP_AURAS: StringName = &"auras"
 ## 组名：子弹
 const GROUP_BULLETS: StringName = &"bullets"
+#endregion
 
-"""
-	========================================
-	搜索模式 (StringName)
-	========================================
-"""
+
+#region 搜索模式 (StringName)
 ## 搜索模式：敌人第一个
 const SEARCH_ENEMY_FIRST: StringName = &"enemy_first"
 ## 搜索模式：敌人最后一个
@@ -297,25 +274,20 @@ const SEARCH_FRIENDLY_FARTHEST: StringName = &"friendly_farthest"
 const SEARCH_FRIENDLY_STRONGEST: StringName = &"friendly_strongest"
 ## 搜索模式：友军最弱
 const SEARCH_FRIENDLY_WEAKEST: StringName = &"friendly_weakest"
+#endregion
 
-"""
-	========================================
-	排序类型 (StringName)
-	========================================
-"""
+
+#region 排序类型 (StringName)
 ## 排序类型：路径路程
 const SORT_PROGRESS: StringName = &"progress"
 ## 排序类型：距离
 const SORT_DIST: StringName = &"dist"
 ## 排序类型：血量
 const SORT_HP: StringName = &"hp"
+#endregion
 
 
-"""
-	=======================================
-	关卡相关常量
-	=======================================
-"""
+#region 关卡相关常量
 ## 关卡列表
 const LEVEL_LIST: Array[int] = [1]
 ## 关卡必需系统名称列表
@@ -341,3 +313,4 @@ const LEVEL_REQUIRED_ATLAS: Array[String] = [
 	"common_enemies",
 	"towers",
 ]
+#endregion

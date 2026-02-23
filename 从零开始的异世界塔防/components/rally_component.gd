@@ -2,9 +2,9 @@ extends Node
 class_name RallyComponent
 
 var speed: int = 100
-var rally_pos: Vector2 = Vector2(0, 0)
+var rally_pos := Vector2.ZERO
 var rally_radius: int = 30
-var direction: Vector2 = Vector2.LEFT
+var direction := Vector2.ZERO
 var arrived: bool = false
 var arrived_dist: int = 10
 var animation: String = "walk"

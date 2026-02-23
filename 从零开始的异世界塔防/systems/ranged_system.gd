@@ -44,4 +44,6 @@ func _on_update(delta: float) -> void:
 				
 				b.insert_entity()
 					
-				a.ts = TimeDB.tick_ts)
+				a.ts = TimeDB.tick_ts
+				e.play_animation("default")
+			)

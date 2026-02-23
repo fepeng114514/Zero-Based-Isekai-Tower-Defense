@@ -12,7 +12,7 @@ func _on_ready_insert(e: Entity) -> bool:
 		var sprite
 		var sprite_name: String = sprite_data.sprite_name
 		match sprite_data.type:
-			"animation":
+			"animated":
 				sprite = AnimatedSprite2D.new()
 				sprite.sprite_frames = AnimDB.get_animation(sprite_name)
 				sprite.autoplay = "default"

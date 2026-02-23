@@ -32,17 +32,17 @@ var blocker_id = null
 var block_flags: int = 0
 var block_bans: int = 0
 ## 移动方向，表示实体的移动方向
-var motion_direction: Vector2 = Vector2(0, 0)
+var motion_direction := Vector2.ZERO
 ## 移动速度，表示实体前往近战位置的移动速度，单位为像素/秒
 var motion_speed: int = 100
 ## 原始位置，表示实体的原始位置，通常用于实体返回原始位置
-var origin_pos: Vector2 = Vector2(0, 0)
+var origin_pos := Vector2.ZERO
 ## 是否已经到达原始位置，表示实体是否已经返回原始位置
 var origin_pos_arrived: bool = true
 ## 近战位置，表示实体的近战位置，通常用于实体前往近战位置进行攻击
-var melee_slot: Vector2 = Vector2(0, 0)
+var melee_slot := Vector2.ZERO
 ## 近战位置偏移，表示近战位置相对于实体位置的偏移，通常用于调整实体的近战位置
-var melee_slot_offset: Vector2 = Vector2(0, 0)
+var melee_slot_offset := Vector2.ZERO
 ## 是否已经到达近战位置，表示实体是否已经到达近战位置
 var melee_slot_arrived: bool = true
 ## 到达近战位置的阈值

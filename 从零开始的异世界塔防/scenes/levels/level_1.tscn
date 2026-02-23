@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://dn322bbgr6nvm"]
 
+[ext_resource type="Script" uid="uid://yur7o864jejr" path="res://scripts/level.gd" id="1_x42e6"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
 [ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://scripts/store.gd" id="4_oc4kc"]
-[ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://scenes/levels/01地图.png" id="4_x42e6"]
+[ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://assets/01地图.png" id="4_x42e6"]
+[ext_resource type="Script" uid="uid://b1ra00fj0a0mm" path="res://scripts/camera.gd" id="5_6761a"]
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]
 _data = {
@@ -11,6 +13,7 @@ _data = {
 point_count = 14
 
 [node name="level_1" type="Node2D" unique_id=787879478]
+script = ExtResource("1_x42e6")
 metadata/_edit_vertical_guides_ = [-464.0]
 
 [node name="Pathways" type="Node" parent="." unique_id=1530672308]
@@ -33,3 +36,4 @@ texture = ExtResource("4_x42e6")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=740022403]
 position = Vector2(1280, 720)
 zoom = Vector2(0.4, 0.4)
+script = ExtResource("5_6761a")

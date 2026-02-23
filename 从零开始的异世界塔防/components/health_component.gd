@@ -10,7 +10,7 @@ var hp_max: int = 0
 ## 当前生命值，表示实体当前的生命值，为 0 时表示实体死亡
 var hp: int = 0
 ## 血条缩放，表示血条的缩放比例，通常用于调整血条的大小以适应不同大小的实体
-var health_bar_scale: Vector2 = Vector2(1, 1)
+var health_bar_scale: Vector2 = Vector2.ONE
 ## 血条偏移，表示血条相对于实体位置的偏移，通常用于调整血条的位置以适应不同大小的实体
 var health_bar_offset: Vector2 = Vector2(0, -30)
 ## 物理护甲值，表示实体的物理护甲值，护甲可以减少实体受到的物理伤害

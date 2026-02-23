@@ -8,7 +8,7 @@ class_name BarrackComponent
 ## 集结范围，表示士兵的可集结范围，单位为像素
 var rally_ranged: int = 200
 ## 集结点位置
-var rally_pos: Vector2 = Vector2(0, 0)
+var rally_pos := Vector2.ZERO
 ## 集结点半径，表示士兵距离集结点中心的半径，单位为像素
 var rally_radius: int = 30
 ## 集结点移动速度，表示士兵移动到集结点的速度，单位为像素/秒
