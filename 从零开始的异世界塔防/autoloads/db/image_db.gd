@@ -17,19 +17,17 @@ func load() -> void:
 
 func load_atlas_group(required_atlas: Array) -> void:
 	for atlas_name in required_atlas:
-		var path: String = C.DIR_ATLAS_ASSETS % atlas_name
-
-		if path in atlas_uses:
-			print_debug("跳过重复加载图集: %s" % path)
+		if atlas_name in atlas_uses:
+			print_debug("跳过重复加载图集: %s" % atlas_name)
 			return
 
-		atlas_uses.append(path)
-		print_debug("加载图集: %s" % path)
-		_parse_atlas_data(path)
+		atlas_uses.append(atlas_name)
+		print_debug("加载图集: %s" % atlas_name)
+		_parse_atlas_data(atlas_name)
 
 
 ## 解析图集数据
-func _parse_atlas_data(path: String) -> void:
+func _parse_atlas_data(atlas_name: String) -> void:
 	"""图集格式
 		"图集名.png": {	# 来自哪个图集，主要用于多图集的打包
 			"图像名": {
@@ -42,17 +40,19 @@ func _parse_atlas_data(path: String) -> void:
 				"alias": []	# 别名
 			},
 	"""
-	var atlas_data = U.load_json_file(path + ".json")
+	var atlas_data = U.load_json_file(C.PATH_ATLAS_ASSETS_DATA % atlas_name)
 	
-	for atlas_name: String in atlas_data.keys():
-		var images_data: Dictionary = atlas_data[atlas_name]
-		var atlas_path: String = C.PATH_ATLAS_ASSETS_PNG % atlas_name
+	for data_atlas_name: String in atlas_data.keys():
+		var images_data: Dictionary = atlas_data[data_atlas_name]
+		var atlas_path: String = C.DIR_ATLAS_ASSETS.path_join(data_atlas_name)
 		var atlas_file: Texture2D = load(atlas_path)
 		
 		for img_name: String in images_data.keys():
 			var img_data: Dictionary = images_data[img_name]
 
-			var atlas_texture: AtlasTexture = _create_atlas_texture(img_data, atlas_file)
+			var atlas_texture: AtlasTexture = _create_atlas_texture(
+				img_data, atlas_file
+			)
 			image_db[img_name] = atlas_texture
 
 			for alias: String in img_data.alias:

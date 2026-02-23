@@ -4,7 +4,7 @@ extends Node
 	管理加载配置
 """
 
-const RES_PATH: String = "res://config/"
+const RES_PATH: String = "res://data/config/"
 const USER_PATH: String = "user://config/"
 	
 

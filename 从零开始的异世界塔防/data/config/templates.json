@@ -245,7 +245,7 @@
 					"list": [
 						{
 							"type": "animation",
-							"sprite_name": "enemy_goblin"
+							"sprite_name": "goblin"
 						}
 					]
 				}
