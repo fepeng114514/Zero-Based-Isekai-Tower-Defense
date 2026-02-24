@@ -24,7 +24,7 @@ func load(required_systems_name: Array) -> void:
 		var system_path: String = C.PATH_SYSTEMS % sys_name
 		
 		if not ResourceLoader.exists(system_path):
-			printerr("未找到系统: %s" % system_path)
+			Log.error("未找到系统: %s", system_path)
 			continue
 			
 		var system = load(system_path)
@@ -60,7 +60,10 @@ func _process_insert_queue() -> void:
 		if entities:
 			var entities_len: int = entities.size()
 			if e.id != entities_len:
-				printerr("实体列表长度未与实体 id 对应: id %d, 长度 %d" % [e.id, entities_len])
+				Log.error(
+					"实体列表长度未与实体 id 对应: id %d, 长度 %d", 
+					[e.id, entities_len]
+				)
 		
 		entities.append(e)
 		# 调用所有系统中的插入回调函数，遇到一个返回 false 的系统表示当前实体不能插入，中断并移除当前实体
@@ -69,7 +72,7 @@ func _process_insert_queue() -> void:
 			continue
 		
 		EntityDB.mark_entity_dirty_id(e.id)
-		print_verbose("插入实体: %s(%d)" % [e.template_name, e.id])
+		Log.verbose("插入实体: %s(%d)", [e.template_name, e.id])
 		
 		e.visible = true
 

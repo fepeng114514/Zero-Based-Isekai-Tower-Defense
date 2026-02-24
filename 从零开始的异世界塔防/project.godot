@@ -22,7 +22,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://autoloads/db/global.gd"
+Global="*uid://b1ax1cob25oom"
 ConfigMgr="*res://autoloads/manager/config_manager.gd"
 TimeDB="*res://autoloads/db/time_db.gd"
 SystemMgr="*res://systems/system_manager.gd"

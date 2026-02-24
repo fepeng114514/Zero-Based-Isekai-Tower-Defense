@@ -126,14 +126,14 @@ static func is_at_destination(current_pos: Vector2, target_pos: Vector2, thresho
 
 #region JSON 相关工具函数
 ## 加载 JSON 文件
-static func load_json_file(path: String):
+static func load_json_file(path: String) -> Variant:
 	if not FileAccess.file_exists(path):
-		printerr("JSON 文件不存在: " + path)
+		Log.error("JSON 文件不存在: %s", path)
 		return null
 	
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
-		printerr("无法打开文件: " + path)
+		Log.error("无法打开文件: %s", path)
 		return null
 	
 	var content: String = file.get_as_text()
@@ -143,15 +143,15 @@ static func load_json_file(path: String):
 	var parse_result: int = json.parse(content)
 	
 	if parse_result != OK:
-		printerr("JSON 解析错误: " + json.get_error_message())
-		printerr("错误行: " + str(json.get_error_line()))
+		Log.error("JSON 解析错误: %s", json.get_error_message())
+		Log.error("错误行: %d", json.get_error_line())
 		return null
 	
 	return json.get_data()
 
 
 ## 递归转换 JSON 数据中的格式化字符串
-static func convert_json_data(data):
+static func convert_json_data(data: Variant) -> Variant:
 	var new_data
 	
 	match typeof(data):
@@ -208,7 +208,7 @@ static var type_handlers: Dictionary = {
 
 
 ## 解析格式化字符串
-static func parse_json_value(value: String):
+static func parse_json_value(value: String) -> Variant:
 	var regex := RegEx.new()
 	regex.compile("%(\\w+)\\(([^)]*)\\)")
 	
@@ -229,7 +229,7 @@ static func parse_json_value(value: String):
 
 #region 深拷贝相关工具函数
 ## 浅拷贝，不同于 duplicate 此方法会安全处理不同类型
-static func clone(value):
+static func clone(value: Variant) -> Variant:
 	if value is Dictionary:
 		var result = {}
 		for key in value:
@@ -247,7 +247,7 @@ static func clone(value):
 	
 	
 ## 深拷贝，不同于 duplicate_deep 此方法会安全处理不同类型
-static func deepclone(value):
+static func deepclone(value: Variant) -> Variant:
 	# 对于字典，递归复制
 	if value is Dictionary:
 		var result = {}
@@ -521,7 +521,7 @@ static func deepmerge_array_recursive_new(
 #endregion
 
 
-static func attacks_sort_fn(a1, a2) -> bool:
+static func attacks_sort_fn(a1: Dictionary, a2: Dictionary) -> bool:
 	var a1_chance: float = a1.chance
 	var a2_chance: float = a2.chance
 	var a1_cooldown: float = a1.cooldown
@@ -533,24 +533,26 @@ static func attacks_sort_fn(a1, a2) -> bool:
 	)
 	
 	
-static func get_component_name(node_name) -> String:
+static func get_component_name(node_name: String) -> String:
 	return node_name.replace("Component", "")
 
 
 ## 判断实体是否有效
-static func is_vaild_entity(e) -> bool:
+static func is_vaild_entity(e: Variant) -> bool:
 	return e and is_instance_valid(e) and not e.removed
 
 
-static func is_allowed_entity(e, target: Entity):
+static func is_allowed_entity(e: Variant, target: Entity) -> bool:
 	var t_template_name: String = target.template_name
+	var whitelist_template: Array[String] = e.whitelist_template
+	var blacklist_template: Array[String] = e.blacklist_template
 	
 	return (
 		(
-			not e.whitelist_template
-			or t_template_name in e.whitelist_template
+			not whitelist_template
+			or t_template_name in whitelist_template
 		)
-		and t_template_name not in e.blacklist_template
+		and t_template_name not in blacklist_template
 	)
 
 

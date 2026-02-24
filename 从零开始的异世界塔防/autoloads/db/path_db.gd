@@ -131,7 +131,7 @@ func get_nearst_nodes_list(
 
 	for pi: int in pi_l:
 		if valid_only and not get_pathway(pi).is_active():
-			print_debug("路径 %s 已被禁用" % pi)
+			Log.debug("路径 %s 已被禁用", pi)
 			continue
 
 		for spi: int in spi_l:

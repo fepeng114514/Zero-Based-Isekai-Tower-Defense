@@ -7,5 +7,5 @@ func _ready() -> void:
 	EntityDB.create_entity_s.connect(_on_create_entity)
 
 
-func _on_create_entity(entity: Entity):
+func _on_create_entity(entity: Entity) -> void:
 	Entities.add_child(entity)

@@ -31,7 +31,7 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
-func _on_update(delta) -> void:
+func _on_update(delta: float) -> void:
 	_process_damege_queue()
 
 	process_entities(C.CN_HEALTH, func(e: Entity):
@@ -58,7 +58,7 @@ func _process_damege_queue() -> void:
 			
 		_take_damage(target, d, t_health_c)
 
-func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
+func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> void:
 	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
 	
 	if d.damage_type & C.DAMAGE_EAT:
@@ -72,9 +72,9 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent):
 	
 	target._on_damage(target, d)
 	
-	print_verbose(
+	Log.verbose(
 		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
-		% [
+		, [
 			target.template_name, 
 			d.target_id, 
 			source.template_name if source else "unknow", 

@@ -37,7 +37,7 @@ func _on_update(delta: float) -> void:
 		do_attacks(e, melee_c)
 	)
 
-func process_blocker(e: Entity, melee_c: MeleeComponent):
+func process_blocker(e: Entity, melee_c: MeleeComponent) -> void:
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	
 	if blockeds_ids and melee_c.blocked_count >= melee_c.max_blocked:
@@ -70,7 +70,7 @@ func process_blocker(e: Entity, melee_c: MeleeComponent):
 		melee_c.set_origin_pos(e.position)
 	
 
-func find_blocked(e: Entity, melee_c: MeleeComponent):
+func find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 	var filter = func(entity, origin): return (
 		entity.has_c(C.CN_MELEE) and not entity.id in melee_c.blockeds_ids
 	)
@@ -96,7 +96,7 @@ func find_blocked(e: Entity, melee_c: MeleeComponent):
 	return targets
 	
 
-func process_blocked(e: Entity, melee_c: MeleeComponent):
+func process_blocked(e: Entity, melee_c: MeleeComponent) -> void:
 	var blocker_id = melee_c.blocker_id
 	
 	if blocker_id == null:
@@ -127,7 +127,7 @@ func process_blocked(e: Entity, melee_c: MeleeComponent):
 		go_melee_slot(e, melee_c)
 
 
-func go_melee_slot(e: Entity, melee_c: MeleeComponent):
+func go_melee_slot(e: Entity, melee_c: MeleeComponent) -> void:
 	melee_c.motion_direction = (melee_c.melee_slot - e.position).normalized()
 	e.position += melee_c.motion_direction * melee_c.motion_speed * TimeDB.frame_length
 	
@@ -137,7 +137,7 @@ func go_melee_slot(e: Entity, melee_c: MeleeComponent):
 	melee_c.melee_slot_arrived = true
 	
 
-func back_origin_pos(e: Entity, melee_c: MeleeComponent):
+func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> void:
 	melee_c.motion_direction = (melee_c.origin_pos - e.position).normalized()
 	e.position += melee_c.motion_direction * melee_c.motion_speed * TimeDB.frame_length
 	
@@ -146,10 +146,9 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent):
 		
 	melee_c.origin_pos_arrived = true
 	e.state = C.STATE_IDLE
-	return
 
 
-func do_attacks(e: Entity, melee_c: MeleeComponent):
+func do_attacks(e: Entity, melee_c: MeleeComponent) -> void:
 	if not melee_c.blockeds_ids:
 		return
 		
@@ -162,7 +161,7 @@ func do_attacks(e: Entity, melee_c: MeleeComponent):
 		attack(e, a, melee_c, blocked)
 
 
-func attack(e: Entity, a: Dictionary, melee_c: MeleeComponent, blocked: Entity):
+func attack(e: Entity, a: Dictionary, melee_c: MeleeComponent, blocked: Entity) -> void:
 	EntityDB.create_damage(
 		blocked.id, a.min_damage, a.max_damage, a.damage_type, e.id
 	)

@@ -55,7 +55,8 @@ var templates: Dictionary = {}
 var order: Array = []
 
 
-func calculate_blocked_count():
+## 计算被拦截者数量（考虑拦截代价）
+func calculate_blocked_count() -> void:
 	var count: int = 0
 	
 	for id in blockeds_ids:
@@ -86,7 +87,7 @@ func sort_attacks() -> void:
 	order.sort_custom(U.attacks_sort_fn)
 
 
-func get_blocked(filter = null) -> Array[Entity]:
+func get_blocked(filter: Variant = null) -> Array[Entity]:
 	var blocked_list: Array[Entity] = []
 	
 	for id in blockeds_ids:

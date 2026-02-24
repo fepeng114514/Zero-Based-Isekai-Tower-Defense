@@ -45,7 +45,9 @@ func get_pathway_node(ni: int = nav_ni) -> PathwayNode:
 	return PathDB.get_pathway_node(nav_pi, nav_spi, ni)
 
 
-func set_nav_path(pi: int, spi = null, ni = null) -> void:
+func set_nav_path(
+		pi: int, spi: Variant = null, ni: Variant = null
+	) -> void:
 	nav_pi = pi
 	if spi != null:
 		nav_spi = spi
@@ -53,7 +55,7 @@ func set_nav_path(pi: int, spi = null, ni = null) -> void:
 		nav_ni = ni
 
 
-func set_pathway_node(node: PathwayNode):
+func set_pathway_node(node: PathwayNode) -> void:
 	nav_ni = node.ni
 	nav_progress = node.progress
 	nav_ratio = node.ratio

@@ -11,7 +11,7 @@ var animation: String = "walk"
 var can_click_rally: bool = true
 
 
-func new_rally(new_rally_pos: Vector2, new_rally_radius = null):
+func new_rally(new_rally_pos: Vector2, new_rally_radius: Variant = null) -> void:
 	arrived = false
 	rally_pos = new_rally_pos
 	
@@ -19,7 +19,7 @@ func new_rally(new_rally_pos: Vector2, new_rally_radius = null):
 		rally_radius = new_rally_radius
 
 
-func rally_formation_position(count: int, idx: int):
+func rally_formation_position(count: int, idx: int) -> void:
 	if count == 1:
 		return
 		

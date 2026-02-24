@@ -14,7 +14,7 @@ var screen_size: Vector2
 var camera: Camera2D
 var target_zoom: Vector2  # 目标缩放值（用于平滑缩放）
 
-func _ready():
+func _ready() -> void:
 	# 获取屏幕大小
 	screen_size = get_viewport().get_visible_rect().size
 	# 获取相机节点
@@ -22,7 +22,7 @@ func _ready():
 	# 初始化目标缩放
 	target_zoom = zoom
 
-func _process(delta):
+func _process(delta: float) -> void:
 	# 获取鼠标位置
 	var mouse_pos = get_viewport().get_mouse_position()
 	
@@ -50,7 +50,7 @@ func _process(delta):
 	# 平滑缩放（可选）
 	zoom = zoom.lerp(target_zoom, zoom_smooth_speed * delta)
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	# 检测滚轮事件
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:  # 滚轮向上
@@ -59,7 +59,7 @@ func _input(event):
 			zoom_out(event.position)
 
 # 以鼠标位置为中心放大
-func zoom_in(mouse_position: Vector2):
+func zoom_in(mouse_position: Vector2) -> void:
 	# 计算新的缩放值
 	var new_zoom = target_zoom - Vector2(zoom_speed, zoom_speed)
 	# 限制最小缩放
@@ -77,7 +77,7 @@ func zoom_in(mouse_position: Vector2):
 		position = mouse_world_pos - (mouse_position - position) / target_zoom
 
 # 以鼠标位置为中心缩小
-func zoom_out(mouse_position: Vector2):
+func zoom_out(mouse_position: Vector2) -> void:
 	# 计算新的缩放值
 	var new_zoom = target_zoom + Vector2(zoom_speed, zoom_speed)
 	# 限制最大缩放

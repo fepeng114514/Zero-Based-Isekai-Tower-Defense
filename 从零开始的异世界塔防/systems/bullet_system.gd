@@ -110,7 +110,7 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 		e.remove_entity()
 		
 
-func damege_target(e: Entity, bullet_c: BulletComponent, target: Entity):
+func damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	var damage_factor: float = e._on_bullet_calculate_damage_factor(
 			target, bullet_c
 		)
@@ -190,7 +190,7 @@ func trajectory_tracking_update(
 	e.look_at(bullet_c.to)
 
 
-func trajectory_instant_init(e: Entity, bullet_c: BulletComponent, target: Entity):
+func trajectory_instant_init(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	e.position = target.position
 	
 	e.rotation = deg_to_rad(90)

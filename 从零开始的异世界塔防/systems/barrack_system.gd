@@ -42,7 +42,9 @@ func _on_update(delta: float) -> void:
 	)
 		
 
-func respawn_soldier(barrack: Entity, barrack_c: BarrackComponent):
+func respawn_soldier(
+		barrack: Entity, barrack_c: BarrackComponent
+	) -> Variant:
 	if barrack_c.soldiers_list.size() >= barrack_c.max_soldiers:
 		return null
 		

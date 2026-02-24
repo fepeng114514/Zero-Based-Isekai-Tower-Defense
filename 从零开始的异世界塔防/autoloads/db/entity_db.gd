@@ -52,7 +52,7 @@ func load() -> void:
 	
 
 ## 加载实体模板数据
-func _load_templates_data():
+func _load_templates_data() -> void:
 	var templates_group: Dictionary = ConfigMgr.get_config_data(C.PATH_TEMPLATES_DATA)
 	for group: Dictionary in templates_group.values():
 		templates_data.merge(group)
@@ -68,7 +68,7 @@ func _load_templates_data():
 		
 
 ## 加载组件数据
-func _load_components_data():
+func _load_components_data() -> void:
 	components_data = ConfigMgr.get_config_data(C.PATH_COMPONENTS_DATA)
 	
 	for c_name: String in components_data.keys():
@@ -115,7 +115,7 @@ func create_entity(t_name: String) -> Entity:
 		return e
 
 	create_entity_s.emit(e)
-	print_debug("创建实体: %s(%d)" % [t_name, last_id])
+	Log.debug("创建实体: %s(%d)", [t_name, last_id])
 	last_id += 1
 		
 	return e
@@ -232,12 +232,16 @@ func get_entities_group(group_name: String) -> Array:
 
 
 ## 根据 id 索引实体
-func get_entity_by_id(id: int):
+func get_entity_by_id(id: int) -> Variant:
 	if id == -1:
 		return null
 
 	var e = entities.get(id)
-	return e if is_instance_valid(e) else null
+
+	if not is_instance_valid(e):
+		return null
+
+	return e
 	
 
 ## 获取组件脚本
@@ -245,7 +249,7 @@ func get_component_script(c_name: String, deep: bool = false) -> GDScript:
 	var c_scripts: GDScript = components_scripts.get(c_name)
 	
 	if c_scripts == null:
-		printerr("未找到组件: %s" % c_name)
+		Log.error("未找到组件: %s", c_name)
 		return null
 		
 	if not c_scripts:
@@ -262,7 +266,7 @@ func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
 	var c_data: Dictionary = components_data.get(c_name)
 	
 	if c_data == null:
-		printerr("未找到组件数据: %s" % c_name)
+		Log.error("未找到组件数据: %s", c_name)
 		return {}
 		
 	if not c_data:
@@ -279,7 +283,7 @@ func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
 	var template_data = templates_data.get(t_name)
 	
 	if template_data == null:
-		printerr("未找到模板数据: %s" % t_name)
+		Log.error("未找到模板数据: %s", t_name)
 		return {}
 		
 	if not template_data:
@@ -308,12 +312,9 @@ func get_templates_scenes(t_name: String, deep: bool = false) -> PackedScene:
 	
 
 ## 获取实体脚本
-func get_entity_script(t_name: String, deep: bool = false):
+func get_entity_script(t_name: String, deep: bool = false) -> Variant:
 	var entity_script = entities_scripts.get(t_name)
 	
-	if entity_script == null:
-		return null
-		
 	if not entity_script:
 		return null
 		

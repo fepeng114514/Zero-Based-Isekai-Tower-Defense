@@ -6,7 +6,7 @@ func _ready() -> void:
 	wait_entity = true
 
 
-func _on_insert(e: Entity):
+func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_NAV_PATH):
 		return true
 	
@@ -43,7 +43,7 @@ func _on_update(delta: float) -> void:
 			arrived_end(e, nav_path_c, reversed)
 	)
 
-func get_mod_speed_factor(e: Entity):
+func get_mod_speed_factor(e: Entity) -> float:
 	var speed_factor: float = 1
 
 	for mod: Entity in e.get_has_auras():
@@ -53,7 +53,7 @@ func get_mod_speed_factor(e: Entity):
 	return speed_factor
 
 
-func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
+func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 	e.play_animation("walk")
 	
 	var walk_lenth: float = nav_path_c.speed * TimeDB.frame_length
@@ -91,7 +91,7 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 	e._on_pathway_walk(nav_path_c)
 
 
-func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
+func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 	nav_path_c.reversed = not reversed
 	
 	var node: PathwayNode = nav_path_c.get_pathway_node()
@@ -100,7 +100,7 @@ func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool):
 	e._on_arrived_end(nav_path_c)
 	
 	nav_path_c.loop_count += 1
-	print_debug("到达终点: %s(%d), 到达次数 %d" % [e.template_name, e.id, nav_path_c.loop_count])
+	Log.debug("到达终点: %s(%d), 到达次数 %d", [e.template_name, e.id, nav_path_c.loop_count])
 	
 	if (
 			not nav_path_c.loop 

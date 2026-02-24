@@ -18,11 +18,11 @@ func load() -> void:
 func load_atlas_group(required_atlas: Array) -> void:
 	for atlas_name in required_atlas:
 		if atlas_name in atlas_uses:
-			print_debug("跳过重复加载图集: %s" % atlas_name)
+			Log.warn("跳过重复加载图集: %s", atlas_name)
 			return
 
 		atlas_uses.append(atlas_name)
-		print_debug("加载图集: %s" % atlas_name)
+		Log.debug("加载图集: %s", atlas_name)
 		_parse_atlas_data(atlas_name)
 
 
@@ -57,9 +57,7 @@ func _parse_atlas_data(atlas_name: String) -> void:
 
 			for alias: String in img_data.alias:
 				image_db[alias] = atlas_texture
-			
-			print_verbose("加载图像: %s" % img_name)
-
+				
 
 ## 创建图集纹理
 func _create_atlas_texture(
@@ -78,7 +76,7 @@ func _create_atlas_texture(
 ## 获取纹理
 func get_image(img_name: String) -> AtlasTexture:
 	if not image_db.has(img_name):
-		printerr("未找到图像: %s" % img_name)
+		Log.error("未找到图像: %s", img_name)
 		return null
 		
 	return image_db[img_name]

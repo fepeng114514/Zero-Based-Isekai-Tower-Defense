@@ -28,7 +28,7 @@ var last_soldier_count: int = -1
 
 
 ## 清理无效士兵
-func cleanup_soldiers():
+func cleanup_soldiers() -> void:
 	# 快速检查是否存在无效士兵
 	if not soldiers_list.any(func(s): return not U.is_vaild_entity(s)):
 		return

@@ -1,9 +1,9 @@
 extends Button
 
 
-func _ready():
+func _ready() -> void:
 	pressed.connect(_button_pressed)
 
 
-func _button_pressed():
+func _button_pressed() -> void:
 	LevelMgr.enter_level(1)

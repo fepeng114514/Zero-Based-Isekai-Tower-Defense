@@ -28,12 +28,12 @@ func is_ready_time(ts: float, time: float) -> bool:
 	
 
 ## 获取当前时间
-func get_time(ts) -> float:
+func get_time(ts: float) -> float:
 	return tick_ts - ts
 
 
 ## 协程等待，等待 0 秒表示等待一帧
-func y_wait(time: float = 0, break_fn = null) -> void:
+func y_wait(time: float = 0, break_fn: Variant = null) -> void:
 	if time == 0:
 		await curren_scene.process_frame
 		return

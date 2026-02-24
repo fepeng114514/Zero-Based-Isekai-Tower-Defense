@@ -183,9 +183,9 @@ func is_bullet() -> bool:
 
 
 #region 组件相关方法
-func get_c(c_name: String):
+func get_c(c_name: String) -> Variant:
 	if not has_c(c_name):
-		printerr("未找到组件: %s" % c_name)
+		Log.error("未找到组件: %s", c_name)
 		return null
 	
 	return has_components[c_name]
@@ -261,7 +261,7 @@ func set_template_data(template_data: Dictionary) -> void:
 			component_node.set(key, property)
 
 
-func merge_base_template(template_data: Dictionary, base: String):
+func merge_base_template(template_data: Dictionary, base: String) -> void:
 	var base_data: Dictionary = EntityDB.get_template_data(base)
 	
 	if base_data.has("base"):
@@ -271,7 +271,7 @@ func merge_base_template(template_data: Dictionary, base: String):
 	
 
 ## 协程等待
-func y_wait(time: float = 0, break_fn = null):
+func y_wait(time: float = 0, break_fn: Variant = null) -> void:
 	y_waiting = true
 	await TimeDB.y_wait(time, break_fn)
 	y_waiting = false
@@ -306,7 +306,8 @@ func is_waiting() -> bool:
 	return y_waiting or waiting
 
 
-func cleanup_has_mods():
+## 清理无效状态效果
+func cleanup_has_mods() -> void:
 	var new_has_mods_ids: Array[int] = []
 	
 	for mod_id in has_mods_ids:
@@ -318,7 +319,7 @@ func cleanup_has_mods():
 	has_mods_ids = new_has_mods_ids
 
 
-func get_has_mods(filter = null) -> Array[Entity]:
+func get_has_mods(filter: Variant = null) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
 	for mod_id in has_mods_ids:
@@ -339,7 +340,7 @@ func clear_has_mods() -> void:
 	has_mods_ids.clear()
 
 
-func get_has_auras(filter = null) -> Array[Entity]:
+func get_has_auras(filter: Variant = null) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
 	for aura_id in has_auras_ids:
@@ -371,7 +372,7 @@ func remove_entity() -> void:
 	SystemMgr.remove_queue.append(self)
 	removed = true
 	visible = false
-	print_debug("移除实体: %s(%d)" % [template_name, id])
+	Log.debug("移除实体: %s(%d)", [template_name, id])
 
 
 ## 设定实体位置，根据拥有的组件智能赋值
@@ -387,7 +388,7 @@ func set_pos(pos: Vector2) -> void:
 		set_nav_path_at_pos(pos)
 
 
-func set_nav_path_at_pos(pos):
+func set_nav_path_at_pos(pos: Vector2) -> void:
 	var source = EntityDB.get_entity_by_id(source_id)
 	var node: PathwayNode
 
@@ -403,12 +404,12 @@ func set_nav_path_at_pos(pos):
 
 #region 动画相关方法
 ## 获取指定索引的动画精灵
-func get_animated_sprite(sprite_idx: int = 0) -> AnimatedSprite2D:
+func get_animated_sprite(sprite_idx: int = 0) -> Variant:
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	var sprite = sprite_c.node_list[sprite_idx]
 	
 	if not sprite is AnimatedSprite2D:
-		printerr
+		Log.debug("%s: 索引 %d 的精灵不是 AnimatedSprite2D", [template_name, sprite_idx])
 		return null
 	
 	return sprite
@@ -416,14 +417,16 @@ func get_animated_sprite(sprite_idx: int = 0) -> AnimatedSprite2D:
 	
 ## 播放动画
 func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
-	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
+	var sprite = get_animated_sprite(sprite_idx)
+	if not sprite:
+		return
 	
 	sprite.play(anim_name)
 	
 
 ## 等待动画播放完成
 func wait_animation(
-		anim_name: String, sprite_idx: int = 0, times: int = 1, break_fn = null
+		sprite_idx: int = 0, times: int = 1, break_fn = null
 	) -> void:
 	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	var loop_count: int = 0

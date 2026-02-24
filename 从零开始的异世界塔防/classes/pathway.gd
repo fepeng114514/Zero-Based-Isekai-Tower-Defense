@@ -7,7 +7,7 @@ var active: bool = true
 var idx: int = -1
 
 
-func _ready():
+func _ready() -> void:
 	PathDB.pathways.append(self)
 	idx = PathDB.last_pi
 
@@ -50,7 +50,7 @@ func create_subpathway(spacing: float) -> Subpathway:
 	return subpathway
 
 
-func add_line_visualization(subpathway: Subpathway, color: Color):
+func add_line_visualization(subpathway: Subpathway, color: Color) -> void:
 	var line := Line2D.new()
 	line.width = 3.0
 	line.default_color = color

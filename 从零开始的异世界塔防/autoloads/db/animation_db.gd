@@ -29,9 +29,10 @@ func _load_sprite_frames() -> void:
 		var fps: float = anim_data.get("fps", 60)
 		var loop: bool = anim_data.get("loop", true)
 		
-		sprite_frames.add_animation(anim_name)
-		sprite_frames.set_animation_speed(anim_name, fps)
-		sprite_frames.set_animation_loop(anim_name, loop)
+		if not sprite_frames.has_animation(anim_name):
+			sprite_frames.add_animation(anim_name)
+			sprite_frames.set_animation_speed(anim_name, fps)
+			sprite_frames.set_animation_loop(anim_name, loop)
 		
 		var from: int = anim_data.from
 		var to: int = anim_data.to
@@ -45,7 +46,7 @@ func _load_sprite_frames() -> void:
 ## 根据动画完整名称获取动画
 func get_animation(anim_name: String) -> SpriteFrames:
 	if not animations_db.has(anim_name):
-		printerr("未找到动画: %s" % anim_name)
+		Log.error("未找到动画: %s", anim_name)
 		return null
 	
 	return animations_db[anim_name]

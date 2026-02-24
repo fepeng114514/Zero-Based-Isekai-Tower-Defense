@@ -2,11 +2,11 @@ extends Button
 
 
 
-func _ready():
+func _ready() -> void:
 	pressed.connect(_button_pressed)
 
 
-func _button_pressed():
+func _button_pressed() -> void:
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
 	dialog.title = "请确认"
 	dialog.dialog_text = "确定要退出游戏吗？"
@@ -18,5 +18,5 @@ func _button_pressed():
 	dialog.popup_centered()
 
 
-func _on_quit_confirmed():
+func _on_quit_confirmed() -> void:
 	get_tree().quit()
