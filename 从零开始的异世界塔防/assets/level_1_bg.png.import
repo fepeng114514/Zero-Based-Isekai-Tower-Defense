@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1r3800k4xpxv"
-path="res://.godot/imported/01地图.png-21624d862fc18ed5189cea35ad23c068.ctex"
+path="res://.godot/imported/level_1_bg.png-5f3f18703251ee664cbe69fe14d59bf3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/01地图.png"
-dest_files=["res://.godot/imported/01地图.png-21624d862fc18ed5189cea35ad23c068.ctex"]
+source_file="res://assets/level_1_bg.png"
+dest_files=["res://.godot/imported/level_1_bg.png-5f3f18703251ee664cbe69fe14d59bf3.ctex"]
 
 [params]
 

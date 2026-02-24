@@ -3,10 +3,10 @@ class_name RallyComponent
 
 var speed: int = 100
 var rally_pos := Vector2.ZERO
-var rally_radius: int = 30
+var rally_radius: float = 30
 var direction := Vector2.ZERO
 var arrived: bool = false
-var arrived_dist: int = 10
+var arrived_dist: float = 10
 var animation: String = "walk"
 var can_click_rally: bool = true
 

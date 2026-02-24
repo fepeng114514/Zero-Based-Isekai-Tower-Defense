@@ -84,8 +84,6 @@ func _on_update(delta: float) -> void:
 
 			if bullet_c.miss_remove:
 				e.remove_entity()
-
-			return
 	)
 
 func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
@@ -93,8 +91,8 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 		var targets = EntityDB.search_targets_in_range(
 			bullet_c.search_mode, 
 			bullet_c.to, 
-			bullet_c.min_damage_radius, 
 			bullet_c.max_damage_radius, 
+			bullet_c.min_damage_radius, 
 			e.flags,
 			e.bans,
 		)

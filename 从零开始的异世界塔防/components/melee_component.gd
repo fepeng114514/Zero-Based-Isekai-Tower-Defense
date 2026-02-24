@@ -12,9 +12,9 @@ var blockeds_ids: Array[int] = []
 ## 是否是被动障碍，表示实体是否作为被动障碍存在（不主动拦截敌人），通常用于某些特殊的实体，例如路障等
 var is_passive_obstacle: bool = false
 ## 拦截最小范围，单位为像素
-var block_min_range: int = 80
+var block_min_range: float = 80
 ## 拦截最大范围，单位为像素
-var block_max_range: int = 0
+var block_max_range: float = 0
 ## 搜索模式，表示实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
 var search_mode: String = C.SEARCH_ENEMY_FIRST
 ## 最大可以被拦截数量，表示实体最多可以同时拦截多少个被拦截者，超过该数量后将不再拦截新的被拦截者
@@ -29,12 +29,10 @@ var is_blocked: bool = false
 var block_cost: int = 1
 ## 拦截者 ID，表示实体当前被哪个拦截者拦截，通常用于被拦截者追踪自己的拦截者
 var blocker_id = null
-var block_flags: int = 0
-var block_bans: int = 0
 ## 移动方向，表示实体的移动方向
 var motion_direction := Vector2.ZERO
 ## 移动速度，表示实体前往近战位置的移动速度，单位为像素/秒
-var motion_speed: int = 100
+var motion_speed: float = 100
 ## 原始位置，表示实体的原始位置，通常用于实体返回原始位置
 var origin_pos := Vector2.ZERO
 ## 是否已经到达原始位置，表示实体是否已经返回原始位置
@@ -46,7 +44,7 @@ var melee_slot_offset := Vector2.ZERO
 ## 是否已经到达近战位置，表示实体是否已经到达近战位置
 var melee_slot_arrived: bool = true
 ## 到达近战位置的阈值
-var arrived_dist: int = 10
+var arrived_dist: float = 10
 ## 近战攻击列表，表示实体当前拥有的近战攻击列表
 var list: Array = []
 ## 近战攻击模板

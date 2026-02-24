@@ -8,6 +8,7 @@ signal create_entity_s(entity: Entity)
 		2. 对象池
 """
 
+#region 属性
 var templates_scenes: Dictionary[String, PackedScene] = {}
 var components_scripts: Dictionary[String, GDScript] = {}
 var entities_scripts: Dictionary[String, GDScript] = {}
@@ -26,6 +27,7 @@ var entities: Array = []
 var _dirty_entities_ids: Array[int] = []
 var last_id: int = 0
 var cached_templates: Dictionary = {}
+#endregion
 
 
 func load() -> void:
@@ -87,6 +89,7 @@ func mark_entity_dirty_id(id: int) -> void:
 	_dirty_entities_ids.append(id)
 
 
+#region 创建实体相关
 ## 创建实体
 func create_entity(t_name: String) -> Entity:
 	var t: PackedScene = get_templates_scenes(t_name)
@@ -155,8 +158,8 @@ func create_entities_at_pos(t_names: Array, pos: Vector2, auto_insert: bool = tr
 ## 创建伤害实体
 func create_damage(
 		target_id: int,
-		min_damage: int,
-		max_damage: int,
+		min_damage: float,
+		max_damage: float,
 		damage_type: int = C.DAMAGE_PHYSICAL,
 		source_id: int = -1,
 		damage_factor: float = 1
@@ -218,8 +221,10 @@ func create_auras(
 		created_auras.append(aura)
 
 	return created_auras
+#endregion
 
 
+#region 索引相关
 ## 根据组名获取组内所有实体
 func get_entities_group(group_name: String) -> Array:
 	if group_name in type_groups:
@@ -327,35 +332,42 @@ func get_entity_script(t_name: String, deep: bool = false) -> Variant:
 ## 获取所有有效实体
 func get_vaild_entities() -> Array:
 	return entities.filter(func(e): return U.is_vaild_entity(e))
+#endregion
 
 
-## 排序目标
+#region 索敌相关
+## 根据排序模式排序目标
 func sort_targets(
 		targets: Array, sort_type: String, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_functions = {
-		C.SORT_PROGRESS: func(e1, e2):
-			var p1 = (
+		C.SORT_PROGRESS: func(e1: Entity, e2: Entity):
+			var p1: float = (
 				e1.get_c(C.CN_NAV_PATH).nav_progress
 				if e1.has_c(C.CN_NAV_PATH) else 0
 			)
 		
-			var p2 = (
+			var p2: float = (
 				e2.get_c(C.CN_NAV_PATH).nav_progress
 				if e2.has_c(C.CN_NAV_PATH) else 0
 			)
 			
 			return p1 > p2 if not reversed else p1 < p2,
 		
-		C.SORT_HP: func(e1, e2):
-			var h1 = e1.get_c(C.CN_HEALTH).hp if e1.has_c(C.CN_HEALTH) else 0
-			var h2 = e2.get_c(C.CN_HEALTH).hp if e2.has_c(C.CN_HEALTH) else 0
+		C.SORT_HEALTH: func(e1: Entity, e2: Entity):
+			var h1: float = e1.get_c(C.CN_HEALTH).hp if e1.has_c(C.CN_HEALTH) else 0
+			var h2: float = e2.get_c(C.CN_HEALTH).hp if e2.has_c(C.CN_HEALTH) else 0
 			return h1 > h2 if not reversed else h1 < h2,
 		
-		C.SORT_DIST: func(e1, e2):
-			var d1 = e1.position.distance_squared_to(origin)
-			var d2 = e2.position.distance_squared_to(origin)
-			return d1 > d2 if not reversed else d1 < d2
+		C.SORT_DISTANCE: func(e1: Entity, e2: Entity):
+			var d1: float = e1.position.distance_squared_to(origin)
+			var d2: float = e2.position.distance_squared_to(origin)
+			return d1 > d2 if not reversed else d1 < d2,
+			
+		C.SORT_ENTITY_ID: func(e1: Entity, e2: Entity):
+			var i1: int = e1.id
+			var i2: int = e2.id
+			return i1 > i2 if not reversed else i1 < i2,
 	}
 	
 	if sort_type in sort_functions:
@@ -363,15 +375,15 @@ func sort_targets(
 
 
 func find_targets_in_range(
-		target_pool: Array,
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null,
+		pool: Array = entities
 	) -> Array:
-	return target_pool.filter(
+	return pool.filter(
 		func(e): return (
 			is_instance_valid(e)
 			and not (bans & e.flags or e.bans & flags)
@@ -383,36 +395,36 @@ func find_targets_in_range(
 
 
 func find_sorted_targets(
-		target_pool: Array,
 		sort_type: String,
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null,
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null,
+		pool: Array = entities,
 		reversed: bool = false
 	) -> Array:
 	var targets = find_targets_in_range(
-		target_pool, origin, min_range, max_range, flags, bans, filter
+		origin, max_range, min_range, flags, bans, filter, pool
 	)
 	sort_targets(targets, sort_type, origin, reversed)
 	return targets
 
 
 func find_extreme_target(
-		target_pool: Array,
 		sort_type: String,
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null,
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null,
+		pool: Array = entities,
 		reversed: bool = false
 	):
 	var targets = find_targets_in_range(
-		target_pool, origin, min_range, max_range, flags, bans, filter
+		origin, max_range, min_range, flags, bans, filter, pool
 	)
 	sort_targets(targets, sort_type, origin, reversed)
 	return targets[0] if targets else null
@@ -420,196 +432,255 @@ func find_extreme_target(
 
 func find_enemies_in_range(
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null
 	) -> Array:
 	return find_targets_in_range(
-		get_entities_group(C.GROUP_ENEMIES), origin, min_range, max_range, flags, bans, filter
+		origin, 
+		max_range, 
+		min_range, 
+		flags, 
+		bans, 
+		filter,
+		get_entities_group(C.GROUP_ENEMIES)
 	)
 
 
 func find_sorted_enemies(
 		sort_type: String,
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null,
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null,
 		reversed: bool = false
 	) -> Array:
 	return find_sorted_targets(
-		get_entities_group(C.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		sort_type, 
+		origin, 
+		max_range, 
+		min_range, 
+		flags, 
+		bans, 
+		filter, 
+		get_entities_group(C.GROUP_ENEMIES), 
+		reversed
 	)
 
 
 func find_extreme_enemy(
 		sort_type: String,
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null,
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null,
 		reversed: bool = false
 	):
 	return find_extreme_target(
-		get_entities_group(C.GROUP_ENEMIES), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		sort_type, 
+		origin, 
+		max_range, 
+		min_range, 
+		flags, 
+		bans, 
+		filter, 
+		get_entities_group(C.GROUP_ENEMIES), 
+		reversed
 	)
 
 
 func find_friendlys_in_range(
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null
 	) -> Array:
 	return find_targets_in_range(
-		get_entities_group(C.GROUP_FRIENDLYS), origin, min_range, max_range, flags, bans, filter
+		origin, 
+		max_range, 
+		min_range, 
+		flags, 
+		bans, 
+		get_entities_group(C.GROUP_FRIENDLYS), 
+		filter
 	)
 
 
 func find_sorted_friendlys(
 		sort_type: String,
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null,
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null,
 		reversed: bool = false
 	) -> Array:
 	return find_sorted_targets(
-		get_entities_group(C.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		sort_type, 
+		origin, 
+		max_range, 
+		min_range, 
+		flags, 
+		bans, 
+		filter, 
+		get_entities_group(C.GROUP_FRIENDLYS), 
+		reversed
 	)
 
 
 func find_extreme_friendly(
 		sort_type: String,
 		origin: Vector2,
-		min_range: int,
-		max_range: int,
-		flags: int,
-		bans: int,
-		filter = null,
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Variant = null,
 		reversed: bool = false
 	):
 	return find_extreme_target(
-		get_entities_group(C.GROUP_FRIENDLYS), sort_type, origin, min_range, max_range, flags, bans, filter, reversed
+		sort_type, 
+		origin, 
+		max_range, 
+		min_range, 
+		flags, 
+		bans, 
+		filter, 
+		get_entities_group(C.GROUP_FRIENDLYS), 
+		reversed
 	)
 
 
+## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）
 func search_target(
-		search_mode, origin, min_range, max_range, flags, bans, filter = null
+		search_mode: String, 
+		origin: Vector2, 
+		max_range: float, 
+		min_range: float = 0, 
+		flags: int = 0, 
+		bans: int = 0, 
+		filter: Variant = null
 	):
 	match search_mode:
 		C.SEARCH_ENEMY_FIRST:
 			return find_extreme_enemy(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_ENEMY_LAST:
 			return find_extreme_enemy(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_ENEMY_NEARST:
 			return find_extreme_enemy(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_ENEMY_FARTHEST:
 			return find_extreme_enemy(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true)
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter, true)
 		C.SEARCH_ENEMY_STRONGEST:
 			return find_extreme_enemy(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_ENEMY_WEAKEST:
 			return find_extreme_enemy(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_FRIENDLY_FIRST:
 			return find_extreme_friendly(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_FRIENDLY_LAST:
 			return find_extreme_friendly(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_FRIENDLY_NEARST:
 			return find_extreme_friendly(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_FRIENDLY_FARTHEST:
 			return find_extreme_friendly(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_FRIENDLY_STRONGEST:
 			return find_extreme_friendly(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_FRIENDLY_WEAKEST:
 			return find_extreme_friendly(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter, true
 			)
 			
 	return null
 
 
+## 根据搜索模式选择相应索敌函数（搜索范围内所有目标）
 func search_targets_in_range(
-		search_mode, origin, min_range, max_range, flags, bans, filter = null
+		search_mode: String, 
+		origin: Vector2, 
+		max_range: float, 
+		min_range: float = 0, 
+		flags: int = 0, 
+		bans: int = 0, 
+		filter: Variant = null
 	) -> Array:
 	match search_mode:
 		C.SEARCH_ENEMY_FIRST:
 			return find_sorted_enemies(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_ENEMY_LAST:
 			return find_sorted_enemies(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_ENEMY_NEARST:
 			return find_sorted_enemies(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_ENEMY_FARTHEST:
 			return find_sorted_enemies(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_ENEMY_STRONGEST:
 			return find_sorted_enemies(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_ENEMY_WEAKEST:
 			return find_sorted_enemies(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_FRIENDLY_FIRST:
 			return find_sorted_friendlys(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_FRIENDLY_LAST:
 			return find_sorted_friendlys(
-				C.SORT_PROGRESS, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_PROGRESS, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_FRIENDLY_NEARST:
 			return find_sorted_friendlys(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_FRIENDLY_FARTHEST:
 			return find_sorted_friendlys(
-				C.SORT_DIST, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_DISTANCE, origin, max_range, min_range, flags, bans, filter, true
 			)
 		C.SEARCH_FRIENDLY_STRONGEST:
 			return find_sorted_friendlys(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter
 			)
 		C.SEARCH_FRIENDLY_WEAKEST:
 			return find_sorted_friendlys(
-				C.SORT_HP, origin, min_range, max_range, flags, bans, filter, true
+				C.SORT_HEALTH, origin, max_range, min_range, flags, bans, filter, true
 			)
 			
 	return []
+#endregion

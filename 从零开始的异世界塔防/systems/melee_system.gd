@@ -7,7 +7,7 @@ extends System
 """
 
 
-func _ready() -> void:
+func _initialize() -> void:
 	whitelist_state = C.STATE_IDLE | C.STATE_MELEE
 	wait_entity = true
 
@@ -76,8 +76,13 @@ func find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 	)
 
 	var targets = EntityDB.search_targets_in_range(
-		melee_c.search_mode, e.position, melee_c.block_min_range, 
-		melee_c.block_max_range, melee_c.block_flags, melee_c.block_bans, filter
+		melee_c.search_mode, 
+		e.position, 
+		melee_c.block_max_range, 
+		melee_c.block_min_range, 
+		melee_c.block_flags, 
+		melee_c.block_bans, 
+		filter
 	)	
 	
 	for t in targets:

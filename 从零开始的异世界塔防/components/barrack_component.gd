@@ -6,13 +6,13 @@ class_name BarrackComponent
 """
 
 ## 集结范围，表示士兵的可集结范围，单位为像素
-var rally_ranged: int = 200
+var rally_ranged: float = 200
 ## 集结点位置
 var rally_pos := Vector2.ZERO
 ## 集结点半径，表示士兵距离集结点中心的半径，单位为像素
-var rally_radius: int = 30
+var rally_radius: float = 30
 ## 集结点移动速度，表示士兵移动到集结点的速度，单位为像素/秒
-var rally_speed: int = 50
+var rally_speed: float = 50
 ## 士兵模板名称，表示生成的士兵实体将使用该模板进行创建
 var soldier: String = "soldier"
 ## 兵营生成士兵的时间间隔，单位为秒

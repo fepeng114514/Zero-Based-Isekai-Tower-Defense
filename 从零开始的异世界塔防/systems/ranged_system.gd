@@ -1,7 +1,7 @@
 extends System
 
 
-func _ready() -> void:
+func _initialize() -> void:
 	wait_entity = true
 
 
@@ -16,7 +16,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.CN_RANGED):
+	process_entities(C.CN_RANGED, func(e: Entity):
 		var state: int = e.state
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
@@ -28,10 +28,10 @@ func _on_update(delta: float) -> void:
 				continue
 				
 			var target = EntityDB.search_target(
-				a.search_mode, e.position, a.min_range, a.max_range, a.flags, a.bans
+				a.search_mode, e.position, a.max_range, a.min_range, a.flags, a.bans
 			)
 			if not can_attack(a, target):
-				return
+				continue
 				
 			e.play_animation("shoot")
 			e.wait(a.delay, false)
@@ -47,3 +47,6 @@ func _on_update(delta: float) -> void:
 				a.ts = TimeDB.tick_ts
 				e.play_animation("default")
 			)
+			return
+	)
+		

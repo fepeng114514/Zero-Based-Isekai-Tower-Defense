@@ -276,9 +276,11 @@ const SEARCH_FRIENDLY_WEAKEST: StringName = &"friendly_weakest"
 ## 排序类型: 路径路程
 const SORT_PROGRESS: StringName = &"progress"
 ## 排序类型: 距离
-const SORT_DIST: StringName = &"dist"
+const SORT_DISTANCE: StringName = &"distance"
 ## 排序类型: 血量
-const SORT_HP: StringName = &"hp"
+const SORT_HEALTH: StringName = &"health"
+## 排序类型: 实体 ID
+const SORT_ENTITY_ID: StringName = &"entity_id"
 #endregion
 
 

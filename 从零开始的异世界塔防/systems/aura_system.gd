@@ -77,7 +77,14 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(delta: float) -> void:
 	process_entities(C.GROUP_AURAS, func(e: Entity):
 		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
-		var targets: Array = EntityDB.search_targets_in_range(aura_c.search_mode, e.position, aura_c.min_radius, aura_c.max_radius, e.flags, e.bans)
+		var targets: Array = EntityDB.search_targets_in_range(
+			aura_c.search_mode, 
+			e.position, 
+			aura_c.max_radius, 
+			aura_c.min_radius, 
+			e.flags, 
+			e.bans
+		)
 
 		# 周期效果
 		if aura_c.cycle_time == -1 or not TimeDB.is_ready_time(aura_c.ts, aura_c.cycle_time):

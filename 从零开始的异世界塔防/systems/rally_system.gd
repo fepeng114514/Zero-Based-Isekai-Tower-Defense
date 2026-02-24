@@ -1,7 +1,7 @@
 extends System
 
 
-func _ready() -> void:
+func _initialize() -> void:
 	whitelist_state = C.STATE_IDLE | C.STATE_RALLY
 	wait_entity = true
 

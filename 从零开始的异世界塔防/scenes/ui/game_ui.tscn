@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c3pw2s2ybgdou"]
+
+[ext_resource type="Script" uid="uid://bw2ua0pkl0kv8" path="res://scripts/game_ui.gd" id="1_gwk6t"]
+
+[node name="GameUI" type="PanelContainer" unique_id=673863676]
+offset_right = 2560.0
+offset_bottom = 1440.0
+script = ExtResource("1_gwk6t")

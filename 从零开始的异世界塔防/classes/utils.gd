@@ -544,8 +544,8 @@ static func is_vaild_entity(e: Variant) -> bool:
 
 static func is_allowed_entity(e: Variant, target: Entity) -> bool:
 	var t_template_name: String = target.template_name
-	var whitelist_template: Array[String] = e.whitelist_template
-	var blacklist_template: Array[String] = e.blacklist_template
+	var whitelist_template: Array = e.whitelist_template
+	var blacklist_template: Array = e.blacklist_template
 	
 	return (
 		(
