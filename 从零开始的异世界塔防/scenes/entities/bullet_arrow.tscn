@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://dn7eu5x8fbfk1"]
-
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://components/entity_component.gd" id="1_eatbx"]
-
-[node name="BulletArrow" type="Node2D" unique_id=180978837]
-rotation = -0.017453292
-script = ExtResource("1_eatbx")
-
-[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1473339848]

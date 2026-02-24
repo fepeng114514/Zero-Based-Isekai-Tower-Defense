@@ -27,7 +27,7 @@ func is_ready_time(ts: float, time: float) -> bool:
 	return tick_ts - ts > time
 	
 
-## 获取当前时间
+## 获取自指定时间戳以来过去的时间
 func get_time(ts: float) -> float:
 	return tick_ts - ts
 

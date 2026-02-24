@@ -101,7 +101,7 @@ static func position_in_linear(velocity: Vector2, from: Vector2, t: float) -> Ve
 	
 ## 根据距离与时间计算抛物线速度
 static func initial_parabola_velocity(
-		from: Vector2, to: Vector2, t: float, g: int
+		from: Vector2, to: Vector2, t: float, g: float
 	) -> Vector2:
 	var x: float = (to.x - from.x) / t
 	var y: float = (to.y - from.y - g * t * t / 2) / t
@@ -111,7 +111,7 @@ static func initial_parabola_velocity(
 	
 ## 根据时间与速度计算位于抛物线上的位置
 static func position_in_parabola(
-		velocity: Vector2, from: Vector2, t: float, g: int
+		velocity: Vector2, from: Vector2, t: float, g: float
 	) -> Vector2:
 	var x: float = velocity.x * t + from.x
 	var y: float = g * t * t / 2 + velocity.y * t + from.y
@@ -119,7 +119,9 @@ static func position_in_parabola(
 	return Vector2(x, y)
 
 
-static func is_at_destination(current_pos: Vector2, target_pos: Vector2, threshold: float = 5.0) -> bool:
+static func is_at_destination(
+		current_pos: Vector2, target_pos: Vector2, threshold: float = 5.0
+	) -> bool:
 	return current_pos.distance_to(target_pos) <= threshold
 #endregion
 

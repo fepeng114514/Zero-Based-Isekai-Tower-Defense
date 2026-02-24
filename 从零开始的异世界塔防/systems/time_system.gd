@@ -17,6 +17,7 @@ func process_entity_timer(delta: float) -> void:
 	for e: Entity in EntityDB.get_vaild_entities():
 		if e.wait_clock <= 0:
 			e.y_waiting = false
+			e.waiting = false
 
 			for action_func: Callable in e.wait_action_queue:
 				action_func.call(e)

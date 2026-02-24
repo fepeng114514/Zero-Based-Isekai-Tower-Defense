@@ -17,6 +17,7 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	bullet_c.ts = TimeDB.tick_ts
+	var flying_time: float = TimeDB.get_time(bullet_c.ts)
 	if bullet_c.predict_pos_disabled:
 		bullet_c.predict_target_pos = PathDB.predict_target_pos(
 			target, bullet_c.flight_time
@@ -32,15 +33,13 @@ func _on_insert(e: Entity) -> bool:
 	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.position.x else 1
 
 	if bullet_c.flight_trajectory & C.TRAJECTORY_LINEAR:
-		trajectory_liniear_init(e, bullet_c, target)
+		_trajectory_liniear_init(bullet_c)
 	elif bullet_c.flight_trajectory & C.TRAJECTORY_PARABOLA:
-		trajectory_parabola_init(e, bullet_c, target)
+		_trajectory_parabola_init(e, bullet_c, flying_time)
 	elif bullet_c.flight_trajectory & C.TRAJECTORY_TRACKING:
-		trajectory_tracking_init(e, bullet_c, target)
-	#elif bullet_c.flight_trajectory & C.TRAJECTORY_HOMING:
-	#	trajectory_homing_init(e, bullet_c, target)
+		_trajectory_tracking_init(e, bullet_c)
 	elif bullet_c.flight_trajectory & C.TRAJECTORY_INSTANT:
-		trajectory_instant_init(e, bullet_c, target)
+		_trajectory_instant_init(e, target)
 
 	return true
 
@@ -50,15 +49,14 @@ func _on_update(delta: float) -> void:
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+		var flying_time: float = TimeDB.get_time(bullet_c.ts)
 
 		if bullet_c.flight_trajectory & C.TRAJECTORY_LINEAR:
-			trajectory_liniear_update(e, bullet_c, target)
+			_trajectory_liniear_update(e, bullet_c)
 		elif bullet_c.flight_trajectory & C.TRAJECTORY_PARABOLA:
-			trajectory_parabola_update(e, bullet_c, target)
+			_trajectory_parabola_update(e, bullet_c, flying_time)
 		elif bullet_c.flight_trajectory & C.TRAJECTORY_TRACKING:
-			trajectory_tracking_update(e, bullet_c, target)
-		# elif bullet_c.flight_trajectory & C.TRAJECTORY_HOMING:
-		# 	trajectory_homing_update(e, bullet_c, target)
+			_trajectory_tracking_update(e, bullet_c, target)
 
 		e.rotation += bullet_c.rotation_speed * delta
 		
@@ -71,14 +69,12 @@ func _on_update(delta: float) -> void:
 				e.position, target.position, bullet_c.hit_dist
 			)
 		):
-			hit(e, bullet_c, target)
+			_hit(e, bullet_c, target)
 			return
 			
 		if (
 			not U.is_vaild_entity(target) 
-			or U.is_at_destination(
-				e.position, bullet_c.to, bullet_c.hit_dist
-			)
+			or flying_time >= bullet_c.flight_time
 		):
 			e._on_bullet_miss(target, bullet_c)
 
@@ -86,7 +82,9 @@ func _on_update(delta: float) -> void:
 				e.remove_entity()
 	)
 
-func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
+
+## 击中目标调用
+func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
 		var targets = EntityDB.search_targets_in_range(
 			bullet_c.search_mode, 
@@ -98,17 +96,18 @@ func hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 		)
 
 		for t in targets:
-			damege_target(e, bullet_c, t)
+			_damege_target(e, bullet_c, t)
 	else:
-		damege_target(e, bullet_c, target)
+		_damege_target(e, bullet_c, target)
 
 	e._on_bullet_hit(target, bullet_c)
 
 	if bullet_c.hit_remove:
 		e.remove_entity()
-		
-
-func damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
+	
+	
+## 伤害目标
+func _damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	var damage_factor: float = e._on_bullet_calculate_damage_factor(
 			target, bullet_c
 		)
@@ -124,44 +123,45 @@ func damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> void
 	EntityDB.create_entities_at_pos(bullet_c.payloads, e.position)
 
 
-func trajectory_liniear_init(
-		e: Entity, bullet_c: BulletComponent, target: Entity
-	) -> void:
+#region 轨迹相关函数
+## 直线轨迹初始化
+func _trajectory_liniear_init(bullet_c: BulletComponent) -> void:
 	bullet_c.velocity = U.initial_linear_velocity(
 		bullet_c.from, bullet_c.to, bullet_c.flight_time
 	)
 
 
-func trajectory_liniear_update(
-		e: Entity, bullet_c: BulletComponent, target: Entity
-	) -> void:
-	e.position = U.position_in_linear(bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts))
+## 直线轨迹更新
+func _trajectory_liniear_update(e: Entity, bullet_c: BulletComponent) -> void:
+	e.position = U.position_in_linear(
+		bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
+	)
 
 
-func trajectory_parabola_init(
-		e: Entity, bullet_c: BulletComponent, target: Entity
+## 抛物线轨迹初始化
+func _trajectory_parabola_init(
+		e: Entity, bullet_c: BulletComponent, flying_time: float
 	) -> void:
 	bullet_c.velocity = U.initial_parabola_velocity(
 		e.position, bullet_c.to, bullet_c.flight_time, bullet_c.g
 	)
 	
-	var current_time: float = TimeDB.get_time(bullet_c.ts)
-	var next_time: float = current_time + TimeDB.frame_length
+	var next_time: float = flying_time + TimeDB.frame_length
 	var next_pos = U.position_in_parabola(
 		bullet_c.velocity, bullet_c.from, next_time, bullet_c.g
 	)
 	e.look_at(next_pos)
 	
 
-func trajectory_parabola_update(
-		e: Entity, bullet_c: BulletComponent, target: Entity
+## 抛物线轨迹更新
+func _trajectory_parabola_update(
+		e: Entity, bullet_c: BulletComponent, flying_time: float
 	) -> void:
-	var current_time: float = TimeDB.get_time(bullet_c.ts)
 	var current_pos: Vector2 = U.position_in_parabola(
-		bullet_c.velocity, bullet_c.from, current_time, bullet_c.g
+		bullet_c.velocity, bullet_c.from, flying_time, bullet_c.g
 	)
 	
-	var next_time: float = current_time + TimeDB.frame_length
+	var next_time: float = flying_time + TimeDB.frame_length
 	var next_pos: Vector2 = U.position_in_parabola(
 		bullet_c.velocity, bullet_c.from, next_time, bullet_c.g
 	)
@@ -171,13 +171,15 @@ func trajectory_parabola_update(
 	e.look_at(next_pos)
 
 
-func trajectory_tracking_init(
-		e: Entity, bullet_c: BulletComponent, target: Entity
+## 追踪轨迹初始化
+func _trajectory_tracking_init(
+		e: Entity, bullet_c: BulletComponent
 	) -> void:
 	e.look_at(bullet_c.to)
 
 
-func trajectory_tracking_update(
+## 追踪轨迹更新
+func _trajectory_tracking_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
 	if is_instance_valid(target):
@@ -188,7 +190,9 @@ func trajectory_tracking_update(
 	e.look_at(bullet_c.to)
 
 
-func trajectory_instant_init(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
+## 瞬移轨迹初始化
+func _trajectory_instant_init(e: Entity, target: Entity) -> void:
 	e.position = target.position
 	
 	e.rotation = deg_to_rad(90)
+#endregion
