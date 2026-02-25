@@ -72,7 +72,7 @@ func _process_insert_queue() -> void:
 			continue
 		
 		EntityDB.mark_entity_dirty_id(e.id)
-		Log.verbose("插入实体: %s(%d)", [e.template_name, e.id])
+		Log.verbose("插入实体: %s", e)
 		
 		e.visible = true
 

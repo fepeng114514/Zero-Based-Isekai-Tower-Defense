@@ -153,6 +153,10 @@ func _on_bullet_miss(target: Entity, bullet_c: BulletComponent) -> void: pass
 
 ## 计算子弹伤害系数时调用，返回值为伤害系数
 func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponent) -> float: return 1.0
+
+
+func _to_string():
+	return "%s(%d)" % [template_name, id]
 #endregion
 
 
@@ -372,7 +376,7 @@ func remove_entity() -> void:
 	SystemMgr.remove_queue.append(self)
 	removed = true
 	visible = false
-	Log.debug("移除实体: %s(%d)", [template_name, id])
+	Log.debug("移除实体: %s", self)
 
 
 ## 设定实体位置，根据拥有的组件智能赋值

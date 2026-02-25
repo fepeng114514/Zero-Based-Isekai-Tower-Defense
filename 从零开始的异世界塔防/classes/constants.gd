@@ -245,6 +245,23 @@ const GROUP_BULLETS: StringName = &"bullets"
 
 
 #region 搜索模式 (StringName)
+## 搜索模式: 实体第一个
+const SEARCH_ENTITY_FIRST: StringName = &"entity_first"
+## 搜索模式: 实体最后一个
+const SEARCH_ENTITY_LAST: StringName = &"entity_last"
+## 搜索模式: 实体最近
+const SEARCH_ENTITY_NEARST: StringName = &"entity_nearst"
+## 搜索模式: 实体最远
+const SEARCH_ENTITY_FARTHEST: StringName = &"entity_farthest"
+## 搜索模式: 实体最强
+const SEARCH_ENTITY_STRONGEST: StringName = &"entity_strongest"
+## 搜索模式: 实体最弱
+const SEARCH_ENTITY_WEAKEST: StringName = &"entity_weakest"
+## 搜索模式: 实体最大 ID
+const SEARCH_ENTITY_MAX_ID: StringName = &"entity_max_id"
+## 搜索模式: 实体最小 ID
+const SEARCH_ENTITY_MIN_ID: StringName = &"entity_min_id"
+
 ## 搜索模式: 敌人第一个
 const SEARCH_ENEMY_FIRST: StringName = &"enemy_first"
 ## 搜索模式: 敌人最后一个
@@ -257,6 +274,11 @@ const SEARCH_ENEMY_FARTHEST: StringName = &"enemy_farthest"
 const SEARCH_ENEMY_STRONGEST: StringName = &"enemy_strongest"
 ## 搜索模式: 敌人最弱
 const SEARCH_ENEMY_WEAKEST: StringName = &"enemy_weakest"
+## 搜索模式: 敌人最大 ID
+const SEARCH_ENEMY_MAX_ID: StringName = &"enemy_max_id"
+## 搜索模式: 敌人最小 ID
+const SEARCH_ENEMY_MIN_ID: StringName = &"enemy_min_id"
+
 ## 搜索模式: 友军第一个
 const SEARCH_FRIENDLY_FIRST: StringName = &"friendly_first"
 ## 搜索模式: 友军最后一个
@@ -269,6 +291,10 @@ const SEARCH_FRIENDLY_FARTHEST: StringName = &"friendly_farthest"
 const SEARCH_FRIENDLY_STRONGEST: StringName = &"friendly_strongest"
 ## 搜索模式: 友军最弱
 const SEARCH_FRIENDLY_WEAKEST: StringName = &"friendly_weakest"
+## 搜索模式: 友军最大 ID
+const SEARCH_FRIENDLY_MAX_ID: StringName = &"friendly_max_id"
+## 搜索模式: 友军最小 ID
+const SEARCH_FRIENDLY_MIN_ID: StringName = &"friendly_min_id"
 #endregion
 
 
@@ -280,7 +306,7 @@ const SORT_DISTANCE: StringName = &"distance"
 ## 排序类型: 血量
 const SORT_HEALTH: StringName = &"health"
 ## 排序类型: 实体 ID
-const SORT_ENTITY_ID: StringName = &"entity_id"
+const SORT_ID: StringName = &"entity_id"
 #endregion
 
 

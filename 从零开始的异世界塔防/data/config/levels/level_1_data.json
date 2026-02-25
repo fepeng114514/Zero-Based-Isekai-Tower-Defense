@@ -6,9 +6,6 @@
 	"node_count": 256,
 	"entities": [
 		{
-			"t_name": "wave_spawner"
-		},
-		{
 			"t_name": "tower_archer",
 			"position": "%vec2(400, 250)"
 		}

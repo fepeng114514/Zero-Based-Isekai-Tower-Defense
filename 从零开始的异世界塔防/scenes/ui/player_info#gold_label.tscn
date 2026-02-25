@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://61brgoqgpgwi"]
+
+[node name="PlayerInfo#GoldLabel" type="Label" unique_id=1577199513]
+theme_override_font_sizes/font_size = 24
+text = "500"
