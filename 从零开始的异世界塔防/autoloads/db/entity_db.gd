@@ -1,5 +1,5 @@
 extends Node
-signal create_entity_s(entity: Entity)
+
 
 """实体数据库:
 	存储所有实体与相关数据
@@ -117,7 +117,7 @@ func create_entity(t_name: String) -> Entity:
 	if not SystemMgr.call_systems("_on_ready_insert", e):
 		return e
 
-	create_entity_s.emit(e)
+	S.create_entity_s.emit(e)
 	Log.debug("创建实体: %s", e)
 	last_id += 1
 		

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dxr20bhgt2p2y" path="res://scenes/ui/main_buttom.tscn" id="1_0ay0p"]
 [ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://scripts/ui/play_button.gd" id="2_2p1s2"]
 [ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://scripts/ui/quit_buttom.gd" id="3_02nsg"]
+[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://scripts/ui/setting_buttom.gd" id="3_vspwy"]
 
 [node name="Main" type="PanelContainer" unique_id=1825947900]
 anchors_preset = 15
@@ -49,6 +50,7 @@ script = ExtResource("2_2p1s2")
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "游戏设置"
+script = ExtResource("3_vspwy")
 
 [node name="QuitButtom" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1967164590 instance=ExtResource("1_0ay0p")]
 custom_minimum_size = Vector2(200, 50)

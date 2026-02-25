@@ -1,11 +1,19 @@
-extends Node
+extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click"):
+		var click_global_pos: Vector2 = get_global_mouse_position()
+		var e: Variant = EntityDB.search_target(
+			C.SEARCH_ENTITY_MAX_ID, click_global_pos, 30
+		)
+		
+		if not e:
+			S.deselect_entity_s.emit()
+			return
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+		Log.debug("选择实体: %s, %s", [e, e.position])
+		S.select_entity_s.emit(e, click_global_pos)
+		return
+		
+	S.deselect_entity_s.emit()

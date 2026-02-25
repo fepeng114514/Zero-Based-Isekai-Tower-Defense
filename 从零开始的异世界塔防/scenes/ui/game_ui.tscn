@@ -1,179 +1,282 @@
 [gd_scene format=3 uid="uid://c3pw2s2ybgdou"]
 
-[ext_resource type="PackedScene" uid="uid://cufaf4wyw3b10" path="res://scenes/ui/game_ui_test.tscn" id="1_gwk6t"]
 [ext_resource type="Texture2D" uid="uid://oya8wpn6jmc8" path="res://icon.svg" id="1_xjfbv"]
+[ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scripts/ui/unit_panel.gd" id="2_xjfbv"]
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.25, 0.25, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.6, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.15, 0.15, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.12, 0.12, 0.15, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="Theme" id="5"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_color_hover = Color(1, 1, 1, 1)
+Button/colors/font_color_pressed = Color(0.9, 0.9, 0.9, 1)
+Button/styles/hover = SubResource("2")
+Button/styles/normal = SubResource("1")
+Button/styles/pressed = SubResource("3")
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.2, 0.2, 0.25, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="GameUI" type="CanvasLayer" unique_id=934359936]
 
-[node name="Control" type="MarginContainer" parent="." unique_id=1058747811]
-offset_right = 1152.0
-offset_bottom = 648.0
-theme_override_constants/margin_left = 27
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 27
-theme_override_constants/margin_bottom = 25
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=2133448477]
-layout_mode = 2
-
-[node name="TopContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=1845422110]
-layout_mode = 2
-theme_override_constants/separation = 758
-alignment = 1
-
-[node name="PlayerResourceContainer" type="HBoxContainer" parent="Control/VBoxContainer/TopContainer" unique_id=1485858652]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="Life" type="HBoxContainer" parent="Control/VBoxContainer/TopContainer/PlayerResourceContainer" unique_id=248591309]
-layout_mode = 2
-
-[node name="LifeIcon" type="TextureRect" parent="Control/VBoxContainer/TopContainer/PlayerResourceContainer/Life" unique_id=383135616]
-layout_mode = 2
-texture = ExtResource("1_xjfbv")
-expand_mode = 3
-
-[node name="LifeText" parent="Control/VBoxContainer/TopContainer/PlayerResourceContainer/Life" unique_id=444811463 instance=ExtResource("1_gwk6t")]
-layout_mode = 2
-text = "20"
-
-[node name="Gold" type="HBoxContainer" parent="Control/VBoxContainer/TopContainer/PlayerResourceContainer" unique_id=1520933823]
-layout_mode = 2
-
-[node name="GoldIcon" type="TextureRect" parent="Control/VBoxContainer/TopContainer/PlayerResourceContainer/Gold" unique_id=1912210621]
-layout_mode = 2
-texture = ExtResource("1_xjfbv")
-expand_mode = 3
-
-[node name="GoldText" parent="Control/VBoxContainer/TopContainer/PlayerResourceContainer/Gold" unique_id=259247322 instance=ExtResource("1_gwk6t")]
-layout_mode = 2
-text = "500"
-
-[node name="TopRightControls" type="HBoxContainer" parent="Control/VBoxContainer/TopContainer" unique_id=1423516615]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="Speed" type="Button" parent="Control/VBoxContainer/TopContainer/TopRightControls" unique_id=353878816]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-text = "1x"
-
-[node name="Pause" type="Button" parent="Control/VBoxContainer/TopContainer/TopRightControls" unique_id=541694413]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "⏸️"
-
-[node name="Spacer" type="Control" parent="Control/VBoxContainer" unique_id=967999438]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=2072529152]
-layout_mode = 2
-theme_override_constants/separation = 21
-
-[node name="SkillsContainer" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer" unique_id=1659347933]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="Skills#Skill1" type="Button" parent="Control/VBoxContainer/HBoxContainer/SkillsContainer" unique_id=468039354]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "⚡"
-
-[node name="Skills#Skill2" type="Button" parent="Control/VBoxContainer/HBoxContainer/SkillsContainer" unique_id=695513047]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "🛡️"
-
-[node name="Skills#Skill3" type="Button" parent="Control/VBoxContainer/HBoxContainer/SkillsContainer" unique_id=970252642]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "✨"
-
-[node name="EntityInfoPanel" type="PanelContainer" parent="Control/VBoxContainer/HBoxContainer" unique_id=1078209514]
-layout_mode = 2
-
-[node name="UnitInfoPanel#MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel" unique_id=290298344]
-layout_mode = 2
+[node name="Control" type="MarginContainer" parent="." unique_id=522592712]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer" unique_id=147378990]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1281837907]
 layout_mode = 2
-theme_override_constants/separation = 32
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
 
-[node name="UnitInfoPanel#MarginContainer2" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer" unique_id=1774661348]
+[node name="TopBar" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=456794228]
 layout_mode = 2
-theme_override_constants/separation = 10
+size_flags_horizontal = 3
 
-[node name="UnitInfoPanel#MarginContainer3" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer2" unique_id=807963648]
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "单位名称"
-horizontal_alignment = 1
-
-[node name="UnitInfoPanel#MarginContainer4" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer" unique_id=2045072283]
+[node name="PlayerResources" type="HBoxContainer" parent="Control/VBoxContainer/TopBar" unique_id=1039753835]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="UnitInfoPanel#MarginContainer5" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer4" unique_id=513964004]
+[node name="Life" type="HBoxContainer" parent="Control/VBoxContainer/TopBar/PlayerResources" unique_id=1234846704]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "生命值:"
+theme_override_constants/separation = 8
 
-[node name="UnitInfoPanel#MarginContainer6" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer4" unique_id=1550994795]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "120/120"
-
-[node name="UnitInfoPanel#MarginContainer7" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer" unique_id=1641463290]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer7" unique_id=177444528]
+[node name="LifeIcon" type="TextureRect" parent="Control/VBoxContainer/TopBar/PlayerResources/Life" unique_id=2073494238]
 layout_mode = 2
 texture = ExtResource("1_xjfbv")
 expand_mode = 3
 
-[node name="UnitInfoPanel#MarginContainer8" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer7" unique_id=1684034403]
+[node name="LifeLabel" type="Label" parent="Control/VBoxContainer/TopBar/PlayerResources/Life" unique_id=1928315636]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "伤害:"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "20"
 
-[node name="UnitInfoPanel#MarginContainer9" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer7" unique_id=407763060]
+[node name="Gold" type="HBoxContainer" parent="Control/VBoxContainer/TopBar/PlayerResources" unique_id=494333279]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "25"
+theme_override_constants/separation = 8
 
-[node name="UnitInfoPanel#MarginContainer10" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer" unique_id=1685732791]
+[node name="GoldIcon" type="TextureRect" parent="Control/VBoxContainer/TopBar/PlayerResources/Gold" unique_id=199246340]
+layout_mode = 2
+texture = ExtResource("1_xjfbv")
+expand_mode = 3
+
+[node name="GoldLabel" type="Label" parent="Control/VBoxContainer/TopBar/PlayerResources/Gold" unique_id=546557196]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "500"
+
+[node name="TopSpacer" type="Control" parent="Control/VBoxContainer/TopBar" unique_id=1279457788]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TopControls" type="HBoxContainer" parent="Control/VBoxContainer/TopBar" unique_id=920722687]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="SpeedButton" type="Button" parent="Control/VBoxContainer/TopBar/TopControls" unique_id=2015142173]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+text = "1x"
+
+[node name="PauseButton" type="Button" parent="Control/VBoxContainer/TopBar/TopControls" unique_id=1349281211]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 24
+text = "⏸️"
+
+[node name="MiddleSpacer" type="Control" parent="Control/VBoxContainer" unique_id=528073065]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=784814996]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Skills" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar" unique_id=1178020824]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Skill1" type="Button" parent="Control/VBoxContainer/BottomBar/Skills" unique_id=265665211]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 30
+text = "⚡"
+
+[node name="Skill2" type="Button" parent="Control/VBoxContainer/BottomBar/Skills" unique_id=708986165]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 30
+text = "🛡️"
+
+[node name="Skill3" type="Button" parent="Control/VBoxContainer/BottomBar/Skills" unique_id=1787043642]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 30
+text = "✨"
+
+[node name="BottomSpacer" type="Control" parent="Control/VBoxContainer/BottomBar" unique_id=38655100]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="UnitPanel" type="PanelContainer" parent="Control/VBoxContainer/BottomBar" unique_id=1798517703]
+layout_mode = 2
+theme_override_styles/panel = SubResource("4")
+script = ExtResource("2_xjfbv")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/BottomBar/UnitPanel" unique_id=941920840]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer" unique_id=1189586016]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="UnitName" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer" unique_id=2031381359]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "单位名称"
+horizontal_alignment = 1
+
+[node name="HBox_HP" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer" unique_id=478167688]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="UnitInfoPanel#MarginContainer11" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer10" unique_id=1602368146]
+[node name="Label_HP" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_HP" unique_id=140425634]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 22
+text = "生命值:"
+
+[node name="Value_HP" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_HP" unique_id=1672737637]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "120/120"
+
+[node name="HBox_Damage" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer" unique_id=2109600893]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label_Damage" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_Damage" unique_id=1532799054]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 22
+text = "伤害:"
+
+[node name="Value_Damage" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_Damage" unique_id=1679585946]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "25"
+
+[node name="HBox_PhysArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer" unique_id=799253875]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label_PhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_PhysArmor" unique_id=1695337698]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_font_sizes/font_size = 22
 text = "物理护甲:"
 
-[node name="UnitInfoPanel#MarginContainer12" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer10" unique_id=1653947454]
+[node name="Value_PhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_PhysArmor" unique_id=1056363535]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "10"
 
-[node name="UnitInfoPanel#MarginContainer13" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer10" unique_id=316493256]
+[node name="HBox_MagicArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer" unique_id=489372127]
 layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label_MagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_MagicArmor" unique_id=291174064]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_font_sizes/font_size = 22
 text = "魔法护甲:"
 
-[node name="UnitInfoPanel#MarginContainer14" type="Label" parent="Control/VBoxContainer/HBoxContainer/EntityInfoPanel/UnitInfoPanel#MarginContainer/HBoxContainer/UnitInfoPanel#MarginContainer10" unique_id=1985296326]
+[node name="Value_MagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/UnitPanel/MarginContainer/VBoxContainer/HBox_MagicArmor" unique_id=351829146]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "5"

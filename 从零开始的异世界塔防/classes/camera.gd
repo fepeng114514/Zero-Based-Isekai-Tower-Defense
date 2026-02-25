@@ -7,9 +7,11 @@ var drag_start_position := Vector2.ZERO
 var zoom_factor: float = 1.1
 var zoom_duration: float = 0.2
 var zoom_min: float = 0
-var zoom_max: float = 3
+var zoom_max: float = 2
 
 func _ready() -> void:
+	S.resized_window_s.connect(_on_resized_window)
+	
 	tween.set_parallel(false)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
@@ -21,15 +23,13 @@ func _ready() -> void:
 	editor_draw_limits = true
 	position = Vector2(1280, 720)
 	
-	var window_size_factor: Vector2 = Global.WINDOW_SIZE / Global.MAX_WINDOW_SIZE
-	zoom_min = window_size_factor.x
-	zoom = window_size_factor
-
+	_reset_zoom()
+	
 
 func _input(event: InputEvent) -> void:
 	# 滚动事件
 	if event.is_action("scroll_up"):
-		_smooth_zoom()
+		_smooth_zoom(false)
 		
 	elif event.is_action("scroll_down"):
 		_smooth_zoom(true)
@@ -69,9 +69,21 @@ func _smooth_zoom(reversed: bool = false) -> void:
 	#)
 
 
-func _move(target_pos: Vector2):
+func _move(target_pos: Vector2) -> void:
 	# 计算鼠标移动距离
 	var drag_offset: Vector2 = drag_start_position - target_pos
 	# 移动相机（注意：要除以缩放倍数，否则缩放后拖动速度不对）
 	position += drag_offset / zoom
 	drag_start_position = target_pos
+
+
+func _reset_zoom() -> void:
+	var window_size_factor: Vector2 = (
+		Global.WINDOW_SIZE / Global.MAX_WINDOW_SIZE
+	)
+	zoom_min = window_size_factor.x
+	zoom = Vector2(zoom_min, zoom_min)
+
+
+func _on_resized_window() -> void:
+	_reset_zoom()

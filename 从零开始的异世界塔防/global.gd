@@ -1,5 +1,6 @@
 extends Node
 
+
 var IS_RELEASE: bool = OS.has_feature("release")
 var IS_DEBUG: bool = OS.has_feature("debug")
 var MAX_WINDOW_SIZE := Vector2(2560, 1440)
@@ -16,3 +17,5 @@ func _on_window_resized() -> void:
 	
 	Log.debug("重设窗口大小: %s", window_size)
 	WINDOW_SIZE = window_size
+	
+	S.resized_window_s.emit()

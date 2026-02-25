@@ -4,7 +4,7 @@ class_name Store
 
 
 func _ready() -> void:
-	EntityDB.create_entity_s.connect(_on_create_entity)
+	S.create_entity_s.connect(_on_create_entity)
 
 
 func _on_create_entity(entity: Entity) -> void:

@@ -16,7 +16,6 @@ class_name C
 			3. ASSETS 副表示，表示是资产目录下的子目录
 """
 
-
 #region 基础常量
 ## 帧率
 const FPS: int = 60
