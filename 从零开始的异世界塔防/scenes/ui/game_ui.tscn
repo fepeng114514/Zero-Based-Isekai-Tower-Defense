@@ -72,19 +72,6 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="GDScript" id="GDScript_xjfbv"]
-script/source = "extends Label
-
-
-func _ready() -> void:
-	S.create_entity_s
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
 [node name="GameUI" type="CanvasLayer" unique_id=934359936]
 
 [node name="Control" type="MarginContainer" parent="." unique_id=522592712]
@@ -207,11 +194,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="EntityInfoPanel" type="PanelContainer" parent="Control/VBoxContainer/BottomBar" unique_id=1798517703]
-visible = false
+[node name="EntityInfoPanel" type="PanelContainer" parent="Control/VBoxContainer/BottomBar" unique_id=1798517703 node_paths=PackedStringArray("hp_value_label", "entity_name_label")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("4")
 script = ExtResource("2_xjfbv")
+hp_value_label = NodePath("MarginContainer/VBoxContainer/HBoxHP/LabelHP")
+entity_name_label = NodePath("MarginContainer/VBoxContainer/EntityName")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel" unique_id=941920840]
 layout_mode = 2
@@ -231,66 +219,81 @@ theme_override_font_sizes/font_size = 24
 text = "单位名称"
 horizontal_alignment = 1
 
-[node name="HBox_HP" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=478167688]
+[node name="HBoxHP" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=478167688]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label_HP" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_HP" unique_id=140425634]
+[node name="LabelHP" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=140425634]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_font_sizes/font_size = 22
 text = "生命值:"
 
-[node name="Value_HP" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_HP" unique_id=1672737637]
+[node name="ValueHP" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=1672737637]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "120/120"
-script = SubResource("GDScript_xjfbv")
 
-[node name="HBox_Damage" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=2109600893]
+[node name="HBoxMelee" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=2109600893]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label_Damage" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_Damage" unique_id=1532799054]
+[node name="LabelMelee" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=1532799054]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_font_sizes/font_size = 22
-text = "伤害:"
+text = "⚔️"
 
-[node name="Value_Damage" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_Damage" unique_id=1679585946]
+[node name="ValueMelee" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=1679585946]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
-text = "25"
+text = "25/1"
 
-[node name="HBox_PhysArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=799253875]
+[node name="HBoxRanged" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=4318036]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label_PhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_PhysArmor" unique_id=1695337698]
+[node name="LabelRanged" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=1748661988]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_font_sizes/font_size = 22
-text = "物理护甲:"
+text = "🏹"
 
-[node name="Value_PhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_PhysArmor" unique_id=1056363535]
+[node name="ValueRanged" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=820156921]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "25/1"
+
+[node name="HBoxPhysArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=799253875]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelPhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=1695337698]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 22
+text = "🛡️"
+
+[node name="ValuePhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=1056363535]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "10"
 
-[node name="HBox_MagicArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=489372127]
+[node name="HBoxMagicArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=489372127]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label_MagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_MagicArmor" unique_id=291174064]
+[node name="LabelMagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=291174064]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_font_sizes/font_size = 22
-text = "魔法护甲:"
+text = "🛡️"
 
-[node name="Value_MagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBox_MagicArmor" unique_id=351829146]
+[node name="ValueMagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=351829146]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22

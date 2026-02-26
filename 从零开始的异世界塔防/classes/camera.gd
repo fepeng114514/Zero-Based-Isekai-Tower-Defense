@@ -26,7 +26,7 @@ func _ready() -> void:
 	_reset_zoom()
 	
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	# 滚动事件
 	if event.is_action("scroll_up"):
 		_smooth_zoom(false)

@@ -36,6 +36,12 @@ LevelMgr="*res://autoloads/manager/level_manager.gd"
 ImageDB="*uid://vrs8o2ekiglw"
 AnimDB="*uid://bmr4i31he7oo5"
 SoundDB="*uid://cc025jxyxcxmc"
+DrawMgr="*uid://b8v3oqs84i4lx"
+
+[display]
+
+window/size/viewport_width=2560
+window/size/viewport_height=1440
 
 [file_customization]
 

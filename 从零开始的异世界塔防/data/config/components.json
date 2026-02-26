@@ -159,6 +159,8 @@
 				"type": "single",
 				"min_damage": 0,
 				"max_damage": 0,
+				"min_range": 0,
+				"max_range": 0,
 				"cooldown": 0,
 				"bullet": "",
 				"ts": 0,
@@ -235,8 +237,9 @@
 	},
 	"ui": {
 		"can_click": true,
-		"click_rect": "rect2(-12, -16, 13, 16)",
-		"info_type": "%const(INFO_COMMON)"
+		"click_rect": "rect2(-18, -22, 18, 22)",
+		"info_type": "%const(INFO_COMMON)",
+		"selected": false
 	},
 	"spawner": {
 		"spawner_name": "",

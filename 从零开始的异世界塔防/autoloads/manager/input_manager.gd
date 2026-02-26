@@ -1,7 +1,7 @@
 extends Node2D
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
 		var clicked_global_pos: Vector2 = get_global_mouse_position()
 		var e: Variant = EntityDB.search_target(
@@ -17,7 +17,9 @@ func _input(event: InputEvent) -> void:
 
 				var ui_c: UIComponent = entity.get_c(C.CN_UI)
 				
-				return ui_c.is_click_at(entity.position, clicked_global_pos)
+				return ui_c.is_click_at(
+					entity.position, clicked_global_pos
+				)
 		)
 		
 		if not e:

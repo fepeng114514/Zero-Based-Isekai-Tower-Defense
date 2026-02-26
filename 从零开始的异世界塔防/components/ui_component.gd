@@ -4,6 +4,8 @@ class_name UIComponent
 var click_rect := Rect2(-12, -16, 13, 16)
 var can_click: bool = true
 var info_type: StringName = C.INFO_COMMON
+var show_info: bool = false
+var selected: bool = false
 
 
 ## 获取全局位置的矩形

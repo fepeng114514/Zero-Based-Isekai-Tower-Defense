@@ -79,6 +79,54 @@
 		}
 	},
 	"towers": {
+		"tower_archer": {
+			"base": "tower",
+			"components": {
+				"ranged": {
+					"list": [
+						{
+							"type": "single",
+							"bullet": "bullet_arrow",
+							"min_range": 0,
+							"max_range": 400,
+							"cooldown": 1,
+							"delay": "%fts(7)"
+						}
+					]
+				},
+				"sprite": {
+					"list": [
+						{
+							"type": "animated",
+							"sprite_name": "tower_archer_lvl1_shooter"
+						}
+					]
+				},
+				"ui": {
+					"info_type": ""
+				}
+			}
+		},
+		"bullet_arrow": {
+			"base": "bullet",
+			"components": {
+				"bullet": {
+					"predict_pos_disabled": true,
+					"flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
+					"min_damage": 10,
+					"max_damage": 50,
+					"flight_time": 1
+				},
+				"sprite": {
+					"list": [
+						{
+							"type": "image",
+							"sprite_name": "arrow"
+						}
+					]
+				}
+			}
+		},
 		"tower_mage": {
 			"base": "tower",
 			"components": {
@@ -103,51 +151,6 @@
 					"min_damage": 50,
 					"max_damage": 50,
 					"speed": 300
-				}
-			}
-		},
-		"tower_archer": {
-			"base": "tower",
-			"components": {
-				"ranged": {
-					"list": [
-						{
-							"type": "single",
-							"bullet": "bullet_arrow",
-							"min_range": 0,
-							"max_range": 400,
-							"cooldown": 1,
-							"delay": "%fts(7)"
-						}
-					]
-				},
-				"sprite": {
-					"list": [
-						{
-							"type": "animated",
-							"sprite_name": "tower_archer_lvl1_shooter"
-						}
-					]
-				}
-			}
-		},
-		"bullet_arrow": {
-			"base": "bullet",
-			"components": {
-				"bullet": {
-					"predict_pos_disabled": true,
-					"flight_trajectory": "%const(TRAJECTORY_PARABOLA)",
-					"min_damage": 10,
-					"max_damage": 50,
-					"flight_time": 1
-				},
-				"sprite": {
-					"list": [
-						{
-							"type": "image",
-							"sprite_name": "arrow"
-						}
-					]
 				}
 			}
 		},

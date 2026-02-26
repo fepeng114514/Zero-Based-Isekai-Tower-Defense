@@ -1,17 +1,15 @@
 extends PanelContainer
-var showed_entity: Variant = null
+var selected_entity: Variant = null
 var info_type: StringName = C.INFO_COMMON
-@onready var hp_value_label: Label = (
-	$MarginContainer/VBoxContainer/HBox_HP/Value_HP
-)
-@onready var entity_name_label: Label = (
-	$MarginContainer/VBoxContainer/EntityName
-)
+@export var hp_value_label: Label
+@export var entity_name_label: Label
 
 
 func _ready() -> void:
 	S.select_entity_s.connect(_show)
 	S.deselect_entity_s.connect(_hidden)
+	
+	visible = false
 
 
 func _process(delta: float) -> void:
@@ -19,17 +17,18 @@ func _process(delta: float) -> void:
 	
 	
 func _update(delta: float) -> void:
-	var e: Variant = showed_entity
-	
-	if not e:
+	if not selected_entity:
 		return
+		
+	var e: Entity = selected_entity
 	
-	if info_type == C.INFO_COMMON:
-		entity_name_label.text = e.template_name
-		
-		var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
-		
-		hp_value_label.text = "%d/%d" % [health_c.hp_max, health_c.hp]
+	match info_type:
+		C.INFO_COMMON:
+			entity_name_label.text = e.template_name
+			
+			var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
+			
+			hp_value_label.text = "%d/%d" % [health_c.hp_max, health_c.hp]
 	
 
 func _show(e: Entity) -> void:
@@ -42,9 +41,9 @@ func _show(e: Entity) -> void:
 		return
 		
 	visible = true
-	showed_entity = e
+	selected_entity = e
 	info_type = ui_c.info_type
 	
 func _hidden() -> void:
 	visible = false
-	showed_entity = null
+	selected_entity = null
