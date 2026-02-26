@@ -7,7 +7,7 @@ func _initialize() -> void:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.CN_RALLY, func(e: Entity):
+	process_entities(C.CN_RALLY, func(e: Entity) -> void:
 		var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
 		
 		if not rally_c.arrived:

@@ -47,7 +47,7 @@ func _on_insert(e: Entity) -> bool:
 	# 处理相同光环
 	# 按照等级降序排序
 	same_source_auras.sort_custom(
-		func(a1: Entity, a2: Entity): return a1.level > a2.level
+		func(a1: Entity, a2: Entity) -> bool: return a1.level > a2.level
 	)
 	var min_level_aura: Entity = same_source_auras[-1]
 	var max_level_aura: Entity = same_source_auras[0]
@@ -75,7 +75,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.GROUP_AURAS, func(e: Entity):
+	process_entities(C.GROUP_AURAS, func(e: Entity) -> void:
 		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
 		var targets: Array = EntityDB.search_targets_in_range(
 			aura_c.search_mode, 

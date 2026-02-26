@@ -23,7 +23,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.CN_MELEE, func(e: Entity):
+	process_entities(C.CN_MELEE, func(e: Entity) -> void:
 		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
 		melee_c.cleanup_blocker()
 		melee_c.cleanup_blockeds()
@@ -71,7 +71,7 @@ func process_blocker(e: Entity, melee_c: MeleeComponent) -> void:
 	
 
 func find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
-	var filter = func(entity, origin): return (
+	var filter = func(entity) -> bool: return (
 		entity.has_c(C.CN_MELEE) and not entity.id in melee_c.blockeds_ids
 	)
 

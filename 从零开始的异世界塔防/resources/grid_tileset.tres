@@ -1,5 +1,11 @@
 [gd_resource type="TileSet" format=3 uid="uid://drvqqrlklyc0"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kteni"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
 [sub_resource type="Gradient" id="Gradient_6761a"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.89641577, 0.0016517752, 0.0009041843, 1)
@@ -14,6 +20,13 @@ resource_name = "land_not_walk"
 texture = SubResource("GradientTexture2D_sk5k4")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_kteni")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_qri4g"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
 
 [sub_resource type="Gradient" id="Gradient_s8va5"]
 offsets = PackedFloat32Array(0)
@@ -29,9 +42,11 @@ resource_name = "land_can_walk"
 texture = SubResource("GradientTexture2D_dga24")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_qri4g")
 
 [resource]
 tile_size = Vector2i(32, 32)
 navigation_layer_0/layers = 1
+navigation_layer_1/layers = 2
 sources/9 = SubResource("TileSetAtlasSource_qxy0u")
 sources/10 = SubResource("TileSetAtlasSource_oc4kc")

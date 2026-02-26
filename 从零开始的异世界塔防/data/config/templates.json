@@ -225,8 +225,7 @@
 			"base": "enemy",
 			"components": {
 				"health": {
-					"hp_max": 100,
-					"physical_armor": 50
+					"hp_max": 100
 				},
 				"nav_path": {
 					"speed": 133
@@ -242,6 +241,7 @@
 						}
 					]
 				},
+				"ui": {},
 				"sprite": {
 					"list": [
 						{

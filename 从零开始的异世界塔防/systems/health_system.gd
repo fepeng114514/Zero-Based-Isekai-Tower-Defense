@@ -11,11 +11,11 @@ func _on_ready_insert(e: Entity) -> bool:
 
 	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
 		
-	var health_bar = preload(C.PATH_SCENES % "health_bar").instantiate()
+	var health_bar: Node2D = preload(C.PATH_SCENES % "health_bar").instantiate()
 	health_bar.scale = health_c.health_bar_scale
 	health_bar.position = health_c.health_bar_offset
 	e.add_child(health_bar)
-	e.set_c(C.CN_HEALTH_BAR, health_bar)
+	health_c.health_bar = health_bar
 	
 	return true
 
@@ -34,9 +34,9 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(delta: float) -> void:
 	_process_damege_queue()
 
-	process_entities(C.CN_HEALTH, func(e: Entity):
+	process_entities(C.CN_HEALTH, func(e: Entity) -> void:
 		var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
-		var health_bar: Node = e.get_c(C.CN_HEALTH_BAR)
+		var health_bar: Node = health_c.health_bar
 		health_bar.fg.scale.x = (
 			health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 		)

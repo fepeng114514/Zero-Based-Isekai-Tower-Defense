@@ -235,7 +235,8 @@
 	},
 	"ui": {
 		"can_click": true,
-		"click_rect": "rect2(1, 1, 1, 1)"
+		"click_rect": "rect2(-12, -16, 13, 16)",
+		"info_type": "%const(INFO_COMMON)"
 	},
 	"spawner": {
 		"spawner_name": "",

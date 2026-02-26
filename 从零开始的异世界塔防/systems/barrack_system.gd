@@ -18,7 +18,7 @@ func _on_insert(e: Entity) -> bool:
 	
 
 func _on_update(delta: float) -> void:
-	process_entities(C.CN_BARRACK, func(e: Entity):
+	process_entities(C.CN_BARRACK, func(e: Entity) -> void:
 		var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
 		barrack_c.cleanup_soldiers()
 		

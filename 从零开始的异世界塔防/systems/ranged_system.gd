@@ -16,7 +16,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.CN_RANGED, func(e: Entity):
+	process_entities(C.CN_RANGED, func(e: Entity) -> void:
 		var state: int = e.state
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
@@ -36,7 +36,7 @@ func _on_update(delta: float) -> void:
 			e.play_animation("shoot")
 			e.wait(a.delay, false)
 
-			e.insert_wait_action_queue(func(this: Entity):
+			e.insert_wait_action_queue(func(this: Entity) -> void:
 				var b = EntityDB.create_entity(a.bullet)
 				b.target_id = target.id
 				b.source_id = this.id

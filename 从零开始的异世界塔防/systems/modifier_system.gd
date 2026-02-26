@@ -56,7 +56,7 @@ func _on_insert(e: Entity) -> bool:
 	# 处理相同效果
 	# 按照等级降序排序
 	same_target_mods.sort_custom(
-		func(m1: Entity, m2: Entity): return m1.level > m2.level
+		func(m1: Entity, m2: Entity) -> bool: return m1.level > m2.level
 	)
 	var min_level_mod: Entity = same_target_mods[-1]
 	var max_level_mod: Entity = same_target_mods[0]
@@ -83,7 +83,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.GROUP_MODIFIERS, func(e: Entity):
+	process_entities(C.GROUP_MODIFIERS, func(e: Entity) -> void:
 		var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 		
 		# 周期效果

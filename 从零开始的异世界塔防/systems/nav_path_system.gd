@@ -29,7 +29,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.CN_NAV_PATH, func(e: Entity):
+	process_entities(C.CN_NAV_PATH, func(e: Entity) -> void:
 		var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 		nav_path_c.speed = nav_path_c.origin_speed * get_mod_speed_factor(e)
 		var reversed: bool = nav_path_c.reversed

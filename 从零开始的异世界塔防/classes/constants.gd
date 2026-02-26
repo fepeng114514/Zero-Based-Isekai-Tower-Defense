@@ -200,8 +200,6 @@ const TRAJECTORY_INSTANT: int = 1 << 3
 #region 组件名称 (StringName)
 ## 组件名称: 血量
 const CN_HEALTH: StringName = &"health"
-## 组件名称: 血条
-const CN_HEALTH_BAR: StringName = &"health_bar"
 ## 组件名称: 导航路径
 const CN_NAV_PATH: StringName = &"nav_path"
 ## 组件名称: 集结点
@@ -224,6 +222,8 @@ const CN_SPRITE: StringName = &"sprite"
 const CN_BARRACK: StringName = &"barrack"
 ## 组件名称: 生成器
 const CN_SPAWNER: StringName = &"spawner"
+## 组件名称: UI
+const CN_UI: StringName = &"ui"
 #endregion
 
 
@@ -335,4 +335,8 @@ const LEVEL_REQUIRED_ATLAS: Array[String] = [
 	"common_enemies",
 	"towers",
 ]
+#endregion
+
+#region 实体信息类型 (StringName)
+const INFO_COMMON: StringName = &"common"
 #endregion

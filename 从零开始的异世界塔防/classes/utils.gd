@@ -176,36 +176,39 @@ static func convert_json_data(data: Variant) -> Variant:
 
 
 static var type_handlers: Dictionary = {
-	"int": func(val): return int(val),
-	"float": func(val): return float(val),
-	"bool": func(val): return val == "true",
-	"str": func(val): return str(val),
-	"vec2": func(val): 
-		var parts = val.split(",")
+	"int": func(value) -> int: 
+		return int(value),
+	"float": func(value) -> float: 
+		return float(value),
+	"str": func(value) -> String: 
+		return str(value),
+	"vec2": func(value) -> Vector2: 
+		var parts = value.split(",")
 		return Vector2(float(parts[0]), float(parts[1])),
-	"rect2": func(val): 
-		var parts = val.split(",")
+	"rect2": func(value) -> Rect2: 
+		var parts = value.split(",")
 		return (
 			Rect2(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]))
 		),
-	"color": func(val):
-		var parts = val.split(",")
+	"color": func(value) -> Color:
+		var parts = value.split(",")
 		return (
 			Color(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]))
 		),
-	"const": func(val):
-		var parts = val.split(",")
+	"const": func(value) -> Variant:
+		var parts = value.split(",")
 		
 		if parts.size() == 1:
 			return constants.get(parts[0])
 		
 		var new_value: int = 0
 		
-		for p in parts:
+		for p: int in parts:
 			new_value &= p
 			
 		return new_value,
-	"fts": func(val): return fts(int(val))
+	"fts": func(value) -> float:
+		return fts(float(value))
 }
 
 

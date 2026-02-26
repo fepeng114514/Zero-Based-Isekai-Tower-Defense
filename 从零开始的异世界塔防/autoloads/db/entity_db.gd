@@ -170,7 +170,7 @@ func create_damage(
 	d.target_id = target_id
 	d.source_id = source_id
 	d.damage_type = damage_type
-	d.value = randi_range(min_damage, max_damage)
+	d.value = randf_range(min_damage, max_damage)
 	d.damage_factor = damage_factor
 	d.template_name = d_name
 
@@ -331,7 +331,9 @@ func get_entity_script(t_name: String, deep: bool = false) -> Variant:
 
 ## 获取所有有效实体
 func get_vaild_entities() -> Array:
-	return entities.filter(func(e): return U.is_vaild_entity(e))
+	return entities.filter(
+		func(e) -> bool: return U.is_vaild_entity(e)
+	)
 #endregion
 
 
@@ -341,7 +343,7 @@ func sort_targets(
 		targets: Array, sort_type: String, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_functions = {
-		C.SORT_PROGRESS: func(e1: Entity, e2: Entity):
+		C.SORT_PROGRESS: func(e1: Entity, e2: Entity) -> bool:
 			var p1: float = (
 				e1.get_c(C.CN_NAV_PATH).nav_progress
 				if e1.has_c(C.CN_NAV_PATH) else 0
@@ -352,17 +354,17 @@ func sort_targets(
 			)
 			return p1 > p2 if not reversed else p1 < p2,
 		
-		C.SORT_HEALTH: func(e1: Entity, e2: Entity):
+		C.SORT_HEALTH: func(e1: Entity, e2: Entity) -> bool:
 			var h1: float = e1.get_c(C.CN_HEALTH).hp if e1.has_c(C.CN_HEALTH) else 0
 			var h2: float = e2.get_c(C.CN_HEALTH).hp if e2.has_c(C.CN_HEALTH) else 0
 			return h1 > h2 if not reversed else h1 < h2,
 		
-		C.SORT_DISTANCE: func(e1: Entity, e2: Entity):
+		C.SORT_DISTANCE: func(e1: Entity, e2: Entity) -> bool:
 			var d1: float = e1.position.distance_squared_to(origin)
 			var d2: float = e2.position.distance_squared_to(origin)
 			return d1 > d2 if not reversed else d1 < d2,
 			
-		C.SORT_ID: func(e1: Entity, e2: Entity):
+		C.SORT_ID: func(e1: Entity, e2: Entity) -> bool:
 			var i1: int = e1.id
 			var i2: int = e2.id
 			return i1 > i2 if not reversed else i1 < i2,
@@ -372,6 +374,9 @@ func sort_targets(
 		targets.sort_custom(sort_functions[sort_type])
 
 
+## 搜索范围内目标, 
+## filter 匿名函数格式为 func(e: Entity) -> bool,
+## 并返回 bool 表示是否被过滤
 func find_targets_in_range(
 		origin: Vector2,
 		max_range: float,
@@ -385,16 +390,19 @@ func find_targets_in_range(
 	var pool: Array = get_entities_group(group) if group else entities
 	
 	return pool.filter(
-		func(e): return (
+		func(e) -> bool: return (
 			is_instance_valid(e)
 			and not (bans & e.flags or e.bans & flags)
 			and U.is_in_radius(e.position, origin, max_range)
 			and not U.is_in_radius(e.position, origin, min_range)
-			and (not filter or filter.call(e, origin))
+			and (not filter or filter.call(e))
 		)
 	)
 
 
+## 搜索并排序范围内目标, 
+## filter 匿名函数格式为 func(e: Entity) -> bool,
+## 并返回 bool 表示是否被过滤
 func find_sorted_targets(
 		sort_type: String,
 		origin: Vector2,
@@ -413,6 +421,9 @@ func find_sorted_targets(
 	return targets
 
 
+## 搜索范围内相应值最大的目标, 
+## filter 匿名函数格式为 func(e: Entity) -> bool,
+## 并返回 bool 表示是否被过滤
 func find_extreme_target(
 		sort_type: String,
 		origin: Vector2,
@@ -463,7 +474,9 @@ const SEARCH_CONFIG: Dictionary[String, Array] = {
 }
 
 
-## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）
+## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）,
+## filter 匿名函数格式为 func(e: Entity) -> bool,
+## 并返回 bool 表示是否被过滤
 func search_target(
 		search_mode: String, 
 		origin: Vector2, 
@@ -484,7 +497,9 @@ func search_target(
 	)
 
 
-## 根据搜索模式选择相应索敌函数（搜索范围内所有目标）
+## 根据搜索模式选择相应索敌函数（搜索范围内所有目标）,
+## filter 匿名函数格式为 func(e: Entity) -> bool,
+## 并返回 bool 表示是否被过滤
 func search_targets_in_range(
 		search_mode: String, 
 		origin: Vector2, 

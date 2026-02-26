@@ -57,7 +57,7 @@ var y_waiting: bool = false
 var waiting: bool = false
 ## 等待计时
 var wait_clock: float = 0
-## 等待完毕执行的函数队列，需要形参: Entity
+## 等待完毕执行的函数队列，匿名函数格式为 func(e: Entity) -> void
 var wait_action_queue: Array = []
 ## 移除状态，表示实体正在被移除
 var removed: bool = false
@@ -300,7 +300,7 @@ func wait(time: float = 0, reset: bool = true) -> void:
 	wait_clock = time
 
 
-## 将函数增加到等待完成后执行的函数队列，需要形参: Entity
+## 将函数增加到等待完成后执行的函数队列，其中 action_func 匿名函数格式为 func(e: Entity) -> void
 func insert_wait_action_queue(action_func: Callable) -> void:
 	wait_action_queue.append(action_func)
 

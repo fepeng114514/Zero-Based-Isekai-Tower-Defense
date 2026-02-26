@@ -7,7 +7,7 @@ import lib.config as config
 from lib.constants import BASIC_FONT
 
 # 导入所有工具模块
-from tools import generate_waves, split_atlas, generate_atlas
+from tools import generate_waves, split_atlas, generate_atlas, measure_anchor
 
 # 初始化日志系统，使用配置文件中的日志级别和日志文件路径
 log = log.setup_logging(config.log_level, config.log_file)
@@ -48,7 +48,12 @@ def get_tools_data():
             "name": "合并图集",
             "module": generate_atlas,
             "has_gui": True,
-        }
+        },
+        "measure_anchor": {
+            "name": "测量锚点",
+            "module": measure_anchor,
+            "has_gui": True,
+        },
     }
 
 
@@ -76,7 +81,7 @@ class MainApplication:
         """
         self.root = root
         self.root.title("KRTools")  # 窗口标题
-        self.root.geometry("450x130")  # 窗口初始大小
+        self.root.geometry("550x130")  # 窗口初始大小
 
         self.root.columnconfigure(0, weight=1)
 

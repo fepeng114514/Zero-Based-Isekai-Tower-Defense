@@ -47,7 +47,7 @@ func can_attack(a: Dictionary, target: Entity) -> bool:
 	)
 
 
-## 遍历实体组中所有实体，其中 process_func 需要形参: Entity
+## 遍历实体组中所有实体，其中 process_func 为 func(e: Entity) -> void
 func process_entities(group_name: String, process_func: Callable) -> void:
 	for e: Entity in EntityDB.get_entities_group(group_name):
 		if (

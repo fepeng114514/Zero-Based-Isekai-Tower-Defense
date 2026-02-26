@@ -45,7 +45,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.GROUP_BULLETS, func(e: Entity): 
+	process_entities(C.GROUP_BULLETS, func(e: Entity) -> void: 
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
