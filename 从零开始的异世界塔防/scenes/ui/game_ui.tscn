@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://c3pw2s2ybgdou"]
 
 [ext_resource type="Texture2D" uid="uid://oya8wpn6jmc8" path="res://icon.svg" id="1_xjfbv"]
-[ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scripts/ui/entity_info_panel.gd" id="2_xjfbv"]
+[ext_resource type="PackedScene" uid="uid://cufaf4wyw3b10" path="res://scenes/ui/game_ui_text.tscn" id="2_bma8u"]
+[ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/entity_info_panel.gd" id="2_xjfbv"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
 bg_color = Color(0.25, 0.25, 0.3, 1)
@@ -108,10 +109,8 @@ layout_mode = 2
 texture = ExtResource("1_xjfbv")
 expand_mode = 3
 
-[node name="LifeLabel" type="Label" parent="Control/VBoxContainer/TopBar/PlayerResources/Life" unique_id=1928315636]
+[node name="LifeLabel" parent="Control/VBoxContainer/TopBar/PlayerResources/Life" unique_id=444811463 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 24
 text = "20"
 
 [node name="Gold" type="HBoxContainer" parent="Control/VBoxContainer/TopBar/PlayerResources" unique_id=494333279]
@@ -123,10 +122,8 @@ layout_mode = 2
 texture = ExtResource("1_xjfbv")
 expand_mode = 3
 
-[node name="GoldLabel" type="Label" parent="Control/VBoxContainer/TopBar/PlayerResources/Gold" unique_id=546557196]
+[node name="GoldLabel" parent="Control/VBoxContainer/TopBar/PlayerResources/Gold" unique_id=2009491731 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 24
 text = "500"
 
 [node name="TopSpacer" type="Control" parent="Control/VBoxContainer/TopBar" unique_id=1279457788]
@@ -198,8 +195,8 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_styles/panel = SubResource("4")
 script = ExtResource("2_xjfbv")
-hp_value_label = NodePath("MarginContainer/VBoxContainer/HBoxHP/LabelHP")
-entity_name_label = NodePath("MarginContainer/VBoxContainer/EntityName")
+hp_value_label = NodePath("")
+entity_name_label = NodePath("")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel" unique_id=941920840]
 layout_mode = 2
@@ -212,89 +209,66 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="EntityName" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=2031381359]
+[node name="EntityName" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=213956317 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 24
-text = "单位名称"
-horizontal_alignment = 1
+text = "实体名称"
 
 [node name="HBoxHP" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=478167688]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelHP" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=140425634]
+[node name="LabelHP" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=1170246007 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 22
-text = "生命值:"
+text = "血量"
 
-[node name="ValueHP" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=1672737637]
+[node name="ValueHP" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=67105373 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 22
-text = "120/120"
+text = "100/100"
 
 [node name="HBoxMelee" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=2109600893]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelMelee" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=1532799054]
+[node name="LabelMelee" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=567093320 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 22
 text = "⚔️"
 
-[node name="ValueMelee" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=1679585946]
+[node name="ValueMelee" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=580365248 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 22
 text = "25/1"
 
 [node name="HBoxRanged" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=4318036]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelRanged" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=1748661988]
+[node name="LabelRanged" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=1129773284 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 22
 text = "🏹"
 
-[node name="ValueRanged" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=820156921]
+[node name="ValueRanged" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=325557278 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 22
-text = "25/1"
+text = "100/1"
 
 [node name="HBoxPhysArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=799253875]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelPhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=1695337698]
+[node name="LabelPhysArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=111562531 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 22
 text = "🛡️"
 
-[node name="ValuePhysArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=1056363535]
+[node name="ValuePhysArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=783491764 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 22
-text = "10"
+text = "20"
 
 [node name="HBoxMagicArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=489372127]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelMagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=291174064]
+[node name="LabelMagicArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=1368164739 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 22
 text = "🛡️"
 
-[node name="ValueMagicArmor" type="Label" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=351829146]
+[node name="ValueMagicArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=1696463347 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 22
-text = "5"
+text = "0"

@@ -5,7 +5,7 @@ func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_MODIFIER):
 		return true
 
-	var target = EntityDB.get_entity_by_id(e.target_id)
+	var target: Variant = EntityDB.get_entity_by_id(e.target_id)
 
 	if not U.is_vaild_entity(target):
 		return false
@@ -17,9 +17,12 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	# 检查是否被目标禁止
-	if e.bans & target.flags or e.flags & target.mod_bans:
+	if (
+			e.ban_set.has_flags(target.flag_set.bits)
+			or e.flag_set.has_flags(target.mod_ban_set.bits)
+	):
 		return false
-
+		
 	var t_has_mods_ids: Array[int] = target.has_mods_ids
 	var same_target_mods: Array[Entity] = []
 	var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
@@ -35,18 +38,24 @@ func _on_insert(e: Entity) -> bool:
 		var other_mod_c: ModifierComponent = other_m.get_c(C.CN_MODIFIER)
 		
 		# 检查是否被其他效果禁止
-		if other_m.mod_bans & e.flags or other_m.mod_type_bans & mod_c.mod_type:
+		if (
+				other_m.mod_ban_set.has_flags(e.flag_set.bits) 
+				or other_m.mod_type_ban_set.has_flags(mod_c.mod_type_set.bits)
+		):
 			return false
 			
 		# 检查是否被当前效果禁止
-		if e.mod_bans & other_m.flags or e.mod_type_bans & other_mod_c.mod_type:
+		if (
+				e.mod_ban_set.has_flags(other_m.flag_set.bits) 
+				or e.mod_type_ban_set.has_flags(other_mod_c.mod_type_set.bits)
+		):
 			if mod_c.remove_banned:
 				other_m.remove_entity()
 				continue
 			
 			return false
 		
-		if other_m.template_name == e.template_name:
+		if other_m.tag == e.tag:
 			same_target_mods.append(other_m)
 			
 	if not same_target_mods:

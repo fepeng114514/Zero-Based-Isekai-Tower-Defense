@@ -6,27 +6,24 @@ func _on_ready_insert(e: Entity) -> bool:
 		return true
 		
 	var sprite_c: SpriteComponent = e.get_c(C.CN_SPRITE)
-	var node_list: Array = sprite_c.node_list
 	
-	for sprite_data: Dictionary in sprite_c.list:
-		var sprite
-		var sprite_name: String = sprite_data.sprite_name
-		match sprite_data.type:
-			"animated":
-				sprite = AnimatedSprite2D.new()
-				sprite.sprite_frames = AnimDB.get_animation(sprite_name)
-				sprite.autoplay = "default"
-				
-			"image":
-				sprite = Sprite2D.new()
-				sprite.texture = ImageDB.get_image(sprite_name)
-			
-		for key: String in sprite_data:
-			var property = sprite_data[key]
-			
-			sprite.set(key, property)
-			
-		node_list.append(sprite)
-		e.add_child(sprite)
+	for sprite: Node2D in sprite_c.get_children():
+		sprite_c.list.append(sprite)
+		
+		if sprite is AnimatedSprite2D:
+			sprite.autoplay = "idle"
+		
+	return true
+		
+
+func _on_insert(e: Entity) -> bool:
+	if not e.has_c(C.CN_SPRITE):
+		return true
+		
+	var sprite_c: SpriteComponent = e.get_c(C.CN_SPRITE)
+	
+	for sprite: Node2D in sprite_c.list:
+		if sprite is AnimatedSprite2D:
+			sprite.autoplay = "idle"
 	
 	return true

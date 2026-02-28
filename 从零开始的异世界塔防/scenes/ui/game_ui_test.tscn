@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://cufaf4wyw3b10"]
-
-[node name="GameUiText" type="Label" unique_id=444811463]
-theme_override_font_sizes/font_size = 24
-text = "Text"

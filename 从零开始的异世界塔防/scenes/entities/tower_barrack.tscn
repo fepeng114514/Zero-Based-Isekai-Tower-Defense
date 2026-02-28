@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
-[ext_resource type="Script" uid="uid://bgy6wevjchyl6" path="res://scripts/entities/tower_barrack.gd" id="1_nawio"]
+[ext_resource type="Script" uid="uid://bgy6wevjchyl6" path="res://scenes/entities/tower_barrack.gd" id="1_nawio"]
 
 [node name="TowerBarrack" type="Node2D" unique_id=383018069]
 script = ExtResource("1_nawio")

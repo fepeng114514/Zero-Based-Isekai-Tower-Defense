@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://nvbnnvwovpao"]
 
 [ext_resource type="PackedScene" uid="uid://dxr20bhgt2p2y" path="res://scenes/ui/main_buttom.tscn" id="1_0ay0p"]
-[ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://scripts/ui/play_button.gd" id="2_2p1s2"]
-[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://scripts/ui/quit_buttom.gd" id="3_02nsg"]
-[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://scripts/ui/setting_buttom.gd" id="3_vspwy"]
+[ext_resource type="Script" uid="uid://h30p1th8hx0x" path="res://scenes/ui/main.gd" id="1_7n028"]
+[ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://scenes/ui/play_button.gd" id="2_2p1s2"]
+[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://scenes/ui/quit_buttom.gd" id="3_02nsg"]
+[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://scenes/ui/setting_buttom.gd" id="3_vspwy"]
 
 [node name="Main" type="PanelContainer" unique_id=1825947900]
 anchors_preset = 15
@@ -13,6 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_7n028")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=504228336]
 layout_mode = 2

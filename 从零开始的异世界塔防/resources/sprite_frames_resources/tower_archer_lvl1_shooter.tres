@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b7nc5ak6odldl"]
+
+[ext_resource type="Texture2D" uid="uid://c8irc233ysspa" path="res://assets/animated_atlas/animated_towers-1.png" id="1_bhoas"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1ilm"]
+atlas = ExtResource("1_bhoas")
+region = Rect2(2246, 3588, 37, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5d5nt"]
+atlas = ExtResource("1_bhoas")
+region = Rect2(287, 1707, 25, 41)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufpab"]
+atlas = ExtResource("1_bhoas")
+region = Rect2(2327, 3381, 29, 42)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84xg1"]
+atlas = ExtResource("1_bhoas")
+region = Rect2(2327, 1727, 32, 42)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw5ic"]
+atlas = ExtResource("1_bhoas")
+region = Rect2(2288, 3354, 34, 42)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1ilm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5d5nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5d5nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5d5nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufpab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufpab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84xg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84xg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dw5ic")
+}],
+"loop": true,
+"name": &"ranged",
+"speed": 30.0
+}]

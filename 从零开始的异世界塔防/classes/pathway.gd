@@ -1,9 +1,12 @@
 extends Path2D
+
+## 路径类
 class_name Pathway
+
 
 var subpathways: Array[Subpathway] = []
 var last_spi: int = 0
-var active: bool = true
+@export var active: bool = true
 var idx: int = -1
 
 

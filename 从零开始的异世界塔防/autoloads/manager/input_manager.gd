@@ -5,7 +5,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
 		var clicked_global_pos: Vector2 = get_global_mouse_position()
 		var e: Variant = EntityDB.search_target(
-			C.SEARCH_ENTITY_MAX_ID, 
+			C.SEARCH.ENTITY_MAX_ID, 
 			clicked_global_pos, 
 			30, 
 			0, 

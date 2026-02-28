@@ -1,5 +1,14 @@
 extends System
 
+const FLAG_TO_GROUP = {
+	C.FLAG.ENEMY: C.GROUP_ENEMIES,
+	C.FLAG.FRIENDLY: C.GROUP_FRIENDLYS,
+	C.FLAG.TOWER: C.GROUP_TOWERS,
+	C.FLAG.MODIFIER: C.GROUP_MODIFIERS,
+	C.FLAG.AURA: C.GROUP_AURAS,
+	C.FLAG.BULLET: C.GROUP_BULLETS
+}
+
 
 func _on_update(delta: float) -> void:
 	var dirty_entities_ids: Array[int] = EntityDB._dirty_entities_ids
@@ -14,20 +23,11 @@ func _on_update(delta: float) -> void:
 	component_groups.clear()
 	
 	for e: Entity in EntityDB.get_vaild_entities():
-		if e.is_enemy():
-			_append_entity(e, C.GROUP_ENEMIES)
-		if e.is_friendly():
-			_append_entity(e, C.GROUP_FRIENDLYS)
-		if e.is_tower():
-			_append_entity(e, C.GROUP_TOWERS)
-		if e.is_modifier():
-			_append_entity(e, C.GROUP_MODIFIERS)
-		if e.is_aura():
-			_append_entity(e, C.GROUP_AURAS)
-		if e.is_bullet():
-			_append_entity(e, C.GROUP_BULLETS)
+		for flags: C.FLAG in FLAG_TO_GROUP.keys():
+			if e.flag_set.has_flags(flags):
+				_append_entity(e, FLAG_TO_GROUP[flags])
 
-		for c_name: String in e.has_components.keys():
+		for c_name: String in e.components.keys():
 			if not component_groups.has(c_name):
 				component_groups[c_name] = []
 

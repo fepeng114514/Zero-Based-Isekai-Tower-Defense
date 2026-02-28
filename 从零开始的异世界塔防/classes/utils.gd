@@ -1,5 +1,5 @@
+## 工具函数库
 class_name U
-static var constants := C.new()
 
 
 #region 数学相关工具函数
@@ -128,7 +128,7 @@ static func is_at_destination(
 
 #region JSON 相关工具函数
 ## 加载 JSON 文件
-static func load_json_file(path: String) -> Variant:
+static func load_json(path: String) -> Variant:
 	if not FileAccess.file_exists(path):
 		Log.error("JSON 文件不存在: %s", path)
 		return null
@@ -150,85 +150,6 @@ static func load_json_file(path: String) -> Variant:
 		return null
 	
 	return json.get_data()
-
-
-## 递归转换 JSON 数据中的格式化字符串
-static func convert_json_data(data: Variant) -> Variant:
-	var new_data
-	
-	match typeof(data):
-		TYPE_DICTIONARY:
-			new_data = {}
-
-			for key in data:
-				new_data[key] = convert_json_data(data[key])
-		TYPE_ARRAY:
-			new_data = []
-
-			for value in data:
-				new_data.append(convert_json_data(value))
-		TYPE_STRING:
-			new_data = parse_json_value(data)
-		_:
-			new_data = data
-
-	return new_data
-
-
-static var type_handlers: Dictionary = {
-	"int": func(value) -> int: 
-		return int(value),
-	"float": func(value) -> float: 
-		return float(value),
-	"str": func(value) -> String: 
-		return str(value),
-	"vec2": func(value) -> Vector2: 
-		var parts = value.split(",")
-		return Vector2(float(parts[0]), float(parts[1])),
-	"rect2": func(value) -> Rect2: 
-		var parts = value.split(",")
-		return (
-			Rect2(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]))
-		),
-	"color": func(value) -> Color:
-		var parts = value.split(",")
-		return (
-			Color(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]))
-		),
-	"const": func(value) -> Variant:
-		var parts = value.split(",")
-		
-		if parts.size() == 1:
-			return constants.get(parts[0])
-		
-		var new_value: int = 0
-		
-		for p: int in parts:
-			new_value &= p
-			
-		return new_value,
-	"fts": func(value) -> float:
-		return fts(float(value))
-}
-
-
-## 解析格式化字符串
-static func parse_json_value(value: String) -> Variant:
-	var regex := RegEx.new()
-	regex.compile("%(\\w+)\\(([^)]*)\\)")
-	
-	var result: RegExMatch = regex.search(value)
-	if not result:
-		return value
-	
-	var type_name: String = result.get_string(1)
-	var default_str: String = result.get_string(2)
-	
-	if type_name not in type_handlers:
-		return value
-
-	var handler: Callable = type_handlers[type_name]
-	return handler.call(default_str) if default_str != "" else null
 #endregion
 
 
@@ -548,16 +469,16 @@ static func is_vaild_entity(e: Variant) -> bool:
 
 
 static func is_allowed_entity(e: Variant, target: Entity) -> bool:
-	var t_template_name: String = target.template_name
-	var whitelist_template: Array = e.whitelist_template
-	var blacklist_template: Array = e.blacklist_template
+	var target_tag: C.ENTITY_TAG = target.tag
+	var whitelist_tag: Array[C.ENTITY_TAG] = e.whitelist_tag
+	var blacklist_tag: Array[C.ENTITY_TAG] = e.blacklist_tag
 	
 	return (
 		(
-			not whitelist_template
-			or t_template_name in whitelist_template
+			not whitelist_tag
+			or target_tag in whitelist_tag
 		)
-		and t_template_name not in blacklist_template
+		and target_tag not in blacklist_tag
 	)
 
 
@@ -567,3 +488,30 @@ static func fts(time: float) -> float:
 
 static func to_percent(num: float) -> float:
 	return num / 100
+
+
+static func pascal_to_snake(pascal_str: String) -> String:
+	var result: String = ""
+	
+	for i: int in pascal_str.length():
+		var c: String = pascal_str[i]
+		if c >= 'A' and c <= 'Z':
+			if i > 0:
+				result += "_"
+			result += c.to_lower()
+		else:
+			result += c
+			
+	return result
+
+
+#region 位运算相关方法
+func merge_flags(flag_list: Array[C.FLAG]) -> int:
+	var new_flags: int = 0
+	
+	for flag: C.FLAG in flag_list:
+		new_flags |= flag
+		
+	return new_flags
+		
+#endregion

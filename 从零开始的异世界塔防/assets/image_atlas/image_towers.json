@@ -1,0 +1,627 @@
+{
+    "image_towers-1.png": {
+        "DefenseFlag": {
+            "quad": [
+                547,
+                920,
+                64,
+                86
+            ],
+            "alias": []
+        },
+        "archer_tower_0001": {
+            "quad": [
+                193,
+                445,
+                175,
+                112
+            ],
+            "alias": []
+        },
+        "archer_tower_0002": {
+            "quad": [
+                3,
+                837,
+                177,
+                116
+            ],
+            "alias": []
+        },
+        "archer_tower_0003": {
+            "quad": [
+                193,
+                3,
+                176,
+                123
+            ],
+            "alias": []
+        },
+        "archer_tower_0004": {
+            "quad": [
+                371,
+                139,
+                171,
+                133
+            ],
+            "alias": []
+        },
+        "archer_tower_0005": {
+            "quad": [
+                3,
+                497,
+                181,
+                146
+            ],
+            "alias": []
+        },
+        "arrow": {
+            "quad": [
+                134,
+                1000,
+                33,
+                10
+            ],
+            "alias": []
+        },
+        "barbarian_axe_0001": {
+            "quad": [
+                701,
+                124,
+                36,
+                34
+            ],
+            "alias": []
+        },
+        "bombs_0001": {
+            "quad": [
+                701,
+                242,
+                26,
+                30
+            ],
+            "alias": []
+        },
+        "bombs_0002": {
+            "quad": [
+                701,
+                301,
+                22,
+                34
+            ],
+            "alias": []
+        },
+        "bombs_0003": {
+            "quad": [
+                701,
+                48,
+                41,
+                34
+            ],
+            "alias": []
+        },
+        "bombs_0004": {
+            "quad": [
+                134,
+                955,
+                44,
+                43
+            ],
+            "alias": [
+                "bombs_0005"
+            ]
+        },
+        "bombs_0006": {
+            "quad": [
+                701,
+                274,
+                26,
+                25
+            ],
+            "alias": []
+        },
+        "bombs_0007": {
+            "quad": [
+                113,
+                990,
+                14,
+                15
+            ],
+            "alias": []
+        },
+        "build_terrain_0001": {
+            "quad": [
+                3,
+                645,
+                179,
+                94
+            ],
+            "alias": []
+        },
+        "build_terrain_0001_over": {
+            "quad": [
+                3,
+                3,
+                188,
+                105
+            ],
+            "alias": []
+        },
+        "build_terrain_0002": {
+            "quad": [
+                3,
+                741,
+                179,
+                94
+            ],
+            "alias": []
+        },
+        "build_terrain_0002_over": {
+            "quad": [
+                3,
+                110,
+                188,
+                105
+            ],
+            "alias": []
+        },
+        "build_terrain_0003": {
+            "quad": [
+                371,
+                274,
+                170,
+                94
+            ],
+            "alias": []
+        },
+        "build_terrain_0003_over": {
+            "quad": [
+                193,
+                834,
+                174,
+                105
+            ],
+            "alias": []
+        },
+        "build_terrain_0008": {
+            "quad": [
+                371,
+                620,
+                157,
+                93
+            ],
+            "alias": []
+        },
+        "build_terrain_0008_over": {
+            "quad": [
+                371,
+                370,
+                166,
+                104
+            ],
+            "alias": []
+        },
+        "buildbar": {
+            "quad": [
+                371,
+                1012,
+                82,
+                8
+            ],
+            "alias": []
+        },
+        "buildbar_bg": {
+            "quad": [
+                371,
+                994,
+                90,
+                16
+            ],
+            "alias": []
+        },
+        "bullet": {
+            "quad": [
+                547,
+                818,
+                69,
+                10
+            ],
+            "alias": []
+        },
+        "elfTower_layer1_0001": {
+            "quad": [
+                193,
+                128,
+                176,
+                158
+            ],
+            "alias": []
+        },
+        "elfTower_layer1_0026": {
+            "quad": [
+                3,
+                337,
+                183,
+                158
+            ],
+            "alias": []
+        },
+        "hero_archer_arrow": {
+            "quad": [
+                463,
+                994,
+                32,
+                12
+            ],
+            "alias": []
+        },
+        "hero_archer_arrow_particle": {
+            "quad": [
+                134,
+                1012,
+                31,
+                9
+            ],
+            "alias": []
+        },
+        "hero_artillery_brea_shot": {
+            "quad": [
+                701,
+                160,
+                30,
+                22
+            ],
+            "alias": []
+        },
+        "hero_artillery_mine_proy": {
+            "quad": [
+                701,
+                184,
+                27,
+                27
+            ],
+            "alias": []
+        },
+        "particle_smokelet": {
+            "quad": [
+                701,
+                213,
+                27,
+                27
+            ],
+            "alias": []
+        },
+        "pop_0001": {
+            "quad": [
+                547,
+                830,
+                65,
+                28
+            ],
+            "alias": []
+        },
+        "pop_0002": {
+            "quad": [
+                547,
+                787,
+                70,
+                29
+            ],
+            "alias": []
+        },
+        "pop_0003": {
+            "quad": [
+                547,
+                723,
+                72,
+                29
+            ],
+            "alias": []
+        },
+        "pop_0004": {
+            "quad": [
+                3,
+                990,
+                108,
+                31
+            ],
+            "alias": []
+        },
+        "pop_0005": {
+            "quad": [
+                547,
+                693,
+                73,
+                28
+            ],
+            "alias": []
+        },
+        "pop_0006": {
+            "quad": [
+                547,
+                754,
+                71,
+                31
+            ],
+            "alias": []
+        },
+        "pop_0007": {
+            "quad": [
+                371,
+                962,
+                138,
+                30
+            ],
+            "alias": []
+        },
+        "pop_0008": {
+            "quad": [
+                547,
+                331,
+                118,
+                33
+            ],
+            "alias": []
+        },
+        "pop_0009": {
+            "quad": [
+                3,
+                955,
+                129,
+                33
+            ],
+            "alias": []
+        },
+        "pop_0010": {
+            "quad": [
+                547,
+                659,
+                83,
+                32
+            ],
+            "alias": []
+        },
+        "pop_0011": {
+            "quad": [
+                547,
+                532,
+                94,
+                32
+            ],
+            "alias": []
+        },
+        "pop_0012": {
+            "quad": [
+                547,
+                860,
+                65,
+                28
+            ],
+            "alias": []
+        },
+        "pop_0013": {
+            "quad": [
+                547,
+                366,
+                104,
+                32
+            ],
+            "alias": []
+        },
+        "pop_0014": {
+            "quad": [
+                547,
+                890,
+                65,
+                28
+            ],
+            "alias": []
+        },
+        "pop_0015": {
+            "quad": [
+                547,
+                434,
+                102,
+                32
+            ],
+            "alias": []
+        },
+        "pop_0016": {
+            "quad": [
+                547,
+                400,
+                104,
+                32
+            ],
+            "alias": []
+        },
+        "pop_0017": {
+            "quad": [
+                547,
+                468,
+                101,
+                29
+            ],
+            "alias": []
+        },
+        "pop_0018": {
+            "quad": [
+                547,
+                597,
+                89,
+                29
+            ],
+            "alias": []
+        },
+        "pop_0019": {
+            "quad": [
+                547,
+                499,
+                100,
+                31
+            ],
+            "alias": []
+        },
+        "pop_0020": {
+            "quad": [
+                547,
+                628,
+                86,
+                29
+            ],
+            "alias": []
+        },
+        "pop_0021": {
+            "quad": [
+                547,
+                566,
+                91,
+                29
+            ],
+            "alias": []
+        },
+        "sorcererbolt_particle": {
+            "quad": [
+                701,
+                84,
+                39,
+                38
+            ],
+            "alias": []
+        },
+        "spear": {
+            "quad": [
+                547,
+                1008,
+                51,
+                11
+            ],
+            "alias": []
+        },
+        "thor_hammer_0001": {
+            "quad": [
+                701,
+                3,
+                55,
+                43
+            ],
+            "alias": []
+        },
+        "tower_barrack_lvl4_Barbarians_layer1_0001": {
+            "quad": [
+                193,
+                559,
+                175,
+                154
+            ],
+            "alias": []
+        },
+        "tower_barracks_lvl1_layer1_0001": {
+            "quad": [
+                371,
+                844,
+                152,
+                116
+            ],
+            "alias": []
+        },
+        "tower_barracks_lvl2_layer1_0001": {
+            "quad": [
+                371,
+                715,
+                155,
+                127
+            ],
+            "alias": []
+        },
+        "tower_barracks_lvl3_layer1_0001": {
+            "quad": [
+                371,
+                476,
+                166,
+                142
+            ],
+            "alias": []
+        },
+        "tower_barracks_lvl4_Paladins_layer1_0001": {
+            "quad": [
+                193,
+                288,
+                176,
+                155
+            ],
+            "alias": []
+        },
+        "tower_constructing_0001": {
+            "quad": [
+                547,
+                121,
+                137,
+                78
+            ],
+            "alias": []
+        },
+        "tower_constructing_0002": {
+            "quad": [
+                547,
+                201,
+                121,
+                58
+            ],
+            "alias": []
+        },
+        "tower_constructing_0003": {
+            "quad": [
+                193,
+                941,
+                169,
+                81
+            ],
+            "alias": []
+        },
+        "tower_constructing_0004": {
+            "quad": [
+                547,
+                261,
+                119,
+                68
+            ],
+            "alias": []
+        },
+        "tower_preview_archer": {
+            "quad": [
+                193,
+                715,
+                175,
+                117
+            ],
+            "alias": []
+        },
+        "tower_preview_artillery": {
+            "quad": [
+                3,
+                217,
+                186,
+                118
+            ],
+            "alias": []
+        },
+        "tower_preview_barrack": {
+            "quad": [
+                547,
+                3,
+                152,
+                116
+            ],
+            "alias": []
+        },
+        "tower_preview_mage": {
+            "quad": [
+                371,
+                3,
+                174,
+                134
+            ],
+            "alias": []
+        }
+    }
+}

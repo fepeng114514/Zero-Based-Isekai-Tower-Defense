@@ -1,3 +1,4 @@
+## 日志库
 class_name Log
 
 

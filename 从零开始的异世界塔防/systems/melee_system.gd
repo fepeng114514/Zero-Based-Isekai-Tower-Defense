@@ -8,9 +8,21 @@ extends System
 
 
 func _initialize() -> void:
-	whitelist_state = C.STATE_IDLE | C.STATE_MELEE
+	whitelist_state = C.STATE.IDLE | C.STATE.MELEE
 	wait_entity = true
-
+	
+	
+func _on_ready_insert(e: Entity) -> bool:
+	if not e.has_c(C.CN_MELEE):
+		return true
+		
+	var melee_c: RangedComponent = e.get_c(C.CN_MELEE)
+	
+	for a: Melee in melee_c.get_children():
+		melee_c.list.append(a)
+		
+	return true
+		
 
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_MELEE):
@@ -63,7 +75,7 @@ func process_blocker(e: Entity, melee_c: MeleeComponent) -> void:
 	var blocked: Entity = EntityDB.get_entity_by_id(blockeds_ids[0])
 	var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
 	var melee_slot: Vector2 = blocked.position + blocked_melee_c.melee_slot_offset
-	e.state = C.STATE_MELEE
+	e.state = C.STATE.MELEE
 
 	melee_c.set_melee_slot(melee_slot)
 	if melee_c.origin_pos_arrived:
@@ -80,8 +92,8 @@ func find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 		e.position, 
 		melee_c.block_max_range, 
 		melee_c.block_min_range, 
-		melee_c.block_flags, 
-		melee_c.block_bans, 
+		melee_c.block_flag_set.bits, 
+		melee_c.block_ban_set.bits, 
 		filter
 	)	
 	
@@ -94,7 +106,7 @@ func find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 		var t_melee_slot: Vector2 = e.position + melee_c.melee_slot_offset
 		t_melee_c.blocker_id = e.id
 		melee_c.blockeds_ids.append(t.id)
-		t.state = C.STATE_MELEE
+		t.state = C.STATE.MELEE
 		t_melee_c.set_melee_slot(t_melee_slot)
 		t_melee_c.set_origin_pos(t.position)
 	
@@ -150,7 +162,7 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> void:
 		return
 		
 	melee_c.origin_pos_arrived = true
-	e.state = C.STATE_IDLE
+	e.state = C.STATE.IDLE
 
 
 func do_attacks(e: Entity, melee_c: MeleeComponent) -> void:
@@ -159,16 +171,16 @@ func do_attacks(e: Entity, melee_c: MeleeComponent) -> void:
 		
 	var blocked_id: int = melee_c.blockeds_ids[0]
 	var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
-	for a: Dictionary in melee_c.order:
+	for a: Melee in melee_c.order:
 		if not can_attack(a, blocked):
 			continue
 			
 		attack(e, a, melee_c, blocked)
 
 
-func attack(e: Entity, a: Dictionary, melee_c: MeleeComponent, blocked: Entity) -> void:
+func attack(e: Entity, a: Melee, melee_c: MeleeComponent, blocked: Entity) -> void:
 	EntityDB.create_damage(
 		blocked.id, a.min_damage, a.max_damage, a.damage_type, e.id
 	)
-	EntityDB.create_mods(blocked.id, e.id, a.mods)
+	EntityDB.create_mods(blocked.id, a.mods, e.id)
 	a.ts = TimeDB.tick_ts

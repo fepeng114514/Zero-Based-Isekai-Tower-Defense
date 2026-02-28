@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://fx352ubic8aw"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_xqrgu"]
+
+[node name="TowerEngineer" type="Node2D" unique_id=1600363506]
+script = ExtResource("1_xqrgu")
+metadata/_custom_type_script = "uid://dnp44u8703gud"

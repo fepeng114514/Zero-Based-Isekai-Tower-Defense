@@ -9,11 +9,7 @@ extends Node
 """
 
 #region 属性
-var templates_scenes: Dictionary[String, PackedScene] = {}
-var components_scripts: Dictionary[String, GDScript] = {}
-var entities_scripts: Dictionary[String, GDScript] = {}
-var templates_data: Dictionary[String, Dictionary] = {}
-var components_data: Dictionary = {}
+var entity_scenes: Dictionary[C.ENTITY_TAG, PackedScene] = {}
 var type_groups: Dictionary[String, Array] = {
 	"enemies": [],
 	"friendlys": [],
@@ -26,16 +22,12 @@ var component_groups: Dictionary[String, Array] = {}
 var entities: Array = []
 var _dirty_entities_ids: Array[int] = []
 var last_id: int = 0
-var cached_templates: Dictionary = {}
+var templates_name_dict: Dictionary[C.ENTITY_TAG, String]
 #endregion
 
 
 func load() -> void:
-	templates_scenes = {}
-	components_scripts = {}
-	templates_data = {}
-	components_data = {}
-	entities_scripts = {}
+	entity_scenes = {}
 	type_groups = {
 		"enemies": [],
 		"friendlys": [],
@@ -48,37 +40,34 @@ func load() -> void:
 	entities = []
 	_dirty_entities_ids = []
 	last_id = 0
+	templates_name_dict = {}
 	
-	_load_templates_data()
-	_load_components_data()
-	
+	_load_templates_name_dict()
+	_load_entity_scenes()
 
-## 加载实体模板数据
-func _load_templates_data() -> void:
-	var templates_group: Dictionary = ConfigMgr.get_config_data(C.PATH_TEMPLATES_DATA)
-	for group: Dictionary in templates_group.values():
-		templates_data.merge(group)
-	
-	for t_name: String in templates_data.keys():
-		var template_scene_path: String = C.PATH_ENTITIES_SCENES % t_name
-		if ResourceLoader.exists(template_scene_path):
-			templates_scenes[t_name] = load(template_scene_path)
+## 加载实体场景
+func _load_entity_scenes() -> void:
+	for entity_tag: C.ENTITY_TAG in C.ENTITY_TAG.values():
+		var t_name: String = get_templates_name(entity_tag)
+		var scene_path: String = C.PATH_ENTITIES_SCENES % t_name
+		if not ResourceLoader.exists(scene_path):
+			Log.error("未找到实体场景: %s", scene_path)
+			return
 			
-		var entity_script_path: String = C.PATH_ENTITIES_SCRIPTS % t_name
-		if ResourceLoader.exists(entity_script_path):
-			entities_scripts[t_name] = load(entity_script_path)
+		var scene: PackedScene = load(scene_path)
+		
+		entity_scenes[entity_tag] = scene
 		
 
-## 加载组件数据
-func _load_components_data() -> void:
-	components_data = ConfigMgr.get_config_data(C.PATH_COMPONENTS_DATA)
-	
-	for c_name: String in components_data.keys():
-		var component_script_path: String = (
-			C.PATH_COMPONENTS % (c_name + "_component")
-		)
-		if ResourceLoader.exists(component_script_path):
-			components_scripts[c_name] = load(component_script_path)
+func _load_templates_name_dict() -> void:
+	for entity_name: String in C.ENTITY_TAG.keys():
+		var tag: C.ENTITY_TAG = C.ENTITY_TAG[entity_name]
+		entity_name = entity_name.to_lower()
+		templates_name_dict[tag] = entity_name
+
+
+func get_templates_name(entity_tag: C.ENTITY_TAG) -> String:
+	return templates_name_dict[entity_tag]
 
 
 ## 标记新增加或移除的实体
@@ -91,27 +80,25 @@ func mark_entity_dirty_id(id: int) -> void:
 
 #region 创建实体相关
 ## 创建实体
-func create_entity(t_name: String) -> Entity:
-	var t: PackedScene = get_templates_scenes(t_name)
-
-	var e: Entity
-	if not t:
-		e = Entity.new()
-	else:
-		e = t.instantiate()
+func create_entity(entity_tag: C.ENTITY_TAG) -> Entity:
+	var scene: PackedScene = get_entity_scenes(entity_tag)
+	var e: Entity = scene.instantiate()
 		
-	var entity_script = get_entity_script(t_name)
-	if entity_script:
-		e.set_script(entity_script)
-		
-	# 待实现数据的缓存，这里会多次解析 json 模板数据
-	var template_data = get_template_data(t_name)
-	e.set_template_data(template_data)
-		
+	return process_create(e)
+	
+	
+## 处理创建
+func process_create(e: Entity) -> Entity:
 	e.id = last_id
-	e.template_name = t_name
-	e.name = t_name
-	e.visible = false
+	e.template_name = get_templates_name(e.tag)
+	
+	for node: Node in e.get_children():
+		var node_class: String = node.get_script().get_global_name()
+		
+		if not node_class.find("Component"):
+			continue
+			
+		e.components[node_class] = node
 	
 	# 调用所有系统的准备插入回调函数，遇到返回 false 的系统不插入实体
 	if not SystemMgr.call_systems("_on_ready_insert", e):
@@ -125,46 +112,71 @@ func create_entity(t_name: String) -> Entity:
 
 
 ## 批量创建实体
-func create_entities(t_names: Array, auto_insert: bool = true) -> Array[Entity]:
+func create_entities(
+		entity_tags: Array[C.ENTITY_TAG],
+		config_func: Variant = null,
+		auto_insert: bool = true
+	) -> Array[Entity]:
+	
 	var created_entities: Array[Entity] = []
-
-	for t_name: String in t_names:
-		var e: Entity = create_entity(t_name)
-
+	
+	for entity_tag: C.ENTITY_TAG in entity_tags:
+		var e: Entity = create_entity(entity_tag)
+		
+		if config_func:
+			config_func.call(e)
+		
 		if auto_insert:
 			e.insert_entity()
-
+		
 		created_entities.append(e)
-
-	return created_entities
 	
+	return created_entities
+
 
 ## 创建实体在指定位置
-func create_entities_at_pos(t_names: Array, pos: Vector2, auto_insert: bool = true) -> Array[Entity]:
-	var created_entities: Array[Entity] = []
+func create_entities_at_pos(
+		entity_tags: Array[C.ENTITY_TAG], pos: Vector2, auto_insert: bool = true
+	) -> Array[Entity]:
+	return create_entities(
+		entity_tags, func(e): e.set_pos(pos), auto_insert
+	)
 
-	for t_name: String in t_names:
-		var e: Entity = create_entity(t_name)
-		e.set_pos(pos)
 
-		if auto_insert:
-			e.insert_entity()
+## 批量创建状态效果实体
+func create_mods(
+		target_id: int,
+		mods_tags: Array[C.ENTITY_TAG],
+		source_id: int = -1,
+		auto_insert: bool = true
+	) -> Array[Entity]:
+	
+	return create_entities(mods_tags, func(e):
+		e.target_id = target_id
+		e.source_id = source_id
+	, auto_insert)
 
-		created_entities.append(e)
 
-	return created_entities
-
+## 批量创建光环实体
+func create_auras(
+		auras_tags: Array[C.ENTITY_TAG],
+		source_id: int = -1,
+		auto_insert: bool = true
+	) -> Array[Entity]:
+	
+	return create_entities(auras_tags, func(e):
+		e.source_id = source_id
+	, auto_insert)
 
 ## 创建伤害实体
 func create_damage(
 		target_id: int,
 		min_damage: float,
 		max_damage: float,
-		damage_type: int = C.DAMAGE_PHYSICAL,
+		damage_type: C.DAMAGE = C.DAMAGE.PHYSICAL,
 		source_id: int = -1,
 		damage_factor: float = 1
 	) -> Damage:
-	var d_name: String = "damage"
 	var d := Damage.new()
 	
 	d.target_id = target_id
@@ -172,55 +184,11 @@ func create_damage(
 	d.damage_type = damage_type
 	d.value = randf_range(min_damage, max_damage)
 	d.damage_factor = damage_factor
-	d.template_name = d_name
+	d.template_name = "damage"
 
 	SystemMgr.damage_queue.append(d)
 		
 	return d
-
-
-## 批量创建状态效果实体
-func create_mods(
-		target_id: int,
-		source_id: int = -1,
-		mods: Array = [],
-		auto_insert: bool = true
-	) -> Array[Entity]:
-
-	var created_mods: Array[Entity] = []
-
-	for t_name: String in mods:
-		var mod = create_entity(t_name)
-		mod.target_id = target_id
-		mod.source_id = source_id
-
-		if auto_insert:
-			mod.insert_entity()
-
-		created_mods.append(mod)
-
-	return created_mods
-
-
-## 批量创建光环实体
-func create_auras(
-		source_id: int = -1,
-		auras: Array = [],
-		auto_insert: bool = true
-	) -> Array[Entity]:
-
-	var created_auras: Array[Entity] = []
-
-	for t_name: String in auras:
-		var aura = create_entity(t_name)
-		aura.source_id = source_id
-
-		if auto_insert:
-			aura.insert_entity()
-
-		created_auras.append(aura)
-
-	return created_auras
 #endregion
 
 
@@ -247,87 +215,21 @@ func get_entity_by_id(id: int) -> Variant:
 		return null
 
 	return e
-	
 
-## 获取组件脚本
-func get_component_script(c_name: String, deep: bool = false) -> GDScript:
-	var c_scripts: GDScript = components_scripts.get(c_name)
-	
-	if c_scripts == null:
-		Log.error("未找到组件: %s", c_name)
-		return null
-		
-	if not c_scripts:
-		return null
-
-	if deep:
-		return c_scripts.duplicate_deep()
-	
-	return c_scripts
-
-
-## 获取组件数据
-func get_component_data(c_name: String, deep: bool = true) -> Dictionary:
-	var c_data: Dictionary = components_data.get(c_name)
-	
-	if c_data == null:
-		Log.error("未找到组件数据: %s", c_name)
-		return {}
-		
-	if not c_data:
-		return {}
-
-	if deep:
-		return c_data.duplicate_deep()
-	
-	return c_data
-
-
-## 获取模板数据
-func get_template_data(t_name: String, deep: bool = true) -> Dictionary:
-	var template_data = templates_data.get(t_name)
-	
-	if template_data == null:
-		Log.error("未找到模板数据: %s", t_name)
-		return {}
-		
-	if not template_data:
-		return {}
-		
-	if deep:
-		return template_data.duplicate_deep()
-	
-	return template_data
-	
 
 ## 获取实体模板场景
-func get_templates_scenes(t_name: String, deep: bool = false) -> PackedScene:
-	var template_scenes = templates_scenes.get(t_name)
-	
-	if template_scenes == null:
+func get_entity_scenes(entity_tag: C.ENTITY_TAG, deep: bool = true) -> PackedScene:
+	if not entity_scenes.has(entity_tag):
+		Log.error("未找到实体场景, tag: %d", entity_tag)
 		return null
 		
-	if not template_scenes:
-		return null
+	var scenes: PackedScene = entity_scenes[entity_tag]
 		
 	if deep:
-		return template_scenes.duplicate()
+		return scenes.duplicate()
 	
-	return template_scenes
+	return scenes
 	
-
-## 获取实体脚本
-func get_entity_script(t_name: String, deep: bool = false) -> Variant:
-	var entity_script = entities_scripts.get(t_name)
-	
-	if not entity_script:
-		return null
-		
-	if deep:
-		return entity_script.duplicate()
-	
-	return entity_script
-
 
 ## 获取所有有效实体
 func get_vaild_entities() -> Array:
@@ -340,10 +242,10 @@ func get_vaild_entities() -> Array:
 #region 索敌相关
 ## 根据排序模式排序目标
 func sort_targets(
-		targets: Array, sort_type: String, origin: Vector2, reversed: bool = false
+		targets: Array, sort_type: C.SORT, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_functions = {
-		C.SORT_PROGRESS: func(e1: Entity, e2: Entity) -> bool:
+		C.SORT.PROGRESS: func(e1: Entity, e2: Entity) -> bool:
 			var p1: float = (
 				e1.get_c(C.CN_NAV_PATH).nav_progress
 				if e1.has_c(C.CN_NAV_PATH) else 0
@@ -354,17 +256,17 @@ func sort_targets(
 			)
 			return p1 > p2 if not reversed else p1 < p2,
 		
-		C.SORT_HEALTH: func(e1: Entity, e2: Entity) -> bool:
+		C.SORT.HEALTH: func(e1: Entity, e2: Entity) -> bool:
 			var h1: float = e1.get_c(C.CN_HEALTH).hp if e1.has_c(C.CN_HEALTH) else 0
 			var h2: float = e2.get_c(C.CN_HEALTH).hp if e2.has_c(C.CN_HEALTH) else 0
 			return h1 > h2 if not reversed else h1 < h2,
 		
-		C.SORT_DISTANCE: func(e1: Entity, e2: Entity) -> bool:
+		C.SORT.DISTANCE: func(e1: Entity, e2: Entity) -> bool:
 			var d1: float = e1.position.distance_squared_to(origin)
 			var d2: float = e2.position.distance_squared_to(origin)
 			return d1 > d2 if not reversed else d1 < d2,
 			
-		C.SORT_ID: func(e1: Entity, e2: Entity) -> bool:
+		C.SORT.ID: func(e1: Entity, e2: Entity) -> bool:
 			var i1: int = e1.id
 			var i2: int = e2.id
 			return i1 > i2 if not reversed else i1 < i2,
@@ -392,7 +294,7 @@ func find_targets_in_range(
 	return pool.filter(
 		func(e) -> bool: return (
 			is_instance_valid(e)
-			and not (bans & e.flags or e.bans & flags)
+			and not (bans & e.flag_set.bits or e.ban_set.bits & flags)
 			and U.is_in_radius(e.position, origin, max_range)
 			and not U.is_in_radius(e.position, origin, min_range)
 			and (not filter or filter.call(e))
@@ -404,7 +306,7 @@ func find_targets_in_range(
 ## filter 匿名函数格式为 func(e: Entity) -> bool,
 ## 并返回 bool 表示是否被过滤
 func find_sorted_targets(
-		sort_type: String,
+		sort_type: C.SORT,
 		origin: Vector2,
 		max_range: float,
 		min_range: float = 0,
@@ -425,7 +327,7 @@ func find_sorted_targets(
 ## filter 匿名函数格式为 func(e: Entity) -> bool,
 ## 并返回 bool 表示是否被过滤
 func find_extreme_target(
-		sort_type: String,
+		sort_type: C.SORT,
 		origin: Vector2,
 		max_range: float,
 		min_range: float = 0,
@@ -443,34 +345,34 @@ func find_extreme_target(
 
 
 ## 搜索模式配置常量
-const SEARCH_CONFIG: Dictionary[String, Array] = {
+const SEARCH_CONFIG: Dictionary[C.SEARCH, Array] = {
 	# [sort_type, group, reversed]
-	C.SEARCH_ENTITY_FIRST: [C.SORT_PROGRESS, "", false],
-	C.SEARCH_ENTITY_LAST: [C.SORT_PROGRESS, "", true],
-	C.SEARCH_ENTITY_NEARST: [C.SORT_DISTANCE, "", false],
-	C.SEARCH_ENTITY_FARTHEST: [C.SORT_DISTANCE, "", true],
-	C.SEARCH_ENTITY_STRONGEST: [C.SORT_HEALTH, "", false],
-	C.SEARCH_ENTITY_WEAKEST: [C.SORT_HEALTH, "", true],
-	C.SEARCH_ENTITY_MAX_ID: [C.SORT_ID, "", true],
-	C.SEARCH_ENTITY_MIN_ID: [C.SORT_ID, "", false],
+	C.SEARCH.ENTITY_FIRST: [C.SORT.PROGRESS, "", false],
+	C.SEARCH.ENTITY_LAST: [C.SORT.PROGRESS, "", true],
+	C.SEARCH.ENTITY_NEARST: [C.SORT.DISTANCE, "", false],
+	C.SEARCH.ENTITY_FARTHEST: [C.SORT.DISTANCE, "", true],
+	C.SEARCH.ENTITY_STRONGEST: [C.SORT.HEALTH, "", false],
+	C.SEARCH.ENTITY_WEAKEST: [C.SORT.HEALTH, "", true],
+	C.SEARCH.ENTITY_MAX_ID: [C.SORT.ID, "", true],
+	C.SEARCH.ENTITY_MIN_ID: [C.SORT.ID, "", false],
 
-	C.SEARCH_ENEMY_FIRST: [C.SORT_PROGRESS, C.GROUP_ENEMIES, false],
-	C.SEARCH_ENEMY_LAST: [C.SORT_PROGRESS, C.GROUP_ENEMIES, true],
-	C.SEARCH_ENEMY_NEARST: [C.SORT_DISTANCE, C.GROUP_ENEMIES, false],
-	C.SEARCH_ENEMY_FARTHEST: [C.SORT_DISTANCE, C.GROUP_ENEMIES, true],
-	C.SEARCH_ENEMY_STRONGEST: [C.SORT_HEALTH, C.GROUP_ENEMIES, false],
-	C.SEARCH_ENEMY_WEAKEST: [C.SORT_HEALTH, C.GROUP_ENEMIES, true],
-	C.SEARCH_ENEMY_MAX_ID: [C.SORT_ID, C.GROUP_ENEMIES, true],
-	C.SEARCH_ENEMY_MIN_ID: [C.SORT_ID, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_FIRST: [C.SORT.PROGRESS, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_LAST: [C.SORT.PROGRESS, C.GROUP_ENEMIES, true],
+	C.SEARCH.ENEMY_NEARST: [C.SORT.DISTANCE, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_FARTHEST: [C.SORT.DISTANCE, C.GROUP_ENEMIES, true],
+	C.SEARCH.ENEMY_STRONGEST: [C.SORT.HEALTH, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_WEAKEST: [C.SORT.HEALTH, C.GROUP_ENEMIES, true],
+	C.SEARCH.ENEMY_MAX_ID: [C.SORT.ID, C.GROUP_ENEMIES, true],
+	C.SEARCH.ENEMY_MIN_ID: [C.SORT.ID, C.GROUP_ENEMIES, false],
 	
-	C.SEARCH_FRIENDLY_FIRST: [C.SORT_PROGRESS, C.GROUP_FRIENDLYS, false],
-	C.SEARCH_FRIENDLY_LAST: [C.SORT_PROGRESS, C.GROUP_FRIENDLYS, true],
-	C.SEARCH_FRIENDLY_NEARST: [C.SORT_DISTANCE, C.GROUP_FRIENDLYS, false],
-	C.SEARCH_FRIENDLY_FARTHEST: [C.SORT_DISTANCE, C.GROUP_FRIENDLYS, true],
-	C.SEARCH_FRIENDLY_STRONGEST: [C.SORT_HEALTH, C.GROUP_FRIENDLYS, false],
-	C.SEARCH_FRIENDLY_WEAKEST: [C.SORT_HEALTH, C.GROUP_FRIENDLYS, true],
-	C.SEARCH_FRIENDLY_MAX_ID: [C.SORT_ID, C.GROUP_FRIENDLYS, true],
-	C.SEARCH_FRIENDLY_MIN_ID: [C.SORT_ID, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_FIRST: [C.SORT.PROGRESS, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_LAST: [C.SORT.PROGRESS, C.GROUP_FRIENDLYS, true],
+	C.SEARCH.FRIENDLY_NEARST: [C.SORT.DISTANCE, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_FARTHEST: [C.SORT.DISTANCE, C.GROUP_FRIENDLYS, true],
+	C.SEARCH.FRIENDLY_STRONGEST: [C.SORT.HEALTH, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_WEAKEST: [C.SORT.HEALTH, C.GROUP_FRIENDLYS, true],
+	C.SEARCH.FRIENDLY_MAX_ID: [C.SORT.ID, C.GROUP_FRIENDLYS, true],
+	C.SEARCH.FRIENDLY_MIN_ID: [C.SORT.ID, C.GROUP_FRIENDLYS, false],
 }
 
 
@@ -478,7 +380,7 @@ const SEARCH_CONFIG: Dictionary[String, Array] = {
 ## filter 匿名函数格式为 func(e: Entity) -> bool,
 ## 并返回 bool 表示是否被过滤
 func search_target(
-		search_mode: String, 
+		search_mode: int, 
 		origin: Vector2, 
 		max_range: float, 
 		min_range: float = 0, 
@@ -501,7 +403,7 @@ func search_target(
 ## filter 匿名函数格式为 func(e: Entity) -> bool,
 ## 并返回 bool 表示是否被过滤
 func search_targets_in_range(
-		search_mode: String, 
+		search_mode: int, 
 		origin: Vector2, 
 		max_range: float, 
 		min_range: float = 0, 

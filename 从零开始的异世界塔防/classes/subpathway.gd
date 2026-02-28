@@ -1,4 +1,6 @@
 extends Path2D
+
+## 子路径类
 class_name Subpathway
 
 var follow: PathFollow2D

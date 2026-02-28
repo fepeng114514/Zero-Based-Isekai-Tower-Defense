@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://d1kxh6e7m4mc1"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0ncad"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_1nm20"]
+[ext_resource type="SpriteFrames" uid="uid://cxo2w38vbw62k" path="res://resources/sprite_frames_resources/goblin.tres" id="3_bfbt7"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="4_bfbt7"]
+[ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="5_gt3hg"]
+
+[node name="EnemyGoblin" type="Node2D" unique_id=71433118]
+script = ExtResource("1_0ncad")
+tag = 9
+flags = Array[int]([1])
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225]
+script = ExtResource("2_1nm20")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
+sprite_frames = ExtResource("3_bfbt7")
+animation = &"idle"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1473065887]
+script = ExtResource("4_bfbt7")
+hp_max = 100.0
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
+
+[node name="NavPathComponent" type="Node" parent="." unique_id=655679987]
+script = ExtResource("5_gt3hg")
+metadata/_custom_type_script = "uid://btct3ysbbulk0"

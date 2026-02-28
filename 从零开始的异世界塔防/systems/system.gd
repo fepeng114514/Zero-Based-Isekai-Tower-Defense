@@ -1,8 +1,8 @@
 extends Node
 class_name System
 
-var blacklist_state: int = C.STATE_NONE
-var whitelist_state: int = C.STATE_NONE
+var blacklist_state: int = C.STATE.NONE
+var whitelist_state: int = C.STATE.NONE
 var wait_entity: bool = false
 
 
@@ -38,11 +38,14 @@ func _on_update(delta: float) -> void: pass
 #endregion
 
 
-func can_attack(a: Dictionary, target: Entity) -> bool:
+func can_attack(a: Variant, target: Entity) -> bool:
 	return (
 		U.is_vaild_entity(target)
 		and TimeDB.is_ready_time(a.ts, a.cooldown) 
-		and not (a.bans & target.flags or a.flags & target.bans)
+		and not (
+			a.vis_ban_set.has_flags(target.flag_set.bits)
+			or a.vis_flag_set.has_flags(target.ban_set.bits)
+		)
 		and U.is_allowed_entity(a, target)
 	)
 

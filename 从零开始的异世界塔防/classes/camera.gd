@@ -1,5 +1,8 @@
 extends Camera2D
+
+## 相机类
 class_name Camera
+
 
 @onready var tween: Tween = create_tween()
 var dragging: bool = false

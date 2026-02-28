@@ -11,12 +11,9 @@ var subpathway_spacing: float = 33.33
 var node_count: int = 256
 
 
-func load(level_data: Dictionary) -> void:
+func load() -> void:
 	pathways = []
 	last_pi = 0
-	max_subpathway = level_data.get("max_subpathway", max_subpathway)
-	subpathway_spacing = level_data.get("subpathway_spacing", subpathway_spacing)
-	node_count = level_data.get("node_count", node_count)
 
 
 func get_pathway_count() -> int:
@@ -36,9 +33,9 @@ func get_subpathway(pi: int, spi: int) -> Subpathway:
 func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
 	var pathway: Pathway = pathways[pi]
 	var subpathway: Subpathway = pathway.subpathways[spi]
-	var node: PathwayNode = subpathway.nodes[ni]
+	var pathway_node: PathwayNode = subpathway.nodes[ni]
 
-	return node
+	return pathway_node
 	
 
 func get_middle_spi() -> int:
@@ -102,7 +99,7 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	
 
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
-	if not target.has_c(C.CN_NAV_PATH) or target.state & (C.STATE_MELEE | C.STATE_RANGED):
+	if not target.has_c(C.CN_NAV_PATH) or target.state & (C.STATE.MELEE | C.STATE.RANGED):
 		return target.position
 		
 	var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)

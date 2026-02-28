@@ -2,7 +2,7 @@ extends System
 
 
 func _initialize() -> void:
-	whitelist_state = C.STATE_IDLE
+	whitelist_state = C.STATE.IDLE
 	wait_entity = true
 
 

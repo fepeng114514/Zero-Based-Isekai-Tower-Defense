@@ -18,7 +18,7 @@ func _on_insert(e: Entity) -> bool:
 
 	bullet_c.ts = TimeDB.tick_ts
 	var flying_time: float = TimeDB.get_time(bullet_c.ts)
-	if bullet_c.predict_pos_disabled:
+	if not bullet_c.predict_pos_disabled:
 		bullet_c.predict_target_pos = PathDB.predict_target_pos(
 			target, bullet_c.flight_time
 		)
@@ -32,13 +32,13 @@ func _on_insert(e: Entity) -> bool:
 
 	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.position.x else 1
 
-	if bullet_c.flight_trajectory & C.TRAJECTORY_LINEAR:
+	if bullet_c.flight_trajectory & C.TRAJECTORY.LINEAR:
 		_trajectory_liniear_init(bullet_c)
-	elif bullet_c.flight_trajectory & C.TRAJECTORY_PARABOLA:
+	elif bullet_c.flight_trajectory & C.TRAJECTORY.PARABOLA:
 		_trajectory_parabola_init(e, bullet_c, flying_time)
-	elif bullet_c.flight_trajectory & C.TRAJECTORY_TRACKING:
+	elif bullet_c.flight_trajectory & C.TRAJECTORY.TRACKING:
 		_trajectory_tracking_init(e, bullet_c)
-	elif bullet_c.flight_trajectory & C.TRAJECTORY_INSTANT:
+	elif bullet_c.flight_trajectory & C.TRAJECTORY.INSTANT:
 		_trajectory_instant_init(e, target)
 
 	return true
@@ -51,11 +51,11 @@ func _on_update(delta: float) -> void:
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 		var flying_time: float = TimeDB.get_time(bullet_c.ts)
 
-		if bullet_c.flight_trajectory & C.TRAJECTORY_LINEAR:
+		if bullet_c.flight_trajectory & C.TRAJECTORY.LINEAR:
 			_trajectory_liniear_update(e, bullet_c)
-		elif bullet_c.flight_trajectory & C.TRAJECTORY_PARABOLA:
+		elif bullet_c.flight_trajectory & C.TRAJECTORY.PARABOLA:
 			_trajectory_parabola_update(e, bullet_c, flying_time)
-		elif bullet_c.flight_trajectory & C.TRAJECTORY_TRACKING:
+		elif bullet_c.flight_trajectory & C.TRAJECTORY.TRACKING:
 			_trajectory_tracking_update(e, bullet_c, target)
 
 		e.rotation += bullet_c.rotation_speed * delta
@@ -91,8 +91,8 @@ func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 			bullet_c.to, 
 			bullet_c.max_damage_radius, 
 			bullet_c.min_damage_radius, 
-			e.flags,
-			e.bans,
+			e.flag_set.bits, 
+			e.ban_set.bits
 		)
 
 		for t in targets:
@@ -119,7 +119,7 @@ func _damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> voi
 		e.id, 
 		damage_factor
 	)
-	EntityDB.create_mods(target.id, e.id, bullet_c.mods)
+	EntityDB.create_mods(target.id, bullet_c.mods, e.id)
 	EntityDB.create_entities_at_pos(bullet_c.payloads, e.position)
 
 

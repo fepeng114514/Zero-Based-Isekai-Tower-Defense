@@ -1,0 +1,22 @@
+{
+	"goblin": {
+		"idle": {
+			"from": 1,
+			"to": 1
+		},
+		"walk": {
+			"from": 1,
+			"to": 22
+		}
+	},
+	"tower_archer_lvl1_shooter": {
+		"idle": {
+			"from": 1,
+			"to": 1
+		},
+		"ranged": {
+			"from": 3,
+			"to": 10
+		}
+	}
+}

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://d25hnem6unbul"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_eatbx"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="2_qqpkp"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_52tfd"]
+[ext_resource type="Texture2D" uid="uid://cejjkswsopglv" path="res://resources/atlas_texture_resources/arrow.tres" id="4_l0wem"]
+
+[node name="BulletArrow" type="Node2D" unique_id=43521632]
+script = ExtResource("1_eatbx")
+tag = 1
+flags = Array[int]([32])
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="BulletComponent" type="Node" parent="." unique_id=797543197]
+script = ExtResource("2_qqpkp")
+min_damage = 30.0
+max_damage = 30.0
+flight_time = 1.0
+flight_trajectory = 1
+metadata/_custom_type_script = "uid://haoljvofy74e"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1158787809]
+script = ExtResource("3_52tfd")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1900013004]
+texture = ExtResource("4_l0wem")

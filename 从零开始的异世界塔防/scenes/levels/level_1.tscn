@@ -1,12 +1,19 @@
 [gd_scene format=4 uid="uid://dn322bbgr6nvm"]
 
-[ext_resource type="Script" uid="uid://yur7o864jejr" path="res://scripts/level.gd" id="1_x42e6"]
+[ext_resource type="Script" uid="uid://yur7o864jejr" path="res://classes/level.gd" id="1_x42e6"]
+[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/resource/wave_set.gd" id="2_iav0o"]
+[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resource/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
-[ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://scripts/store.gd" id="4_oc4kc"]
+[ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner.tscn" id="4_dga24"]
+[ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://classes/store.gd" id="4_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://assets/level_1_bg.png" id="4_x42e6"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_6761a"]
+[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/resource/wave_spawn_batch.gd" id="5_wtwp4"]
+[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/resource/wave_spawn.gd" id="6_iwr0g"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://resources/grid_tileset.tres" id="6_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui.tscn" id="7_oc4kc"]
+[ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemy_goblin.tscn" id="9_dnkej"]
+[ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/tower_archer.tscn" id="10_mm8aj"]
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]
 _data = {
@@ -14,8 +21,28 @@ _data = {
 }
 point_count = 14
 
-[node name="level_1" type="Node2D" unique_id=787879478]
+[sub_resource type="Resource" id="Resource_dnkej"]
+script = ExtResource("6_iwr0g")
+metadata/_custom_type_script = "uid://d3o7lg62owyu5"
+
+[sub_resource type="Resource" id="Resource_mm8aj"]
+script = ExtResource("5_wtwp4")
+spawns = Array[ExtResource("6_iwr0g")]([SubResource("Resource_dnkej")])
+metadata/_custom_type_script = "uid://sexo7n8p0jrb"
+
+[sub_resource type="Resource" id="Resource_bahl2"]
+script = ExtResource("3_dnkej")
+spawn_batch_list = Array[ExtResource("5_wtwp4")]([SubResource("Resource_mm8aj")])
+metadata/_custom_type_script = "uid://b1twtcymtb7c1"
+
+[sub_resource type="Resource" id="Resource_np2pn"]
+script = ExtResource("2_iav0o")
+wave_list = Array[ExtResource("3_dnkej")]([SubResource("Resource_bahl2")])
+metadata/_custom_type_script = "uid://okpyko8fvmx4"
+
+[node name="level_1" type="Node2D" unique_id=1565788906]
 script = ExtResource("1_x42e6")
+metadata/_custom_type_script = "uid://yur7o864jejr"
 metadata/_edit_vertical_guides_ = [-464.0]
 
 [node name="Pathways" type="Node" parent="." unique_id=1530672308]
@@ -30,6 +57,15 @@ metadata/_custom_type_script = "uid://5rvcj41ueju4"
 script = ExtResource("4_oc4kc")
 
 [node name="Entities" type="Node" parent="Store" unique_id=63539716]
+
+[node name="WaveSpawner" parent="Store/Entities" unique_id=1677388100 instance=ExtResource("4_dga24")]
+wave_set = SubResource("Resource_np2pn")
+
+[node name="EnemyGoblin" parent="Store/Entities" unique_id=71433118 instance=ExtResource("9_dnkej")]
+position = Vector2(1112, 576)
+
+[node name="TowerArcher" parent="Store/Entities" unique_id=2011504655 instance=ExtResource("10_mm8aj")]
+position = Vector2(744, 576)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=74954041]
 position = Vector2(1280, 720)

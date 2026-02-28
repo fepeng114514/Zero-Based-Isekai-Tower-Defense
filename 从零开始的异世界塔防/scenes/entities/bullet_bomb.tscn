@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cx35c0rfd1fwr"]
 
-[ext_resource type="Script" uid="uid://bo8ey7a1rvldh" path="res://scripts/entities/bullet_bomb.gd" id="1_g48kh"]
+[ext_resource type="Script" uid="uid://bo8ey7a1rvldh" path="res://scenes/entities/bullet_bomb.gd" id="1_g48kh"]
 
 [node name="BulletBomb" type="Node2D" unique_id=2094980939]
 script = ExtResource("1_g48kh")

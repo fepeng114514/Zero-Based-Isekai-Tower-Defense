@@ -12,13 +12,25 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	e.position = source.position
+
+	# 检查黑白名单
+	if not U.is_allowed_entity(e, source):
+		return false
+
+	# 检查是否被目标禁止
+	if (
+			e.ban_set.has_flags(source.flag_set.bits)
+			or e.flag_set.has_flags(source.aura_ban_set.bits)
+	):
+		return false
+
 	aura_c.ts = TimeDB.tick_ts
 
 	var s_has_auras_ids: Array[int] = source.has_auras_ids
 	var same_source_auras: Array[Entity] = []
 
 	for aura_id: int in s_has_auras_ids:
-		var other_a = EntityDB.get_entity_by_id(aura_id)
+		var other_a: Variant = EntityDB.get_entity_by_id(aura_id)
 		
 		if not other_a:
 			continue
@@ -26,18 +38,24 @@ func _on_insert(e: Entity) -> bool:
 		var other_aura_c: AuraComponent = other_a.get_c(C.CN_AURA)
 		
 		# 检查是否被其他光环禁止
-		if other_aura_c.aura_bans & e.flags or other_aura_c.aura_type_bans & aura_c.aura_type:
+		if (
+				other_a.aura_ban_set.has_flags(e.flag_set.bits) 
+				or other_a.aura_type_ban_set.has_flags(aura_c.aura_type_set.bits)
+		):
 			return false
 			
 		# 检查是否被当前光环禁止
-		if e.aura_bans & other_aura_c.flags or e.aura_type_bans & other_aura_c.aura_type:
+		if (
+				e.aura_ban_set.has_flags(other_a.flag_set.bits)
+				or e.aura_type_ban_set.has_flags(other_aura_c.aura_type_set.bits)
+		):
 			if aura_c.remove_banned:
 				other_a.remove_entity()
 				continue
 			
 			return false
 		
-		if other_a.template_name == e.template_name:
+		if other_a.tag == e.tag:
 			same_source_auras.append(other_a)
 			
 	if not same_source_auras:
@@ -82,8 +100,8 @@ func _on_update(delta: float) -> void:
 			e.position, 
 			aura_c.max_radius, 
 			aura_c.min_radius, 
-			e.flags, 
-			e.bans
+			e.flag_set.bits, 
+			e.ban_set.bits
 		)
 
 		# 周期效果
@@ -99,7 +117,7 @@ func _on_update(delta: float) -> void:
 			if aura_c.min_damage > 0 or aura_c.max_damage > 0:
 				EntityDB.create_damage(target.id, aura_c.min_damage, aura_c.max_damage, aura_c.damage_type, e.id)
 
-			EntityDB.create_mods(target.id, e.id, aura_c.mods)
+			EntityDB.create_mods(target.id, aura_c.mods, e.id)
 
 		e._on_aura_period(targets, aura_c)
 

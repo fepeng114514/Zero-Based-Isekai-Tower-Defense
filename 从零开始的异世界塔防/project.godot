@@ -8,6 +8,19 @@
 
 config_version=5
 
+[addons]
+
+resources_spreadsheet_view/array_color_tint=100.0
+resources_spreadsheet_view/color_rows=true
+resources_spreadsheet_view/array_min_width=128.0
+resources_spreadsheet_view/resource_preview_size=32.0
+resources_spreadsheet_view/clip_headers=false
+resources_spreadsheet_view/dupe_arrays=true
+resources_spreadsheet_view/context_menu_on_leftclick=false
+resources_spreadsheet_view/fold_docks=true
+resources_spreadsheet_view/resource_cell_label_mode=1
+resources_spreadsheet_view/freeze_first_column=true
+
 [animation]
 
 compatibility/default_parent_skeleton_in_mesh_instance_3d=true
@@ -27,14 +40,11 @@ Global="*uid://b1ax1cob25oom"
 GlobalStore="*res://autoloads/db/global_store.gd"
 InputMgr="*uid://co6qf5rf1ox2n"
 SettingMgr="*uid://dwcme4eew22uo"
-ConfigMgr="*res://autoloads/manager/config_manager.gd"
 SystemMgr="*res://systems/system_manager.gd"
 TimeDB="*res://autoloads/db/time_db.gd"
 EntityDB="*res://autoloads/db/entity_db.gd"
 PathDB="*res://autoloads/db/path_db.gd"
 LevelMgr="*res://autoloads/manager/level_manager.gd"
-ImageDB="*uid://vrs8o2ekiglw"
-AnimDB="*uid://bmr4i31he7oo5"
 SoundDB="*uid://cc025jxyxcxmc"
 DrawMgr="*uid://b8v3oqs84i4lx"
 
@@ -46,7 +56,7 @@ window/size/viewport_height=1440
 [file_customization]
 
 folder_colors={
-"res://components/": "blue",
+"res://classes/components/": "blue",
 "res://systems/": "blue"
 }
 
