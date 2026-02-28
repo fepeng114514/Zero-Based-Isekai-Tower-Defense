@@ -32,7 +32,7 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 	
 	for spawn: WaveSpawn in spawn_batch.spawns:
 		for i: int in range(spawn.count):
-			var e: Entity = EntityDB.create_entity(spawn.name)
+			var e: Entity = EntityDB.create_entity(spawn.entity_tag)
 			
 			if e.has_c(C.CN_NAV_PATH):
 				var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
@@ -40,13 +40,12 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 				
 				nav_path_c.reversed = spawn.reversed
 				nav_path_c.loop = spawn.loop
-				nav_path_c.loop_times = spawn.loop_times
 				
 				var node: PathwayNode = nav_path_c.get_pathway_node(
 					PathDB.node_count - 1 if nav_path_c.reversed else 0
 				)
 				nav_path_c.set_nav_path(
-					pathway_idx, spi - 1 if spi != null else -1, node.ni
+					pathway_idx, spi if spi != null else -1, node.ni
 				)
 			
 			e.insert_entity()
