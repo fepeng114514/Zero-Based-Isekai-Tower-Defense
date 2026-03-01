@@ -6,11 +6,6 @@ extends System
 	对于被拦截者: 如果是被第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
 """
 
-
-func _initialize() -> void:
-	whitelist_state = C.STATE.IDLE | C.STATE.MELEE
-	wait_entity = true
-	
 	
 func _on_create(e: Entity) -> bool:
 	if not e.has_c(C.CN_MELEE):
@@ -34,8 +29,13 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
-func _on_update(delta: float) -> void:
-	process_entities(C.CN_MELEE, func(e: Entity) -> void:
+func _on_update(_delta: float) -> void:
+	var entities: Array = EntityDB.get_entities_group(C.CN_MELEE).filter(
+		func(e: Entity) -> bool:
+			return not e.waiting and e.has_state(C.STATE.MELEE | C.STATE.IDLE)
+	)
+
+	for e: Entity in entities:
 		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
 		melee_c.cleanup_blocker()
 		melee_c.cleanup_blockeds()
@@ -47,7 +47,7 @@ func _on_update(delta: float) -> void:
 			process_blocked(e, melee_c)
 			
 		do_attacks(e, melee_c)
-	)
+	
 
 func process_blocker(e: Entity, melee_c: MeleeComponent) -> void:
 	var blockeds_ids: Array = melee_c.blockeds_ids
@@ -92,8 +92,8 @@ func find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 		e.position, 
 		melee_c.block_max_range, 
 		melee_c.block_min_range, 
-		melee_c.block_flag_set.bits, 
-		melee_c.block_ban_set.bits, 
+		melee_c.block_flag_bits, 
+		melee_c.block_ban_bits, 
 		filter
 	)	
 	
@@ -178,7 +178,7 @@ func do_attacks(e: Entity, melee_c: MeleeComponent) -> void:
 		attack(e, a, melee_c, blocked)
 
 
-func attack(e: Entity, a: Melee, melee_c: MeleeComponent, blocked: Entity) -> void:
+func attack(e: Entity, a: Melee, _melee_c: MeleeComponent, blocked: Entity) -> void:
 	EntityDB.create_damage(
 		blocked.id, a.min_damage, a.max_damage, a.damage_type, e.id
 	)

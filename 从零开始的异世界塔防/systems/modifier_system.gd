@@ -18,8 +18,8 @@ func _on_insert(e: Entity) -> bool:
 
 	# 检查是否被目标禁止
 	if (
-			e.ban_set.has_flags(target.flag_set.bits)
-			or e.flag_set.has_flags(target.mod_ban_set.bits)
+			e.ban_bits & target.flag_bits
+			or e.flag_bits & target.mod_ban_bits
 	):
 		return false
 		
@@ -39,15 +39,15 @@ func _on_insert(e: Entity) -> bool:
 		
 		# 检查是否被其他效果禁止
 		if (
-				other_m.mod_ban_set.has_flags(e.flag_set.bits) 
-				or other_m.mod_type_ban_set.has_flags(mod_c.mod_type_set.bits)
+				other_m.mod_ban_bits & e.flag_bits
+				or other_m.mod_type_ban_bits & mod_c.mod_type_bits
 		):
 			return false
 			
 		# 检查是否被当前效果禁止
 		if (
-				e.mod_ban_set.has_flags(other_m.flag_set.bits) 
-				or e.mod_type_ban_set.has_flags(other_mod_c.mod_type_set.bits)
+				e.mod_ban_bits & other_m.flag_bits
+				or e.mod_type_ban_bits & other_mod_c.mod_type_bits
 		):
 			if mod_c.remove_banned:
 				other_m.remove_entity()
@@ -91,8 +91,8 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
-func _on_update(delta: float) -> void:
-	process_entities(C.GROUP_MODIFIERS, func(e: Entity) -> void:
+func _on_update(_delta: float) -> void:
+	for e: Entity in EntityDB.get_entities_group(C.GROUP_MODIFIERS):
 		var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 		
 		# 周期效果
@@ -116,7 +116,7 @@ func _on_update(delta: float) -> void:
 
 		mod_c.curren_cycle += 1
 		mod_c.ts = TimeDB.tick_ts
-	)
+	
 
 func _on_remove(e: Entity) -> void:
 	if not e.has_c(C.CN_MODIFIER):

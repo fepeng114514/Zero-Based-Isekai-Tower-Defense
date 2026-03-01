@@ -21,7 +21,7 @@ func _ready() -> void:
 
 	for i: int in range(max_subpathway):
 		var offset: float = half_total_spacing - (spacing * i)
-		var subpathway: Subpathway = create_subpathway(offset)
+		var _subpathway: Subpathway = create_subpathway(offset)
 	
 		#add_line_visualization(subpathway, Color.RED)
 

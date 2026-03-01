@@ -1,7 +1,7 @@
 extends Node
 class_name RallyComponent
 
-@export var speed: int = 100
+@export var speed: float = 100
 @export var rally_radius: float = 30
 @export var arrived_dist: float = 10
 @export var can_click_rally: bool = true

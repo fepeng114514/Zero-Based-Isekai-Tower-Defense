@@ -45,7 +45,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	process_entities(C.GROUP_BULLETS, func(e: Entity) -> void: 
+	for e: Entity in EntityDB.get_entities_group(C.GROUP_BULLETS):
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
@@ -78,7 +78,6 @@ func _on_update(delta: float) -> void:
 		):
 			_hit(e, bullet_c, target)
 			return
-	)
 
 
 ## 击中目标调用
@@ -89,8 +88,8 @@ func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 			bullet_c.to, 
 			bullet_c.max_damage_radius, 
 			bullet_c.min_damage_radius, 
-			e.flag_set.bits, 
-			e.ban_set.bits
+			e.flag_bits, 
+			e.ban_bits
 		)
 
 		for t in targets:

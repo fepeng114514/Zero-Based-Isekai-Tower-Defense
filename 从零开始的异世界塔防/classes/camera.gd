@@ -4,7 +4,6 @@ extends Camera2D
 class_name Camera
 
 
-@onready var tween: Tween = create_tween()
 var dragging: bool = false
 var drag_start_position := Vector2.ZERO
 var zoom_factor: float = 1.1
@@ -14,10 +13,6 @@ var zoom_max: float = 2
 
 func _ready() -> void:
 	S.resized_window_s.connect(_on_resized_window)
-	
-	tween.set_parallel(false)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_SINE)
 	
 	limit_left = 0
 	limit_top = 0
@@ -63,9 +58,10 @@ func _smooth_zoom(reversed: bool = false) -> void:
 	# 限制缩放范围
 	target_zoom = target_zoom.clampf(zoom_min, zoom_max)
 	
-	# 重启tween
-	tween.kill()
-	tween = create_tween()
+	var tween: Tween = create_tween()
+	tween.set_parallel(false)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "zoom", target_zoom, zoom_duration)
 	#tween.parallel().tween_property(
 		#self, "position", get_global_mouse_position() * target_zoom, zoom_duration

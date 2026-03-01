@@ -1,9 +1,11 @@
 extends Node
 class_name ModifierComponent
 
-var mod_type_set := FlagSet.new()
+
 @export var mod_type: Array[C.MOD] = []:
-	set(value): mod_type_set.set_from_array(value)
+	set(value): 
+		mod_type = value
+		mod_type_bits = U.merge_flags(value)
 @export var allow_same: bool = false
 @export var reset_same: bool = true
 @export var replace_same: bool = false
@@ -23,7 +25,9 @@ var mod_type_set := FlagSet.new()
 @export var min_damage: float = 0
 @export var max_damage: float = 0
 @export var damage_type: C.DAMAGE = C.DAMAGE.TRUE
-var ts: float = 0
 @export var cycle_time: float = 1
 @export var max_cycle: int = C.UNSET
+
+var ts: float = 0
+var mod_type_bits: int = 0
 var curren_cycle: int = 0

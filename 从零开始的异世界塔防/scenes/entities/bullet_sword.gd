@@ -16,7 +16,7 @@ func _on_insert() -> bool:
 	return true
 
 
-func _on_update(delta: float) -> void:
+func _on_update(_delta: float) -> void:
 	var target: Entity = EntityDB.get_entity_by_id(target_id)
 
 	# 停留状态
@@ -77,7 +77,7 @@ func _on_update(delta: float) -> void:
 
 
 func _on_bullet_calculate_damage_factor(
-		target: Entity, bullet_c: BulletComponent
+		target: Entity, _bullet_c: BulletComponent
 	) -> float:
 	return U.dist_factor_inside_radius(
 		position, 

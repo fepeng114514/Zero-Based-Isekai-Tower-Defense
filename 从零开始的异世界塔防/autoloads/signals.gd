@@ -4,6 +4,8 @@ extends Node
 """信号库:
     存储所有信号
 """
+@warning_ignore_start("unused_signal")
+signal continue_s
 
 #region UI 相关
 ## 重设窗口大小信号
@@ -17,3 +19,4 @@ signal deselect_entity_s
 
 ## 创建实体信号
 signal insert_entity_s(entity: Entity)
+@warning_ignore_restore("unused_signal")

@@ -40,6 +40,8 @@ func load(required_systems_name: Array) -> void:
 
 ## 系统主循环
 func _physics_process(delta: float) -> void:
+	S.continue_s.emit()
+	
 	for system: System in systems:
 		var system_func: Callable = system.get("_on_update")
 		

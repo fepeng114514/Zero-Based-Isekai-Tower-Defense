@@ -1,5 +1,4 @@
 extends Node2D
-
 ## 实体类:
 ## [br]
 ## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。
@@ -11,6 +10,62 @@ class_name Entity
 #region 属性
 ## 实体标签
 @export var tag: C.ENTITY_TAG
+## 实体标识符列表
+@export var flags: Array[C.FLAG] = []:
+	set(value): 
+		flags = value
+		flag_bits = U.merge_flags(value)
+## 禁止的实体标识符列表，表示该实体不能与哪些标识的实体进行交互
+@export var bans: Array[C.FLAG] = []:
+	set(value): 
+		bans = value
+		ban_bits = U.merge_flags(value)
+## 白名单实体标签列表，表示该实体只能与这些标签的实体进行交互，通常用于状态效果
+@export var whitelist_tag: Array[C.ENTITY_TAG] = []
+## 黑名单实体标签列表，表示该实体不能与这些标签的实体进行交互，通常用于状态效果
+@export var blacklist_tag: Array[C.ENTITY_TAG] = []
+## 持续时间，单位为秒，通常用于状态效果持续时间等
+@export var duration: float = C.UNSET
+## 禁止的状态效果类型标识符列表，表示该实体不能与哪些类型的状态效果进行交互
+@export var mod_type_bans: Array[C.MOD] = []:
+	set(value): 
+		mod_type_bans = value
+		mod_type_ban_bits = U.merge_flags(value)
+## 禁止的光环类型标识符列表，表示该实体不能与哪些类型的光环进行交互
+@export var aura_type_bans: Array[C.AURA] = []:
+	set(value): 
+		aura_type_bans = value
+		aura_type_ban_bits = U.merge_flags(value)
+## 插入实体时创建的光环标签列表
+@export var auras_list: Array[C.ENTITY_TAG] = []
+## 禁止的状态效果标识符列表，表示该实体不能与哪些状态效果进行交互
+@export var mod_bans: Array[C.FLAG] = []:
+	set(value): 
+		mod_bans = value
+		mod_ban_bits = U.merge_flags(value)
+## 禁止的光环标识符列表，表示该实体不能与哪些光环进行交互
+@export var aura_bans: Array[C.FLAG] = []:
+	set(value): 
+		aura_bans = value
+		aura_ban_bits = U.merge_flags(value)
+@export var hit_rect := Rect2(1, 1, 1, 1)
+## 实体等级，通常用于区分实体的强度或阶段
+@export var level: int = 1
+## 追踪来源实体，通常用于光环等需要持续追踪的实体
+@export var track_source: bool = false
+## 追踪目标实体，通常用于状态效果等需要持续追踪的实体
+@export var track_target: bool = false
+
+## 禁止的状态效果标识符，表示该实体不能与哪些状态效果进行交互
+var mod_ban_bits: int = 0
+## 插入时间戳，单位为秒
+var insert_ts: float = 0
+## 时间戳，单位为秒，通常用于持续时间、子弹飞行时间等
+var ts: float = 0
+## 目标实体 ID，通常用于子弹、状态效果等需要指定目标的实体
+var target_id: int = C.UNSET
+## 禁止的实体标识符集合，表示该实体不能与哪些标识的实体进行交互
+var ban_bits: int = 0
 var template_name: String = ""
 ## 实体唯一 ID
 var id: int = C.UNSET
@@ -18,79 +73,31 @@ var id: int = C.UNSET
 var components: Dictionary[String, Node] = {}
 ## 所有者或来源 ID，通常为生成实体的实体 ID
 var source_id: int = C.UNSET
-## 实体标识符集合
-var flag_set := FlagSet.new()
-## 实体标识符列表
-@export var flags: Array[C.FLAG] = []:
-	set(value): flag_set.set_from_array(value)
-## 禁止的实体标识符集合，表示该实体不能与哪些标识的实体进行交互
-var ban_set := FlagSet.new()
-## 禁止的实体标识符列表，表示该实体不能与哪些标识的实体进行交互
-@export var bans: Array[C.FLAG] = []:
-	set(value): ban_set.set_from_array(value)
-## 目标实体 ID，通常用于子弹、状态效果等需要指定目标的实体
-var target_id: int = C.UNSET
-## 白名单实体标签列表，表示该实体只能与这些标签的实体进行交互，通常用于状态效果
-@export var whitelist_tag: Array[C.ENTITY_TAG] = []
-## 黑名单实体标签列表，表示该实体不能与这些标签的实体进行交互，通常用于状态效果
-@export var blacklist_tag: Array[C.ENTITY_TAG] = []
-## 插入时间戳，单位为秒
-var insert_ts: float = 0
-## 时间戳，单位为秒，通常用于持续时间、子弹飞行时间等
-var ts: float = 0
-## 持续时间，单位为秒，通常用于状态效果持续时间等
-@export var duration: float = C.UNSET
-## 禁止的状态效果标识符集合，表示该实体不能与哪些状态效果进行交互
-var mod_ban_set := FlagSet.new()
-## 禁止的状态效果标识符列表，表示该实体不能与哪些状态效果进行交互
-@export var mod_bans: Array[C.FLAG] = []:
-	set(value): mod_ban_set.set_from_array(value)
+## 实体标识符，使用位运算表示
+var flag_bits: int = 0
 ## 禁止的状态效果类型标识符集合，表示该实体不能与哪些类型的状态效果进行交互
-var mod_type_ban_set := FlagSet.new()
-## 禁止的状态效果类型标识符列表，表示该实体不能与哪些类型的状态效果进行交互
-@export var mod_type_bans: Array[C.MOD] = []:
-	set(value): mod_type_ban_set.set_from_array(value)
+var mod_type_ban_bits: int = 0
 ## 已拥有的状态效果 ID 列表，表示该实体当前拥有的状态效果实体 ID 列表
 var has_mods_ids: Array[int] = []
-## 禁止的光环标识符集合，表示该实体不能与哪些光环进行交互
-var aura_ban_set := FlagSet.new()
-## 禁止的光环标识符列表，表示该实体不能与哪些光环进行交互
-@export var aura_bans: Array[C.FLAG] = []:
-	set(value): aura_ban_set.set_from_array(value)
-## 禁止的光环类型标识符集合，表示该实体不能与哪些类型的光环进行交互
-var aura_type_ban_set := FlagSet.new()
-## 禁止的光环类型标识符列表，表示该实体不能与哪些类型的光环进行交互
-@export var aura_type_bans: Array[C.AURA] = []:
-	set(value): aura_type_ban_set.set_from_array(value)
-## 插入实体时创建的光环标签列表
-@export var auras_list: Array[C.ENTITY_TAG] = []
+## 禁止的光环标识符，使用位运算表示，表示该实体不能与哪些光环进行交互
+var aura_ban_bits: int = 0
+## 禁止的光环类型标识符，使用位运算表示，表示该实体不能与哪些类型的光环进行交互
+var aura_type_ban_bits: int = 0
 ## 已拥有的光环 ID 列表，表示该实体当前拥有的光环实体 ID 列表
 var has_auras_ids: Array[int] = []
-@export var hit_rect := Rect2(1, 1, 1, 1)
 ## 实体状态，通常用于区分实体的不同阶段或行为模式
 var state: C.STATE = C.STATE.IDLE
-## 协程等待状态
-var y_waiting: bool = false
 ## 等待状态
 var waiting: bool = false
-## 等待计时
-var wait_clock: float = 0
-## 等待完毕执行的函数队列，匿名函数格式为 func(e: Entity) -> void
-var wait_action_queue: Array[Callable] = []
 ## 移除状态，表示实体正在被移除
 var removed: bool = false
-## 实体等级，通常用于区分实体的强度或阶段
-@export var level: int = 1
-## 追踪来源实体，通常用于光环等需要持续追踪的实体
-@export var track_source: bool = false
-## 追踪目标实体，通常用于状态效果等需要持续追踪的实体
-@export var track_target: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 #endregion
 
 
 #region 回调函数
+@warning_ignore_start("unused_parameter")
 ## 创建实体时调用，返回 false 的实体不会被创建
 ## [br]
 ## 注：此时节点还未初始化
@@ -175,6 +182,7 @@ func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponen
 
 func _to_string():
 	return "%s(%d)" % [template_name, id]
+@warning_ignore_restore("unused_parameter")
 #endregion
 
 
@@ -216,42 +224,6 @@ func add_c(c_name: String) -> Node:
 	return component_node
 
 #endregion
-
-
-## 协程等待
-func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
-	y_waiting = true
-	await TimeDB.y_wait(time, break_fn)
-	y_waiting = false
-
-
-## 开始等待，与协程等待不同的是:
-## [br]
-## 1. 不会从上次暂停的位置继续
-## [br]
-## 2. 可被外部调用
-## [br]
-## 等待 0 秒表示等待一帧
-func wait(time: float = 0, reset: bool = true) -> void:
-	if not reset and waiting:
-		return
-
-	waiting = true
-	if time == 0:
-		wait_clock = 0.01
-		return
-
-	wait_clock = time
-
-
-## 将函数增加到等待完成后执行的函数队列，其中 action_func 匿名函数格式为 func(e: Entity) -> void
-func insert_wait_action_queue(action_func: Callable) -> void:
-	wait_action_queue.append(action_func)
-
-
-## 检查实体是否在等待
-func is_waiting() -> bool:
-	return y_waiting or waiting
 
 
 ## 清理无效状态效果
@@ -360,15 +332,25 @@ func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
 
 ## 等待动画播放完成
 func wait_animation(
-		sprite_idx: int = 0, times: int = 1, break_fn = null
+		sprite_idx: int = 0, times: int = 1, break_fn: Callable = Callable()
 	) -> void:
 	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	var loop_count: int = 0
 	
-	y_waiting = true
-	while loop_count < times and (not break_fn or break_fn.call()):
+	waiting = true
+	while loop_count < times and (not break_fn.is_valid() or break_fn.call()):
 		loop_count += 1
 		await sprite.animation_looped
-		
-	y_waiting = false
+	waiting = false
 #endregion
+
+
+## 协程等待
+func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
+	waiting = true
+	await TimeDB.y_wait(time, break_fn)
+	waiting = false
+
+
+func has_state(states: int) -> bool:
+	return state & states

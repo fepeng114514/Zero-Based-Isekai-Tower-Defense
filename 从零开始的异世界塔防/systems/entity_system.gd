@@ -38,7 +38,7 @@ func _on_update(delta: float) -> void:
 				
 			e.position = source.position
 			
-		if e.y_waiting or e.wait_clock > 0:
+		if e.waiting:
 			continue
 			
 		e._on_update(delta)

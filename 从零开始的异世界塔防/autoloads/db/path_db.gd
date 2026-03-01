@@ -99,7 +99,11 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	
 
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
-	if not target.has_c(C.CN_NAV_PATH) or target.state & (C.STATE.MELEE | C.STATE.RANGED):
+	if (
+		not target.has_c(C.CN_NAV_PATH) 
+		or target.has_state(C.STATE.MELEE)
+		or target.has_state(C.STATE.RANGED)
+	):
 		return target.position
 		
 	var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)

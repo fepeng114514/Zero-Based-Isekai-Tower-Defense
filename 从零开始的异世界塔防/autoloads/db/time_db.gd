@@ -32,12 +32,11 @@ func get_time(ts: float) -> float:
 	return tick_ts - ts
 
 
-## 协程等待，等待 0 秒表示等待一帧
-func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
-	if time == 0:
-		await curren_scene.process_frame
-		return
-		
+## 协程等待
+func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 	var ts: float = tick_ts
-	while not is_ready_time(ts, time) and (not break_fn.is_valid() or break_fn.call()):
-		await curren_scene.process_frame
+	while (
+		not is_ready_time(ts, time) 
+		and (not break_fn.is_valid() or break_fn.call())
+	):
+		await S.continue_s

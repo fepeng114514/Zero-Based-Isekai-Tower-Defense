@@ -19,8 +19,8 @@ func _on_insert(e: Entity) -> bool:
 
 	# 检查是否被目标禁止
 	if (
-			e.ban_set.has_flags(source.flag_set.bits)
-			or e.flag_set.has_flags(source.aura_ban_set.bits)
+			e.ban_bits & source.flag_bits
+			or e.flag_bits & source.aura_ban_bits
 	):
 		return false
 
@@ -39,15 +39,15 @@ func _on_insert(e: Entity) -> bool:
 		
 		# 检查是否被其他光环禁止
 		if (
-				other_a.aura_ban_set.has_flags(e.flag_set.bits) 
-				or other_a.aura_type_ban_set.has_flags(aura_c.aura_type_set.bits)
+				other_a.aura_ban_bits & e.flag_bits
+				or other_a.aura_type_ban_bits & aura_c.aura_type_bits
 		):
 			return false
 			
 		# 检查是否被当前光环禁止
 		if (
-				e.aura_ban_set.has_flags(other_a.flag_set.bits)
-				or e.aura_type_ban_set.has_flags(other_aura_c.aura_type_set.bits)
+				e.aura_ban_bits & other_a.flag_bits
+				or e.aura_type_ban_bits & other_aura_c.aura_type_bits
 		):
 			if aura_c.remove_banned:
 				other_a.remove_entity()
@@ -92,16 +92,16 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
-func _on_update(delta: float) -> void:
-	process_entities(C.GROUP_AURAS, func(e: Entity) -> void:
+func _on_update(_delta: float) -> void:
+	for e: Entity in EntityDB.get_entities_group(C.GROUP_AURAS):
 		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
 		var targets: Array = EntityDB.search_targets_in_range(
 			aura_c.search_mode, 
 			e.position, 
 			aura_c.max_radius, 
 			aura_c.min_radius, 
-			e.flag_set.bits, 
-			e.ban_set.bits
+			e.flag_bits, 
+			e.ban_bits
 		)
 
 		# 周期效果
@@ -132,7 +132,6 @@ func _on_update(delta: float) -> void:
 
 		aura_c.curren_cycle += 1
 		aura_c.ts = TimeDB.tick_ts
-	)
 
 
 func _on_remove(e: Entity) -> void:

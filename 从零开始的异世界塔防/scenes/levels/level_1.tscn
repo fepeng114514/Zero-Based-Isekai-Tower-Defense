@@ -22,7 +22,7 @@ point_count = 14
 
 [sub_resource type="Resource" id="Resource_dnkej"]
 script = ExtResource("6_iwr0g")
-entity_tag = 9
+subpathway_idx = 0
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_mm8aj"]
@@ -30,10 +30,21 @@ script = ExtResource("5_wtwp4")
 spawns = Array[ExtResource("6_iwr0g")]([SubResource("Resource_dnkej")])
 metadata/_custom_type_script = "uid://sexo7n8p0jrb"
 
+[sub_resource type="Resource" id="Resource_wtwp4"]
+script = ExtResource("6_iwr0g")
+subpathway_idx = 1
+metadata/_custom_type_script = "uid://d3o7lg62owyu5"
+
+[sub_resource type="Resource" id="Resource_iwr0g"]
+script = ExtResource("5_wtwp4")
+delay = 1.0
+spawns = Array[ExtResource("6_iwr0g")]([SubResource("Resource_wtwp4")])
+metadata/_custom_type_script = "uid://sexo7n8p0jrb"
+
 [sub_resource type="Resource" id="Resource_bahl2"]
 script = ExtResource("3_dnkej")
 interval = 1.0
-spawn_batch_list = Array[ExtResource("5_wtwp4")]([SubResource("Resource_mm8aj")])
+spawn_batch_list = Array[ExtResource("5_wtwp4")]([SubResource("Resource_mm8aj"), SubResource("Resource_iwr0g")])
 metadata/_custom_type_script = "uid://b1twtcymtb7c1"
 
 [sub_resource type="Resource" id="Resource_np2pn"]

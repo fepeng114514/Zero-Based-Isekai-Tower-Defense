@@ -1,12 +1,9 @@
 extends Node
 class_name System
 
-var blacklist_state: int = C.STATE.NONE
-var whitelist_state: int = C.STATE.NONE
-var wait_entity: bool = false
-
 
 #region 回调函数
+@warning_ignore_start("unused_parameter")
 ## 系统初始化时调用
 func _initialize() -> void: pass
 
@@ -35,6 +32,7 @@ func _on_remove(e: Entity) -> void: pass
 
 ## 更新实体时调用
 func _on_update(delta: float) -> void: pass
+@warning_ignore_restore("unused_parameter")
 #endregion
 
 
@@ -43,23 +41,8 @@ func can_attack(a: Variant, target: Entity) -> bool:
 		target
 		and TimeDB.is_ready_time(a.ts, a.cooldown) 
 		and not (
-			a.vis_ban_set.has_flags(target.flag_set.bits)
-			or a.vis_flag_set.has_flags(target.ban_set.bits)
+			a.vis_ban_bits & target.flag_bits
+			or a.vis_flag_bits & target.ban_bits
 		)
 		and U.is_allowed_entity(a, target)
 	)
-
-
-## 遍历实体组中所有实体，其中 process_func 为 func(e: Entity) -> void
-func process_entities(group_name: String, process_func: Callable) -> void:
-	for e: Entity in EntityDB.get_entities_group(group_name):
-		if (
-			e.state & blacklist_state 
-			or (whitelist_state and not e.state & whitelist_state)
-		):
-			continue
-
-		if wait_entity and e.is_waiting():
-			continue
-		
-		process_func.call(e)

@@ -4,7 +4,9 @@ class_name AuraComponent
 
 
 @export var aura_type: Array[C.AURA] = []:
-	set(value): aura_type_set.set_from_array(value)
+	set(value): 
+		aura_type = value
+		aura_type_bits = U.merge_flags(value)
 @export var allow_same: bool = false
 @export var reset_same: bool = true
 @export var replace_same: bool = false
@@ -20,6 +22,6 @@ class_name AuraComponent
 @export var cycle_time: float = 1
 @export var max_cycle: int = C.UNSET
 
-var aura_type_set := FlagSet.new()
+var aura_type_bits: int = 0
 var curren_cycle: int = 0
 var ts: float = 0

@@ -100,10 +100,8 @@ const PATH_SPRITE_FRAMES_RESOURCES: String = (
 #endregion
 
 
-## 状态标志 (位运算) 枚举
+## 状态标志枚举
 enum STATE {
-	## 状态: 无
-	NONE = 0,
 	## 状态: 空闲
 	IDLE = 1,
 	## 状态: 近战攻击
@@ -114,6 +112,8 @@ enum STATE {
 	BLOCK = 1 << 3,
 	## 状态: 前往集结点
 	RALLY = 1 << 4,
+	## 状态: 生成
+	SPAWN = 1 << 5,
 }
 
 

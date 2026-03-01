@@ -21,9 +21,13 @@ class_name MeleeComponent
 ## 拦截成本，表示被拦截者的拦截成本
 @export var block_cost: int = 1
 @export var block_flags: Array[C.FLAG] = []:
-	set(value): block_flag_set.set_from_array(value)
+	set(value): 
+		block_flags = value
+		block_flag_bits = U.merge_flags(value)
 @export var block_bans: Array[C.FLAG] = []:
-	set(value): block_ban_set.set_from_array(value)
+	set(value): 
+		block_bans = value
+		block_ban_bits = U.merge_flags(value)
 ## 移动速度，表示实体前往近战位置的移动速度，单位为像素/秒
 @export var motion_speed: float = 100
 ## 近战位置偏移，表示近战位置相对于实体位置的偏移，通常用于调整实体的近战位置
@@ -35,8 +39,8 @@ class_name MeleeComponent
 var list: Array[Melee] = []
 ## 已排序的近战攻击列表
 var order: Array[Melee] = []
-var block_flag_set := FlagSet.new()
-var block_ban_set := FlagSet.new()
+var block_flag_bits: int = 0
+var block_ban_bits: int = 0
 ## 拦截者 ID，表示实体当前被哪个拦截者拦截，通常用于被拦截者追踪自己的拦截者
 var blocker_id: int = C.UNSET
 ## 移动方向，表示实体的移动方向

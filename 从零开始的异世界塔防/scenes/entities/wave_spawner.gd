@@ -1,5 +1,5 @@
 extends Entity
-@export var wave_set: WaveSet
+@export var wave_set: WaveSet = null
 
 
 func _spawner() -> void:
@@ -13,21 +13,20 @@ func _spawner() -> void:
 			continue
 		
 		# 每波之间的等待
-		await TimeDB.y_wait(wave.interval)
+		await y_wait(wave.interval)
 		GlobalStore.current_wave = wave_idx
 		GlobalStore.force_wave = wave_idx
 		
 		for spawn_batch: WaveSpawnBatch in wave.spawn_batch_list:
 			# 批次并行
-			var spawn_batch_spawner: Callable = _spawn_batch_spawner.bind()
-			spawn_batch_spawner.call(spawn_batch)
+			_spawn_batch_spawner(spawn_batch)
 			
 	# 所有波次释放完毕
 	GlobalStore.waves_finished = true
 
 
 func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
-	await TimeDB.y_wait(spawn_batch.delay)
+	await y_wait(spawn_batch.delay)
 	var pathway_idx: int = spawn_batch.pathway_idx
 	
 	for spawn: WaveSpawn in spawn_batch.spawns:
@@ -48,6 +47,6 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 			
 			e.insert_entity()
 			
-			await TimeDB.y_wait(spawn.interval)
+			await y_wait(spawn.interval)
 			
-		await TimeDB.y_wait(spawn.next_interval)
+		await y_wait(spawn.next_interval)

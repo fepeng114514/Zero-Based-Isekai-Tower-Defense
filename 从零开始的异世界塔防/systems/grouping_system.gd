@@ -10,7 +10,7 @@ const FLAG_TO_GROUP = {
 }
 
 
-func _on_update(delta: float) -> void:
+func _on_update(_delta: float) -> void:
 	var dirty_entities_ids: Array[int] = EntityDB._dirty_entities_ids
 	if dirty_entities_ids.is_empty():
 		return
@@ -24,7 +24,7 @@ func _on_update(delta: float) -> void:
 	
 	for e: Entity in EntityDB.get_vaild_entities():
 		for flags: C.FLAG in FLAG_TO_GROUP.keys():
-			if e.flag_set.has_flags(flags):
+			if e.flag_bits & flags:
 				_append_entity(e, FLAG_TO_GROUP[flags])
 
 		for c_name: String in e.components.keys():

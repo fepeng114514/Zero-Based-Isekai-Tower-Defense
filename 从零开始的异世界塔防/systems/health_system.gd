@@ -31,16 +31,15 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
-func _on_update(delta: float) -> void:
+func _on_update(_delta: float) -> void:
 	_process_damege_queue()
 
-	process_entities(C.CN_HEALTH, func(e: Entity) -> void:
+	for e: Entity in EntityDB.get_entities_group(C.CN_HEALTH):
 		var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
 		var health_bar: Node = health_c.health_bar
 		health_bar.fg.scale.x = (
 			health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 		)
-	)
 		
 func _process_damege_queue() -> void:
 	var damage_queue: Array[Entity] = SystemMgr.damage_queue

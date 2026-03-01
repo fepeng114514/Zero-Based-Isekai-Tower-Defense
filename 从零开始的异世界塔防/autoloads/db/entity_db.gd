@@ -293,7 +293,7 @@ func find_targets_in_range(
 	return pool.filter(
 		func(e) -> bool: return (
 			is_instance_valid(e)
-			and not (bans & e.flag_set.bits or e.ban_set.bits & flags)
+			and not (bans & e.flag_bits or e.ban_bits & flags)
 			and U.is_in_radius(e.position, origin, max_range)
 			and not U.is_in_radius(e.position, origin, min_range)
 			and (not filter.is_valid() or filter.call(e))

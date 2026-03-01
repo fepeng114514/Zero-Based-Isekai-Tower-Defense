@@ -507,3 +507,15 @@ static func pascal_to_snake(pascal_str: String) -> String:
 
 static func is_valid_number(n: float) -> bool:
 	return n != C.UNSET
+
+
+#region 位运算相关方法
+static func merge_flags(flag_list: Array) -> int:
+	var new_flags: int = 0
+	
+	for flag: int in flag_list:
+		new_flags |= flag
+		
+	return new_flags
+		
+#endregion

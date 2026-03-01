@@ -17,8 +17,8 @@ func _on_insert(e: Entity) -> bool:
 	return true
 	
 
-func _on_update(delta: float) -> void:
-	process_entities(C.CN_BARRACK, func(e: Entity) -> void:
+func _on_update(_delta: float) -> void:
+	for e: Entity in EntityDB.get_entities_group(C.CN_BARRACK):
 		var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
 		barrack_c.cleanup_soldiers()
 		
@@ -39,7 +39,6 @@ func _on_update(delta: float) -> void:
 				s_rally_c.rally_formation_position(soldier_count, i)
 		
 		barrack_c.last_soldier_count = soldier_count
-	)
 		
 
 func respawn_soldier(
