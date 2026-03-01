@@ -32,8 +32,8 @@ func _run() -> void:
 	
 	# 处理图像图集
 	for atlas_name in REQUIRED_IMAGE_ATLAS:
-		Log.debug("处理图像图集: %s", atlas_name)
-		var atlas_data = U.load_json(
+		Log.debug("处理图像图集: %s" % atlas_name)
+		var atlas_data: Dictionary = U.load_json(
 				C.PATH_IMAGE_ATLAS_ASSETS_DATA % atlas_name
 			)
 			
@@ -41,8 +41,8 @@ func _run() -> void:
 		
 	# 处理动画图集
 	for atlas_name in REQUIRED_ANIMATED_ATLAS:
-		Log.debug("处理动画图集: %s", atlas_name)
-		var atlas_data = U.load_json(
+		Log.debug("处理动画图集: %s" % atlas_name)
+		var atlas_data: Dictionary = U.load_json(
 			C.PATH_ANIMATE_ATLAS_ASSETS_DATA % atlas_name
 		)
 		
@@ -138,7 +138,7 @@ func _save_atlas_texture(
 	
 	ResourceSaver.save(atlas_texture, save_path)
 	
-	Log.verbose("生成 AtlasTexture: %s.tres...", atlas_texture_name)
+	Log.verbose("生成 AtlasTexture: %s.tres" % atlas_texture_name)
 
 
 func _save_sprite_frames() -> void:
@@ -149,4 +149,4 @@ func _save_sprite_frames() -> void:
 		
 		ResourceSaver.save(sprite_frames, save_path)
 		
-		Log.verbose("生成 SpriteFrames: %s.tres...", sprite_frames_name)
+		Log.verbose("生成 SpriteFrames: %s.tres" % sprite_frames_name)

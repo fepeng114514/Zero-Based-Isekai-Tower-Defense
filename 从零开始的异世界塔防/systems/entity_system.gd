@@ -1,8 +1,8 @@
 extends System
 
 
-func _on_ready_insert(e: Entity) -> bool:
-	return e._on_ready_insert()
+func _on_create(e: Entity) -> bool:
+	return e._on_create()
 
 
 func _on_insert(e: Entity) -> bool:
@@ -26,12 +26,12 @@ func _on_remove(e: Entity) -> void:
 
 func _on_update(delta: float) -> void:
 	for e: Entity in EntityDB.get_vaild_entities():
-		if e.duration != -1 and TimeDB.is_ready_time(e.insert_ts, e.duration):
+		if U.is_valid_number(e.duration) and TimeDB.is_ready_time(e.insert_ts, e.duration):
 			e.remove_entity()
 			continue
 			
-		if e.source_id != -1 and e.track_source:
-			var source = EntityDB.get_entity_by_id(e.source_id)
+		if U.is_valid_number(e.source_id) and e.track_source:
+			var source: Entity = EntityDB.get_entity_by_id(e.source_id)
 			
 			if not source:
 				continue

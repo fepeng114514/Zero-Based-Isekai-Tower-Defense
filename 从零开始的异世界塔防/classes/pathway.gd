@@ -4,10 +4,10 @@ extends Path2D
 class_name Pathway
 
 
+@export var active: bool = true
 var subpathways: Array[Subpathway] = []
 var last_spi: int = 0
-@export var active: bool = true
-var idx: int = -1
+var idx: int = C.UNSET
 
 
 func _ready() -> void:
@@ -23,7 +23,7 @@ func _ready() -> void:
 		var offset: float = half_total_spacing - (spacing * i)
 		var subpathway: Subpathway = create_subpathway(offset)
 	
-		add_line_visualization(subpathway, Color.RED)
+		#add_line_visualization(subpathway, Color.RED)
 
 	PathDB.last_pi += 1
 	

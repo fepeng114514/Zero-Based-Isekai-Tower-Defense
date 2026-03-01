@@ -2,19 +2,20 @@ extends Node
 class_name RallyComponent
 
 @export var speed: int = 100
-var rally_pos := Vector2.ZERO
 @export var rally_radius: float = 30
-var direction := Vector2.ZERO
-var arrived: bool = false
 @export var arrived_dist: float = 10
 @export var can_click_rally: bool = true
+@export var animation: String = "walk"
 
+var rally_pos := Vector2.ZERO
+var direction := Vector2.ZERO
+var arrived: bool = false
 
-func new_rally(new_rally_pos: Vector2, new_rally_radius: Variant = null) -> void:
+func new_rally(new_rally_pos: Vector2, new_rally_radius: float = C.UNSET) -> void:
 	arrived = false
 	rally_pos = new_rally_pos
 	
-	if new_rally_radius:
+	if U.is_valid_number(new_rally_radius):
 		rally_radius = new_rally_radius
 
 

@@ -130,12 +130,12 @@ static func is_at_destination(
 ## 加载 JSON 文件
 static func load_json(path: String) -> Variant:
 	if not FileAccess.file_exists(path):
-		Log.error("JSON 文件不存在: %s", path)
+		Log.error("JSON 文件不存在: %s" % path)
 		return null
 	
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
-		Log.error("无法打开文件: %s", path)
+		Log.error("无法打开文件: %s" % path)
 		return null
 	
 	var content: String = file.get_as_text()
@@ -145,8 +145,8 @@ static func load_json(path: String) -> Variant:
 	var parse_result: int = json.parse(content)
 	
 	if parse_result != OK:
-		Log.error("JSON 解析错误: %s", json.get_error_message())
-		Log.error("错误行: %d", json.get_error_line())
+		Log.error("JSON 解析错误: %s" % json.get_error_message())
+		Log.error("错误行: %d" % json.get_error_line())
 		return null
 	
 	return json.get_data()
@@ -157,13 +157,13 @@ static func load_json(path: String) -> Variant:
 ## 浅拷贝，不同于 duplicate 此方法会安全处理不同类型
 static func clone(value: Variant) -> Variant:
 	if value is Dictionary:
-		var result = {}
+		var result: Dictionary = {}
 		for key in value:
 			result[key] = value[key]
 		return result
 	
 	if value is Array:
-		var result = []
+		var result: Array = []
 		for item in value:
 			result.append(item)
 		return result
@@ -176,14 +176,14 @@ static func clone(value: Variant) -> Variant:
 static func deepclone(value: Variant) -> Variant:
 	# 对于字典，递归复制
 	if value is Dictionary:
-		var result = {}
+		var result: Dictionary = {}
 		for key in value:
 			result[key] = deepclone(value[key])
 		return result
 	
 	# 对于数组，同样递归复制
 	if value is Array:
-		var result = []
+		var result: Array = []
 		for item in value:
 			result.append(deepclone(item))
 		return result
@@ -201,7 +201,7 @@ static func deepmerge_dict(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
 	for key in source:
-		var source_value = deepclone(source[key])
+		var source_value: Variant = deepclone(source[key])
 		
 		# 如果 target 没有这个键，直接赋值
 		if not target.has(key):
@@ -219,7 +219,7 @@ static func deepmerge_dict(
 static func deepmerge_dict_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
-	var result = deepclone(target)
+	var result: Dictionary = deepclone(target)
 	deepmerge_dict(result, source, overwrite)
 	return result
 
@@ -229,9 +229,9 @@ static func deepmerge_dict_new(
 static func merge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
-	var target_size = target.size()
+	var target_size: int = target.size()
 	for i in range(source.size()):
-		var mv = source[i]
+		var mv: Variant = source[i]
 		
 		if i >= target_size:
 			target.append(mv)
@@ -248,7 +248,7 @@ static func merge_array(
 static func merge_array_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
-	var result = deepclone(target)
+	var result: Array = deepclone(target)
 	merge_array(result, source, overwrite)
 	return result
 		
@@ -258,9 +258,9 @@ static func merge_array_new(
 static func deepmerge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
-	var target_size = target.size()
+	var target_size: int = target.size()
 	for i in range(source.size()):
-		var mv = deepclone(source[i])
+		var mv: Variant = deepclone(source[i])
 		
 		if i >= target_size:
 			target.append(mv)
@@ -277,7 +277,7 @@ static func deepmerge_array(
 static func deepmerge_array_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
-	var result = deepclone(target)
+	var result: Array = deepclone(target)
 	deepmerge_array(result, source, overwrite)
 	return result
 	
@@ -287,14 +287,14 @@ static func merge_dict_recursive(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
 	for key in source:
-		var source_value = source[key]
+		var source_value: Variant = source[key]
 		
 		# 如果 target 没有这个键，直接赋值
 		if not target.has(key):
 			target[key] = source_value
 			continue
 			
-		var target_value = target[key]
+		var target_value: Variant = target[key]
 		
 		# 字典合并字典
 		if target_value is Dictionary and source_value is Dictionary:
@@ -317,7 +317,7 @@ static func merge_dict_recursive(
 static func merge_dict_recursive_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
-	var result = deepclone(target)
+	var result: Dictionary = deepclone(target)
 	merge_dict_recursive(result, source, overwrite)
 	return result
 
@@ -327,14 +327,14 @@ static func deepmerge_dict_recursive(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
 	for key in source:
-		var source_value = deepclone(source[key])
+		var source_value: Variant = deepclone(source[key])
 		
 		# 如果 target 没有这个键，直接赋值
 		if not target.has(key):
 			target[key] = source_value
 			continue
 			
-		var target_value = target[key]
+		var target_value: Variant = target[key]
 		
 		# 字典合并字典
 		if target_value is Dictionary and source_value is Dictionary:
@@ -357,7 +357,7 @@ static func deepmerge_dict_recursive(
 static func deepmerge_dict_recursive_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
-	var result = deepclone(target)
+	var result: Dictionary = deepclone(target)
 	deepmerge_dict_recursive(result, source, overwrite)
 	return result
 
@@ -368,14 +368,14 @@ static func merge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
 	for i in range(source.size()):
-		var source_value = source[i]
+		var source_value: Variant = source[i]
 		
 		# 如果 target 没有这个索引，直接追加
 		if i >= target.size():
 			target.append(source_value)
 			continue
 			
-		var target_value = target[i]
+		var target_value: Variant = target[i]
 		
 		# 字典合并字典
 		if target_value is Dictionary and source_value is Dictionary:
@@ -399,7 +399,7 @@ static func merge_array_recursive(
 static func merge_array_recursive_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
-	var result = deepclone(target)
+	var result: Array = deepclone(target)
 	merge_array_recursive(result, source, overwrite)
 	return result
 	
@@ -410,14 +410,14 @@ static func deepmerge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
 	for i in range(source.size()):
-		var source_value = deepclone(source[i])
+		var source_value: Variant = deepclone(source[i])
 		
 		# 如果 target 没有这个索引，直接追加
 		if i >= target.size():
 			target.append(source_value)
 			continue
 			
-		var target_value = target[i]
+		var target_value: Variant = target[i]
 		
 		# 字典合并字典
 		if target_value is Dictionary and source_value is Dictionary:
@@ -441,7 +441,7 @@ static func deepmerge_array_recursive(
 static func deepmerge_array_recursive_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
-	var result = deepclone(target)
+	var result: Array = deepclone(target)
 	deepmerge_array_recursive(result, source, overwrite)
 	return result
 #endregion
@@ -464,7 +464,7 @@ static func get_component_name(node_name: String) -> String:
 
 
 ## 判断实体是否有效
-static func is_vaild_entity(e: Variant) -> bool:
+static func is_vaild_entity(e) -> bool:
 	return e and is_instance_valid(e) and not e.removed
 
 
@@ -505,13 +505,5 @@ static func pascal_to_snake(pascal_str: String) -> String:
 	return result
 
 
-#region 位运算相关方法
-func merge_flags(flag_list: Array[C.FLAG]) -> int:
-	var new_flags: int = 0
-	
-	for flag: C.FLAG in flag_list:
-		new_flags |= flag
-		
-	return new_flags
-		
-#endregion
+static func is_valid_number(n: float) -> bool:
+	return n != C.UNSET

@@ -15,7 +15,7 @@ func _ready() -> void:
 func _on_window_resized() -> void:
 	var window_size: Vector2 = get_viewport().get_visible_rect().size
 	
-	Log.debug("重设窗口大小: %s", window_size)
+	Log.debug("重设窗口大小: %s" % window_size)
 	WINDOW_SIZE = window_size
 	
 	S.resized_window_s.emit()

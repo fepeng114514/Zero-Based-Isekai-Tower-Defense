@@ -51,7 +51,7 @@ func _load_entity_scenes() -> void:
 		var t_name: String = get_templates_name(entity_tag)
 		var scene_path: String = C.PATH_ENTITIES_SCENES % t_name
 		if not ResourceLoader.exists(scene_path):
-			Log.error("未找到实体场景: %s", scene_path)
+			Log.error("未找到实体场景: %s" % scene_path)
 			return
 			
 		var scene: PackedScene = load(scene_path)
@@ -101,11 +101,10 @@ func process_create(e: Entity) -> Entity:
 		e.components[node_class] = node
 	
 	# 调用所有系统的准备插入回调函数，遇到返回 false 的系统不插入实体
-	if not SystemMgr.call_systems("_on_ready_insert", e):
+	if not SystemMgr.call_systems("_on_create", e):
 		return e
 
-	S.create_entity_s.emit(e)
-	Log.debug("创建实体: %s", e)
+	Log.debug("创建实体: %s" % e)
 	last_id += 1
 		
 	return e
@@ -114,7 +113,7 @@ func process_create(e: Entity) -> Entity:
 ## 批量创建实体
 func create_entities(
 		entity_tags: Array[C.ENTITY_TAG],
-		config_func: Variant = null,
+		config_func: Callable = Callable(),
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
@@ -123,7 +122,7 @@ func create_entities(
 	for entity_tag: C.ENTITY_TAG in entity_tags:
 		var e: Entity = create_entity(entity_tag)
 		
-		if config_func:
+		if config_func.is_valid():
 			config_func.call(e)
 		
 		if auto_insert:
@@ -147,7 +146,7 @@ func create_entities_at_pos(
 func create_mods(
 		target_id: int,
 		mods_tags: Array[C.ENTITY_TAG],
-		source_id: int = -1,
+		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
@@ -160,11 +159,11 @@ func create_mods(
 ## 批量创建光环实体
 func create_auras(
 		auras_tags: Array[C.ENTITY_TAG],
-		source_id: int = -1,
+		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
-	return create_entities(auras_tags, func(e):
+	return create_entities(auras_tags, func(e: Entity) -> void:
 		e.source_id = source_id
 	, auto_insert)
 
@@ -174,7 +173,7 @@ func create_damage(
 		min_damage: float,
 		max_damage: float,
 		damage_type: C.DAMAGE = C.DAMAGE.PHYSICAL,
-		source_id: int = -1,
+		source_id: int = C.UNSET,
 		damage_factor: float = 1
 	) -> Damage:
 	var d := Damage.new()
@@ -205,13 +204,13 @@ func get_entities_group(group_name: String) -> Array:
 
 
 ## 根据 id 索引实体
-func get_entity_by_id(id: int) -> Variant:
-	if id == -1:
+func get_entity_by_id(id: int) -> Entity:
+	if not U.is_valid_number(id):
 		return null
 
 	var e = entities.get(id)
 
-	if not is_instance_valid(e):
+	if not U.is_vaild_entity(e):
 		return null
 
 	return e
@@ -220,7 +219,7 @@ func get_entity_by_id(id: int) -> Variant:
 ## 获取实体模板场景
 func get_entity_scenes(entity_tag: C.ENTITY_TAG, deep: bool = true) -> PackedScene:
 	if not entity_scenes.has(entity_tag):
-		Log.error("未找到实体场景, tag: %d", entity_tag)
+		Log.error("未找到实体场景, tag: %d" % entity_tag)
 		return null
 		
 	var scenes: PackedScene = entity_scenes[entity_tag]
@@ -285,7 +284,7 @@ func find_targets_in_range(
 		min_range: float = 0,
 		flags: int = 0,
 		bans: int = 0,
-		filter: Variant = null,
+		filter: Callable = Callable(),
 		group: String = ""
 	) -> Array:
 	
@@ -297,7 +296,7 @@ func find_targets_in_range(
 			and not (bans & e.flag_set.bits or e.ban_set.bits & flags)
 			and U.is_in_radius(e.position, origin, max_range)
 			and not U.is_in_radius(e.position, origin, min_range)
-			and (not filter or filter.call(e))
+			and (not filter.is_valid() or filter.call(e))
 		)
 	)
 
@@ -312,7 +311,7 @@ func find_sorted_targets(
 		min_range: float = 0,
 		flags: int = 0,
 		bans: int = 0,
-		filter: Variant = null,
+		filter: Callable = Callable(),
 		group: String = "",
 		reversed: bool = false
 	) -> Array[Entity]:
@@ -333,10 +332,10 @@ func find_extreme_target(
 		min_range: float = 0,
 		flags: int = 0,
 		bans: int = 0,
-		filter: Variant = null,
+		filter: Callable = Callable(),
 		group: String = "",
 		reversed: bool = false
-	) -> Variant:
+	) -> Entity:
 	var targets: Array = find_targets_in_range(
 		origin, max_range, min_range, flags, bans, filter, group
 	)
@@ -386,10 +385,10 @@ func search_target(
 		min_range: float = 0, 
 		flags: int = 0, 
 		bans: int = 0, 
-		filter: Variant = null
-	) -> Variant:
+		filter: Callable = Callable()
+	) -> Entity:
 	if search_mode not in SEARCH_CONFIG:
-		Log.error("未知搜索模式: %s", search_mode)
+		Log.error("未知搜索模式: %s" % search_mode)
 		return null
 		
 	var config: Array = SEARCH_CONFIG[search_mode]
@@ -409,10 +408,10 @@ func search_targets_in_range(
 		min_range: float = 0, 
 		flags: int = 0, 
 		bans: int = 0, 
-		filter: Variant = null
+		filter: Callable = Callable()
 	) -> Array:
 	if search_mode not in SEARCH_CONFIG:
-		Log.error("未知搜索模式: %s", search_mode)
+		Log.error("未知搜索模式: %s" % search_mode)
 		return []
 		
 	var config: Array = SEARCH_CONFIG[search_mode]

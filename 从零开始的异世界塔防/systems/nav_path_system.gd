@@ -13,7 +13,7 @@ func _on_insert(e: Entity) -> bool:
 	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 	var nav_pi: int = nav_path_c.nav_pi
 
-	if nav_path_c.nav_spi == -1:
+	if not U.is_valid_number(nav_path_c.nav_spi):
 		nav_path_c.nav_spi = PathDB.get_random_subpathway(nav_pi).idx
 		
 	if nav_path_c.end_ni < 0:
@@ -54,7 +54,7 @@ func get_mod_speed_factor(e: Entity) -> float:
 
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
-	e.play_animation("walk")
+	e.play_animation(nav_path_c.animation)
 	
 	var walk_lenth: float = nav_path_c.speed * TimeDB.frame_length
 	
@@ -100,11 +100,11 @@ func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> voi
 	e._on_arrived_end(nav_path_c)
 	
 	nav_path_c.loop_count += 1
-	Log.debug("到达终点: %s(%d), 到达次数 %d", [e.template_name, e.id, nav_path_c.loop_count])
+	Log.debug("到达终点: %s(%d), 到达次数 %d" % [e.template_name, e.id, nav_path_c.loop_count])
 	
 	if (
 			not nav_path_c.loop 
-			or nav_path_c.loop_times != -1 
+			or U.is_valid_number(nav_path_c.loop_times) 
 			and nav_path_c.loop_count > nav_path_c.loop_times
 	):
 		e.remove_entity()

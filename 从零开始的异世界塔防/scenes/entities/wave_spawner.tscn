@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dxjst2smnggks"]
 
 [ext_resource type="Script" uid="uid://cnfjkkw1yu7av" path="res://scenes/entities/wave_spawner.gd" id="1_sjplp"]
-[ext_resource type="Script" uid="uid://db67y0qigop4w" path="res://classes/components/spawner_component.gd" id="2_0y0gd"]
+[ext_resource type="Script" uid="uid://db67y0qigop4w" path="res://components/spawner_component.gd" id="2_0y0gd"]
 
 [node name="WaveSpawner" type="Node2D" unique_id=1677388100]
 script = ExtResource("1_sjplp")

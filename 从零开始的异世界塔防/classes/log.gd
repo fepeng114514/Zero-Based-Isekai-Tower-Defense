@@ -35,17 +35,11 @@ static func _get_stack(stack_level: int) -> String:
 
 
 ## 内部日志方法
-static func _log(level: int, message: String, arg: Variant = null) -> void:
+static func _log(level: int, message: String) -> void:
 	if level < Conf.LOG_LEVEL:
 		return
-	
-	var formatted_message: String
-	if arg:
-		formatted_message = message % arg
-	else:
-		formatted_message = message
 
-	var plain_message: String = _format_message(level, formatted_message)
+	var plain_message: String = _format_message(level, message)
 	
 	match level:
 		C.LOG_LEVEL.WARN:
@@ -60,25 +54,25 @@ static func _log(level: int, message: String, arg: Variant = null) -> void:
 
 
 ## 详细日志
-static func verbose(message: String, arg: Variant = null) -> void:
-	_log(C.LOG_LEVEL.VERBOSE, message, arg)
+static func verbose(message: String) -> void:
+	_log(C.LOG_LEVEL.VERBOSE, message)
 
 
 ## 调试日志
-static func debug(message: String, arg: Variant = null) -> void:
-	_log(C.LOG_LEVEL.DEBUG, message, arg)
+static func debug(message: String) -> void:
+	_log(C.LOG_LEVEL.DEBUG, message)
 
 
 ## 信息日志
-static func info(message: String, arg: Variant = null) -> void:
-	_log(C.LOG_LEVEL.INFO, message, arg)
+static func info(message: String) -> void:
+	_log(C.LOG_LEVEL.INFO, message)
 
 
 ## 警告日志
-static func warn(message: String, arg: Variant = null) -> void:
-	_log(C.LOG_LEVEL.WARN, message, arg)
+static func warn(message: String) -> void:
+	_log(C.LOG_LEVEL.WARN, message)
 
 
 ## 错误日志
-static func error(message: String, arg: Variant = null) -> void:
-	_log(C.LOG_LEVEL.ERROR, message, arg)
+static func error(message: String) -> void:
+	_log(C.LOG_LEVEL.ERROR, message)

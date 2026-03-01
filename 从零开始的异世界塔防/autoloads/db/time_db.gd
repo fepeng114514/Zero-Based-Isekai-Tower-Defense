@@ -12,7 +12,7 @@ var tick: int = 0
 var frame_length: float = 0
 ## 每秒的经过的帧数，始终等于 Engine.get_frames_per_second()
 var fps: float = 0
-@onready var curren_scene = get_tree()
+@onready var curren_scene: SceneTree = get_tree()
 
 
 func load() -> void:
@@ -33,11 +33,11 @@ func get_time(ts: float) -> float:
 
 
 ## 协程等待，等待 0 秒表示等待一帧
-func y_wait(time: float = 0, break_fn: Variant = null) -> void:
+func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
 	if time == 0:
 		await curren_scene.process_frame
 		return
 		
-	var ts = tick_ts
-	while not is_ready_time(ts, time) and (not break_fn or break_fn.call()):
+	var ts: float = tick_ts
+	while not is_ready_time(ts, time) and (not break_fn.is_valid() or break_fn.call()):
 		await curren_scene.process_frame

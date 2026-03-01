@@ -18,7 +18,7 @@ func _spawner() -> void:
 		GlobalStore.force_wave = wave_idx
 		
 		for spawn_batch: WaveSpawnBatch in wave.spawn_batch_list:
-			# 阶段并行
+			# 批次并行
 			var spawn_batch_spawner: Callable = _spawn_batch_spawner.bind()
 			spawn_batch_spawner.call(spawn_batch)
 			
@@ -44,9 +44,7 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 				var node: PathwayNode = nav_path_c.get_pathway_node(
 					PathDB.node_count - 1 if nav_path_c.reversed else 0
 				)
-				nav_path_c.set_nav_path(
-					pathway_idx, spi if spi != null else -1, node.ni
-				)
+				nav_path_c.set_nav_path(pathway_idx, spi, node.ni)
 			
 			e.insert_entity()
 			

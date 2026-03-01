@@ -13,7 +13,7 @@ func _on_insert(e: Entity) -> bool:
 
 	var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
-	if not U.is_vaild_entity(target):
+	if not target:
 		return false
 
 	bullet_c.ts = TimeDB.tick_ts
@@ -60,33 +60,31 @@ func _on_update(delta: float) -> void:
 
 		e.rotation += bullet_c.rotation_speed * delta
 		
-		if not bullet_c.can_arrived:
-			return
-			
-		if (
-			U.is_vaild_entity(target) 
-			and U.is_at_destination(
-				e.position, target.position, bullet_c.hit_dist
-			)
-		):
-			_hit(e, bullet_c, target)
-			return
-			
-		if (
-			not U.is_vaild_entity(target) 
-			or flying_time >= bullet_c.flight_time
-		):
+		if flying_time >= bullet_c.flight_time:
 			e._on_bullet_miss(target, bullet_c)
 
 			if bullet_c.miss_remove:
 				e.remove_entity()
+			return
+			
+		if not bullet_c.can_arrived:
+			return
+		
+		if not target:
+			return
+		
+		if U.is_at_destination(
+				e.position, target.position, bullet_c.hit_dist
+		):
+			_hit(e, bullet_c, target)
+			return
 	)
 
 
 ## 击中目标调用
 func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
-		var targets = EntityDB.search_targets_in_range(
+		var targets: Array = EntityDB.search_targets_in_range(
 			bullet_c.search_mode, 
 			bullet_c.to, 
 			bullet_c.max_damage_radius, 

@@ -3,7 +3,6 @@ extends Node
 class_name AuraComponent
 
 
-var aura_type_set := FlagSet.new()
 @export var aura_type: Array[C.AURA] = []:
 	set(value): aura_type_set.set_from_array(value)
 @export var allow_same: bool = false
@@ -19,6 +18,8 @@ var aura_type_set := FlagSet.new()
 @export var max_damage: float = 0
 @export var damage_type: C.DAMAGE = C.DAMAGE.TRUE
 @export var cycle_time: float = 1
-@export var max_cycle: int = -1
+@export var max_cycle: int = C.UNSET
+
+var aura_type_set := FlagSet.new()
 var curren_cycle: int = 0
 var ts: float = 0

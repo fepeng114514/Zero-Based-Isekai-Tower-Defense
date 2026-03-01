@@ -5,7 +5,7 @@ extends System
 """
 
 
-func _on_ready_insert(e: Entity) -> bool:
+func _on_create(e: Entity) -> bool:
 	if not e.has_c(C.CN_HEALTH):
 		return true
 
@@ -21,11 +21,11 @@ func _on_ready_insert(e: Entity) -> bool:
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(C.CN_HEALTH):
+	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
+
+	if not health_c:
 		return true
 		
-	var health_c = e.get_c(C.CN_HEALTH)
-
 	health_c.hp = health_c.hp_max
 	
 	return true
@@ -43,12 +43,12 @@ func _on_update(delta: float) -> void:
 	)
 		
 func _process_damege_queue() -> void:
-	var damage_queue = SystemMgr.damage_queue
+	var damage_queue: Array[Entity] = SystemMgr.damage_queue
 	for i: int in range(damage_queue.size() - 1, -1, -1):
 		var d: Damage = damage_queue.pop_at(i)
-		var target = EntityDB.get_entity_by_id(d.target_id)
+		var target: Entity = EntityDB.get_entity_by_id(d.target_id)
 		
-		if not U.is_vaild_entity(target):
+		if not target:
 			continue
 
 		if not target.has_c(C.CN_HEALTH):
@@ -74,7 +74,7 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> voi
 	
 	Log.verbose(
 		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
-		, [
+		% [
 			target.template_name, 
 			d.target_id, 
 			source.template_name if source else "unknow", 

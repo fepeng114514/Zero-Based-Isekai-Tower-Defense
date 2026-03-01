@@ -5,11 +5,11 @@ class_name PathwayNode
 
 
 ## 路径索引
-var pi: int = -1
+var pi: int = C.UNSET
 ## 子路径索引
-var spi: int = -1
+var spi: int = C.UNSET
 ## 路径节点索引
-var ni: int = -1
+var ni: int = C.UNSET
 ## 点位
 var pos := Vector2.ZERO
 ## 位于的路径比率

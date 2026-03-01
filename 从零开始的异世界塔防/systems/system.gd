@@ -11,10 +11,10 @@ var wait_entity: bool = false
 func _initialize() -> void: pass
 
 
-## 准备插入实体时调用（创建实体），返回 false 的实体不会被创建
+## 创建实体实体时调用，返回 false 的实体不会被创建
 ## [br]
 ## 注：此时节点还未初始化
-func _on_ready_insert(e: Entity) -> bool: return true
+func _on_create(e: Entity) -> bool: return true
 
 
 ## 正式插入实体时调用，返回 false 的实体将会被移除
@@ -40,7 +40,7 @@ func _on_update(delta: float) -> void: pass
 
 func can_attack(a: Variant, target: Entity) -> bool:
 	return (
-		U.is_vaild_entity(target)
+		target
 		and TimeDB.is_ready_time(a.ts, a.cooldown) 
 		and not (
 			a.vis_ban_set.has_flags(target.flag_set.bits)

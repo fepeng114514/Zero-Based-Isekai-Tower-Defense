@@ -16,4 +16,4 @@ signal deselect_entity_s
 #endregion
 
 ## 创建实体信号
-signal create_entity_s(entity: Entity)
+signal insert_entity_s(entity: Entity)

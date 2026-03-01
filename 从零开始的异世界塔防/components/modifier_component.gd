@@ -25,5 +25,5 @@ var mod_type_set := FlagSet.new()
 @export var damage_type: C.DAMAGE = C.DAMAGE.TRUE
 var ts: float = 0
 @export var cycle_time: float = 1
-@export var max_cycle: int = -1
+@export var max_cycle: int = C.UNSET
 var curren_cycle: int = 0

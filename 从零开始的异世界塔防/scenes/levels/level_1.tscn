@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/resource/wave_spawn.gd" id="6_iwr0g"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://resources/grid_tileset.tres" id="6_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui.tscn" id="7_oc4kc"]
-[ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemy_goblin.tscn" id="9_dnkej"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/tower_archer.tscn" id="10_mm8aj"]
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]
@@ -63,11 +62,11 @@ script = ExtResource("4_oc4kc")
 [node name="WaveSpawner" parent="Store/Entities" unique_id=1677388100 instance=ExtResource("4_dga24")]
 wave_set = SubResource("Resource_np2pn")
 
-[node name="EnemyGoblin" parent="Store/Entities" unique_id=71433118 instance=ExtResource("9_dnkej")]
-position = Vector2(1112, 576)
-
 [node name="TowerArcher" parent="Store/Entities" unique_id=2011504655 instance=ExtResource("10_mm8aj")]
-position = Vector2(744, 576)
+position = Vector2(832, 512)
+
+[node name="TowerArcher2" parent="Store/Entities" unique_id=2056554975 instance=ExtResource("10_mm8aj")]
+position = Vector2(1152, 512)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=74954041]
 position = Vector2(1280, 720)

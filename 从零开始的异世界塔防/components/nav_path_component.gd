@@ -1,19 +1,21 @@
 extends Node
 class_name NavPathComponent
 
+@export var reversed: bool = false
+@export var speed: float = 133
+@export var end_ni: int = C.UNSET
+@export var loop: bool = false
+@export var loop_times: int = C.UNSET
+@export var animation: String = "walk"
+
 var nav_pi: int = 0
 var nav_spi: int = 0
 var nav_ni: int = 0
 var nav_ratio: float = 0
 var nav_progress: float = 0
 var origin_speed: float = 0
-@export var reversed: bool = false
-@export var speed: float = 133
-var ts: float = 0
-@export var end_ni: int = -1
-@export var loop: bool = false
-@export var loop_times: int = -1
 var loop_count: int = 0
+var ts: float = 0
 
 ## PathDB.get_subpath 的简写，已传递 nav_pi, nav_spi
 func get_subpath() -> Path2D:
@@ -46,12 +48,12 @@ func get_pathway_node(ni: int = nav_ni) -> PathwayNode:
 
 
 func set_nav_path(
-		pi: int, spi: Variant = null, ni: Variant = null
+		pi: int, spi: int = C.UNSET, ni: int = C.UNSET
 	) -> void:
 	nav_pi = pi
-	if spi != null:
+	if U.is_valid_number(spi):
 		nav_spi = spi
-	if ni != null:
+	if U.is_valid_number(ni):
 		nav_ni = ni
 
 

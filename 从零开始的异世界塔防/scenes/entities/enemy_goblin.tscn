@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://d1kxh6e7m4mc1"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0ncad"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_1nm20"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_1nm20"]
 [ext_resource type="SpriteFrames" uid="uid://cxo2w38vbw62k" path="res://resources/sprite_frames_resources/goblin.tres" id="3_bfbt7"]
-[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="4_bfbt7"]
-[ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="5_gt3hg"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="4_bfbt7"]
+[ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://components/nav_path_component.gd" id="5_gt3hg"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_ijmwd"]
 
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118]
 script = ExtResource("1_0ncad")
@@ -28,3 +29,8 @@ metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 [node name="NavPathComponent" type="Node" parent="." unique_id=655679987]
 script = ExtResource("5_gt3hg")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
+
+[node name="UIComponent" type="Node" parent="." unique_id=1225382274]
+script = ExtResource("6_ijmwd")
+show_info = true
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

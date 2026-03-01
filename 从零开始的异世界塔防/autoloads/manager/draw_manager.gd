@@ -1,6 +1,6 @@
 extends Node2D
 
-var selected_entity: Variant = null
+var selected_entity: Entity = null
 
 
 func _ready() -> void:
@@ -20,13 +20,11 @@ func _on_deselect_entity() -> void:
 func _draw() -> void:
 	if not selected_entity:
 		return
-		
-	var e: Entity = selected_entity
 	
-	var center: Vector2 = e.position
+	var center: Vector2 = selected_entity.position
 	
-	if e.has_c(C.CN_RANGED):
-		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
+	if selected_entity.has_c(C.CN_RANGED):
+		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
 		var radius: float = ranged_c.order[0].max_range
 		var color := Color(0.0, 0.914, 0.278, 0.522)
 	

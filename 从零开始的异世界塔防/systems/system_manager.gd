@@ -24,10 +24,10 @@ func load(required_systems_name: Array) -> void:
 		var system_path: String = C.PATH_SYSTEMS % sys_name
 		
 		if not ResourceLoader.exists(system_path):
-			Log.error("未找到系统: %s", system_path)
+			Log.error("未找到系统: %s" % system_path)
 			continue
 			
-		var system = load(system_path)
+		var system: GDScript = load(system_path)
 
 		required_systems.append(system.new())
 
@@ -41,7 +41,7 @@ func load(required_systems_name: Array) -> void:
 ## 系统主循环
 func _physics_process(delta: float) -> void:
 	for system: System in systems:
-		var system_func = system.get("_on_update")
+		var system_func: Callable = system.get("_on_update")
 		
 		system_func.call(delta)
 	
@@ -61,8 +61,8 @@ func _process_insert_queue() -> void:
 			var entities_len: int = entities.size()
 			if e.id != entities_len:
 				Log.error(
-					"实体列表长度未与实体 id 对应: id %d, 长度 %d", 
-					[e.id, entities_len]
+					"实体列表长度未与实体 id 对应: id %d, 长度 %d" 
+					% [e.id, entities_len]
 				)
 		
 		entities.append(e)
@@ -72,7 +72,7 @@ func _process_insert_queue() -> void:
 			continue
 		
 		EntityDB.mark_entity_dirty_id(e.id)
-		Log.verbose("插入实体: %s", e)
+		Log.verbose("插入实体: %s" % e)
 		
 		e.visible = true
 

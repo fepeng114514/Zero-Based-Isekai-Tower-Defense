@@ -191,12 +191,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="EntityInfoPanel" type="PanelContainer" parent="Control/VBoxContainer/BottomBar" unique_id=1798517703 node_paths=PackedStringArray("hp_value_label", "entity_name_label")]
+[node name="EntityInfoPanel" type="PanelContainer" parent="Control/VBoxContainer/BottomBar" unique_id=1798517703]
 layout_mode = 2
 theme_override_styles/panel = SubResource("4")
 script = ExtResource("2_xjfbv")
-hp_value_label = NodePath("")
-entity_name_label = NodePath("")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel" unique_id=941920840]
 layout_mode = 2
@@ -205,70 +203,70 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer" unique_id=1189586016]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer" unique_id=1189586016]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="EntityName" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=213956317 instance=ExtResource("2_bma8u")]
+[node name="EntityName" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=213956317 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "实体名称"
 
-[node name="HBoxHP" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=478167688]
+[node name="HBoxHP" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=478167688]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelHP" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=1170246007 instance=ExtResource("2_bma8u")]
+[node name="LabelHP" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxHP" unique_id=1170246007 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "血量"
 
-[node name="ValueHP" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxHP" unique_id=67105373 instance=ExtResource("2_bma8u")]
+[node name="ValueHP" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxHP" unique_id=67105373 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "100/100"
 
-[node name="HBoxMelee" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=2109600893]
+[node name="HBoxMelee" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=2109600893]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelMelee" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=567093320 instance=ExtResource("2_bma8u")]
+[node name="LabelMelee" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMelee" unique_id=567093320 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "⚔️"
 
-[node name="ValueMelee" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMelee" unique_id=580365248 instance=ExtResource("2_bma8u")]
+[node name="ValueMelee" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMelee" unique_id=580365248 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-text = "25/1"
+text = "25-25/1"
 
-[node name="HBoxRanged" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=4318036]
+[node name="HBoxRanged" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=4318036]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelRanged" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=1129773284 instance=ExtResource("2_bma8u")]
+[node name="LabelRanged" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxRanged" unique_id=1129773284 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "🏹"
 
-[node name="ValueRanged" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxRanged" unique_id=325557278 instance=ExtResource("2_bma8u")]
+[node name="ValueRanged" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxRanged" unique_id=325557278 instance=ExtResource("2_bma8u")]
 layout_mode = 2
-text = "100/1"
+text = "25-25/1"
 
-[node name="HBoxPhysArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=799253875]
+[node name="HBoxPhysArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=799253875]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelPhysArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=111562531 instance=ExtResource("2_bma8u")]
+[node name="LabelPhysArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=111562531 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "🛡️"
 
-[node name="ValuePhysArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxPhysArmor" unique_id=783491764 instance=ExtResource("2_bma8u")]
+[node name="ValuePhysArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=783491764 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "20"
 
-[node name="HBoxMagicArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer" unique_id=489372127]
+[node name="HBoxMagicArmor" type="HBoxContainer" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=489372127]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LabelMagicArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=1368164739 instance=ExtResource("2_bma8u")]
+[node name="LabelMagicArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1368164739 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "🛡️"
 
-[node name="ValueMagicArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/VBoxContainer/HBoxMagicArmor" unique_id=1696463347 instance=ExtResource("2_bma8u")]
+[node name="ValueMagicArmor" parent="Control/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1696463347 instance=ExtResource("2_bma8u")]
 layout_mode = 2
 text = "0"

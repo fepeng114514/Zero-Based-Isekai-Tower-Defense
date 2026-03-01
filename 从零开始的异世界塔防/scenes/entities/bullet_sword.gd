@@ -17,7 +17,7 @@ func _on_insert() -> bool:
 
 
 func _on_update(delta: float) -> void:
-	var target = EntityDB.get_entity_by_id(target_id)
+	var target: Entity = EntityDB.get_entity_by_id(target_id)
 
 	# 停留状态
 	if target and is_stay and not TimeDB.is_ready_time(bullet_c.ts, stay_time):

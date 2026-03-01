@@ -19,6 +19,7 @@ class_name C
 ## 帧率
 const FPS: int = 60
 const NAME_TOWER_HOLDER: String = "tower_holder_%s"
+const UNSET: int = -1
 #endregion
 
 ## 日志级别枚举
@@ -359,5 +360,6 @@ const LEVEL_REQUIRED_SYSTEMS: Array[String] = [
 
 ## 实体信息类型枚举
 enum INFO {
-	COMMON,
+	UNIT,
+	TOWER,
 }

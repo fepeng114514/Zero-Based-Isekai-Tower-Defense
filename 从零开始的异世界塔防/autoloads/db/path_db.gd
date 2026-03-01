@@ -68,13 +68,13 @@ func get_random_subpathway(pi = null) -> Subpathway:
 func get_ratio(pi: int, spi: int, progress: float) -> float:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 		
-	var delta = progress / subpathway.length
+	var delta: float = progress / subpathway.length
 	return clampf(delta, 0, 1)
 	
 
 func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
-	var path_follow = subpathway.follow
+	var path_follow: PathFollow2D = subpathway.follow
 		
 	path_follow.progress_ratio = ratio
 	var position: Vector2 = path_follow.position
@@ -128,7 +128,7 @@ func get_nearst_nodes_list(
 
 	for pi: int in pi_l:
 		if valid_only and not get_pathway(pi).is_active():
-			Log.debug("路径 %s 已被禁用", pi)
+			Log.debug("路径 %s 已被禁用" % pi)
 			continue
 
 		for spi: int in spi_l:
@@ -156,7 +156,7 @@ func get_nearst_node(
 		spi_l: Array = range(max_subpathway),
 		valid_only: bool = true
 	) -> PathwayNode:
-	var nearst_node = null
+	var nearst_node: PathwayNode = null
 	
 	for pi: int in pi_l:
 		if valid_only and not get_pathway(pi).is_active():

@@ -12,7 +12,7 @@ func _initialize() -> void:
 	wait_entity = true
 	
 	
-func _on_ready_insert(e: Entity) -> bool:
+func _on_create(e: Entity) -> bool:
 	if not e.has_c(C.CN_MELEE):
 		return true
 		
@@ -114,9 +114,9 @@ func find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 	
 
 func process_blocked(e: Entity, melee_c: MeleeComponent) -> void:
-	var blocker_id = melee_c.blocker_id
+	var blocker_id: int = melee_c.blocker_id
 	
-	if blocker_id == null:
+	if not U.is_valid_number(blocker_id):
 		melee_c.melee_slot_arrived = true
 		
 		if melee_c.origin_pos_arrived:

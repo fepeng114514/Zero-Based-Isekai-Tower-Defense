@@ -13,11 +13,11 @@ class_name Entity
 @export var tag: C.ENTITY_TAG
 var template_name: String = ""
 ## 实体唯一 ID
-var id: int = -1
+var id: int = C.UNSET
 ## 拥有的所有组件对象
 var components: Dictionary[String, Node] = {}
 ## 所有者或来源 ID，通常为生成实体的实体 ID
-var source_id: int = -1
+var source_id: int = C.UNSET
 ## 实体标识符集合
 var flag_set := FlagSet.new()
 ## 实体标识符列表
@@ -29,7 +29,7 @@ var ban_set := FlagSet.new()
 @export var bans: Array[C.FLAG] = []:
 	set(value): ban_set.set_from_array(value)
 ## 目标实体 ID，通常用于子弹、状态效果等需要指定目标的实体
-var target_id: int = -1
+var target_id: int = C.UNSET
 ## 白名单实体标签列表，表示该实体只能与这些标签的实体进行交互，通常用于状态效果
 @export var whitelist_tag: Array[C.ENTITY_TAG] = []
 ## 黑名单实体标签列表，表示该实体不能与这些标签的实体进行交互，通常用于状态效果
@@ -39,7 +39,7 @@ var insert_ts: float = 0
 ## 时间戳，单位为秒，通常用于持续时间、子弹飞行时间等
 var ts: float = 0
 ## 持续时间，单位为秒，通常用于状态效果持续时间等
-@export var duration: float = -1
+@export var duration: float = C.UNSET
 ## 禁止的状态效果标识符集合，表示该实体不能与哪些状态效果进行交互
 var mod_ban_set := FlagSet.new()
 ## 禁止的状态效果标识符列表，表示该实体不能与哪些状态效果进行交互
@@ -91,10 +91,10 @@ var last_position := Vector2.ZERO
 
 
 #region 回调函数
-## 准备插入实体时调用（创建实体），返回 false 的实体不会被创建
+## 创建实体时调用，返回 false 的实体不会被创建
 ## [br]
 ## 注：此时节点还未初始化
-func _on_ready_insert() -> bool: return true
+func _on_create() -> bool: return true
 
 
 ## 正式插入实体时调用，返回 false 的实体将会被移除
@@ -178,13 +178,24 @@ func _to_string():
 #endregion
 
 
+func insert_entity() -> void:
+	S.insert_entity_s.emit(self)
+	SystemMgr.insert_queue.append(self)
+
+
+func remove_entity() -> void:
+	if not SystemMgr.call_systems("_on_ready_remove", self):
+		return
+
+	SystemMgr.remove_queue.append(self)
+	removed = true
+	visible = false
+	Log.debug("移除实体: %s" % self)
+
+
 #region 组件相关方法
-func get_c(c_name: String) -> Variant:
-	if not has_c(c_name):
-		Log.error("未找到组件: %s", c_name)
-		return null
-	
-	return components[c_name]
+func get_c(c_name: String) -> Node:
+	return components.get(c_name)
 
 
 func has_c(c_name: String) -> bool:
@@ -208,7 +219,7 @@ func add_c(c_name: String) -> Node:
 
 
 ## 协程等待
-func y_wait(time: float = 0, break_fn: Variant = null) -> void:
+func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
 	y_waiting = true
 	await TimeDB.y_wait(time, break_fn)
 	y_waiting = false
@@ -256,13 +267,13 @@ func cleanup_has_mods() -> void:
 	has_mods_ids = new_has_mods_ids
 
 
-func get_has_mods(filter: Variant = null) -> Array[Entity]:
+func get_has_mods(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
 	for mod_id in has_mods_ids:
-		var mod = EntityDB.get_entity_by_id(mod_id)
+		var mod: Entity = EntityDB.get_entity_by_id(mod_id)
 		
-		if not U.is_vaild_entity(mod) or filter and not filter.call(mod):
+		if not mod or filter.is_valid() and not filter.call(mod):
 			continue
 		
 		has_mods.append(mod)
@@ -277,13 +288,13 @@ func clear_has_mods() -> void:
 	has_mods_ids.clear()
 
 
-func get_has_auras(filter: Variant = null) -> Array[Entity]:
+func get_has_auras(filter: Callable = Callable()) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
 	for aura_id in has_auras_ids:
-		var aura = EntityDB.get_entity_by_id(aura_id)
+		var aura: Entity = EntityDB.get_entity_by_id(aura_id)
 		
-		if not U.is_vaild_entity(aura) or filter and not filter.call(aura):
+		if not aura or filter.is_valid() and not filter.call(aura):
 			continue
 		
 		has_auras.append(aura)
@@ -296,20 +307,6 @@ func clear_has_auras() -> void:
 		aura.remove_entity()
 
 	has_auras_ids.clear()
-
-
-func insert_entity() -> void:
-	SystemMgr.insert_queue.append(self)
-
-
-func remove_entity() -> void:
-	if not SystemMgr.call_systems("_on_ready_remove", self):
-		return
-
-	SystemMgr.remove_queue.append(self)
-	removed = true
-	visible = false
-	Log.debug("移除实体: %s", self)
 
 
 ## 设定实体位置，根据拥有的组件智能赋值
@@ -326,10 +323,10 @@ func set_pos(pos: Vector2) -> void:
 
 
 func set_nav_path_at_pos(pos: Vector2) -> void:
-	var source = EntityDB.get_entity_by_id(source_id)
+	var source: Entity = EntityDB.get_entity_by_id(source_id)
 	var node: PathwayNode
 
-	if U.is_vaild_entity(source) and source.has_c(C.CN_NAV_PATH):
+	if source and source.has_c(C.CN_NAV_PATH):
 		var s_nav_path_c: NavPathComponent = source.get_c(C.CN_NAV_PATH)
 		node = PathDB.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
 	else:
@@ -341,12 +338,12 @@ func set_nav_path_at_pos(pos: Vector2) -> void:
 
 #region 动画相关方法
 ## 获取指定索引的动画精灵
-func get_animated_sprite(sprite_idx: int = 0) -> Variant:
+func get_animated_sprite(sprite_idx: int = 0) -> Node2D:
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
-	var sprite = sprite_c.list[sprite_idx]
+	var sprite: Variant = sprite_c.list[sprite_idx]
 	
 	if not sprite is AnimatedSprite2D:
-		Log.debug("%s: 索引 %d 的精灵不是 AnimatedSprite2D", [self, sprite_idx])
+		Log.verbose("%s: 索引 %d 的精灵不是 AnimatedSprite2D" % [self, sprite_idx])
 		return null
 	
 	return sprite

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://d25hnem6unbul"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_eatbx"]
-[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="2_qqpkp"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_52tfd"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://components/bullet_component.gd" id="2_qqpkp"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="3_52tfd"]
 [ext_resource type="Texture2D" uid="uid://cejjkswsopglv" path="res://resources/atlas_texture_resources/arrow.tres" id="4_l0wem"]
 
 [node name="BulletArrow" type="Node2D" unique_id=43521632]

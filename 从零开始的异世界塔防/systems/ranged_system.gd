@@ -5,7 +5,7 @@ func _initialize() -> void:
 	wait_entity = true
 	
 	
-func _on_ready_insert(e: Entity) -> bool:
+func _on_create(e: Entity) -> bool:
 	if not e.has_c(C.CN_RANGED):
 		return true
 		
@@ -39,7 +39,7 @@ func _on_update(delta: float) -> void:
 			):
 				continue
 				
-			var target = EntityDB.search_target(
+			var target: Entity = EntityDB.search_target(
 				a.search_mode, 
 				e.position, 
 				a.max_range, 
@@ -54,6 +54,11 @@ func _on_update(delta: float) -> void:
 			e.wait(a.delay, false)
 
 			e.insert_wait_action_queue(func(this: Entity) -> void:
+				e.play_animation("idle")
+
+				if not target:
+					return
+				
 				var b = EntityDB.create_entity(a.bullet)
 				b.target_id = target.id
 				b.source_id = this.id
@@ -62,7 +67,6 @@ func _on_update(delta: float) -> void:
 				b.insert_entity()
 					
 				a.ts = TimeDB.tick_ts
-				e.play_animation("idle")
 			)
 			return
 	)

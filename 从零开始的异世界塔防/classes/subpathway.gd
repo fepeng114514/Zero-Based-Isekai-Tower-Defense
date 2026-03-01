@@ -4,7 +4,7 @@ extends Path2D
 class_name Subpathway
 
 var follow: PathFollow2D
-var idx: int = -1
+var idx: int = C.UNSET
 var spacing: float = 0
 var nodes: Array[PathwayNode] = []
 var length: float = 0

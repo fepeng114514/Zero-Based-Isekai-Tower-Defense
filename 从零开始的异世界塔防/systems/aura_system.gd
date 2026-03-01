@@ -8,7 +8,7 @@ func _on_insert(e: Entity) -> bool:
 	var aura_c: AuraComponent = e.get_c(C.CN_AURA)
 	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
 
-	if not U.is_vaild_entity(source):
+	if not source:
 		return false
 
 	e.position = source.position
@@ -30,7 +30,7 @@ func _on_insert(e: Entity) -> bool:
 	var same_source_auras: Array[Entity] = []
 
 	for aura_id: int in s_has_auras_ids:
-		var other_a: Variant = EntityDB.get_entity_by_id(aura_id)
+		var other_a: Entity = EntityDB.get_entity_by_id(aura_id)
 		
 		if not other_a:
 			continue
@@ -105,17 +105,26 @@ func _on_update(delta: float) -> void:
 		)
 
 		# 周期效果
-		if aura_c.cycle_time == -1 or not TimeDB.is_ready_time(aura_c.ts, aura_c.cycle_time):
+		if (
+			not U.is_valid_number(aura_c.cycle_time) 
+			or not TimeDB.is_ready_time(aura_c.ts, aura_c.cycle_time)
+		):
 			return
 
 		# 最大周期数
-		if aura_c.max_cycle != -1 and aura_c.curren_cycle > aura_c.max_cycle:
+		if U.is_valid_number(aura_c.max_cycle) and aura_c.curren_cycle > aura_c.max_cycle:
 			e.remove_entity()
 			return
 
 		for target: Entity in targets:
 			if aura_c.min_damage > 0 or aura_c.max_damage > 0:
-				EntityDB.create_damage(target.id, aura_c.min_damage, aura_c.max_damage, aura_c.damage_type, e.id)
+				EntityDB.create_damage(
+					target.id, 
+					aura_c.min_damage, 
+					aura_c.max_damage, 
+					aura_c.damage_type, 
+					e.id
+				)
 
 			EntityDB.create_mods(target.id, aura_c.mods, e.id)
 
@@ -130,9 +139,9 @@ func _on_remove(e: Entity) -> void:
 	if not e.has_c(C.CN_AURA):
 		return
 	
-	var source = EntityDB.get_entity_by_id(e.source_id)
+	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
 
-	if not U.is_vaild_entity(source):
+	if not source:
 		return
 	
 	source.has_auras_ids.erase(e.id) 

@@ -56,7 +56,7 @@ window/size/viewport_height=1440
 [file_customization]
 
 folder_colors={
-"res://classes/components/": "blue",
+"res://components/": "blue",
 "res://systems/": "blue"
 }
 

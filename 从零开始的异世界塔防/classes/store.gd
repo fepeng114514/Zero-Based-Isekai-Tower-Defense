@@ -4,7 +4,7 @@ class_name Store
 
 
 func _ready() -> void:
-	S.create_entity_s.connect(_on_create_entity)
+	S.insert_entity_s.connect(_on_create_entity)
 	
 	for e: Entity in entities_node.get_children():
 		EntityDB.process_create(e)
@@ -13,4 +13,7 @@ func _ready() -> void:
 
 
 func _on_create_entity(entity: Entity) -> void:
+	if entity.get_parent() != null:
+		return
+		
 	entities_node.add_child(entity)

@@ -5,9 +5,9 @@ func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_MODIFIER):
 		return true
 
-	var target: Variant = EntityDB.get_entity_by_id(e.target_id)
+	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 
-	if not U.is_vaild_entity(target):
+	if not target:
 		return false
 		
 	e.position = target.position
@@ -30,7 +30,7 @@ func _on_insert(e: Entity) -> bool:
 	mod_c.ts = TimeDB.tick_ts
 
 	for mod_id: int in t_has_mods_ids:
-		var other_m = EntityDB.get_entity_by_id(mod_id)
+		var other_m: Entity = EntityDB.get_entity_by_id(mod_id)
 		
 		if not other_m:
 			continue
@@ -96,11 +96,14 @@ func _on_update(delta: float) -> void:
 		var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 		
 		# 周期效果
-		if mod_c.cycle_time == -1 or not TimeDB.is_ready_time(mod_c.ts, mod_c.cycle_time):
+		if (
+			not U.is_valid_number(mod_c.cycle_time) 
+			or not TimeDB.is_ready_time(mod_c.ts, mod_c.cycle_time)
+		):
 			return
 
 		# 最大周期数
-		if mod_c.max_cycle != -1 and mod_c.curren_cycle > mod_c.max_cycle:
+		if U.is_valid_number(mod_c.max_cycle) and mod_c.curren_cycle > mod_c.max_cycle:
 			e.remove_entity()
 			return
 
@@ -119,9 +122,9 @@ func _on_remove(e: Entity) -> void:
 	if not e.has_c(C.CN_MODIFIER):
 		return
 	
-	var target = EntityDB.get_entity_by_id(e.target_id)
+	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 
-	if not U.is_vaild_entity(target):
+	if not target:
 		return
 
 	target.has_mods_ids.erase(e.id)

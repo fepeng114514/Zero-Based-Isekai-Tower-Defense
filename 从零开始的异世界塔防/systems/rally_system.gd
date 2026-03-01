@@ -17,7 +17,7 @@ func _on_update(delta: float) -> void:
 	)
 
 func walk_step(e: Entity, rally_c: RallyComponent) -> void:
-	e.play_animation("walk")
+	e.play_animation(rally_c.animation)
 	rally_c.direction = (rally_c.rally_pos - e.position).normalized()
 	e.position += rally_c.direction * rally_c.speed * TimeDB.frame_length
 	e._on_rally_walk(rally_c)
