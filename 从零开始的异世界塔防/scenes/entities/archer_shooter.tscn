@@ -22,6 +22,7 @@ animation = &"idle"
 [node name="RangedComponent" type="Node" parent="." unique_id=1906488365]
 script = ExtResource("4_d15la")
 disabled_search = true
+group_delay = 0.9
 
 [node name="Ranged" type="Node" parent="RangedComponent" unique_id=1475389001]
 script = ExtResource("5_plukg")

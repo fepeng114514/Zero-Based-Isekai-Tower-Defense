@@ -66,8 +66,8 @@ wave_set = SubResource("Resource_np2pn")
 [node name="TowerArcher" parent="Store/Entities" unique_id=1010851235 instance=ExtResource("9_dnkej")]
 position = Vector2(888, 472)
 
-[node name="TowerArcher2" parent="Store/Entities" unique_id=1777276522 instance=ExtResource("9_dnkej")]
-position = Vector2(1120, 472)
+[node name="TowerArcher2" parent="Store/Entities" unique_id=1148452868 instance=ExtResource("9_dnkej")]
+position = Vector2(1120, 464)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=74954041]
 position = Vector2(1280, 720)

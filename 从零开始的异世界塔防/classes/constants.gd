@@ -300,8 +300,6 @@ const CN_BARRACK: StringName = &"BarrackComponent"
 const CN_SPAWNER: StringName = &"SpawnerComponent"
 ## 组件名称: UI
 const CN_UI: StringName = &"UIComponent"
-## 组件名称: 子实体
-const CN_SUBENTITY: StringName = &"SubentityComponent"
 #endregion
 
 
@@ -353,7 +351,6 @@ const LEVEL_REQUIRED_SYSTEMS: Array[String] = [
 	"tower_system",
 	"sprite_system",
 	"entity_system",
-	"subentity_system",
 	"barrack_system",
 	"rally_system",
 	"nav_path_system",

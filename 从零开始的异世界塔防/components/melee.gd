@@ -10,6 +10,9 @@ class_name Melee
 @export var animation: String = "melle"
 @export var delay: float = 0
 @export var chance: float = 1
+@export var disabled: bool = false
+
+@export_group("限制相关")
 @export var vis_flags: Array[C.FLAG] = []:
 	set(value): 
 		vis_flags = value

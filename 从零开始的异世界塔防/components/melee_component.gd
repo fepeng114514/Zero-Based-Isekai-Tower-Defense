@@ -108,12 +108,6 @@ func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
 
 ## 清理无效被拦截
 func cleanup_blockeds() -> void:
-	# 快速检查是否存在无效拦截
-	if not blockeds_ids.any(
-			func(id) -> bool: return not EntityDB.get_entity_by_id(id)
-	):
-		return
-		
 	var new_blockeds_ids: Array[int] = []
 	
 	for id in blockeds_ids:

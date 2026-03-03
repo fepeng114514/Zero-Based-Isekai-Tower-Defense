@@ -18,6 +18,6 @@ func _on_insert(e: Entity) -> bool:
 		return true
 	
 	for sprite_idx: int in range(sprite_c.list.size()):
-		e.play_animation("idle", sprite_idx)
+		e.play_animation(e.default_animation, sprite_idx)
 	
 	return true

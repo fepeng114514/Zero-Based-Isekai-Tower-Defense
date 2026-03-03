@@ -15,14 +15,13 @@ var type_groups: Dictionary[String, Array] = {
 	"friendlys": [],
 	"towers": [],
 	"modifiers": [],
-	"auras": [],
-	"bullets": [],
+	"auras": []
 }
 var component_groups: Dictionary[String, Array] = {}
 var entities: Array = []
-var _dirty_entities_ids: Array[int] = []
 var last_id: int = 0
 var templates_name_dict: Dictionary[C.ENTITY_TAG, String]
+var _dirty_entities_ids: Array[int] = []
 #endregion
 
 
@@ -235,46 +234,17 @@ func get_vaild_entities() -> Array:
 	return entities.filter(
 		func(e) -> bool: return U.is_vaild_entity(e)
 	)
+	
+## 获取 source_id 为指定 id 的实体
+func get_entities_by_source(source_id: int):
+	return get_vaild_entities().filter(
+		func(e: Entity) -> bool:
+			return e.source_id == source_id
+	)
 #endregion
 
 
 #region 索敌相关
-## 根据排序模式排序目标
-func sort_targets(
-		targets: Array, sort_type: C.SORT, origin: Vector2, reversed: bool = false
-	) -> void:
-	var sort_functions = {
-		C.SORT.PROGRESS: func(e1: Entity, e2: Entity) -> bool:
-			var p1: float = (
-				e1.get_c(C.CN_NAV_PATH).nav_progress
-				if e1.has_c(C.CN_NAV_PATH) else 0
-			)
-			var p2: float = (
-				e2.get_c(C.CN_NAV_PATH).nav_progress
-				if e2.has_c(C.CN_NAV_PATH) else 0
-			)
-			return p1 > p2 if not reversed else p1 < p2,
-		
-		C.SORT.HEALTH: func(e1: Entity, e2: Entity) -> bool:
-			var h1: float = e1.get_c(C.CN_HEALTH).hp if e1.has_c(C.CN_HEALTH) else 0
-			var h2: float = e2.get_c(C.CN_HEALTH).hp if e2.has_c(C.CN_HEALTH) else 0
-			return h1 > h2 if not reversed else h1 < h2,
-		
-		C.SORT.DISTANCE: func(e1: Entity, e2: Entity) -> bool:
-			var d1: float = e1.global_position.distance_squared_to(origin)
-			var d2: float = e2.global_position.distance_squared_to(origin)
-			return d1 > d2 if not reversed else d1 < d2,
-			
-		C.SORT.ID: func(e1: Entity, e2: Entity) -> bool:
-			var i1: int = e1.id
-			var i2: int = e2.id
-			return i1 > i2 if not reversed else i1 < i2,
-	}
-	
-	if sort_type in sort_functions:
-		targets.sort_custom(sort_functions[sort_type])
-
-
 ## 搜索范围内目标, 
 ## filter 匿名函数格式为 func(e: Entity) -> bool,
 ## 并返回 bool 表示是否被过滤
@@ -321,7 +291,7 @@ func find_sorted_targets(
 	var targets: Array[Entity] = find_targets_in_range(
 		origin, max_range, min_range, flags, bans, filter, group
 	)
-	sort_targets(targets, sort_type, origin, reversed)
+	U.sort_array(targets, sort_type, origin, reversed)
 	return targets
 
 
@@ -342,7 +312,7 @@ func find_extreme_target(
 	var targets: Array = find_targets_in_range(
 		origin, max_range, min_range, flags, bans, filter, group
 	)
-	sort_targets(targets, sort_type, origin, reversed)
+	U.sort_array(targets, sort_type, origin, reversed)
 	return targets[0] if targets else null
 
 

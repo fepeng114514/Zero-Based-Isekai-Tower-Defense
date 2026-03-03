@@ -25,10 +25,13 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_RANGED).filter(
 		func(e: Entity) -> bool:
-			return not e.waiting and e.has_state(C.STATE.RANGED | C.STATE.MELEE | C.STATE.IDLE)
+			return e.has_state(C.STATE.RANGED | C.STATE.MELEE | C.STATE.IDLE)
 	)
 
 	for e: Entity in entities:
+		if e.waiting:
+			continue
+		
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
 		for a: Ranged in ranged_c.order:
@@ -54,12 +57,13 @@ func _on_update(_delta: float) -> void:
 				
 			e.state = C.STATE.RANGED
 			_do_attack(a, e, target)
-		
+			
 		
 func _do_attack(a: Ranged, e: Entity, target: Entity) -> void:
 	e.play_animation(a.animation)
 	await e.y_wait(a.delay)
-	e.play_animation("idle")
+	a.ts = TimeDB.tick_ts
+	e.play_animation(e.default_animation)
 
 	if not target:
 		return
@@ -70,6 +74,5 @@ func _do_attack(a: Ranged, e: Entity, target: Entity) -> void:
 	b.global_position = e.global_position
 	
 	b.insert_entity()
-		
-	a.ts = TimeDB.tick_ts
+
 	e.state = C.STATE.IDLE

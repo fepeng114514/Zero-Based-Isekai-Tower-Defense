@@ -22,6 +22,7 @@ class_name Entity
 @export var mods_list: Array[C.ENTITY_TAG] = []
 ## 插入实体时创建的光环标签列表
 @export var auras_list: Array[C.ENTITY_TAG] = []
+@export var default_animation: String = "idle"
 
 @export_group("限制相关")
 ## 白名单实体标签列表
@@ -354,7 +355,9 @@ func wait_animation(
 ## 协程等待
 func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 	waiting = true
+	Log.verbose("实体等待: %s, %.2f" % [self, time])
 	await TimeDB.y_wait(time, break_fn)
+	Log.verbose("实体等待完毕: %s, %.2f" % [self, time])
 	waiting = false
 
 

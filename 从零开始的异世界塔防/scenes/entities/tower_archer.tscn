@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0v2wj"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/archer_shooter.tscn" id="2_4mkqg"]
-[ext_resource type="Script" uid="uid://c4wuwy0ye1nsg" path="res://components/subentity_compotent.gd" id="2_ivbmm"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_x6o3l"]
 [ext_resource type="Texture2D" uid="uid://cwnf6geghf4kk" path="res://resources/atlas_texture_resources/archer_tower_0001.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_d15la"]
@@ -22,24 +21,21 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 position = Vector2(-8, 0)
 texture = ExtResource("3_ivbmm")
 
-[node name="SubentityComponent" type="Node2D" parent="." unique_id=1785378605]
-script = ExtResource("2_ivbmm")
-metadata/_custom_type_script = "uid://c4wuwy0ye1nsg"
-
-[node name="ArcherShooter" parent="SubentityComponent" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
-position = Vector2(-8, -44)
-
-[node name="ArcherShooter2" parent="SubentityComponent" unique_id=1394184842 instance=ExtResource("2_4mkqg")]
-position = Vector2(24, -44)
-
 [node name="UIComponent" type="Node" parent="." unique_id=1947190512]
 script = ExtResource("6_d15la")
 click_rect = Rect2(-40, -56, 96, 100)
 info_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="TowerComponent" type="Node" parent="." unique_id=992390927]
+[node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
 script = ExtResource("7_plukg")
 max_range = 300.0
 search_mode = 8
+attack_loop_time = 1.0
 metadata/_custom_type_script = "uid://d104itkl6l02e"
+
+[node name="ArcherShooter" parent="TowerComponent" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
+position = Vector2(-8, -44)
+
+[node name="ArcherShooter2" parent="TowerComponent" unique_id=1394184842 instance=ExtResource("2_4mkqg")]
+position = Vector2(24, -44)
