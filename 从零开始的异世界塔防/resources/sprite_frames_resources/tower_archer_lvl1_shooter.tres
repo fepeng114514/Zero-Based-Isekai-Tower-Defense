@@ -29,11 +29,6 @@ filter_clip = true
 
 [resource]
 animations = [{
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x1ilm")

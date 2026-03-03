@@ -6,27 +6,6 @@ extends System
 	对于被拦截者: 如果是被第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
 """
 
-	
-func _on_create(e: Entity) -> bool:
-	var melee_c: RangedComponent = e.get_c(C.CN_MELEE)
-	if not melee_c:
-		return true
-	
-	for a: Melee in melee_c.get_children():
-		melee_c.list.append(a)
-		
-	return true
-		
-
-func _on_insert(e: Entity) -> bool:
-	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
-	if not melee_c:
-		return true
-
-	melee_c.sort_attacks()
-	
-	return true
-
 
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_MELEE).filter(

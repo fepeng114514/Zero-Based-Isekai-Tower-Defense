@@ -1,20 +1,29 @@
 [gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
 [ext_resource type="Script" uid="uid://bgy6wevjchyl6" path="res://scenes/entities/tower_barrack.gd" id="1_nawio"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_fm5wb"]
+[ext_resource type="Texture2D" uid="uid://cgjx7ilvhw7wp" path="res://resources/atlas_texture_resources/tower_preview_barrack.tres" id="3_bfdgq"]
+[ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://components/barrack_component.gd" id="4_u6jgq"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="5_a0xnb"]
 
 [node name="TowerBarrack" type="Node2D" unique_id=383018069]
 script = ExtResource("1_nawio")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=596087881]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.8749129, 0.9385528, 0.94108635, 1)
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=129744030]
+script = ExtResource("2_fm5wb")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=927508667]
+position = Vector2(-8, 0)
+texture = ExtResource("3_bfdgq")
+
+[node name="BarrackComponent" type="Node" parent="." unique_id=1880137500]
+script = ExtResource("4_u6jgq")
+soldier = 4
+metadata/_custom_type_script = "uid://b3vhika61oa7p"
+
+[node name="UIComponent" type="Node" parent="." unique_id=1738527405]
+script = ExtResource("5_a0xnb")
+click_rect = Rect2(48, 64, 120, 104)
+info_type = 1
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

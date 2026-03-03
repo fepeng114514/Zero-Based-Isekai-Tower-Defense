@@ -1,27 +1,6 @@
 extends System
 
 
-func _on_create(e: Entity) -> bool:
-	var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
-	if not ranged_c:
-		return true
-	
-	for a: Ranged in ranged_c.get_children():
-		ranged_c.list.append(a)
-		
-	return true
-		
-
-func _on_insert(e: Entity) -> bool:
-	var ranged_c = e.get_c(C.CN_RANGED)
-	if not ranged_c:
-		return true
-
-	ranged_c.sort_attacks()
-
-	return true
-
-
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_RANGED).filter(
 		func(e: Entity) -> bool:

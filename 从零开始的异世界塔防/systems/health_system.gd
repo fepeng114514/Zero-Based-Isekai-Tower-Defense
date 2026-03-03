@@ -5,16 +5,6 @@ extends System
 """
 
 
-func _on_create(e: Entity) -> bool:
-	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
-	if not health_c:
-		return true
-		
-	health_c.health_bar = health_c.get_node("HealthBar")
-	
-	return true
-
-
 func _on_insert(e: Entity) -> bool:
 	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
 	if not health_c:

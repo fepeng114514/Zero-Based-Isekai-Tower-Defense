@@ -8,8 +8,6 @@ func _on_create(e: Entity) -> bool:
 func _on_insert(e: Entity) -> bool:
 	e.insert_ts = TimeDB.tick_ts
 
-	EntityDB.create_auras(e.auras_list, e.id)
-
 	return e._on_insert()
 	
 

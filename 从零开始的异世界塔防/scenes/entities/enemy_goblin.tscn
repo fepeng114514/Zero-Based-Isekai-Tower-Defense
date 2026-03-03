@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://components/nav_path_component.gd" id="5_gt3hg"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_yidua"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_ijmwd"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="8_wdwo4"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee.gd" id="9_cit00"]
 
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118]
 script = ExtResource("1_0ncad")
@@ -14,16 +16,18 @@ tag = 10
 flags = Array[int]([1])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225 node_paths=PackedStringArray("list")]
 script = ExtResource("2_1nm20")
+list = [NodePath("AnimatedSprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
 sprite_frames = ExtResource("3_bfbt7")
 animation = &"idle"
 
-[node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]
+[node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("4_bfbt7")
+health_bar = NodePath("HealthBar")
 hp_max = 100.0
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
@@ -37,5 +41,13 @@ metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
 [node name="UIComponent" type="Node" parent="." unique_id=1225382274]
 script = ExtResource("6_ijmwd")
-show_info = true
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="MeleeComponent" type="Node" parent="." unique_id=1356039111 node_paths=PackedStringArray("list")]
+script = ExtResource("8_wdwo4")
+list = [NodePath("Melee")]
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="Melee" type="Node" parent="MeleeComponent" unique_id=1930121616]
+script = ExtResource("9_cit00")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

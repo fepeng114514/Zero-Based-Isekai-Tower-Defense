@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 ## 近战组件，负责管理实体的近战属性和行为，例如近战攻击范围、近战攻击伤害、近战攻击效果等。
@@ -34,11 +35,9 @@ class_name MeleeComponent
 @export var melee_slot_offset := Vector2.ZERO
 ## 到达近战位置的阈值
 @export var arrived_dist: float = 10
-
 ## 近战攻击列表，表示实体当前拥有的近战攻击列表
-var list: Array[Melee] = []
-## 已排序的近战攻击列表
-var order: Array[Melee] = []
+@export var list: Array[Melee] = []
+
 var block_flag_bits: int = 0
 var block_ban_bits: int = 0
 ## 拦截者 ID，表示实体当前被哪个拦截者拦截，通常用于被拦截者追踪自己的拦截者
@@ -59,6 +58,34 @@ var origin_pos_arrived: bool = true
 var melee_slot := Vector2.ZERO
 ## 是否已经到达近战位置，表示实体是否已经到达近战位置
 var melee_slot_arrived: bool = true
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings = PackedStringArray()
+	
+	if list.is_empty():
+		warnings.append("没有攻击子节点！ 请至少增加一个攻击子节点。")
+	
+	return warnings
+
+
+# 自动更新列表
+func _update_list():
+	var new_list: Array[Melee] = []
+	
+	for child: Melee in get_children():
+		new_list.append(child)
+	
+	# 只在变化时更新，避免无限循环
+	if new_list != list:
+		list = new_list
+		notify_property_list_changed()  # 刷新编辑器
+
+
+# 当节点树变化时自动更新
+func _notification(what: int) -> void:
+	U.tool_on_tree_call(self, what, _update_list)
+
 
 ## 计算被拦截者数量（考虑拦截代价）
 func calculate_blocked_count() -> void:
@@ -85,11 +112,6 @@ func set_melee_slot(new_melee_slot: Vector2) -> void:
 func set_origin_pos(new_origin_pos: Vector2) -> void:
 	origin_pos_arrived = false
 	origin_pos = new_origin_pos
-
-
-func sort_attacks() -> void:
-	order = list.duplicate()
-	order.sort_custom(U.attacks_sort_fn)
 
 
 func get_blocked(filter: Callable = Callable()) -> Array[Entity]:

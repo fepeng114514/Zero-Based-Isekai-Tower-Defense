@@ -12,15 +12,17 @@ tag = 6
 flags = Array[int]([4])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870 node_paths=PackedStringArray("list")]
 script = ExtResource("2_4mkqg")
+list = [NodePath("AnimatedSprite2D")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
 sprite_frames = ExtResource("3_ivbmm")
 animation = &"idle"
 
-[node name="RangedComponent" type="Node" parent="." unique_id=1906488365]
+[node name="RangedComponent" type="Node" parent="." unique_id=1906488365 node_paths=PackedStringArray("list")]
 script = ExtResource("4_d15la")
+list = [NodePath("Ranged")]
 
 [node name="Ranged" type="Node" parent="RangedComponent" unique_id=1475389001]
 script = ExtResource("5_plukg")

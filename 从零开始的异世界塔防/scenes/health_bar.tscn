@@ -7,17 +7,17 @@ z_index = 1
 script = ExtResource("1_1bvlm")
 
 [node name="BG" type="ColorRect" parent="." unique_id=222392742]
-offset_left = -20.0
+offset_left = -22.0
 offset_top = -2.0
-offset_right = 20.0
-offset_bottom = 78.0
+offset_right = 23.0
+offset_bottom = 83.0
 scale = Vector2(1, 0.04)
 color = Color(0.90590966, 0.165869, 0, 1)
 
 [node name="FG" type="ColorRect" parent="." unique_id=370820753]
-offset_left = -20.0
+offset_left = -22.0
 offset_top = -2.0
-offset_right = 20.0
-offset_bottom = 78.0
+offset_right = 23.0
+offset_bottom = 83.0
 scale = Vector2(1, 0.04)
 color = Color(0.09019608, 0.85882354, 0, 1)

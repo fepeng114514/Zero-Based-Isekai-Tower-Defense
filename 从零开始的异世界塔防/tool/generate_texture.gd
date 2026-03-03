@@ -95,6 +95,7 @@ func _load_sprite_frames() -> void:
 			var anim_data: Dictionary = anim_group[anim_name]
 			if not sprite_frames_db.has(sprite_frames_name):
 				var new_sprite_frames := SpriteFrames.new()
+				new_sprite_frames.remove_animation("default")
 				sprite_frames_db[sprite_frames_name] = new_sprite_frames
 
 			var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]

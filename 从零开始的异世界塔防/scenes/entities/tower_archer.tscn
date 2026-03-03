@@ -13,8 +13,9 @@ tag = 5
 flags = Array[int]([16])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1067981190]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1067981190 node_paths=PackedStringArray("list")]
 script = ExtResource("2_x6o3l")
+list = [NodePath(""), NodePath("Sprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=869472279]
@@ -27,9 +28,10 @@ click_rect = Rect2(-40, -56, 96, 100)
 info_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
+[node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788 node_paths=PackedStringArray("list")]
 script = ExtResource("7_plukg")
 attack_loop_time = 1.0
+list = [NodePath("ArcherShooter"), NodePath("ArcherShooter2")]
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="ArcherShooter" parent="TowerComponent" unique_id=2011504655 instance=ExtResource("2_4mkqg")]

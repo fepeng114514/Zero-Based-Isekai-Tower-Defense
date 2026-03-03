@@ -18,10 +18,6 @@ class_name Entity
 @export var track_source: bool = false
 ## 是否追踪 target 实体
 @export var track_target: bool = false
-## 插入实体时创建的光环标签列表
-@export var mods_list: Array[C.ENTITY_TAG] = []
-## 插入实体时创建的光环标签列表
-@export var auras_list: Array[C.ENTITY_TAG] = []
 @export var default_animation: String = "idle"
 
 @export_group("限制相关")

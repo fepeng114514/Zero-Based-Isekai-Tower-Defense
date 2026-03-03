@@ -1,16 +1,5 @@
 extends System
 
-func _on_create(e: Entity) -> bool:
-	var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
-	
-	if not tower_c:
-		return true
-		
-	for sub_e: Entity in tower_c.get_children():
-		tower_c.list.append(sub_e)
-	
-	return true
-
 
 func _on_insert(e: Entity) -> bool:
 	var tower_c: TowerComponent = e.get_c(C.CN_TOWER)

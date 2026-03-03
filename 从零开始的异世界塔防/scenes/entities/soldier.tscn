@@ -1,10 +1,40 @@
 [gd_scene format=3 uid="uid://f30rl46i8akx"]
 
 [ext_resource type="Script" uid="uid://dfevap2o4s1kd" path="res://scenes/entities/soldier.gd" id="1_ama71"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_se3ma"]
+[ext_resource type="SpriteFrames" uid="uid://bcoybiptluc4q" path="res://resources/sprite_frames_resources/soldier_lvl1.tres" id="3_f3yqs"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="4_5jui1"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_gtjci"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="5_lmejv"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee.gd" id="6_lmejv"]
 
-[node name="Soldier" type="Node2D"]
+[node name="Soldier" type="Node2D" unique_id=885578479]
 script = ExtResource("1_ama71")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0.61111724, 0.8841393, 0.983246, 1)
-polygon = PackedVector2Array(-1, -34, -28, 12, 29, 10)
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=389197924 node_paths=PackedStringArray("list")]
+script = ExtResource("2_se3ma")
+list = [NodePath("AnimatedSprite2D")]
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
+sprite_frames = ExtResource("3_f3yqs")
+animation = &"idle"
+
+[node name="HealthComponent" type="Node2D" parent="." unique_id=949799713 node_paths=PackedStringArray("health_bar")]
+script = ExtResource("5_lmejv")
+health_bar = NodePath("HealthBar")
+hp_max = 100.0
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
+
+[node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_gtjci")]
+position = Vector2(0, -24)
+scale = Vector2(1.045, 1.07)
+
+[node name="MeleeComponent" type="Node" parent="." unique_id=1876572876 node_paths=PackedStringArray("list")]
+script = ExtResource("4_5jui1")
+list = [NodePath("Melee")]
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="Melee" type="Node" parent="MeleeComponent" unique_id=1290538006]
+script = ExtResource("6_lmejv")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

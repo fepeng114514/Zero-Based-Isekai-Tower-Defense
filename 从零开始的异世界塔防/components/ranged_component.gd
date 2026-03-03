@@ -1,12 +1,34 @@
+@tool
 extends Node
 class_name RangedComponent
 
 ## 是否禁用索敌
 @export var disabled_search: bool = false
+@export var list: Array[Ranged] = []
 
-var list: Array[Ranged] = []
-var order: Array[Ranged] = []
 
-func sort_attacks() -> void:
-	order = list.duplicate()
-	order.sort_custom(U.attacks_sort_fn)
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings = PackedStringArray()
+	
+	if list.is_empty():
+		warnings.append("没有攻击子节点！ 请至少增加一个攻击子节点。")
+	
+	return warnings
+	
+
+# 自动更新列表
+func _update_list():
+	var new_list: Array[Ranged] = []
+	
+	for child: Ranged in get_children():
+		new_list.append(child)
+	
+	# 只在变化时更新，避免无限循环
+	if new_list != list:
+		list = new_list
+		notify_property_list_changed()  # 刷新编辑器
+		
+
+# 当节点树变化时自动更新
+func _notification(what: int) -> void:
+	U.tool_on_tree_call(self, what, _update_list)
