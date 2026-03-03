@@ -9,7 +9,7 @@ extends Node
 """
 
 #region 属性
-var entity_scenes: Dictionary[C.ENTITY_TAG, PackedScene] = {}
+var entity_template: Dictionary[C.ENTITY_TAG, Entity] = {}
 var type_groups: Dictionary[String, Array] = {
 	"enemies": [],
 	"friendlys": [],
@@ -26,7 +26,7 @@ var _dirty_entities_ids: Array[int] = []
 
 
 func load() -> void:
-	entity_scenes = {}
+	entity_template = {}
 	type_groups = {
 		"enemies": [],
 		"friendlys": [],
@@ -42,10 +42,10 @@ func load() -> void:
 	templates_name_dict = {}
 	
 	_load_templates_name_dict()
-	_load_entity_scenes()
+	_load_entity_templates()
 
-## 加载实体场景
-func _load_entity_scenes() -> void:
+## 加载实体模板
+func _load_entity_templates() -> void:
 	for entity_tag: C.ENTITY_TAG in C.ENTITY_TAG.values():
 		var t_name: String = get_templates_name(entity_tag)
 		var scene_path: String = C.PATH_ENTITIES_SCENES % t_name
@@ -54,9 +54,10 @@ func _load_entity_scenes() -> void:
 			return
 			
 		var scene: PackedScene = load(scene_path)
+		var template: Entity = scene.instantiate()
+		template.template_name = get_templates_name(entity_tag)
 		
-		entity_scenes[entity_tag] = scene
-		
+		entity_template[entity_tag] = template
 
 func _load_templates_name_dict() -> void:
 	for entity_name: String in C.ENTITY_TAG.keys():
@@ -80,8 +81,7 @@ func mark_entity_dirty_id(id: int) -> void:
 #region 创建实体相关
 ## 创建实体
 func create_entity(entity_tag: C.ENTITY_TAG) -> Entity:
-	var scene: PackedScene = get_entity_scenes(entity_tag)
-	var e: Entity = scene.instantiate()
+	var e: Entity = get_entity_template(entity_tag)
 		
 	return process_create(e)
 	
@@ -89,11 +89,13 @@ func create_entity(entity_tag: C.ENTITY_TAG) -> Entity:
 ## 处理创建
 func process_create(e: Entity) -> Entity:
 	e.id = last_id
-	e.template_name = get_templates_name(e.tag)
 	
 	for node: Node in e.get_children():
-		var node_class: String = node.get_script().get_global_name()
+		var node_script: GDScript = node.get_script()
+		if not node_script:
+			continue
 		
+		var node_class: String = node_script.get_global_name()
 		if not node_class.find("Component"):
 			continue
 			
@@ -215,18 +217,18 @@ func get_entity_by_id(id: int) -> Entity:
 	return e
 
 
-## 获取实体模板场景
-func get_entity_scenes(entity_tag: C.ENTITY_TAG, deep: bool = true) -> PackedScene:
-	if not entity_scenes.has(entity_tag):
-		Log.error("未找到实体场景, tag: %d" % entity_tag)
+## 获取实体模板
+func get_entity_template(entity_tag: C.ENTITY_TAG, deep: bool = true) -> Entity:
+	if not entity_template.has(entity_tag):
+		Log.error("未找到实体模板, tag: %d" % entity_tag)
 		return null
 		
-	var scenes: PackedScene = entity_scenes[entity_tag]
+	var template: Entity = entity_template[entity_tag]
 		
 	if deep:
-		return scenes.duplicate()
+		return template.duplicate()
 	
-	return scenes
+	return template
 	
 
 ## 获取所有有效实体
@@ -319,32 +321,32 @@ func find_extreme_target(
 ## 搜索模式配置常量
 const SEARCH_CONFIG: Dictionary[C.SEARCH, Array] = {
 	# [sort_type, group, reversed]
-	C.SEARCH.ENTITY_FIRST: [C.SORT.PROGRESS, "", false],
-	C.SEARCH.ENTITY_LAST: [C.SORT.PROGRESS, "", true],
-	C.SEARCH.ENTITY_NEARST: [C.SORT.DISTANCE, "", false],
-	C.SEARCH.ENTITY_FARTHEST: [C.SORT.DISTANCE, "", true],
-	C.SEARCH.ENTITY_STRONGEST: [C.SORT.HEALTH, "", false],
-	C.SEARCH.ENTITY_WEAKEST: [C.SORT.HEALTH, "", true],
-	C.SEARCH.ENTITY_MAX_ID: [C.SORT.ID, "", true],
-	C.SEARCH.ENTITY_MIN_ID: [C.SORT.ID, "", false],
+	C.SEARCH.ENTITY_MAX_PROGRESS: [C.SORT.PROGRESS, "", false],
+	C.SEARCH.ENTITY_MIN_PROGRESS: [C.SORT.PROGRESS, "", true],
+	C.SEARCH.ENTITY_MAX_DISTANCE: [C.SORT.DISTANCE, "", false],
+	C.SEARCH.ENTITY_MIN_DISTANCE: [C.SORT.DISTANCE, "", true],
+	C.SEARCH.ENTITY_MAX_HEALTH: [C.SORT.HEALTH, "", false],
+	C.SEARCH.ENTITY_MIN_HEALTH: [C.SORT.HEALTH, "", true],
+	C.SEARCH.ENTITY_MAX_ID: [C.SORT.ID, "", false],
+	C.SEARCH.ENTITY_MIN_ID: [C.SORT.ID, "", true],
 
-	C.SEARCH.ENEMY_FIRST: [C.SORT.PROGRESS, C.GROUP_ENEMIES, false],
-	C.SEARCH.ENEMY_LAST: [C.SORT.PROGRESS, C.GROUP_ENEMIES, true],
-	C.SEARCH.ENEMY_NEARST: [C.SORT.DISTANCE, C.GROUP_ENEMIES, false],
-	C.SEARCH.ENEMY_FARTHEST: [C.SORT.DISTANCE, C.GROUP_ENEMIES, true],
-	C.SEARCH.ENEMY_STRONGEST: [C.SORT.HEALTH, C.GROUP_ENEMIES, false],
-	C.SEARCH.ENEMY_WEAKEST: [C.SORT.HEALTH, C.GROUP_ENEMIES, true],
-	C.SEARCH.ENEMY_MAX_ID: [C.SORT.ID, C.GROUP_ENEMIES, true],
-	C.SEARCH.ENEMY_MIN_ID: [C.SORT.ID, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_MAX_PROGRESS: [C.SORT.PROGRESS, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_MIN_PROGRESS: [C.SORT.PROGRESS, C.GROUP_ENEMIES, true],
+	C.SEARCH.ENEMY_MAX_DISTANCE: [C.SORT.DISTANCE, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_MIN_DISTANCE: [C.SORT.DISTANCE, C.GROUP_ENEMIES, true],
+	C.SEARCH.ENEMY_MAX_HEALTH: [C.SORT.HEALTH, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_MIN_HEALTH: [C.SORT.HEALTH, C.GROUP_ENEMIES, true],
+	C.SEARCH.ENEMY_MAX_ID: [C.SORT.ID, C.GROUP_ENEMIES, false],
+	C.SEARCH.ENEMY_MIN_ID: [C.SORT.ID, C.GROUP_ENEMIES, true],
 	
-	C.SEARCH.FRIENDLY_FIRST: [C.SORT.PROGRESS, C.GROUP_FRIENDLYS, false],
-	C.SEARCH.FRIENDLY_LAST: [C.SORT.PROGRESS, C.GROUP_FRIENDLYS, true],
-	C.SEARCH.FRIENDLY_NEARST: [C.SORT.DISTANCE, C.GROUP_FRIENDLYS, false],
-	C.SEARCH.FRIENDLY_FARTHEST: [C.SORT.DISTANCE, C.GROUP_FRIENDLYS, true],
-	C.SEARCH.FRIENDLY_STRONGEST: [C.SORT.HEALTH, C.GROUP_FRIENDLYS, false],
-	C.SEARCH.FRIENDLY_WEAKEST: [C.SORT.HEALTH, C.GROUP_FRIENDLYS, true],
-	C.SEARCH.FRIENDLY_MAX_ID: [C.SORT.ID, C.GROUP_FRIENDLYS, true],
-	C.SEARCH.FRIENDLY_MIN_ID: [C.SORT.ID, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_MAX_PROGRESS: [C.SORT.PROGRESS, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_MIN_PROGRESS: [C.SORT.PROGRESS, C.GROUP_FRIENDLYS, true],
+	C.SEARCH.FRIENDLY_MAX_DISTANCE: [C.SORT.DISTANCE, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_MIN_DISTANCE: [C.SORT.DISTANCE, C.GROUP_FRIENDLYS, true],
+	C.SEARCH.FRIENDLY_MAX_HEALTH: [C.SORT.HEALTH, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_MIN_HEALTH: [C.SORT.HEALTH, C.GROUP_FRIENDLYS, true],
+	C.SEARCH.FRIENDLY_MAX_ID: [C.SORT.ID, C.GROUP_FRIENDLYS, false],
+	C.SEARCH.FRIENDLY_MIN_ID: [C.SORT.ID, C.GROUP_FRIENDLYS, true],
 }
 
 

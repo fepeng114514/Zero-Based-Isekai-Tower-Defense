@@ -13,7 +13,7 @@ class_name MeleeComponent
 ## 拦截最大范围，单位为像素
 @export var block_max_range: float = 0
 ## 搜索模式，表示实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
-@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_FIRST
+@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
 ## 最大可以被拦截数量，表示实体最多可以同时拦截多少个被拦截者，超过该数量后将不再拦截新的被拦截者
 @export var max_blocked: int = 1
 ## 是否是被拦截者

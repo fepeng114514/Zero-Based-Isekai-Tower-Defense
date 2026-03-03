@@ -13,7 +13,7 @@ class_name BulletComponent
 ## 最大伤害半径，表示子弹造成最大伤害的范围，单位为像素，通常用于范围伤害的子弹
 @export var max_damage_radius: float = 0
 ## 范围伤害的搜索模式，表示子弹在造成范围伤害时的目标选择策略，默认为优先敌人
-@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_FIRST
+@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
 ## 子弹携带的状态效果标签列表，表示子弹命中目标时将附加的状态效果标签列表
 @export var mods: Array[C.ENTITY_TAG] = []
 ## 子弹携带的实体标签列表

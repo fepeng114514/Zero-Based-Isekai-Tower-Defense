@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://t080pjf0rnto"]
+
+[ext_resource type="Texture2D" uid="uid://bo64mpsdvhwdo" path="res://assets/range_circle.png" id="1_vk3bw"]
+[ext_resource type="Script" uid="uid://djikjf3p648na" path="res://scenes/range_circle.gd" id="2_kgxm0"]
+
+[node name="RangeCircle" type="Sprite2D" unique_id=124999546]
+texture = ExtResource("1_vk3bw")
+script = ExtResource("2_kgxm0")

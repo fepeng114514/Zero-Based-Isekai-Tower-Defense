@@ -520,7 +520,7 @@ static func merge_flags(flag_list: Array) -> int:
 #endregion
 
 
-## 根据排序模式排序 Array
+## 根据排序模式排序 Array，默认最大在前，如果 reversed 为 true 则最小在前
 static func sort_array(
 		array: Array, sort_type: C.SORT, origin: Vector2, reversed: bool = false
 	) -> void:

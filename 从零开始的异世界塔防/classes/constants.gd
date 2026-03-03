@@ -207,55 +207,55 @@ enum TRAJECTORY {
 
 ## 搜索模式枚举
 enum SEARCH {
-	## 搜索模式: 实体第一个
-	ENTITY_FIRST,
-	## 搜索模式: 实体最后一个
-	ENTITY_LAST,
-	## 搜索模式: 实体最近
-	ENTITY_NEARST,
-	## 搜索模式: 实体最远
-	ENTITY_FARTHEST,
-	## 搜索模式: 实体最强
-	ENTITY_STRONGEST,
-	## 搜索模式: 实体最弱
-	ENTITY_WEAKEST,
-	## 搜索模式: 实体最大 ID
+	## 搜索模式: 实体路程最远
+	ENTITY_MAX_PROGRESS,
+	## 搜索模式: 实体路程最近
+	ENTITY_MIN_PROGRESS,
+	## 搜索模式: 实体距离最远
+	ENTITY_MAX_DISTANCE,
+	## 搜索模式: 实体距离最近
+	ENTITY_MIN_DISTANCE,
+	## 搜索模式: 实体血量最高
+	ENTITY_MAX_HEALTH,
+	## 搜索模式: 实体血量最低
+	ENTITY_MIN_HEALTH,
+	## 搜索模式: 实体 ID 最大
 	ENTITY_MAX_ID,
-	## 搜索模式: 实体最小 ID
+	## 搜索模式: 实体 ID 最小
 	ENTITY_MIN_ID,
 
-	## 搜索模式: 敌人第一个
-	ENEMY_FIRST,
-	## 搜索模式: 敌人最后一个
-	ENEMY_LAST,
-	## 搜索模式: 敌人最近
-	ENEMY_NEARST,
-	## 搜索模式: 敌人最远
-	ENEMY_FARTHEST,
-	## 搜索模式: 敌人最强
-	ENEMY_STRONGEST,
-	## 搜索模式: 敌人最弱
-	ENEMY_WEAKEST,
-	## 搜索模式: 敌人最大 ID
+	## 搜索模式: 敌人路程最远
+	ENEMY_MAX_PROGRESS,
+	## 搜索模式: 敌人路程最近
+	ENEMY_MIN_PROGRESS,
+	## 搜索模式: 敌人距离最远
+	ENEMY_MAX_DISTANCE,
+	## 搜索模式: 敌人距离最近
+	ENEMY_MIN_DISTANCE,
+	## 搜索模式: 敌人血量最高
+	ENEMY_MAX_HEALTH,
+	## 搜索模式: 敌人血量最低
+	ENEMY_MIN_HEALTH,
+	## 搜索模式: 敌人 ID 最大
 	ENEMY_MAX_ID,
-	## 搜索模式: 敌人最小 ID
+	## 搜索模式: 敌人 ID 最小
 	ENEMY_MIN_ID,
 
-	## 搜索模式: 友军第一个
-	FRIENDLY_FIRST,
-	## 搜索模式: 友军最后一个
-	FRIENDLY_LAST,
-	## 搜索模式: 友军最近
-	FRIENDLY_NEARST,
-	## 搜索模式: 友军最远
-	FRIENDLY_FARTHEST,
-	## 搜索模式: 友军最强
-	FRIENDLY_STRONGEST,
-	## 搜索模式: 友军最弱
-	FRIENDLY_WEAKEST,
-	## 搜索模式: 友军最大 ID
+	## 搜索模式: 友军路程最远
+	FRIENDLY_MAX_PROGRESS,
+	## 搜索模式: 友军路程最近
+	FRIENDLY_MIN_PROGRESS,
+	## 搜索模式: 友军距离最近
+	FRIENDLY_MIN_DISTANCE,
+	## 搜索模式: 友军距离最远
+	FRIENDLY_MAX_DISTANCE,
+	## 搜索模式: 友军血量最高
+	FRIENDLY_MAX_HEALTH,
+	## 搜索模式: 友军血量最低
+	FRIENDLY_MIN_HEALTH,
+	## 搜索模式: 友军 ID 最大
 	FRIENDLY_MAX_ID,
-	## 搜索模式: 友军最小 ID
+	## 搜索模式: 友军 ID 最小
 	FRIENDLY_MIN_ID,
 }
 

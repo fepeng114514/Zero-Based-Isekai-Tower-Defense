@@ -38,7 +38,7 @@ func _on_update(delta: float) -> void:
 				
 			e.global_position = source.global_position
 			
-		if e.waiting:
+		if e.is_waiting():
 			continue
 			
 		e._on_update(delta)

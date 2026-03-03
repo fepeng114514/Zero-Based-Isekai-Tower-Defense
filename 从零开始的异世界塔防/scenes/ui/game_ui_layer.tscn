@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://oya8wpn6jmc8" path="res://icon.svg" id="1_xjfbv"]
 [ext_resource type="PackedScene" uid="uid://cufaf4wyw3b10" path="res://scenes/ui/game_ui_text.tscn" id="2_bma8u"]
 [ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/entity_info_panel.gd" id="2_xjfbv"]
+[ext_resource type="PackedScene" uid="uid://t080pjf0rnto" path="res://scenes/range_circle.tscn" id="4_injcn"]
+[ext_resource type="PackedScene" uid="uid://bgd5nra3mpc84" path="res://scenes/rally_circle.tscn" id="5_kdhno"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
 bg_color = Color(0.25, 0.25, 0.3, 1)
@@ -195,6 +197,8 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_styles/panel = SubResource("4")
 script = ExtResource("2_xjfbv")
+range_circle = ExtResource("4_injcn")
+rally_circle = ExtResource("5_kdhno")
 
 [node name="MarginContainer" type="MarginContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel" unique_id=941920840]
 layout_mode = 2

@@ -6,7 +6,7 @@ class_name Ranged
 @export var max_range: float = 0
 @export var cooldown: float = 0
 @export var bullet: C.ENTITY_TAG
-@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_FIRST
+@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
 @export var animation: String = "ranged"
 @export var delay: float = 0
 @export var chance: float = 1

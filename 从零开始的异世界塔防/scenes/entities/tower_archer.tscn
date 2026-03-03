@@ -29,8 +29,6 @@ metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
 script = ExtResource("7_plukg")
-max_range = 300.0
-search_mode = 8
 attack_loop_time = 1.0
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 

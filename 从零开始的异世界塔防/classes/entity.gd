@@ -96,6 +96,8 @@ var has_auras_ids: Array[int] = []
 var state: C.STATE = C.STATE.IDLE
 ## 等待状态
 var waiting: bool = false
+## 锁定状态
+var blocking: bool = false
 ## 移除状态，表示实体正在被移除
 var removed: bool = false
 ## 上一帧位置
@@ -363,3 +365,7 @@ func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 
 func has_state(states: int) -> bool:
 	return state & states
+
+
+func is_waiting() -> bool:
+	return waiting or blocking

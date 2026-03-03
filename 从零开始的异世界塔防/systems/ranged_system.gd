@@ -25,13 +25,10 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_RANGED).filter(
 		func(e: Entity) -> bool:
-			return e.has_state(C.STATE.RANGED | C.STATE.MELEE | C.STATE.IDLE)
+			return not e.is_waiting() and e.has_state(C.STATE.RANGED | C.STATE.MELEE | C.STATE.IDLE)
 	)
 
 	for e: Entity in entities:
-		if e.waiting:
-			continue
-		
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
 		for a: Ranged in ranged_c.order:

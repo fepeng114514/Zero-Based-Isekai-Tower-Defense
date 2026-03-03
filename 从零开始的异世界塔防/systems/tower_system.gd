@@ -41,18 +41,6 @@ func _on_update(_delta: float) -> void:
 		
 		if list.is_empty():
 			continue
-
-		var target: Entity = EntityDB.search_target(
-			tower_c.search_mode, 
-			e.global_position, 
-			tower_c.max_range, 
-			tower_c.min_range, 
-			tower_c.vis_flag_bits, 
-			tower_c.vis_ban_bits
-		)
-		
-		if not target:
-			continue
 			
 		if tower_c.attack_loop_time == 0:
 			continue
@@ -68,9 +56,9 @@ func _on_update(_delta: float) -> void:
 		
 		for sub_e: Entity in list:
 			if sub_e != curren_e:
-				sub_e.target_id = C.UNSET
+				sub_e.blocking = true
 				continue
 				
-			sub_e.target_id = target.id
+			sub_e.blocking = false
 			
 		tower_c.ts = TimeDB.tick_ts

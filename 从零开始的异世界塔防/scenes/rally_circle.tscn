@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bgd5nra3mpc84"]
+
+[ext_resource type="Texture2D" uid="uid://clpxb8io3gno0" path="res://assets/rally_circle.png" id="1_nl5gu"]
+
+[node name="RallyCircle" type="Sprite2D" unique_id=2036888064]
+texture = ExtResource("1_nl5gu")

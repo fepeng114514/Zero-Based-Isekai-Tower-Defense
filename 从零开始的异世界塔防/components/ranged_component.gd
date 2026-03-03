@@ -1,7 +1,7 @@
 extends Node
 class_name RangedComponent
 
-## 是否禁用索敌，用于防御塔的子实体，通过防御塔索敌
+## 是否禁用索敌
 @export var disabled_search: bool = false
 
 var list: Array[Ranged] = []

@@ -13,7 +13,6 @@
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://resources/grid_tileset.tres" id="6_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui_layer.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer.tscn" id="9_dnkej"]
-[ext_resource type="Script" uid="uid://ofo8aq618lwd" path="res://scenes/levels/draw.gd" id="14_mm8aj"]
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]
 _data = {
@@ -85,6 +84,3 @@ tile_map_data = PackedByteArray("AAAaABkACgAAAAAAAAAZABkACgAAAAAAAAAYABkACgAAAAA
 tile_set = ExtResource("6_sk5k4")
 
 [node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("7_oc4kc")]
-
-[node name="Draw" type="Node2D" parent="." unique_id=1106541742]
-script = ExtResource("14_mm8aj")

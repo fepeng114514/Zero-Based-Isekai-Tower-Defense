@@ -12,8 +12,8 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="BulletComponent" type="Node" parent="." unique_id=797543197]
 script = ExtResource("2_qqpkp")
-min_damage = 30.0
-max_damage = 30.0
+min_damage = 10.0
+max_damage = 25.0
 flight_time = 1.0
 flight_trajectory = 1
 metadata/_custom_type_script = "uid://haoljvofy74e"

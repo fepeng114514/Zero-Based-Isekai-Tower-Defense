@@ -26,7 +26,7 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_NAV_PATH).filter(
 		func(e: Entity) -> bool:
-			return not e.waiting and e.has_state(C.STATE.IDLE)
+			return not e.is_waiting() and e.has_state(C.STATE.IDLE)
 	)
 
 	for e: Entity in entities:
