@@ -14,14 +14,9 @@ func _on_update(_delta: float) -> void:
 		if rally_c.arrived:
 			continue
 
-		e.state = C.STATE.RALLY
 		walk_step(e, rally_c)
 		
-		if not U.is_at_destination(
-			rally_c.rally_pos, 
-			e.global_position, 
-			rally_c.arrived_dist
-		):
+		if not rally_c.is_navigation_finished():
 			continue
 			
 		e.state = C.STATE.IDLE
@@ -29,17 +24,21 @@ func _on_update(_delta: float) -> void:
 		e.play_animation(e.default_animation)
 
 		e._on_arrived_rally(rally_c)
+		
+		if e.has_c(C.CN_MELEE):
+			var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+			melee_c.set_origin_pos(e.global_position)
 
 
 func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	e.play_animation(rally_c.animation)
 	
 	var next_position: Vector2 = rally_c.get_next_path_position()
-	rally_c.direction = (
+	var direction: Vector2 = (
 		next_position - e.global_position
 	).normalized()
 	var velocity: Vector2 = (
-		rally_c.direction 
+		direction 
 		* rally_c.speed 
 		* TimeDB.frame_length
 	)

@@ -281,8 +281,8 @@ func find_sorted_targets(
 		filter: Callable = Callable(),
 		group: String = "",
 		reversed: bool = false
-	) -> Array[Entity]:
-	var targets: Array[Entity] = find_targets_in_range(
+	) -> Array:
+	var targets: Array = find_targets_in_range(
 		origin, max_range, min_range, flags, bans, filter, group
 	)
 	U.sort_array(targets, sort_type, origin, reversed)

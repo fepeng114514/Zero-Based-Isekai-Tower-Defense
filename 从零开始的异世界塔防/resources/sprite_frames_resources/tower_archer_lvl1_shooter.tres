@@ -1,37 +1,42 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://bycnw3c1hx6ch"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://xk8gt6uqtvqv"]
 
 [ext_resource type="Texture2D" uid="uid://c8irc233ysspa" path="res://assets/animated_atlas/animated_towers-1.png" id="1_bhoas"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x1ilm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhoas"]
 atlas = ExtResource("1_bhoas")
 region = Rect2(2246, 3588, 37, 34)
+margin = Rect2(6, 11, 11, 11)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1ilm"]
+atlas = ExtResource("1_bhoas")
+region = Rect2(287, 1707, 25, 41)
+margin = Rect2(9, 4, 23, 4)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5d5nt"]
 atlas = ExtResource("1_bhoas")
-region = Rect2(287, 1707, 25, 41)
+region = Rect2(2327, 3381, 29, 42)
+margin = Rect2(6, 3, 19, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ufpab"]
 atlas = ExtResource("1_bhoas")
-region = Rect2(2327, 3381, 29, 42)
+region = Rect2(2327, 1727, 32, 42)
+margin = Rect2(3, 3, 16, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_84xg1"]
 atlas = ExtResource("1_bhoas")
-region = Rect2(2327, 1727, 32, 42)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dw5ic"]
-atlas = ExtResource("1_bhoas")
 region = Rect2(2288, 3354, 34, 42)
+margin = Rect2(2, 3, 14, 3)
 filter_clip = true
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x1ilm")
+"texture": SubResource("AtlasTexture_bhoas")
 }],
 "loop": true,
 "name": &"idle",
@@ -39,7 +44,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5d5nt")
+"texture": SubResource("AtlasTexture_x1ilm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1ilm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1ilm")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5d5nt")
@@ -55,12 +66,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_84xg1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_84xg1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dw5ic")
 }],
 "loop": true,
 "name": &"ranged",

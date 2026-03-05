@@ -5,8 +5,6 @@ class_name HealthComponent
 
 ## 血条节点引用
 @export var health_bar: Node2D = null
-
-@export_group("属性")
 ## 最大血量，表示实体的最大血量
 @export var hp_max: float = 0
 ## 物理护甲值，表示实体的物理护甲值，护甲可以减少实体受到的物理伤害

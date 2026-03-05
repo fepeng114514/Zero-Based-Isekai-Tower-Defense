@@ -47,7 +47,7 @@ func _do_attack(a: Ranged, e: Entity, target: Entity) -> void:
 	var b = EntityDB.create_entity(a.bullet)
 	b.target_id = target.id
 	b.source_id = e.id
-	b.global_position = e.global_position
+	b.global_position = e.global_position + a.bullet_offset
 	
 	b.insert_entity()
 

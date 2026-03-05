@@ -3,7 +3,6 @@ class_name RallyComponent
 
 @export var speed: float = 100
 @export var rally_radius: float = 30
-@export var arrived_dist: float = 10
 @export var can_click_rally: bool = true
 @export var animation: String = "walk"
 @export var rally_pos := Vector2.ZERO:
@@ -11,13 +10,13 @@ class_name RallyComponent
 		rally_pos = value
 		target_position = value
 
-var direction := Vector2.ZERO
 var arrived: bool = false
 
 
 func new_rally(
-		new_rally_pos: Vector2, new_rally_radius: float = C.UNSET
+		new_rally_pos: Vector2, e: Entity, new_rally_radius: float = C.UNSET
 ) -> void:
+	e.state = C.STATE.RALLY
 	arrived = false
 	rally_pos = new_rally_pos
 	
@@ -25,7 +24,7 @@ func new_rally(
 		rally_radius = new_rally_radius
 
 
-func rally_formation_position(count: int, idx: int) -> void:
+func rally_formation_position(count: int, idx: int, e: Entity) -> void:
 	if count == 1:
 		return
 		
@@ -33,6 +32,6 @@ func rally_formation_position(count: int, idx: int) -> void:
 	var angle: float = (idx - 1) * a - PI / 2
 	
 	var new_rally_pos: Vector2 = U.point_on_circle(
-		rally_pos, rally_radius, angle
+		get_final_position(), rally_radius, angle
 	)
-	new_rally(new_rally_pos)
+	new_rally(new_rally_pos, e)

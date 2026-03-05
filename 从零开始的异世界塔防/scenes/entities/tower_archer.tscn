@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0v2wj"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/archer_shooter.tscn" id="2_4mkqg"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_x6o3l"]
-[ext_resource type="Texture2D" uid="uid://cwnf6geghf4kk" path="res://resources/atlas_texture_resources/archer_tower_0001.tres" id="3_ivbmm"]
+[ext_resource type="Texture2D" uid="uid://bjw24pqqjas30" path="res://resources/atlas_texture_resources/archer_tower_0001.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_d15la"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://components/tower_component.gd" id="7_plukg"]
 
@@ -18,36 +18,36 @@ components = {
 flags = Array[int]([16])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="UIComponent" type="Node" parent="." unique_id=1947190512]
+[node name="UIComponent" type="Node2D" parent="." unique_id=747150892]
 script = ExtResource("6_d15la")
-click_rect = Rect2(-40, -56, 96, 100)
+click_rect = Rect2(-48.615, -94.26, 96.23, 99.49)
 info_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1067981190 node_paths=PackedStringArray("list")]
+position = Vector2(-1, -63)
 script = ExtResource("2_x6o3l")
 list = [NodePath("Sprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=869472279]
-position = Vector2(-8, 0)
 texture = ExtResource("3_ivbmm")
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788 node_paths=PackedStringArray("list")]
+position = Vector2(-14, -66)
 script = ExtResource("7_plukg")
 attack_loop_time = 1.0
 list = [NodePath("ArcherShooter"), NodePath("ArcherShooter2")]
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="ArcherShooter" parent="TowerComponent" unique_id=2011504655 node_paths=PackedStringArray("components") instance=ExtResource("2_4mkqg")]
-position = Vector2(-8, -44)
+position = Vector2(34, -1)
 components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent")
 }
 
 [node name="ArcherShooter2" parent="TowerComponent" unique_id=1394184842 node_paths=PackedStringArray("components") instance=ExtResource("2_4mkqg")]
-position = Vector2(24, -44)
 components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent")

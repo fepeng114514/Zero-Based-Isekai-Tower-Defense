@@ -1,8 +1,0 @@
-[gd_resource type="AtlasTexture" format=3]
-
-[ext_resource type="Texture2D" path="res://assets/image_atlas/image_towers-1.png" id="1_teru7"]
-
-[resource]
-atlas = ExtResource("1_teru7")
-region = Rect2(701, 301, 22, 34)
-filter_clip = true

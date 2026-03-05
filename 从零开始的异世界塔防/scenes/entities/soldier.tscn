@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_8n3d5"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_se3ma"]
-[ext_resource type="SpriteFrames" uid="uid://di8isap4f0g6u" path="res://resources/sprite_frames_resources/soldier_lvl1.tres" id="3_f3yqs"]
+[ext_resource type="SpriteFrames" uid="uid://re82cosobqjk" path="res://resources/sprite_frames_resources/soldier_lvl1.tres" id="3_f3yqs"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="4_5jui1"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_gtjci"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="5_lmejv"]
@@ -28,9 +28,10 @@ list = [NodePath("AnimatedSprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
+position = Vector2(0, -32)
 sprite_frames = ExtResource("3_f3yqs")
 animation = &"idle"
-frame_progress = 0.12773772
+frame_progress = 0.22106922
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("5_lmejv")
@@ -39,15 +40,17 @@ hp_max = 100.0
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_gtjci")]
-position = Vector2(0, -24)
+position = Vector2(0, -40)
 scale = Vector2(1.045, 1.07)
 
-[node name="MeleeComponent" type="Node" parent="." unique_id=1876572876 node_paths=PackedStringArray("list")]
+[node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156 node_paths=PackedStringArray("list")]
 script = ExtResource("4_5jui1")
 list = [NodePath("Melee")]
+is_blocker = true
+melee_slot_offset = Vector2(28.475, 0)
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="Melee" type="Node" parent="MeleeComponent" unique_id=1290538006]
+[node name="Melee" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("6_lmejv")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
@@ -58,7 +61,7 @@ speed = 200.0
 rally_pos = Vector2(600, 500)
 metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
-[node name="UIComponent" type="Node" parent="." unique_id=334115741]
+[node name="UIComponent" type="Node2D" parent="." unique_id=2093072497]
 script = ExtResource("9_8n3d5")
-click_rect = Rect2(-16, -24, 40, 40)
+click_rect = Rect2(-17.7, -34.25, 35.59, 40.08)
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

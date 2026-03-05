@@ -28,7 +28,6 @@ func _on_insert(e: Entity) -> bool:
 	
 	bullet_c.to = bullet_c.predict_target_pos
 	bullet_c.from = e.global_position
-	bullet_c.direction = (bullet_c.to - e.global_position).normalized()
 	e.look_at(bullet_c.to)
 
 	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.global_position.x else 1
@@ -182,8 +181,8 @@ func _trajectory_tracking_update(
 	if is_instance_valid(target):
 		bullet_c.to = target.global_position
 	
-	bullet_c.direction = (bullet_c.to - e.global_position).normalized()
-	e.global_position += bullet_c.direction * bullet_c.speed * TimeDB.frame_length
+	var direction: Vector2 = (bullet_c.to - e.global_position).normalized()
+	e.global_position += direction * bullet_c.speed * TimeDB.frame_length
 	e.look_at(bullet_c.to)
 
 

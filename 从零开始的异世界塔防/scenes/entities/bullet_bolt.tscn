@@ -1,14 +1,18 @@
 [gd_scene format=3 uid="uid://c77v7yq60lpig"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_v6lno"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_8ij7b"]
 
-[node name="BulletBolt" type="Node2D" unique_id=511000022]
+[node name="BulletBolt" type="Node2D" unique_id=511000022 node_paths=PackedStringArray("components")]
 script = ExtResource("1_v6lno")
+components = {
+"SpriteComponent": NodePath("SpriteComponent")
+}
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1810903016]
-position = Vector2(0, 1.9073486e-06)
-rotation = -1.3596113
-scale = Vector2(1, 0.6333333)
-offset = Vector2(-607, -214.73685)
-polygon = PackedVector2Array(597, 203, 606, 230, 616, 200, 606, 213.1579)
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1302005454 node_paths=PackedStringArray("list")]
+script = ExtResource("2_8ij7b")
+list = [NodePath("Sprite2D")]
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=252619909]

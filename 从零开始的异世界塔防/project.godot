@@ -44,6 +44,7 @@ SettingMgr="*uid://dwcme4eew22uo"
 SystemMgr="*res://systems/system_manager.gd"
 TimeDB="*res://autoloads/db/time_db.gd"
 EntityDB="*res://autoloads/db/entity_db.gd"
+GridDB="*uid://bsty3nv6hyvtv"
 PathDB="*res://autoloads/db/path_db.gd"
 LevelMgr="*res://autoloads/manager/level_manager.gd"
 SoundDB="*uid://cc025jxyxcxmc"
@@ -57,12 +58,10 @@ window/size/viewport_height=1440
 
 folder_colors={
 "res://components/": "blue",
+"res://resources/": "yellow",
+"res://scenes/": "green",
 "res://systems/": "blue"
 }
-
-[global_group]
-
-a=""
 
 [input]
 

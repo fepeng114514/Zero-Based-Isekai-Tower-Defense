@@ -1,6 +1,6 @@
 @tool
 extends EditorScript
-class_name GenerateTexture
+
 
 """图集格式
 "图集名.png": {	# 来自哪个图集，主要用于多图集的打包
@@ -10,6 +10,12 @@ class_name GenerateTexture
 			3,
 			2729,
 			1536
+		],
+		"trim": [	# 裁剪透明边
+			5,		# 左裁剪
+			2,		# 上裁剪
+			5,		# 右裁剪
+			0		# 下裁剪
 		],
 		"alias": []	# 别名
 	},
@@ -77,7 +83,14 @@ func _parse_atlas_data(atlas_data: Dictionary, is_animated_atlas: bool) -> void:
 			var atlas_texture: AtlasTexture = _create_atlas_texture(
 				img_data, atlas_file
 			)
-			
+			var trim: Array = img_data.trim
+			var trim_x: int = trim[0]
+			var trim_y: int = trim[1]
+			var trim_w: int = trim_x + trim[2]
+			var trim_h: int = trim_y + trim[3]
+			atlas_texture.margin = Rect2(
+				trim_x, trim_y, trim_w, trim_h
+			)
 			if not is_animated_atlas:
 				_save_atlas_texture(img_name, atlas_texture)
 			
@@ -99,14 +112,16 @@ func _load_sprite_frames() -> void:
 				sprite_frames_db[sprite_frames_name] = new_sprite_frames
 
 			var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]
-				
+			
+			if sprite_frames.has_animation(anim_name):
+				sprite_frames.clear(anim_name)
+			else:
+				sprite_frames.add_animation(anim_name)
+			
 			var fps: float = anim_data.get("fps", 30)
 			var loop: bool = anim_data.get("loop", true)
-			
-			if not sprite_frames.has_animation(anim_name):
-				sprite_frames.add_animation(anim_name)
-				sprite_frames.set_animation_speed(anim_name, fps)
-				sprite_frames.set_animation_loop(anim_name, loop)
+			sprite_frames.set_animation_speed(anim_name, fps)
+			sprite_frames.set_animation_loop(anim_name, loop)
 			
 			var from: int = anim_data.from
 			var to: int = anim_data.to
@@ -115,7 +130,7 @@ func _load_sprite_frames() -> void:
 				var atlas_texture_name: String = "%s_%04d" % [sprite_frames_name, idx]
 				var frame: AtlasTexture = image_db[atlas_texture_name]
 				sprite_frames.add_frame(anim_name, frame)
-				Log.verbose("增加帧: %s" % atlas_texture_name)
+				
 		
 func _create_atlas_texture(
 		img_data: Dictionary, atlas_file: Texture2D
@@ -137,6 +152,9 @@ func _save_atlas_texture(
 	) -> void:
 	var save_path: String = C.PATH_ATLAS_TEXTURE_RESOURCES % atlas_texture_name
 	
+	if ResourceLoader.exists(save_path):
+		return
+		
 	ResourceSaver.save(atlas_texture, save_path)
 	
 	Log.verbose("生成 AtlasTexture: %s.tres" % atlas_texture_name)
@@ -148,6 +166,9 @@ func _save_sprite_frames() -> void:
 		
 		var save_path: String = C.PATH_SPRITE_FRAMES_RESOURCES % sprite_frames_name
 		
+		if ResourceLoader.exists(save_path):
+			continue
+			
 		ResourceSaver.save(sprite_frames, save_path)
 		
 		Log.verbose("生成 SpriteFrames: %s.tres" % sprite_frames_name)

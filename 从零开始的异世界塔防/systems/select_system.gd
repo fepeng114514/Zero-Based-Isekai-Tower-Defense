@@ -4,20 +4,19 @@ class_name SelectSystem
 var select_type: C.SELECT = C.SELECT.NONE
 var last_selected: Entity = null
 
-
 func _ready() -> void:
 	S.select_entity_s.connect(_on_select)
 	S.deselect_entity_s.connect(_on_deselect)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
-		var clicked_global_position: Vector2 = (
-			InputMgr.clicked_global_position
+		var mouse_global_position: Vector2 = (
+			InputMgr.mouse_global_position
 		)
 		
 		var e: Entity = EntityDB.search_target(
 			C.SEARCH.ENTITY_MAX_ID, 
-			clicked_global_position, 
+			mouse_global_position, 
 			C.UNSET, 
 			0, 
 			0, 
@@ -30,7 +29,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 				return ui_c.is_click_at(
 					entity.global_position, 
-					clicked_global_position
+					mouse_global_position
 				)
 		)
 		
@@ -60,9 +59,11 @@ func _on_select(e: Entity) -> void:
 	
 
 func _on_deselect(e: Entity) -> void:
+	var mouse_global_position: Vector2 = InputMgr.mouse_global_position
+
 	match select_type:
 		C.SELECT.RALLY:
 			var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
-			rally_c.new_rally(InputMgr.clicked_global_position)
+			rally_c.new_rally(mouse_global_position, e)
 	
 	select_type = C.SELECT.NONE

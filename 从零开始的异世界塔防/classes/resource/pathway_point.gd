@@ -1,7 +1,5 @@
-extends Resource
-
-## 路径节点，包含所有路径节点信息
 class_name PathwayNode
+## 路径节点，包含所有路径节点信息
 
 
 ## 路径索引

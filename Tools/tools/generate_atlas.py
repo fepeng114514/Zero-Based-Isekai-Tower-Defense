@@ -754,6 +754,9 @@ def gen_json_content(images, results):
                 img["image"].height,
             ]
 
+            trim = img["trim"]
+            current_frame["trim"] = [trim.left, trim.top, trim.right, trim.bottom]
+
             # 相同图片别名
             samed_img = img["samed_img"]
             if len(samed_img) > 0:

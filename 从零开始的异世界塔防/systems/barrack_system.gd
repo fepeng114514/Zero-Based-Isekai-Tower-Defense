@@ -12,7 +12,7 @@ func _on_insert(e: Entity) -> bool:
 		var soldier = respawn_soldier(e, barrack_c)
 		
 		var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
-		s_rally_c.rally_formation_position(max_soldiers, i)
+		s_rally_c.rally_formation_position(max_soldiers, i, soldier)
 		
 	return true
 	
@@ -36,7 +36,7 @@ func _on_update(_delta: float) -> void:
 				var soldier: Entity = soldiers_list[i]
 				var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
 		
-				s_rally_c.rally_formation_position(soldier_count, i)
+				s_rally_c.rally_formation_position(soldier_count, i, soldier)
 		
 		barrack_c.last_soldier_count = soldier_count
 		
@@ -59,7 +59,7 @@ func respawn_soldier(
 	else:
 		rally_c = soldier.get_c(C.CN_RALLY)
 		
-	rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
+	rally_c.new_rally(barrack_c.rally_pos, soldier, barrack_c.rally_radius)
 		
 	if not barrack._on_barrack_respawn(soldier, barrack_c):
 		return soldier

@@ -1,14 +1,14 @@
 @tool
-extends Node
-
-## 近战组件，负责管理实体的近战属性和行为，例如近战攻击范围、近战攻击伤害、近战攻击效果等。
+extends Node2D
 class_name MeleeComponent
+## 近战组件，负责管理实体的近战属性和行为，例如近战攻击范围、近战攻击伤害、近战攻击效果等。
 
-
+## 近战攻击列表，表示实体当前拥有的近战攻击列表
+@export var list: Array[Melee] = []
 ## 是否是拦截者，表示实体是否具有拦截能力
 @export var is_blocker: bool = false
-## 是否是被动障碍，表示实体是否作为被动障碍存在（不主动拦截敌人），通常用于某些特殊的实体，例如路障等
-@export var is_passive_obstacle: bool = false
+## 是否是被动拦截者，表示拦截者不主动前往拦截敌人
+@export var is_passive: bool = false
 ## 拦截最小范围，单位为像素
 @export var block_min_range: float = 0
 ## 拦截最大范围，单位为像素
@@ -17,10 +17,19 @@ class_name MeleeComponent
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
 ## 最大可以被拦截数量，表示实体最多可以同时拦截多少个被拦截者，超过该数量后将不再拦截新的被拦截者
 @export var max_blocked: int = 1
-## 是否是被拦截者
-@export var is_blocked: bool = false
 ## 拦截成本，表示被拦截者的拦截成本
 @export var block_cost: int = 1
+## 移动速度，表示实体前往近战位置的移动速度，单位为像素/秒
+@export var speed: float = 100
+## 近战位置偏移，表示近战位置相对于实体位置的偏移，通常用于调整实体的近战位置
+@export var melee_slot_offset := Vector2.ZERO:
+	set(value):
+		melee_slot_offset = value
+		queue_redraw()
+## 到达近战位置的阈值
+@export var arrived_dist: float = 10
+
+@export_group("限制相关")
 @export var block_flags: Array[C.FLAG] = []:
 	set(value): 
 		block_flags = value
@@ -29,21 +38,11 @@ class_name MeleeComponent
 	set(value): 
 		block_bans = value
 		block_ban_bits = U.merge_flags(value)
-## 移动速度，表示实体前往近战位置的移动速度，单位为像素/秒
-@export var motion_speed: float = 100
-## 近战位置偏移，表示近战位置相对于实体位置的偏移，通常用于调整实体的近战位置
-@export var melee_slot_offset := Vector2.ZERO
-## 到达近战位置的阈值
-@export var arrived_dist: float = 10
-## 近战攻击列表，表示实体当前拥有的近战攻击列表
-@export var list: Array[Melee] = []
 
 var block_flag_bits: int = 0
 var block_ban_bits: int = 0
-## 拦截者 ID，表示实体当前被哪个拦截者拦截，通常用于被拦截者追踪自己的拦截者
+## 拦截者 ID，表示实体当前被哪个拦截者拦截
 var blocker_id: int = C.UNSET
-## 移动方向，表示实体的移动方向
-var motion_direction := Vector2.ZERO
 ## 拦截数量，表示实体当前已经拦截的被拦截者数量，通常用于判断是否可以继续拦截新的被拦截者
 ## [br]
 ## 计算拦截数量时，通常会根据被拦截者的拦截成本进行计算，例如某些被拦截者可能具有较高的拦截成本，导致它们占用更多的拦截数量
@@ -85,6 +84,18 @@ func _update_list() -> void:
 ## 当节点树变化时自动更新
 func _notification(what: int) -> void:
 	U.tool_on_tree_call(self, what, _update_list)
+	
+	
+func _draw() -> void:
+	if not Engine.is_editor_hint():
+		return
+		
+	draw_circle(
+		melee_slot_offset, 
+		3,
+		Color.GREEN, 
+		true
+	)
 
 
 ## 计算被拦截者数量（考虑拦截代价）
@@ -148,3 +159,4 @@ func cleanup_blocker() -> void:
 	
 	if not EntityDB.get_entity_by_id(blocker_id):
 		blocker_id = C.UNSET
+		

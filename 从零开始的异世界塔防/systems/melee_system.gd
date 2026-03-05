@@ -8,69 +8,84 @@ class_name MeleeSystem
 """
 
 
+func _on_insert(e: Entity) -> bool:
+	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+	if not melee_c:
+		return true
+		
+	melee_c.set_origin_pos(e.global_position)
+		
+	return true
+
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_MELEE).filter(
 		func(e: Entity) -> bool:
-			return not e.is_waiting() and e.has_state(C.STATE.MELEE | C.STATE.IDLE)
+			return (
+				not e.is_waiting() 
+				and e.has_state(C.STATE.MELEE | C.STATE.IDLE)
+			)
 	)
+	
+	_process_blockers(entities)
+	_process_blockeds(entities)
+	
 
+## 处理拦截者
+func _process_blockers(entities: Array) -> void:
 	for e: Entity in entities:
 		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
-		melee_c.cleanup_blocker()
+		if not melee_c.is_blocker:
+			continue
+			
+		# 清理与计算被拦截者数量（考虑代价）
 		melee_c.cleanup_blockeds()
 		melee_c.calculate_blocked_count()
+		
+		# 超过最大拦截数量不进行索敌
+		if melee_c.blocked_count < melee_c.max_blocked:
+			var pending_blockeds: Array = _find_pending_blocked(
+				e, melee_c
+			)
+			_process_pending_blockeds(e, melee_c, pending_blockeds)
+		
+		var blockeds_ids: Array = melee_c.blockeds_ids
+		
+		# 有被拦截者，前往近战位置，尝试攻击被拦截者
+		if blockeds_ids:
+			var blocked: Entity = EntityDB.get_entity_by_id(
+				blockeds_ids[0]
+			)
+			e.state = C.STATE.MELEE
 			
-		if melee_c.is_blocker:
-			_process_blocker(e, melee_c)
-		elif melee_c.is_blocked:
-			_process_blocked(e, melee_c)
-			
-		if not melee_c.blockeds_ids:
-			return
-			
-		var blocked_id: int = melee_c.blockeds_ids[0]
-		var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
-		for a: Melee in melee_c.list:
-			if not can_attack(a, blocked):
-				continue
+			# 是被动拦截者不前往近战位置
+			if not melee_c.is_passive:
+				var blocked_melee_c: MeleeComponent = blocked.get_c(
+					C.CN_MELEE
+				)
+				melee_c.set_melee_slot(
+					blocked.global_position 
+					+ blocked_melee_c.melee_slot_offset
+				)
+				melee_c.origin_pos_arrived = false
 				
-			_do_attack(e, a, melee_c, blocked)
-	
-
-func _process_blocker(e: Entity, melee_c: MeleeComponent) -> void:
-	var blockeds_ids: Array = melee_c.blockeds_ids
-	
-	if blockeds_ids and melee_c.blocked_count >= melee_c.max_blocked:
-		return
-		
-	if not melee_c.melee_slot_arrived:
-		_go_melee_slot(e, melee_c)
-		return
-		
-	var targets: Array = _find_blocked(e, melee_c)
-		
-	if not targets and not blockeds_ids:
-		melee_c.melee_slot_arrived = true
-		
-		if melee_c.origin_pos_arrived:
-			return
+				if not melee_c.melee_slot_arrived:
+					_go_melee_slot(e, melee_c)
+					continue
 			
-		_back_origin_pos(e, melee_c)
-	
-	if not targets or melee_c.is_passive_obstacle:
-		return
-		
-	var blocked: Entity = EntityDB.get_entity_by_id(blockeds_ids[0])
-	var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
-	var melee_slot: Vector2 = blocked.global_position + blocked_melee_c.melee_slot_offset
-	e.state = C.STATE.MELEE
+			_try_attack(e, melee_c, blocked)
+		else:
+			e.state = C.STATE.IDLE
+			melee_c.melee_slot_arrived = true
+			# 默认 origin_pos_arrived 为 true
+			# 到达原位置重设原位置
+			if melee_c.origin_pos_arrived:
+				melee_c.set_origin_pos(e.global_position)
+			else:
+				_back_origin_pos(e, melee_c)
 
-	melee_c.set_melee_slot(melee_slot)
-	if melee_c.origin_pos_arrived:
-		melee_c.set_origin_pos(e.global_position)
-	
 
-func _find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
+## 寻找待定被拦截者
+func _find_pending_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 	var filter = func(entity) -> bool: return (
 		entity.has_c(C.CN_MELEE) and not entity.id in melee_c.blockeds_ids
 	)
@@ -86,73 +101,107 @@ func _find_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 		melee_c.block_ban_bits, 
 		filter
 	)	
+	
+	return targets
+	
 
-	for t in targets:
+## 处理待定被拦截者
+func _process_pending_blockeds(
+		e: Entity, melee_c: MeleeComponent, pending_blockeds: Array
+) -> void:
+	for t: Entity in pending_blockeds:
 		melee_c.calculate_blocked_count()
 		if melee_c.blocked_count >= melee_c.max_blocked:
 			break
 		
 		var t_melee_c: MeleeComponent = t.get_c(C.CN_MELEE)
-		var t_melee_slot: Vector2 = e.global_position + melee_c.melee_slot_offset
 		t_melee_c.blocker_id = e.id
 		melee_c.blockeds_ids.append(t.id)
-		t.state = C.STATE.MELEE
-		t_melee_c.set_melee_slot(t_melee_slot)
-		t_melee_c.set_origin_pos(t.global_position)
-	
-	return targets
-	
 
-func _process_blocked(e: Entity, melee_c: MeleeComponent) -> void:
-	var blocker_id: int = melee_c.blocker_id
-	
-	if not U.is_valid_number(blocker_id):
-		melee_c.melee_slot_arrived = true
-		
-		if melee_c.origin_pos_arrived:
-			return
+
+## 处理被拦截者
+func _process_blockeds(entities: Array) -> void:
+	for e: Entity in entities:
+		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+		if melee_c.is_blocker:
+			continue
 			
-		_back_origin_pos(e, melee_c)
-		return
-	
-	var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
-	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
-	var blocker_blockeds_ids: Array = blocker_melee_c.blockeds_ids
-	
-	if (
-		not blocker_blockeds_ids 
-		or not blocker_melee_c.is_passive_obstacle
-		and blocker_blockeds_ids[0] == e.id
-	):
-		return
+		melee_c.cleanup_blocker()
+		var blocker_id: int = melee_c.blocker_id
 		
-	if not melee_c.melee_slot_arrived:
-		_go_melee_slot(e, melee_c)
-		return
+		if not U.is_valid_number(blocker_id):
+			e.state = C.STATE.IDLE
+			melee_c.melee_slot_arrived = true
+			
+			if melee_c.melee_slot_arrived:
+				melee_c.set_origin_pos(e.global_position)
+			else:
+				_back_origin_pos(e, melee_c)
+			continue
+		
+		var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
+		var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
+		
+		e.state = C.STATE.MELEE
+		if e.id == blocker_melee_c.blockeds_ids[0]:
+			continue
 	
-	if not melee_c.melee_slot_arrived:
-		_go_melee_slot(e, melee_c)
+		melee_c.set_melee_slot(
+			blocker.global_position 
+			+ blocker_melee_c.melee_slot_offset
+		)
+		melee_c.origin_pos_arrived = false
+			
+		if not melee_c.melee_slot_arrived:
+			_go_melee_slot(e, melee_c)
+			return
+
+		_try_attack(e, melee_c, blocker)
 
 
 func _go_melee_slot(e: Entity, melee_c: MeleeComponent) -> void:
-	melee_c.motion_direction = (melee_c.melee_slot - e.global_position).normalized()
-	e.global_position += melee_c.motion_direction * melee_c.motion_speed * TimeDB.frame_length
+	var direction: Vector2 = (
+		melee_c.melee_slot - e.global_position
+	).normalized()
+	e.global_position += (
+		direction 
+		* melee_c.speed 
+		* TimeDB.frame_length
+	)
 	
-	if not U.is_at_destination(e.global_position, melee_c.melee_slot, melee_c.arrived_dist):
+	if not U.is_at_destination(
+			e.global_position, melee_c.melee_slot, melee_c.arrived_dist
+	):
 		return
 		
 	melee_c.melee_slot_arrived = true
 	
 
 func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> void:
-	melee_c.motion_direction = (melee_c.origin_pos - e.global_position).normalized()
-	e.global_position += melee_c.motion_direction * melee_c.motion_speed * TimeDB.frame_length
+	var direction: Vector2 = (
+		melee_c.origin_pos - e.global_position
+	).normalized()
+	e.global_position += (
+		direction 
+		* melee_c.speed 
+		* TimeDB.frame_length
+	)
 	
-	if not U.is_at_destination(e.global_position, melee_c.origin_pos, melee_c.arrived_dist):
+	if not U.is_at_destination(
+			e.global_position, melee_c.origin_pos, melee_c.arrived_dist
+	):
 		return
 		
 	melee_c.origin_pos_arrived = true
 	e.state = C.STATE.IDLE
+
+
+func _try_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> void:
+	for a: Melee in melee_c.list:
+		if not can_attack(a, target):
+			continue
+			
+		_do_attack(e, a, melee_c, target)
 
 
 func _do_attack(e: Entity, a: Melee, _melee_c: MeleeComponent, blocked: Entity) -> void:

@@ -46,8 +46,6 @@ var from := Vector2.ZERO
 var to := Vector2.ZERO
 ## 时间戳，用于记录子弹的飞行时间，单位为秒
 var ts: float = 0
-## 方向向量，表示子弹的飞行方向
-var direction := Vector2.RIGHT
 ## 子弹向量速度，表示子弹的飞行方向和速度，单位为像素/秒，通常用于非线性飞行轨迹的子弹
 var velocity := Vector2.ZERO
 ## 预判目标位置，表示子弹根据目标的移动速度和方向预判的目标位置，单位为像素

@@ -1,5 +1,5 @@
 @tool
-extends Node
+extends Node2D
 class_name RangedComponent
 
 ## 是否禁用索敌

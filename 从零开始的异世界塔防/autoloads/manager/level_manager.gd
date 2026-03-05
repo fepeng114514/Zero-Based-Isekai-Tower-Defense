@@ -10,6 +10,7 @@ func enter_level(idx: int) -> void:
 	
 	EntityDB.load()
 	PathDB.load()
+	GridDB.load()
 
 	get_tree().change_scene_to_file(
 		C.PATH_LEVELS_SCENES % idx

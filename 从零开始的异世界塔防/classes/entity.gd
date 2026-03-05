@@ -322,7 +322,7 @@ func set_pos(pos: Vector2) -> void:
 	if has_c(C.CN_RALLY):
 		var rally_c: RallyComponent = get_c(C.CN_RALLY)
 		
-		rally_c.new_rally(pos)
+		rally_c.new_rally(pos, self)
 	
 	if has_c(C.CN_NAV_PATH):
 		set_nav_path_at_pos(pos)
