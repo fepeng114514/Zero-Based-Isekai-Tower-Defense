@@ -4,12 +4,13 @@ extends Camera2D
 class_name Camera
 
 
+@export var zoom_factor: float = 1.1
+@export var zoom_duration: float = 0.2
+@export var zoom_min: float = 0
+@export var zoom_max: float = 1.5
+
 var dragging: bool = false
 var drag_start_position := Vector2.ZERO
-var zoom_factor: float = 1.1
-var zoom_duration: float = 0.2
-var zoom_min: float = 0
-var zoom_max: float = 2
 
 func _ready() -> void:
 	S.resized_window_s.connect(_on_resized_window)

@@ -7,9 +7,6 @@ func _on_update(e: Entity) -> bool:
 		return false
 		
 	for a: RangedAttack in ranged_c.list:
-		if not a.with_melee:
-			return false
-		
 		var target: Entity = null
 		
 		if U.is_valid_number(e.target_id):
@@ -35,7 +32,9 @@ func _on_update(e: Entity) -> bool:
 	
 func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.play_animation(a.animation)
-	await e.y_wait(a.delay)
+	await e.y_wait(a.delay, func() -> bool:
+		return not target
+	)
 	e.play_animation(e.default_animation)
 	a.ts = TimeDB.tick_ts
 

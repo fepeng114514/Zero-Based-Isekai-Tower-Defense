@@ -55,6 +55,7 @@ func get_mod_speed_factor(e: Entity) -> float:
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 	e.play_animation(nav_path_c.animation)
+	nav_path_c.is_walking = true
 	
 	var walk_lenth: float = nav_path_c.speed * TimeDB.frame_length
 	
@@ -108,3 +109,11 @@ func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> voi
 			and nav_path_c.loop_count > nav_path_c.loop_times
 	):
 		e.remove_entity()
+
+
+func _on_break(e: Entity) -> void:
+	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+	if not nav_path_c:
+		return
+		
+	nav_path_c.is_walking = false

@@ -32,11 +32,11 @@ func get_time(ts: float) -> float:
 	return tick_ts - ts
 
 
-## 协程等待
+## 协程等待，break_fn 返回 true 表示中断等待
 func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 	var ts: float = tick_ts
 	while (
 		not is_ready_time(ts, time) 
-		and (not break_fn.is_valid() or break_fn.call())
+		and (not break_fn.is_valid() or not break_fn.call())
 	):
 		await S.continue_s

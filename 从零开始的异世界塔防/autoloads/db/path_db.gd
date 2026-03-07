@@ -99,26 +99,33 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	
 
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
-	if (
-		not target.has_c(C.CN_NAV_PATH)
-	):
-		return target.global_position
+	if target.has_c(C.CN_NAV_PATH):
+		var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
 		
-	var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
-	var progress: float = nav_path_c.nav_progress
-	var walk_lenth: float = nav_path_c.speed * walk_time
+		if nav_path_c.is_walking:
+			var progress: float = nav_path_c.nav_progress
+			var walk_lenth: float = nav_path_c.speed * walk_time
+			
+			if nav_path_c.reversed:
+				progress -= walk_lenth
+			else:
+				progress += walk_lenth
+				
+			var predict_pos: Vector2 = nav_path_c.get_progress_pos(
+				progress
+			)
+			
+			return predict_pos
+	#
+	#if target.has_c(C.CN_MELEE):
+		#var melee_c: MeleeComponent = target.get_c(C.CN_MELEE)
+		#
+		#if not melee_c.origin_pos_arrived or not melee_c.mel:
 	
-	if nav_path_c.reversed:
-		progress -= walk_lenth
-	else:
-		progress += walk_lenth
-	var predict_pos: Vector2 = nav_path_c.get_progress_pos(progress)
-	
-	return predict_pos
+	return Vector2.ZERO
 
 
-## 获取指定路径上按距离排序的所有节点
-## [br]
+## 获取指定路径上按距离排序的所有节点 [br]
 ## 可指定搜索的路径与子路径，不指定将会在所有路径搜索
 func get_nearst_nodes_list(
 		origin: Vector2, 
@@ -149,8 +156,7 @@ func get_nearst_nodes_list(
 	return nodes
 	
 
-## 获取最近的路径上的一个节点
-## [br]
+## 获取最近的路径上的一个节点 [br]
 ## 可指定搜索的路径、子路径，不指定将会在所有路径搜索
 func get_nearst_node(
 		origin: Vector2, 

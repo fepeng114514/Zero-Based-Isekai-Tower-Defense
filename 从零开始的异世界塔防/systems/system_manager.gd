@@ -65,11 +65,12 @@ func _process_remove_queue() -> void:
 	while remove_queue:
 		var e = remove_queue.pop_front()
 		
-		if not U.is_vaild_entity(e):
+		if not is_instance_valid(e):
 			continue
 		
 		# 调用所有系统中的移除回调函数，遇到一个返回 false 的系统表示当前实体不能移除，中断并保留当前实体
 		if not call_systems("_on_remove", e):
+			e.removed = false
 			continue
 			
 		EntityDB.mark_entity_dirty_id(e.id)

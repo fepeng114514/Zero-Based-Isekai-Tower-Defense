@@ -465,7 +465,7 @@ static func get_component_name(node_name: String) -> String:
 
 ## 判断实体是否有效
 static func is_vaild_entity(e) -> bool:
-	return e and is_instance_valid(e)
+	return e and is_instance_valid(e) and not e.removed
 
 
 static func is_allowed_entity(e: Variant, target: Entity) -> bool:

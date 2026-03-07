@@ -29,7 +29,7 @@ list = [NodePath("AnimatedSprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
-position = Vector2(0, -16)
+position = Vector2(0, -19)
 sprite_frames = ExtResource("3_wdwo4")
 animation = &"idle"
 frame_progress = 0.5298479
@@ -37,7 +37,7 @@ frame_progress = 0.5298479
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("4_bfbt7")
 health_bar = NodePath("HealthBar")
-hp_max = 100.0
+hp_max = 1000.0
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]
@@ -63,5 +63,5 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 script = ExtResource("9_cit00")
 min_damage = 30.0
 max_damage = 30.0
-delay = 0.433
+delay = 0.4
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

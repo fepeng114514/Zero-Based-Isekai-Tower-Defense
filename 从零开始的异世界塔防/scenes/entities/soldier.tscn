@@ -28,14 +28,14 @@ list = [NodePath("AnimatedSprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
-position = Vector2(0, -32)
+position = Vector2(0, -35)
 sprite_frames = ExtResource("3_f3yqs")
 animation = &"idle"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("5_lmejv")
 health_bar = NodePath("HealthBar")
-hp_max = 200.0
+hp_max = 60.0
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_gtjci")]
@@ -45,7 +45,7 @@ scale = Vector2(1.045, 1.07)
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156 node_paths=PackedStringArray("list")]
 script = ExtResource("4_5jui1")
 list = [NodePath("MeleeAttack")]
-melee_pos_offset = Vector2(28.475, 0)
+melee_pos_offset = Vector2(33.47, 0)
 is_blocker = true
 max_blocked = 2
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"

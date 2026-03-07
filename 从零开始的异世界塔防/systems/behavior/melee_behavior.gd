@@ -1,12 +1,14 @@
 extends Behavior
 class_name MeleeBehavior
 
-"""近战系统:
-	管理实体的近战攻击拦截
-	对于拦截者: 寻找与标记被拦截者状态，仅前往拦截第一个被拦截者（前往被拦截者的近战位置）
-	对于被拦截者: 如果是被第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
-"""
-
+## 近战行为系统: [br]
+## 管理实体的近战攻击拦截 [br]
+## 对于拦截者: 寻找与标记被拦截者状态，仅前往第一个被拦截者的近战位置
+## 对于被拦截者: 如果是被第一个拦截，则原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
+## 近战行为分为: [br]
+## 1. 多个被拦截者对一个拦截者 [br]
+## 2. 多个拦截者对一个被拦截者 [br]
+## 3. 多个拦截者对多个被拦截者
 
 func _on_update(e: Entity) -> bool:
 	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
@@ -48,7 +50,18 @@ func _process_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 		
 	# 有被拦截者，前往近战位置，尝试攻击被拦截者
-	var blocked: Entity = EntityDB.get_entity_by_id(
+	for blocked_id: int in blockeds_ids:
+		var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
+		var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+		
+		if U.is_valid_number(blocked_melee_c.blocker_id):
+			continue
+			
+		blocked_melee_c.blocker_id = e.id
+		blocked_melee_c.is_first_found_target = false
+		blocked_melee_c.melee_pos_arrived = false
+	
+	var first_blocked: Entity = EntityDB.get_entity_by_id(
 		blockeds_ids[0]
 	)
 		
@@ -59,17 +72,17 @@ func _process_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	
 	# 非被动拦截者前往近战位置
 	if not melee_c.is_passive:
-		var blocked_melee_c: MeleeComponent = blocked.get_c(
+		var blocked_melee_c: MeleeComponent = first_blocked.get_c(
 			C.CN_MELEE
 		)
 		melee_c.melee_pos = (
-			blocked.global_position 
+			first_blocked.global_position 
 			+ blocked_melee_c.melee_pos_offset
 		)
 		if not _go_melee_pos(e, melee_c):
 			return true
 		
-	_try_attack(e, melee_c, blocked)
+	_try_attack(e, melee_c, first_blocked)
 	return true
 
 
@@ -143,8 +156,8 @@ func _process_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 			return true
 	
 	if (
-			not is_first_blocked
-			or not blocker_melee_c.melee_pos_arrived
+			not is_first_blocked and not melee_c.melee_pos_arrived
+			or is_first_blocked and not blocker_melee_c.melee_pos_arrived
 		):
 		e.play_animation(e.default_animation)
 		return true
@@ -160,13 +173,17 @@ func _go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 		melee_c.melee_pos_arrived = true
 		return true
 	
-	var direction: Vector2 = e.global_position.direction_to(melee_c.melee_pos)
-
-	e.global_position += (
+	var direction: Vector2 = e.global_position.direction_to(
+		melee_c.melee_pos
+	)
+	var velocity: Vector2 = (
 		direction 
 		* melee_c.speed 
 		* TimeDB.frame_length
 	)
+	melee_c.velocity = velocity
+	e.global_position += velocity
+	
 	e.play_animation(melee_c.motion_animation)
 	return false
 	
@@ -177,13 +194,17 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 		melee_c.origin_pos_arrived = true
 		return true
 	
-	var direction: Vector2 = e.global_position.direction_to(melee_c.origin_pos)
-	
-	e.global_position += (
+	var direction: Vector2 = e.global_position.direction_to(
+		melee_c.origin_pos
+	)
+	var velocity: Vector2 = (
 		direction 
 		* melee_c.speed 
 		* TimeDB.frame_length
 	)
+	melee_c.velocity = velocity
+	e.global_position += velocity
+	
 	e.play_animation(melee_c.motion_animation)
 	return false
 	
@@ -193,16 +214,21 @@ func _try_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> void:
 		if not can_attack(a, target):
 			continue
 			
-		_do_attack(e, a, melee_c, target)
+		_do_attack(e, a, target)
 		break
 
 
-func _do_attack(e: Entity, a: MeleeAttack, _melee_c: MeleeComponent, target: Entity) -> void:
+func _do_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 	Log.verbose("近战攻击: %s" % e)
 	e.play_animation(a.animation)
-	await e.y_wait(a.delay)
+	await e.y_wait(a.delay, func() -> bool:
+		return not U.is_vaild_entity(target)
+	)
 	e.play_animation(e.default_animation)
 	a.ts = TimeDB.tick_ts
+	
+	if not U.is_vaild_entity(target):
+		return
 	
 	EntityDB.create_damage(
 		target.id, a.min_damage, a.max_damage, a.damage_type, e.id

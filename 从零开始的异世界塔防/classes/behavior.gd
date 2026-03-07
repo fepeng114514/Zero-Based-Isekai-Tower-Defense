@@ -16,10 +16,16 @@ func _on_remove(e: Entity) -> bool: return true
 func _on_update(e: Entity) -> bool: return false
 
 
+## 更新回调返回 false 时调用
 func _on_return_false(e: Entity) -> void: pass
 
 
+## 更新回调返回 true 时调用
 func _on_return_true(e: Entity) -> void: pass
+
+
+## 更新回调阻挡后续行为时调用
+func _on_break(e: Entity) -> void: pass
 @warning_ignore_restore("unused_parameter")
 #endregion
 

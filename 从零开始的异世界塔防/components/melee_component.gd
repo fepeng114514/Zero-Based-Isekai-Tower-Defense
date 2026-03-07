@@ -64,6 +64,7 @@ var melee_pos := Vector2.ZERO
 var melee_pos_arrived: bool = true
 ## 是否第一次找到敌人
 var is_first_found_target: bool = true
+var velocity := Vector2.ZERO
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -153,13 +154,13 @@ func cleanup_blockeds() -> void:
 
 ## 清理无效拦截者
 func cleanup_blocker(blocked: Entity) -> void:
-	if not U.is_valid_number(blocker_id):
-		return
-	
 	var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
 	
 	if not blocker:
-		reset_blocked()
+		if not is_first_found_target:
+			melee_pos_arrived = true
+			
+		blocker_id = C.UNSET
 		return
 		
 	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
@@ -170,19 +171,13 @@ func cleanup_blocker(blocked: Entity) -> void:
 			) 
 			> blocker_melee_c.block_max_range
 		):
-		reset_blocked()
+		if not is_first_found_target:
+			melee_pos_arrived = true
+		blocker_id = C.UNSET
 		blocker_melee_c.reset_blocker()
-
-
-func reset_blocked() -> void:
-	blocker_id = C.UNSET
-	is_first_found_target = true
-	melee_pos_arrived = true
-	origin_pos_arrived = true
 
 
 func reset_blocker() -> void:
 	blockeds_ids.clear()
 	is_first_found_target = true
 	melee_pos_arrived = true
-	origin_pos_arrived = true

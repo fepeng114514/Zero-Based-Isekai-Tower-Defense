@@ -2,10 +2,8 @@
 extends Node2D
 class_name Entity
 
-## 实体节点:
-## [br]
-## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。
-## [br]
+## 实体节点: [br]
+## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。 [br]
 ## 实体类负责管理实体的基本属性和组件，并提供一些通用的接口和事件回调，供系统和组件调用。
 
 #region 属性
@@ -95,6 +93,8 @@ var waiting: bool = false
 var blocking: bool = false
 ## 是否被点击选择
 var selected: bool = false
+## 移除状态，表示实体正在被移除
+var removed: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 #endregion
@@ -206,6 +206,7 @@ func insert_entity() -> void:
 
 
 func remove_entity() -> void:
+	removed = true
 	SystemMgr.remove_queue.append(self)
 	Log.debug("移除实体: %s" % self)
 
@@ -361,7 +362,7 @@ func wait_animation(
 #endregion
 
 
-## 协程等待
+## 协程等待，break_fn 返回 true 表示中断等待
 func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 	waiting = true
 	Log.verbose("实体等待: %s, %.2f" % [self, time])

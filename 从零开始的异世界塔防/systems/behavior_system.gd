@@ -58,6 +58,7 @@ func _on_update(_delta: float) -> void:
 		
 		if result:
 			call_systems("_on_return_true", e)
+			call_systems("_on_break", e)
 			continue
 
 		call_systems("_on_return_false", e)
