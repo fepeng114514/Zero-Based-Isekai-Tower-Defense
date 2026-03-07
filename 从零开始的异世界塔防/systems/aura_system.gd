@@ -134,13 +134,14 @@ func _on_update(_delta: float) -> void:
 		aura_c.ts = TimeDB.tick_ts
 
 
-func _on_remove(e: Entity) -> void:
+func _on_remove(e: Entity) -> bool:
 	if not e.has_c(C.CN_AURA):
-		return
+		return true
 	
 	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
 
 	if not source:
-		return
+		return true
 	
 	source.has_auras_ids.erase(e.id) 
+	return true

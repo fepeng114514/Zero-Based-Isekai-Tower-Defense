@@ -1,5 +1,5 @@
-extends System
-class_name BarrackSystem
+extends Behavior
+class_name BarrackBehavior
 
 func _on_insert(e: Entity) -> bool:
 	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
@@ -12,34 +12,36 @@ func _on_insert(e: Entity) -> bool:
 		var soldier = respawn_soldier(e, barrack_c)
 		
 		var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
-		s_rally_c.rally_formation_position(max_soldiers, i, soldier)
+		s_rally_c.rally_formation_position(max_soldiers, i)
 		
 	return true
 	
-
-func _on_update(_delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.CN_BARRACK):
-		var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
-		barrack_c.cleanup_soldiers()
-		
-		var soldiers_list: Array = barrack_c.soldiers_list
-		var soldier_count: int = soldiers_list.size()
-		
-		# 根据重生时间生成士兵
-		if TimeDB.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
-			if respawn_soldier(e, barrack_c):
-				barrack_c.ts = TimeDB.tick_ts
-		
-		# 士兵数发生变化重新整队
-		if barrack_c.last_soldier_count != soldier_count:
-			for i in range(soldier_count):
-				var soldier: Entity = soldiers_list[i]
-				var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
-		
-				s_rally_c.rally_formation_position(soldier_count, i, soldier)
-		
-		barrack_c.last_soldier_count = soldier_count
-		
+#
+#func _on_update(e: Entity) -> bool:
+	#var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
+	#if not barrack_c:
+		#return false
+		#
+	#barrack_c.cleanup_soldiers()
+	#
+	#var soldiers_list: Array = barrack_c.soldiers_list
+	#var soldier_count: int = soldiers_list.size()
+	#
+	## 根据重生时间生成士兵
+	#if TimeDB.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
+		#if respawn_soldier(e, barrack_c):
+			#barrack_c.ts = TimeDB.tick_ts
+	#
+	## 士兵数发生变化重新整队
+	#if barrack_c.last_soldier_count != soldier_count:
+		#for i in range(soldier_count):
+			#var soldier: Entity = soldiers_list[i]
+			#var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
+	#
+			#s_rally_c.rally_formation_position(soldier_count, i)
+	#
+	#barrack_c.last_soldier_count = soldier_count
+		#
 
 func respawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent
@@ -59,7 +61,7 @@ func respawn_soldier(
 	else:
 		rally_c = soldier.get_c(C.CN_RALLY)
 		
-	rally_c.new_rally(barrack_c.rally_pos, soldier, barrack_c.rally_radius)
+	rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
 		
 	if not barrack._on_barrack_respawn(soldier, barrack_c):
 		return soldier

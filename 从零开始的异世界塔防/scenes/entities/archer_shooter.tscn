@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_4mkqg"]
 [ext_resource type="SpriteFrames" uid="uid://xk8gt6uqtvqv" path="res://resources/sprite_frames_resources/tower_archer_lvl1_shooter.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="4_d15la"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged.gd" id="5_plukg"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged_attack.gd" id="5_plukg"]
 
 [node name="ArcherShooter" type="Node2D" unique_id=2011504655 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0v2wj")
@@ -28,10 +28,10 @@ frame_progress = 0.64574236
 
 [node name="RangedComponent" type="Node2D" parent="." unique_id=129640034 node_paths=PackedStringArray("list")]
 script = ExtResource("4_d15la")
-list = [NodePath("Ranged")]
+list = [NodePath("RangedAttack")]
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
-[node name="Ranged" type="Node2D" parent="RangedComponent" unique_id=1939030855]
+[node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
 script = ExtResource("5_plukg")
 max_range = 300.0
 bullet = 1

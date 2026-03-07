@@ -118,13 +118,14 @@ func _on_update(_delta: float) -> void:
 		mod_c.ts = TimeDB.tick_ts
 	
 
-func _on_remove(e: Entity) -> void:
+func _on_remove(e: Entity) -> bool:
 	if not e.has_c(C.CN_MODIFIER):
-		return
+		return true
 	
 	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 
 	if not target:
-		return
+		return true
 
 	target.has_mods_ids.erase(e.id)
+	return true

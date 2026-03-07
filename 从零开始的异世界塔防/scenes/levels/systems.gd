@@ -6,6 +6,9 @@ class_name Systems
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	SystemMgr.load(list)
 	
 	
@@ -16,6 +19,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("没有系统子节点！ 请至少增加一个系统子节点。")
 	
 	return warnings
+	
 
 ## 自动更新列表
 func _update_list() -> void:
@@ -28,6 +32,7 @@ func _update_list() -> void:
 	if new_list != list:
 		list = new_list
 		notify_property_list_changed()
+
 
 ## 当节点树变化时自动更新
 func _notification(what: int) -> void:

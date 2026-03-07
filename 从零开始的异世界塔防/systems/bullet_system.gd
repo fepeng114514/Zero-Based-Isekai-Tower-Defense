@@ -181,7 +181,7 @@ func _trajectory_tracking_update(
 	if is_instance_valid(target):
 		bullet_c.to = target.global_position
 	
-	var direction: Vector2 = (bullet_c.to - e.global_position).normalized()
+	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
 	e.global_position += direction * bullet_c.speed * TimeDB.frame_length
 	e.look_at(bullet_c.to)
 

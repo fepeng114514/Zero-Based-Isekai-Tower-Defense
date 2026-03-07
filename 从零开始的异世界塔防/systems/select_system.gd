@@ -64,6 +64,6 @@ func _on_deselect(e: Entity) -> void:
 	match select_type:
 		C.SELECT.RALLY:
 			var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
-			rally_c.new_rally(mouse_global_position, e)
+			rally_c.new_rally(mouse_global_position)
 	
 	select_type = C.SELECT.NONE

@@ -89,14 +89,10 @@ var aura_type_ban_bits: int = 0
 var has_mods_ids: Array[int] = []
 ## 拥有的光环 ID 列表
 var has_auras_ids: Array[int] = []
-## 实体状态
-var state: C.STATE = C.STATE.IDLE
 ## 等待状态
 var waiting: bool = false
 ## 锁定状态
 var blocking: bool = false
-## 移除状态，表示实体正在被移除
-var removed: bool = false
 ## 是否被点击选择
 var selected: bool = false
 ## 上一帧位置
@@ -106,27 +102,11 @@ var last_position := Vector2.ZERO
 
 #region 回调函数
 @warning_ignore_start("unused_parameter")
-## 创建实体时调用，返回 false 的实体不会被创建
-## [br]
-## 注：此时节点还未初始化
-func _on_create() -> bool: return true
-
-
-## 正式插入实体时调用，返回 false 的实体将会被移除
-## [br]
-## 注：此时节点已准备完毕
+## 插入实体时调用，返回 false 的实体将会被移除
 func _on_insert() -> bool: return true
 
-	
-## 准备移除实体时调用，返回 false 的实体将不会被移除
-## [br]
-## 注：此时进入移除队列
-func _on_ready_remove() -> bool: return true
-
-
-## 正式移除实体时调用
-func _on_remove() -> void: pass
-	
+## 准移除实体时调用，返回 false 的实体将不会被移除
+func _on_remove() -> bool: return true
 
 ## 实体更新时调用
 func _on_update(delta: float) -> void: pass
@@ -226,12 +206,7 @@ func insert_entity() -> void:
 
 
 func remove_entity() -> void:
-	if not SystemMgr.call_systems("_on_ready_remove", self):
-		return
-
 	SystemMgr.remove_queue.append(self)
-	removed = true
-	visible = false
 	Log.debug("移除实体: %s" % self)
 
 
@@ -322,7 +297,7 @@ func set_pos(pos: Vector2) -> void:
 	if has_c(C.CN_RALLY):
 		var rally_c: RallyComponent = get_c(C.CN_RALLY)
 		
-		rally_c.new_rally(pos, self)
+		rally_c.new_rally(pos)
 	
 	if has_c(C.CN_NAV_PATH):
 		set_nav_path_at_pos(pos)
@@ -352,11 +327,7 @@ func get_animated_sprite(sprite_idx: int = 0) -> Node2D:
 	
 	var sprite: Variant = sprite_c.list[sprite_idx]
 	
-	if not sprite is AnimatedSprite2D:
-		Log.verbose(
-			"get_animated_sprite: %s: 索引 %d 的精灵不是 AnimatedSprite2D" 
-			% [self, sprite_idx]
-		)
+	if sprite is not AnimatedSprite2D:
 		return null
 	
 	return sprite
@@ -364,10 +335,14 @@ func get_animated_sprite(sprite_idx: int = 0) -> Node2D:
 	
 ## 播放动画
 func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
-	var sprite = get_animated_sprite(sprite_idx)
+	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	if not sprite:
 		return
-	
+		
+	if sprite.animation == anim_name:
+		return
+		
+	Log.verbose("播放动画: %s, %s" % [self, anim_name])
 	sprite.play(anim_name)
 	
 
@@ -393,10 +368,6 @@ func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 	await TimeDB.y_wait(time, break_fn)
 	Log.verbose("实体等待完毕: %s, %.2f" % [self, time])
 	waiting = false
-
-
-func has_state(states: int) -> bool:
-	return state & states
 
 
 func is_waiting() -> bool:

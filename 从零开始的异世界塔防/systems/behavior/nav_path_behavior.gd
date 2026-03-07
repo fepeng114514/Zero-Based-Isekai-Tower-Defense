@@ -1,5 +1,5 @@
-extends System
-class_name NavPathSystem
+extends Behavior
+class_name NavPathBehavior
 
 func _on_insert(e: Entity) -> bool:
 	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
@@ -23,24 +23,24 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
-func _on_update(_delta: float) -> void:
-	var entities: Array = EntityDB.get_entities_group(C.CN_NAV_PATH).filter(
-		func(e: Entity) -> bool:
-			return not e.is_waiting() and e.has_state(C.STATE.IDLE)
-	)
-
-	for e: Entity in entities:
-		var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
-		nav_path_c.speed = nav_path_c.origin_speed * get_mod_speed_factor(e)
-		var reversed: bool = nav_path_c.reversed
-		var end_ni: int = nav_path_c.end_ni
-
-		walk_step(e, nav_path_c, reversed)
+func _on_update(e: Entity) -> bool:
+	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+	if not nav_path_c:
+		return false
+	
+	nav_path_c.speed = nav_path_c.origin_speed * get_mod_speed_factor(e)
+	var reversed: bool = nav_path_c.reversed
+	var end_ni: int = nav_path_c.end_ni
+	
+	if reversed and nav_path_c.nav_ni == PathDB.node_count - 1 - end_ni:
+		arrived_end(e, nav_path_c, reversed)
+		return false
+	elif not reversed and nav_path_c.nav_ni == end_ni:
+		arrived_end(e, nav_path_c, reversed)
+		return false
 		
-		if reversed and nav_path_c.nav_ni == PathDB.node_count - 1 - end_ni:
-			arrived_end(e, nav_path_c, reversed)
-		elif not reversed and nav_path_c.nav_ni == end_ni:
-			arrived_end(e, nav_path_c, reversed)
+	walk_step(e, nav_path_c, reversed)
+	return true
 
 
 func get_mod_speed_factor(e: Entity) -> float:

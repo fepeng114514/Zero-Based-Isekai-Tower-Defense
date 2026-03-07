@@ -14,9 +14,8 @@ var arrived: bool = false
 
 
 func new_rally(
-		new_rally_pos: Vector2, e: Entity, new_rally_radius: float = C.UNSET
+		new_rally_pos: Vector2, new_rally_radius: float = C.UNSET
 ) -> void:
-	e.state = C.STATE.RALLY
 	arrived = false
 	rally_pos = new_rally_pos
 	
@@ -24,7 +23,7 @@ func new_rally(
 		rally_radius = new_rally_radius
 
 
-func rally_formation_position(count: int, idx: int, e: Entity) -> void:
+func rally_formation_position(count: int, idx: int) -> void:
 	if count == 1:
 		return
 		
@@ -34,4 +33,4 @@ func rally_formation_position(count: int, idx: int, e: Entity) -> void:
 	var new_rally_pos: Vector2 = U.point_on_circle(
 		get_final_position(), rally_radius, angle
 	)
-	new_rally(new_rally_pos, e)
+	new_rally(new_rally_pos)

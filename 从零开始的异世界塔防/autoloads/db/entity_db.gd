@@ -88,10 +88,6 @@ func process_create(e: Entity) -> Entity:
 	e.id = last_id
 	e.tag_name = get_tag_name(e.tag)
 	e.name = "%sI%d" % [e.name, e.id]
-	
-	# 调用所有系统的准备插入回调函数，遇到返回 false 的系统不插入实体
-	if not SystemMgr.call_systems("_on_create", e):
-		return e
 
 	Log.debug("创建实体: %s" % e)
 	last_id += 1
@@ -256,7 +252,7 @@ func find_targets_in_range(
 	
 	return pool.filter(
 		func(e) -> bool: return (
-			is_instance_valid(e)
+			U.is_vaild_entity(e)
 			and not (bans & e.flag_bits or e.ban_bits & flags)
 			and (
 				not U.is_valid_number(max_range) 

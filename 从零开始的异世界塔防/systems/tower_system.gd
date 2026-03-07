@@ -17,12 +17,7 @@ func _on_insert(e: Entity) -> bool:
 	
 	
 func _on_update(_delta: float) -> void:
-	var entities: Array = EntityDB.get_entities_group(C.CN_TOWER).filter(
-		func(e: Entity) -> bool:
-			return not e.state & C.STATE.BLOCK
-	)
-
-	for e: Entity in entities:
+	for e: Entity in EntityDB.get_entities_group(C.CN_TOWER):
 		var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
 
 		tower_c.cleanup_list()

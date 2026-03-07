@@ -75,7 +75,7 @@ func _show(e: Entity) -> void:
 	
 	if e.has_c(C.CN_RANGED):
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
-		var first_ranged_attack: Ranged = ranged_c.list[0]
+		var first_ranged_attack: RangedAttack = ranged_c.list[0]
 		var max_range: float = first_ranged_attack.max_range
 		var min_range: float = first_ranged_attack.min_range
 		
@@ -88,7 +88,7 @@ func _show(e: Entity) -> void:
 		var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
 		var first_subentity: Entity = tower_c.list[0]
 		var ranged_c: RangedComponent = first_subentity.get_c(C.CN_RANGED)
-		var first_ranged_attack: Ranged = ranged_c.list[0]
+		var first_ranged_attack: RangedAttack = ranged_c.list[0]
 		var max_range: float = first_ranged_attack.max_range
 		var min_range: float = first_ranged_attack.min_range
 		
@@ -154,7 +154,7 @@ func _update_unit_info() -> void:
 	
 	if selected_entity.has_c(C.CN_MELEE):
 		var melee_c: MeleeComponent = selected_entity.get_c(C.CN_MELEE)
-		var first_melee_attack: Melee = melee_c.list[0]
+		var first_melee_attack: MeleeAttack = melee_c.list[0]
 		value_melee.text = "%d-%d/%.1f" % [
 			first_melee_attack.min_damage, 
 			first_melee_attack.max_damage, 
@@ -165,7 +165,7 @@ func _update_unit_info() -> void:
 		
 	if selected_entity.has_c(C.CN_RANGED):
 		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
-		var first_ranged_attack: Ranged = ranged_c.list[0]
+		var first_ranged_attack: RangedAttack = ranged_c.list[0]
 		value_ranged.text = "%d-%d/%.1f" % [
 			first_ranged_attack.min_damage, 
 			first_ranged_attack.max_damage, 
@@ -186,7 +186,7 @@ func _update_tower_info() -> void:
 	var ranged_c: RangedComponent = first_subentity.get_c(
 		C.CN_RANGED
 	)
-	var first_ranged_attack: Ranged = ranged_c.list[0]
+	var first_ranged_attack: RangedAttack = ranged_c.list[0]
 	## todo: 每帧创建实体性能较差，后续需要优化
 	var bullet: Entity = EntityDB.create_entity(
 		first_ranged_attack.bullet, false

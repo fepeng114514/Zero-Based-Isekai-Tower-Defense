@@ -1,33 +1,40 @@
 @tool
 extends Node2D
 class_name MeleeComponent
+
 ## 近战组件，负责管理实体的近战属性和行为，例如近战攻击范围、近战攻击伤害、近战攻击效果等。
 
-## 近战攻击列表，表示实体当前拥有的近战攻击列表
-@export var list: Array[Melee] = []
+## 近战攻击列表
+@export var list: Array[MeleeAttack] = []
+## 是否不主动前往近战位置
+@export var is_passive: bool = false
+## 移动速度，单位为像素/秒
+@export var speed: float = 100
+## 移动动画
+@export var motion_animation: String = "walk"
+## 近战位置偏移
+@export var melee_pos_offset := Vector2.ZERO:
+	set(value):
+		melee_pos_offset = value
+		queue_redraw()
+## 到达位置的阈值
+@export var arrived_dist: float = 10
+
+@export_group("拦截者")
 ## 是否是拦截者，表示实体是否具有拦截能力
 @export var is_blocker: bool = false
-## 是否是被动拦截者，表示拦截者不主动前往拦截敌人
-@export var is_passive: bool = false
 ## 拦截最小范围，单位为像素
 @export var block_min_range: float = 0
 ## 拦截最大范围，单位为像素
 @export var block_max_range: float = 100
-## 搜索模式，表示实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
+## 搜索模式，实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
-## 最大可以被拦截数量，表示实体最多可以同时拦截多少个被拦截者，超过该数量后将不再拦截新的被拦截者
+## 最大被拦截者数量
 @export var max_blocked: int = 1
+
+@export_group("被拦截者")
 ## 拦截成本，表示被拦截者的拦截成本
 @export var block_cost: int = 1
-## 移动速度，表示实体前往近战位置的移动速度，单位为像素/秒
-@export var speed: float = 100
-## 近战位置偏移，表示近战位置相对于实体位置的偏移，通常用于调整实体的近战位置
-@export var melee_slot_offset := Vector2.ZERO:
-	set(value):
-		melee_slot_offset = value
-		queue_redraw()
-## 到达近战位置的阈值
-@export var arrived_dist: float = 10
 
 @export_group("限制相关")
 @export var block_flags: Array[C.FLAG] = []:
@@ -41,22 +48,22 @@ class_name MeleeComponent
 
 var block_flag_bits: int = 0
 var block_ban_bits: int = 0
-## 拦截者 ID，表示实体当前被哪个拦截者拦截
+## 拦截者 ID
 var blocker_id: int = C.UNSET
-## 拦截数量，表示实体当前已经拦截的被拦截者数量，通常用于判断是否可以继续拦截新的被拦截者
-## [br]
-## 计算拦截数量时，通常会根据被拦截者的拦截成本进行计算，例如某些被拦截者可能具有较高的拦截成本，导致它们占用更多的拦截数量
+## 拦截数量，拦截数量根据被拦截者的拦截成本计算
 var blocked_count: int = 0
-## 被拦截者 ID 列表，表示实体当前正在拦截的被拦截者 ID 列表
+## 被拦截者 ID 列表
 var blockeds_ids: Array[int] = []
-## 原始位置，表示实体的原始位置，通常用于实体返回原始位置
+## 原位置，用于实体返回原始位置
 var origin_pos := Vector2.ZERO
-## 是否已经到达原始位置，表示实体是否已经返回原始位置
+## 是否到达原始位置
 var origin_pos_arrived: bool = true
-## 近战位置，表示实体的近战位置，通常用于实体前往近战位置进行攻击
-var melee_slot := Vector2.ZERO
-## 是否已经到达近战位置，表示实体是否已经到达近战位置
-var melee_slot_arrived: bool = true
+## 近战位置
+var melee_pos := Vector2.ZERO
+## 是否到达近战位置
+var melee_pos_arrived: bool = true
+## 是否第一次找到敌人
+var is_first_found_target: bool = true
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -70,9 +77,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 ## 自动更新列表
 func _update_list() -> void:
-	var new_list: Array[Melee] = []
+	var new_list: Array[MeleeAttack] = []
 	
-	for child: Melee in get_children():
+	for child: MeleeAttack in get_children():
 		new_list.append(child)
 	
 	# 只在变化时更新，避免无限循环
@@ -91,15 +98,15 @@ func _draw() -> void:
 		return
 		
 	draw_circle(
-		melee_slot_offset, 
+		melee_pos_offset, 
 		3,
 		Color.GREEN, 
 		true
 	)
 
 
-## 计算被拦截者数量（考虑拦截代价）
-func calculate_blocked_count() -> void:
+## 重新计算并设置被拦截者数量（考虑拦截代价）
+func reset_blocked_count() -> void:
 	var count: int = 0
 	
 	for id in blockeds_ids:
@@ -113,16 +120,6 @@ func calculate_blocked_count() -> void:
 		count += b_melee_c.block_cost
 		
 	blocked_count = count
-
-
-func set_melee_slot(new_melee_slot: Vector2) -> void:
-	melee_slot_arrived = false
-	melee_slot = new_melee_slot
-	
-
-func set_origin_pos(new_origin_pos: Vector2) -> void:
-	origin_pos_arrived = false
-	origin_pos = new_origin_pos
 
 
 func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
@@ -144,8 +141,10 @@ func cleanup_blockeds() -> void:
 	var new_blockeds_ids: Array[int] = []
 	
 	for id in blockeds_ids:
-		if not EntityDB.get_entity_by_id(id):
-			continue 
+		var blocked: Entity = EntityDB.get_entity_by_id(id)
+			
+		if not blocked:
+			continue
 			
 		new_blockeds_ids.append(id)
 		
@@ -153,10 +152,37 @@ func cleanup_blockeds() -> void:
 	
 
 ## 清理无效拦截者
-func cleanup_blocker() -> void:
+func cleanup_blocker(blocked: Entity) -> void:
 	if not U.is_valid_number(blocker_id):
 		return
 	
-	if not EntityDB.get_entity_by_id(blocker_id):
-		blocker_id = C.UNSET
+	var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
+	
+	if not blocker:
+		reset_blocked()
+		return
 		
+	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
+		
+	if (
+			blocker.global_position.distance_to(
+				blocked.global_position
+			) 
+			> blocker_melee_c.block_max_range
+		):
+		reset_blocked()
+		blocker_melee_c.reset_blocker()
+
+
+func reset_blocked() -> void:
+	blocker_id = C.UNSET
+	is_first_found_target = true
+	melee_pos_arrived = true
+	origin_pos_arrived = true
+
+
+func reset_blocker() -> void:
+	blockeds_ids.clear()
+	is_first_found_target = true
+	melee_pos_arrived = true
+	origin_pos_arrived = true

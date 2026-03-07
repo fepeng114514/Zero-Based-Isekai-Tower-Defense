@@ -32,7 +32,7 @@ list = Array[ExtResource("5_plukg")]([Object(Node,"unique_name_in_owner":false,"
 ])
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
-[node name="Ranged" type="Node2D" parent="RangedComponent" unique_id=206059463]
+[node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=206059463]
 script = ExtResource("5_plukg")
 max_range = 300.0
 bullet = 1

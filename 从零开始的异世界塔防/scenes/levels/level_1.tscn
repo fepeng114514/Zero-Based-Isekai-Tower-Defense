@@ -2,34 +2,18 @@
 
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://classes/level.gd" id="1_x42e6"]
 [ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/resource/wave_set.gd" id="2_iav0o"]
+[ext_resource type="PackedScene" uid="uid://cuqee6eum7tl6" path="res://scenes/systems.tscn" id="2_iwr0g"]
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resource/wave.gd" id="3_dnkej"]
-[ext_resource type="Script" uid="uid://j7j5n4bat6f8" path="res://scenes/levels/systems.gd" id="3_iwr0g"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
-[ext_resource type="Script" uid="uid://b5tuol6j7i8xv" path="res://systems/grouping_system.gd" id="4_bahl2"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner.tscn" id="4_dga24"]
 [ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://classes/store.gd" id="4_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://assets/level_1_bg.png" id="4_x42e6"]
-[ext_resource type="Script" uid="uid://b0hmg8xtycc53" path="res://systems/time_system.gd" id="5_4yk0h"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_6761a"]
 [ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/resource/wave_spawn_batch.gd" id="5_wtwp4"]
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/resource/wave_spawn.gd" id="6_iwr0g"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://resources/grid_tileset.tres" id="6_sk5k4"]
-[ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://systems/spawner_system.gd" id="6_vmrhw"]
-[ext_resource type="Script" uid="uid://bhueujkwgexkx" path="res://systems/aura_system.gd" id="7_cfnpk"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui_layer.tscn" id="7_oc4kc"]
-[ext_resource type="Script" uid="uid://cbcje4j81kvmp" path="res://systems/modifier_system.gd" id="8_wvtie"]
 [ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer.tscn" id="9_dnkej"]
-[ext_resource type="Script" uid="uid://ch7tw5a5qflj7" path="res://systems/bullet_system.gd" id="9_o8s4s"]
-[ext_resource type="Script" uid="uid://doj2bbl12wisd" path="res://systems/health_system.gd" id="10_ebb2h"]
-[ext_resource type="Script" uid="uid://yehvxv6oaj2n" path="res://systems/melee_system.gd" id="11_row31"]
-[ext_resource type="Script" uid="uid://bu47hvw5yociy" path="res://systems/tower_system.gd" id="12_ytidy"]
-[ext_resource type="Script" uid="uid://dwbh7vjakpq82" path="res://systems/sprite_system.gd" id="13_hvllt"]
-[ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://systems/entity_system.gd" id="14_dp4fg"]
-[ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://systems/barrack_system.gd" id="15_svqqs"]
-[ext_resource type="Script" uid="uid://balgrru65agvq" path="res://systems/rally_system.gd" id="16_2to4m"]
-[ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://systems/nav_path_system.gd" id="17_kc3v0"]
-[ext_resource type="Script" uid="uid://f5gy7ujb3ie8" path="res://systems/select_system.gd" id="18_4yk0h"]
-[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://systems/ranged_system.gd" id="18_prmli"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
 [ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://scenes/entities/soldier.tscn" id="27_4yk0h"]
 
@@ -41,6 +25,7 @@ point_count = 14
 
 [sub_resource type="Resource" id="Resource_mm8aj"]
 script = ExtResource("6_iwr0g")
+count = 1
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_wtwp4"]
@@ -64,74 +49,7 @@ script = ExtResource("1_x42e6")
 metadata/_custom_type_script = "uid://yur7o864jejr"
 metadata/_edit_vertical_guides_ = [-464.0]
 
-[node name="Systems" type="Node" parent="." unique_id=1689428591 node_paths=PackedStringArray("list")]
-script = ExtResource("3_iwr0g")
-list = [NodePath("GroupingSystem"), NodePath("TimeSystem"), NodePath("SpawnerSystem"), NodePath("AuraSystem"), NodePath("ModifierSystem"), NodePath("BulletSystem"), NodePath("HealthSystem"), NodePath("MeleeSystem"), NodePath("TowerSystem"), NodePath("SpriteSystem"), NodePath("EntitySystem"), NodePath("BarrackSystem"), NodePath("RallySystem"), NodePath("NavPathSystem"), NodePath("RangedSystem"), NodePath("SelectSystem")]
-metadata/_custom_type_script = "uid://j7j5n4bat6f8"
-
-[node name="GroupingSystem" type="Node" parent="Systems" unique_id=1450583633]
-script = ExtResource("4_bahl2")
-metadata/_custom_type_script = "uid://b5tuol6j7i8xv"
-
-[node name="TimeSystem" type="Node" parent="Systems" unique_id=622530923]
-script = ExtResource("5_4yk0h")
-metadata/_custom_type_script = "uid://b0hmg8xtycc53"
-
-[node name="SpawnerSystem" type="Node" parent="Systems" unique_id=897900182]
-script = ExtResource("6_vmrhw")
-metadata/_custom_type_script = "uid://o0lkma3r7l41"
-
-[node name="AuraSystem" type="Node" parent="Systems" unique_id=630582489]
-script = ExtResource("7_cfnpk")
-metadata/_custom_type_script = "uid://bhueujkwgexkx"
-
-[node name="ModifierSystem" type="Node" parent="Systems" unique_id=2016172897]
-script = ExtResource("8_wvtie")
-metadata/_custom_type_script = "uid://cbcje4j81kvmp"
-
-[node name="BulletSystem" type="Node" parent="Systems" unique_id=37014034]
-script = ExtResource("9_o8s4s")
-metadata/_custom_type_script = "uid://ch7tw5a5qflj7"
-
-[node name="HealthSystem" type="Node" parent="Systems" unique_id=1332866531]
-script = ExtResource("10_ebb2h")
-metadata/_custom_type_script = "uid://doj2bbl12wisd"
-
-[node name="MeleeSystem" type="Node" parent="Systems" unique_id=2009486903]
-script = ExtResource("11_row31")
-metadata/_custom_type_script = "uid://yehvxv6oaj2n"
-
-[node name="TowerSystem" type="Node" parent="Systems" unique_id=1896704960]
-script = ExtResource("12_ytidy")
-metadata/_custom_type_script = "uid://bu47hvw5yociy"
-
-[node name="SpriteSystem" type="Node" parent="Systems" unique_id=1781327327]
-script = ExtResource("13_hvllt")
-metadata/_custom_type_script = "uid://dwbh7vjakpq82"
-
-[node name="EntitySystem" type="Node" parent="Systems" unique_id=1832149022]
-script = ExtResource("14_dp4fg")
-metadata/_custom_type_script = "uid://cia8mo148t6pb"
-
-[node name="BarrackSystem" type="Node" parent="Systems" unique_id=793710920]
-script = ExtResource("15_svqqs")
-metadata/_custom_type_script = "uid://do5xlu5110cxi"
-
-[node name="RallySystem" type="Node" parent="Systems" unique_id=1119732319]
-script = ExtResource("16_2to4m")
-metadata/_custom_type_script = "uid://balgrru65agvq"
-
-[node name="NavPathSystem" type="Node" parent="Systems" unique_id=1570772944]
-script = ExtResource("17_kc3v0")
-metadata/_custom_type_script = "uid://dlkq6p4daka13"
-
-[node name="RangedSystem" type="Node" parent="Systems" unique_id=1467080762]
-script = ExtResource("18_prmli")
-metadata/_custom_type_script = "uid://c5w8px2jpopql"
-
-[node name="SelectSystem" type="Node" parent="Systems" unique_id=1572690499]
-script = ExtResource("18_4yk0h")
-metadata/_custom_type_script = "uid://f5gy7ujb3ie8"
+[node name="Systems" parent="." unique_id=48795228 instance=ExtResource("2_iwr0g")]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=74954041]
 position = Vector2(1280, 720)

@@ -4,7 +4,7 @@ class_name RangedComponent
 
 ## 是否禁用索敌
 @export var disabled_search: bool = false
-@export var list: Array[Ranged] = []
+@export var list: Array[RangedAttack] = []
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -18,9 +18,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 ## 自动更新列表
 func _update_list() -> void:
-	var new_list: Array[Ranged] = []
+	var new_list: Array[RangedAttack] = []
 	
-	for child: Ranged in get_children():
+	for child: RangedAttack in get_children():
 		new_list.append(child)
 	
 	# 只在变化时更新，避免无限循环

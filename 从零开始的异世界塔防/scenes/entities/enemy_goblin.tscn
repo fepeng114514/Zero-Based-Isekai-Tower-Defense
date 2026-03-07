@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_yidua"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_ijmwd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="8_wdwo4"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee.gd" id="9_cit00"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee_attack.gd" id="9_cit00"]
 
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0ncad")
@@ -32,6 +32,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 position = Vector2(0, -16)
 sprite_frames = ExtResource("3_wdwo4")
 animation = &"idle"
+frame_progress = 0.5298479
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("4_bfbt7")
@@ -54,12 +55,13 @@ metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=768145759 node_paths=PackedStringArray("list")]
 script = ExtResource("8_wdwo4")
-list = [NodePath("Melee")]
-melee_slot_offset = Vector2(24.3, 0)
+list = [NodePath("MeleeAttack")]
+melee_pos_offset = Vector2(24.3, 0)
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="Melee" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
+[node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
 script = ExtResource("9_cit00")
 min_damage = 30.0
 max_damage = 30.0
+delay = 0.433
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

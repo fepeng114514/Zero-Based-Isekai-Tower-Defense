@@ -109,7 +109,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 30.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -155,7 +155,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"melee",
-"speed": 30.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -175,5 +175,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 30.0
+"speed": 15.0
 }]

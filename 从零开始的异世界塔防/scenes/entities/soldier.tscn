@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="4_5jui1"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_gtjci"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="5_lmejv"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee.gd" id="6_lmejv"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee_attack.gd" id="6_lmejv"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://components/rally_component.gd" id="8_yfwee"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="9_8n3d5"]
 
@@ -31,12 +31,11 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 position = Vector2(0, -32)
 sprite_frames = ExtResource("3_f3yqs")
 animation = &"idle"
-frame_progress = 0.22106922
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("5_lmejv")
 health_bar = NodePath("HealthBar")
-hp_max = 100.0
+hp_max = 200.0
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_gtjci")]
@@ -45,13 +44,15 @@ scale = Vector2(1.045, 1.07)
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156 node_paths=PackedStringArray("list")]
 script = ExtResource("4_5jui1")
-list = [NodePath("Melee")]
+list = [NodePath("MeleeAttack")]
+melee_pos_offset = Vector2(28.475, 0)
 is_blocker = true
-melee_slot_offset = Vector2(28.475, 0)
+max_blocked = 2
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="Melee" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
+[node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("6_lmejv")
+delay = 0.367
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="RallyComponent" type="NavigationAgent2D" parent="." unique_id=905200269]
