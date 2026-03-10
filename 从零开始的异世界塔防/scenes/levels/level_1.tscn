@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cuqee6eum7tl6" path="res://scenes/systems.tscn" id="2_iwr0g"]
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resource/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
-[ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner.tscn" id="4_dga24"]
+[ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner/wave_spawner.tscn" id="4_dga24"]
 [ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://classes/store.gd" id="4_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://assets/level_1_bg.png" id="4_x42e6"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_6761a"]
@@ -13,9 +13,9 @@
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/resource/wave_spawn.gd" id="6_iwr0g"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://resources/grid_tileset.tres" id="6_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui_layer.tscn" id="7_oc4kc"]
-[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer.tscn" id="9_dnkej"]
+[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer/tower_archer.tscn" id="9_dnkej"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
-[ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://scenes/entities/soldier.tscn" id="27_4yk0h"]
+[ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://scenes/entities/tower_barrack/soldier.tscn" id="27_4yk0h"]
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]
 _data = {
@@ -25,6 +25,7 @@ point_count = 14
 
 [sub_resource type="Resource" id="Resource_mm8aj"]
 script = ExtResource("6_iwr0g")
+entity_uid = "uid://d1kxh6e7m4mc1"
 count = 2
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
@@ -77,12 +78,14 @@ script = ExtResource("4_oc4kc")
 
 [node name="WaveSpawner" parent="Store/Entities" unique_id=1677388100 node_paths=PackedStringArray("components") instance=ExtResource("4_dga24")]
 wave_set = SubResource("Resource_bahl2")
+uid = "uid://dxjst2smnggks"
 components = {
 "SpawnerComponent": NodePath("SpawnerComponent")
 }
 
 [node name="TowerArcher" parent="Store/Entities" unique_id=1010851235 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
 position = Vector2(888, 472)
+uid = "uid://biuewnv7ms46d"
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
@@ -91,6 +94,7 @@ components = {
 
 [node name="TowerArcher2" parent="Store/Entities" unique_id=1325601202 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
 position = Vector2(1136, 344)
+uid = "uid://biuewnv7ms46d"
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
@@ -99,6 +103,7 @@ components = {
 
 [node name="Soldier" parent="Store/Entities" unique_id=1677548747 node_paths=PackedStringArray("components") instance=ExtResource("27_4yk0h")]
 position = Vector2(664, 560)
+uid = "uid://f30rl46i8akx"
 components = {
 "HealthComponent": NodePath("HealthComponent"),
 "MeleeComponent": NodePath("MeleeComponent"),

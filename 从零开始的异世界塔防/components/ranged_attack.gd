@@ -5,7 +5,7 @@ class_name RangedAttack
 @export var min_range: float = 25
 @export var max_range: float = 25
 @export var cooldown: float = 1
-@export var bullet: C.ENTITY_TAG
+@export_file("*.tscn") var bullet: String = ""
 @export var bullet_offset := Vector2.ZERO:
 	set(value):
 		bullet_offset = value
@@ -26,8 +26,8 @@ class_name RangedAttack
 	set(value): 
 		vis_bans = value
 		vis_ban_bits = U.merge_flags(value)
-@export var whitelist_tag: Array[C.ENTITY_TAG] = []
-@export var blacklist_tag: Array[C.ENTITY_TAG] = []
+@export_file("*.tscn") var whitelist_uid: Array[String] = []
+@export_file("*.tscn") var blacklist_uid: Array[String] = []
 
 var vis_flag_bits: int = 0
 var vis_ban_bits: int = 0

@@ -7,15 +7,8 @@ class_name Entity
 ## 实体类负责管理实体的基本属性和组件，并提供一些通用的接口和事件回调，供系统和组件调用。
 
 #region 属性
-## 实体标签
-@export var tag: C.ENTITY_TAG:
-	set(value):
-		tag = value
-		for k: String in C.ENTITY_TAG.keys():
-			if C.ENTITY_TAG[k] == value:
-				tag_name = k.to_lower()
-## 标签名称
-@export var tag_name: String = ""
+## 实体 UID
+@export_file("*.tscn") var uid: String = ""
 ## 拥有的所有组件节点引用
 @export var components: Dictionary[String, Node] = {}
 ## 持续时间，单位为秒
@@ -29,10 +22,10 @@ class_name Entity
 @export var default_animation: String = "idle"
 
 @export_group("限制相关")
-## 白名单实体标签列表
-@export var whitelist_tag: Array[C.ENTITY_TAG] = []
-## 黑名单实体标签列表
-@export var blacklist_tag: Array[C.ENTITY_TAG] = []
+## 白名单实体 UID 列表
+@export_file("*.tscn") var whitelist_uid: Array[String] = []
+## 黑名单实体 UID 列表
+@export_file("*.tscn") var blacklist_uid: Array[String] = []
 ## 实体标识符列表
 @export var flags: Array[C.FLAG] = []:
 	set(value): 
@@ -102,6 +95,7 @@ var selected: bool = false
 var removed: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
+var state := C.STATE.IDLE
 #endregion
 
 
@@ -174,9 +168,16 @@ func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponen
 
 
 func _to_string():
-	return "%s(%d)" % [tag_name, id]
+	return String(name)
 @warning_ignore_restore("unused_parameter")
 #endregion
+
+
+func _ready() -> void:
+	if not Engine.is_editor_hint():
+		return
+		
+	uid = ResourceUID.path_to_uid(scene_file_path)
 
 
 ## 自动更新组件字典

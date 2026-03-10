@@ -38,6 +38,7 @@ func _process_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	# 没有被拦截者
 	if not blockeds_ids:
+		melee_c.meleeing = false
 		## need_origin_setup 默认为 true
 		if not melee_c.need_origin_setup:
 			melee_c.need_origin_setup = true
@@ -54,7 +55,8 @@ func _process_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	var blocked: Entity = EntityDB.get_entity_by_id(
 		blockeds_ids[0]
 	)
-		
+	melee_c.meleeing = true
+	
 	if melee_c.need_origin_setup:
 		melee_c.need_origin_setup = false
 		melee_c.melee_pos_arrived = false

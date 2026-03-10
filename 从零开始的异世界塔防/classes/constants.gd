@@ -100,6 +100,22 @@ const PATH_SPRITE_FRAMES_RESOURCES: String = (
 #endregion
 
 
+## 实体场景路径
+const PATH_ENTITY_SCENES: Array[String] = [
+	"res://scenes/entities/bullet_sword.tscn", 
+	"res://scenes/entities/tower_archer/bullet_arrow.tscn", 
+	"res://scenes/entities/tower_archer/shooter.tscn", 
+	"res://scenes/entities/tower_archer/tower_archer.tscn", 
+	"res://scenes/entities/tower_barrack/soldier.tscn", 
+	"res://scenes/entities/tower_barrack/tower_barrack.tscn", 
+	"res://scenes/entities/tower_engineer/tower_engineer.tscn", 
+	"res://scenes/entities/tower_mage/bullet_bolt.tscn", 
+	"res://scenes/entities/tower_mage/tower_mage.tscn", 
+	"res://scenes/entities/wave_spawner/wave_spawner.tscn",
+	"res://scenes/entities/enemy_goblin/enemy_goblin.tscn"
+]
+
+
 ## 伤害类型 (位运算) 枚举
 enum DAMAGE {
 	## 伤害类型: 无
@@ -311,19 +327,20 @@ enum SORT {
 }
 
 
-## 实体标签
-enum ENTITY_TAG {
-	WAVE_SPAWNER,  ## 波次生成器，负责生成敌人生成波次
-	BULLET_ARROW,  ## 箭矢子弹
-	BULLET_BOLT,
-	BULLET_SWORD,
-	SOLDIER,       ## 士兵
-	TOWER_ARCHER,  ## 箭塔
-	ARCHER_SHOOTER,
-	TOWER_MAGE,    ## 法师塔
-	TOWER_BARRACK, ## 兵营
-	TOWER_ENGINEER,## 炮塔
-	ENEMY_GOBLIN,  ## 哥布林敌人，基础敌人单位
+## 状态标志枚举
+enum STATE {
+	## 状态: 空闲
+	IDLE = 1,
+	## 状态: 近战攻击
+	MELEE = 1 << 1,
+	## 状态: 远程攻击
+	RANGED = 1 << 2,
+	## 状态: 被阻塞
+	BLOCK = 1 << 3,
+	## 状态: 前往集结点
+	RALLY = 1 << 4,
+	## 状态: 生成
+	SPAWN = 1 << 5,
 }
 
 

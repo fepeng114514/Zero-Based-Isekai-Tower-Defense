@@ -12,8 +12,7 @@
 
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0ncad")
-tag = 10
-tag_name = "enemy_goblin"
+path = "uid://d1kxh6e7m4mc1"
 components = {
 "HealthComponent": NodePath("HealthComponent"),
 "MeleeComponent": NodePath("MeleeComponent"),

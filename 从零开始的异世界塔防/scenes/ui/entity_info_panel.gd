@@ -119,7 +119,7 @@ func _hidden() -> void:
 
 
 func _update_info() -> void:
-	entity_name.text = selected_entity.tag_name
+	entity_name.text = selected_entity.name
 	
 	for config: Array in show_config[info_type]:
 		var control: Control = config[0]

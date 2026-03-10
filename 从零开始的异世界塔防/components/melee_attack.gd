@@ -7,7 +7,7 @@ class_name MeleeAttack
 @export var max_damage: float = 25
 @export var cooldown: float = 1
 @export var damage_type: C.DAMAGE = C.DAMAGE.PHYSICAL
-@export var mods: Array[C.ENTITY_TAG] = []
+@export var mods: Array[String] = []
 @export var animation: String = "melee"
 @export var delay: float = 0
 @export var chance: float = 1
@@ -22,8 +22,8 @@ class_name MeleeAttack
 	set(value): 
 		vis_bans = value
 		vis_ban_bits = U.merge_flags(value)
-@export var whitelist_tag: Array[C.ENTITY_TAG] = []
-@export var blacklist_tag: Array[C.ENTITY_TAG] = []
+@export_file("*.tscn") var whitelist_uid: Array[String] = []
+@export_file("*.tscn") var blacklist_uid: Array[String] = []
 
 var vis_flag_bits: int = 0
 var vis_ban_bits: int = 0

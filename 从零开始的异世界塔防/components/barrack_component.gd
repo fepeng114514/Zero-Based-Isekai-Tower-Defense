@@ -10,8 +10,8 @@ class_name BarrackComponent
 @export var rally_radius: float = 30
 ## 集结点移动速度，表示士兵移动到集结点的速度，单位为像素/秒
 @export var rally_speed: float = 50
-## 士兵标签，表示生成的士兵实体将使用该模板进行创建
-@export var soldier: C.ENTITY_TAG
+## 士兵 UID，表示生成的士兵实体将使用该模板进行创建
+@export_file("*.tscn") var soldier: String = ""
 ## 兵营生成士兵的时间间隔，单位为秒
 @export var respawn_time: float = 10
 ## 最大士兵数量，表示兵营最多可以同时存在的士兵数量，超过该数量时将不再生成新的士兵

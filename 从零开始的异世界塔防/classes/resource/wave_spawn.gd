@@ -4,8 +4,8 @@ extends Resource
 class_name WaveSpawn
 
 
-## 敌人标签
-@export var entity_tag: C.ENTITY_TAG = C.ENTITY_TAG.ENEMY_GOBLIN
+## 敌人路径
+@export_file("*.tscn") var entity_uid: String = ""
 ## 每个敌人之间的间隔，单位为秒
 @export var interval: float = 1
 ## 生成总数

@@ -32,7 +32,7 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 	
 	for spawn: WaveSpawn in spawn_batch.spawns:
 		for i: int in range(spawn.count):
-			var e: Entity = EntityDB.create_entity(spawn.entity_tag)
+			var e: Entity = EntityDB.create_entity(spawn.entity_uid)
 			
 			if e.has_c(C.CN_NAV_PATH):
 				var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)

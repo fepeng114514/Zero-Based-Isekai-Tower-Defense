@@ -10,9 +10,9 @@ extends Node
 
 #region 属性
 ## 存储实体场景的字典
-var _entity_scenes: Dictionary[C.ENTITY_TAG, PackedScene] = {}
+var _entity_scenes: Dictionary[String, PackedScene] = {}
 ## 被修改的场景
-var _dirty_scenes: Array[C.ENTITY_TAG] = []
+var _dirty_scenes: Array[String] = []
 ## 存储实体类型组的字典
 var _type_groups: Dictionary[String, Array] = {
 	"enemies": [],
@@ -31,9 +31,7 @@ var _next_id: int = 0
 ## 被修改的实体 id
 var _dirty_entities_ids: Array[int] = []
 ## 实体数据缓存字典，用于读取数据，不参与游戏
-var _cached_entities_data: Dictionary[C.ENTITY_TAG, Entity] = {}
-## 实体标签名称字典
-var tag_name_dict: Dictionary[C.ENTITY_TAG, String]
+var _cached_entities_data: Dictionary[String, Entity] = {}
 #endregion
 
 
@@ -44,35 +42,22 @@ func load() -> void:
 	_component_groups.clear()
 	_entities.clear()
 	_dirty_entities_ids.clear()
-	tag_name_dict.clear()
 	_next_id = 0
 	_cached_entities_data.clear()
 	
-	_load_tag_name_dict()
 	_load_entity_scenes()
 
 ## 加载实体场景
 func _load_entity_scenes() -> void:
-	for entity_tag: C.ENTITY_TAG in C.ENTITY_TAG.values():
-		var t_name: String = get_tag_name(entity_tag)
-		var scene_path: String = C.PATH_ENTITIES_SCENES % t_name
+	for scene_path: String in C.PATH_ENTITY_SCENES:
 		if not ResourceLoader.exists(scene_path):
 			Log.error("未找到实体场景: %s" % scene_path)
 			return
 			
 		var scene: PackedScene = load(scene_path)
+		var uid: String = ResourceUID.path_to_uid(scene_path)
 		
-		_entity_scenes[entity_tag] = scene
-
-func _load_tag_name_dict() -> void:
-	for entity_name: String in C.ENTITY_TAG.keys():
-		var tag: C.ENTITY_TAG = C.ENTITY_TAG[entity_name]
-		entity_name = entity_name.to_lower()
-		tag_name_dict[tag] = entity_name
-
-
-func get_tag_name(entity_tag: C.ENTITY_TAG) -> String:
-	return tag_name_dict[entity_tag]
+		_entity_scenes[uid] = scene
 
 
 ## 标记新增加或移除的实体
@@ -85,8 +70,8 @@ func mark_entity_dirty_id(id: int) -> void:
 
 #region 创建实体相关
 ## 创建实体
-func create_entity(entity_tag: C.ENTITY_TAG) -> Entity:
-	var e: Entity = get_entity_scene(entity_tag).instantiate()
+func create_entity(entity_uid: String) -> Entity:
+	var e: Entity = get_entity_scene(entity_uid).instantiate()
 		
 	return process_create(e)
 	
@@ -104,15 +89,15 @@ func process_create(e: Entity) -> Entity:
 
 ## 批量创建实体
 func create_entities(
-		entity_tags: Array[C.ENTITY_TAG],
+		entity_uids: Array[String],
 		config_func: Callable = Callable(),
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
 	var created_entities: Array[Entity] = []
 	
-	for entity_tag: C.ENTITY_TAG in entity_tags:
-		var e: Entity = create_entity(entity_tag)
+	for entity_uid: String in entity_uids:
+		var e: Entity = create_entity(entity_uid)
 		
 		if config_func.is_valid():
 			config_func.call(e)
@@ -127,22 +112,22 @@ func create_entities(
 
 ## 创建实体在指定位置
 func create_entities_at_pos(
-		entity_tags: Array[C.ENTITY_TAG], pos: Vector2, auto_insert: bool = true
+		entity_uids: Array[String], pos: Vector2, auto_insert: bool = true
 	) -> Array[Entity]:
 	return create_entities(
-		entity_tags, func(e): e.set_pos(pos), auto_insert
+		entity_uids, func(e): e.set_pos(pos), auto_insert
 	)
 
 
 ## 批量创建状态效果实体
 func create_mods(
 		target_id: int,
-		mods_tags: Array[C.ENTITY_TAG],
+		mods_uids: Array[String],
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
-	return create_entities(mods_tags, func(e):
+	return create_entities(mods_uids, func(e):
 		e.target_id = target_id
 		e.source_id = source_id
 	, auto_insert)
@@ -150,12 +135,12 @@ func create_mods(
 
 ## 批量创建光环实体
 func create_auras(
-		auras_tags: Array[C.ENTITY_TAG],
+		auras_uids: Array[String],
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
-	return create_entities(auras_tags, func(e: Entity) -> void:
+	return create_entities(auras_uids, func(e: Entity) -> void:
 		e.source_id = source_id
 	, auto_insert)
 
@@ -175,7 +160,6 @@ func create_damage(
 	d.damage_type = damage_type
 	d.value = randf_range(min_damage, max_damage)
 	d.damage_factor = damage_factor
-	d.tag_name = "damage"
 
 	SystemMgr.damage_queue.append(d)
 		
@@ -209,23 +193,23 @@ func get_entity_by_id(id: int) -> Entity:
 
 
 ## 获取实体场景
-func get_entity_scene(entity_tag: C.ENTITY_TAG) -> PackedScene:
-	if not _entity_scenes.has(entity_tag):
-		Log.error("未找到实体场景, tag: %d" % entity_tag)
+func get_entity_scene(entity_uid: String) -> PackedScene:
+	if not _entity_scenes.has(entity_uid):
+		Log.error("未找到实体场景, path: %s, uid: %s" % [ResourceUID.uid_to_path(entity_uid), entity_uid])
 		return null
 		
-	var scene: PackedScene = _entity_scenes[entity_tag]
+	var scene: PackedScene = _entity_scenes[entity_uid]
 		
 	return scene
 	
 
 ## 设置实体场景
 func set_entity_scene(
-		entity_tag: C.ENTITY_TAG, scene: PackedScene, new_scene_node: Entity
+		entity_uid: String, scene: PackedScene, new_scene_node: Entity
 	) -> void:
 	scene.pack(new_scene_node)
-	EntityDB._dirty_scenes.append(entity_tag)
-	_dirty_scenes.append(entity_tag)
+	EntityDB._dirty_scenes.append(entity_uid)
+	_dirty_scenes.append(entity_uid)
 
 
 ## 获取所有有效实体
@@ -244,83 +228,83 @@ func get_entities_by_source(source_id: int):
 
 
 ## 获取实体数据，实体数据是一个实体实例，仅用于读取数据，不参与游戏逻辑
-func get_entity_data(entity_tag: C.ENTITY_TAG) -> Entity:
+func get_entity_data(entity_uid: String) -> Entity:
 	# 缓存机制：如果缓存中没有对应实体数据，则实例化一个新的实体并缓存
 	if (
-			not _cached_entities_data.has(entity_tag) 
-			or entity_tag in _dirty_scenes
+			not _cached_entities_data.has(entity_uid) 
+			or entity_uid in _dirty_scenes
 		):
-		var e: Entity = get_entity_scene(entity_tag).instantiate()
-		_cached_entities_data[entity_tag] = e
-		_dirty_scenes.erase(entity_tag)
+		var e: Entity = get_entity_scene(entity_uid).instantiate()
+		_cached_entities_data[entity_uid] = e
+		_dirty_scenes.erase(entity_uid)
 
-	return _cached_entities_data[entity_tag]
+	return _cached_entities_data[entity_uid]
 #endregion
 
 
 #region 索敌相关
-static func sort_entities_by_progress(entities_array: Array, reversed: bool = false) -> void:
-	entities_array.sort_custom(func(e1: Entity, e2: Entity) -> bool:
-		var p1: float = (
-			e1.get_c(C.CN_NAV_PATH).nav_progress
-			if e1.has_c(C.CN_NAV_PATH) else 0
-		)
-		var p2: float = (
-			e2.get_c(C.CN_NAV_PATH).nav_progress
-			if e2.has_c(C.CN_NAV_PATH) else 0
-		)
-		return p1 > p2 if not reversed else p1 < p2
-	)
+static func sort_entities_by_progress(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
+	var p1: float = INF if reversed else -INF
+	var p2: float = INF if reversed else -INF
+
+	if e1.has_c(C.CN_NAV_PATH):
+		p1 = e1.get_c(C.CN_NAV_PATH).nav_progress
+	if e2.has_c(C.CN_NAV_PATH):
+		p2 = e2.get_c(C.CN_NAV_PATH).nav_progress
+
+	return p1 > p2 if not reversed else p1 < p2
 
 
 static func sort_entities_by_distance(
-		entities_array: Array, origin: Vector2, reversed: bool = false
-	) -> void:
-	entities_array.sort_custom(func(e1: Entity, e2: Entity) -> bool:
-		var d1: float = e1.global_position.distance_squared_to(origin)
-		var d2: float = e2.global_position.distance_squared_to(origin)
-		return d1 > d2 if not reversed else d1 < d2
-	)
+		e1: Entity, e2: Entity, origin: Vector2, reversed: bool = false
+	) -> bool:
+	var d1: float = INF if reversed else -INF
+	var d2: float = INF if reversed else -INF
+
+	d1 = e1.global_position.distance_squared_to(origin)
+	d2 = e2.global_position.distance_squared_to(origin)
+
+	return d1 > d2 if not reversed else d1 < d2
 
 
-static func sort_entities_by_health(entities_array: Array, reversed: bool = false) -> void:
-	entities_array.sort_custom(func(e1: Entity, e2: Entity) -> bool:
-		var h1: float = (
-			e1.get_c(C.CN_HEALTH).hp if e1.has_c(C.CN_HEALTH) else 0
-		)
-		var h2: float = (
-			e2.get_c(C.CN_HEALTH).hp if e2.has_c(C.CN_HEALTH) else 0
-		)
-		return h1 > h2 if not reversed else h1 < h2
-	)
+static func sort_entities_by_health(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
+	var h1: float = INF if reversed else -INF
+	var h2: float = INF if reversed else -INF
+
+	if e1.has_c(C.CN_HEALTH):
+		h1 = e1.get_c(C.CN_HEALTH).hp
+	if e2.has_c(C.CN_HEALTH):
+		h2 = e2.get_c(C.CN_HEALTH).hp
+
+	return h1 > h2 if not reversed else h1 < h2
 
 
-static func sort_entities_by_melee_damage(entities_array: Array, reversed: bool = false) -> void:
-	entities_array.sort_custom(func(e1: Entity, e2: Entity) -> bool:
-		var d1: float = (
-			e1.get_c(C.CN_MELEE).list[0].max_damage if e1.has_c(C.CN_MELEE) else 0
-		)
-		var d2: float = (
-			e2.get_c(C.CN_MELEE).list[0].max_damage if e2.has_c(C.CN_MELEE) else 0
-		)
-		return d1 > d2 if not reversed else d1 < d2
-	)
+static func sort_entities_by_melee_damage(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
+	var d1: float = INF if reversed else -INF
+	var d2: float = INF if reversed else -INF
+
+	if e1.has_c(C.CN_MELEE):
+		d1 = e1.get_c(C.CN_MELEE).list[0].max_damage
+	if e2.has_c(C.CN_MELEE):
+		d2 = e2.get_c(C.CN_MELEE).list[0].max_damage
+
+	return d1 > d2 if not reversed else d1 < d2
 
 
-static func sort_entities_by_range_damage(entities_array: Array, reversed: bool = false) -> void:
-	entities_array.sort_custom(func(e1: Entity, e2: Entity) -> bool:
-		var d1: float = (
-			EntityDB.get_entity_data(
-				e1.get_c(C.CN_RANGED).list[0].bullet
-			).get_c(C.CN_BULLET).max_damage if e1.has_c(C.CN_RANGED) else 0
-		)
-		var d2: float = (
-			EntityDB.get_entity_data(
-				e2.get_c(C.CN_RANGED).list[0].bullet
-			).get_c(C.CN_BULLET).max_damage if e2.has_c(C.CN_RANGED) else 0
-		)
-		return d1 > d2 if not reversed else d1 < d2
-	)
+static func sort_entities_by_range_damage(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
+	var d1: float = INF if reversed else -INF
+	var d2: float = INF if reversed else -INF
+
+	if e1.has_c(C.CN_RANGED):
+		d1 = EntityDB.get_entity_data(
+			e1.get_c(C.CN_RANGED).list[0].bullet
+		).get_c(C.CN_BULLET).max_damage
+	if e2.has_c(C.CN_RANGED):
+		d2 = EntityDB.get_entity_data(
+			e2.get_c(C.CN_RANGED).list[0].bullet
+		).get_c(C.CN_BULLET).max_damage
+
+	return d1 > d2 if not reversed else d1 < d2
 
 
 static func sort_entities_by_id(entities_array: Array, reversed: bool = false) -> void:

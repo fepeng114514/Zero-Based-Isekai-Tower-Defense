@@ -469,16 +469,16 @@ static func is_vaild_entity(e) -> bool:
 
 
 static func is_allowed_entity(e: Variant, target: Entity) -> bool:
-	var target_tag: C.ENTITY_TAG = target.tag
-	var whitelist_tag: Array[C.ENTITY_TAG] = e.whitelist_tag
-	var blacklist_tag: Array[C.ENTITY_TAG] = e.blacklist_tag
+	var target_uid: String = target.uid
+	var whitelist_uid: Array[String] = e.whitelist_uid
+	var blacklist_uid: Array[String] = e.blacklist_uid
 	
 	return (
 		(
-			not whitelist_tag
-			or target_tag in whitelist_tag
+			not whitelist_uid 
+			or target_uid in whitelist_uid
 		)
-		and target_tag not in blacklist_tag
+		and target_uid not in blacklist_uid
 	)
 
 

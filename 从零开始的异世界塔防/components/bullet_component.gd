@@ -14,10 +14,10 @@ class_name BulletComponent
 @export var max_damage_radius: float = 0
 ## 范围伤害的搜索模式，表示子弹在造成范围伤害时的目标选择策略，默认为优先敌人
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
-## 子弹携带的状态效果标签列表，表示子弹命中目标时将附加的状态效果标签列表
-@export var mods: Array[C.ENTITY_TAG] = []
-## 子弹携带的实体标签列表
-@export var payloads: Array[C.ENTITY_TAG] = []
+## 子弹携带的状态效果 UID 列表，表示子弹命中目标时附加的状态效果
+@export_file("*.tscn") var mods: Array[String] = []
+## 子弹携带的实体 UID 列表
+@export_file("*.tscn") var payloads: Array[String] = []
 ## 子弹数值速度，表示子弹的飞行速度，单位为像素/秒
 @export var speed: float = 0
 ## 子弹旋转速度，表示子弹的旋转速度，单位为弧度/秒

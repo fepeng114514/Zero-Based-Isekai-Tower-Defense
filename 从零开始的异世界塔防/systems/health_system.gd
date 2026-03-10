@@ -60,12 +60,10 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> voi
 	target._on_damage(target, d)
 	
 	Log.verbose(
-		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
+		"造成伤害: 目标: %s，来源: %s，值: %s"
 		% [
-			target.tag_name, 
-			d.target_id, 
-			source.tag_name if source else "unknow", 
-			d.source_id, 
+			target,
+			source if source else null,
 			actual_damage
 		]
 	)

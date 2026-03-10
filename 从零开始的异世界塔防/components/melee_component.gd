@@ -64,7 +64,7 @@ var melee_pos := Vector2.ZERO
 var melee_pos_arrived: bool = true
 var need_origin_setup: bool = true
 var velocity := Vector2.ZERO
-
+var meleeing: bool = false
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = PackedStringArray()

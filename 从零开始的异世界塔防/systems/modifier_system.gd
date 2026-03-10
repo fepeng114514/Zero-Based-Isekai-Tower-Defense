@@ -55,7 +55,7 @@ func _on_insert(e: Entity) -> bool:
 			
 			return false
 		
-		if other_m.tag == e.tag:
+		if other_m.uid == e.uid:
 			same_target_mods.append(other_m)
 			
 	if not same_target_mods:
