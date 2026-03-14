@@ -10,6 +10,18 @@
 script = ExtResource("2_uuifh")
 left_right = "idle"
 
+[sub_resource type="Resource" id="Resource_uuifh"]
+script = ExtResource("2_uuifh")
+left_right = "flying_left_right"
+
+[sub_resource type="Resource" id="Resource_sxt40"]
+script = ExtResource("2_uuifh")
+left_right = "hit_left_right"
+
+[sub_resource type="Resource" id="Resource_lef6x"]
+script = ExtResource("2_uuifh")
+left_right = "miss_left_right"
+
 [node name="BulletBolt" type="Node2D" unique_id=511000022 node_paths=PackedStringArray("components")]
 script = ExtResource("1_v6lno")
 uid = "uid://c77v7yq60lpig"
@@ -40,4 +52,7 @@ speed = 500.0
 flight_time = 2.0
 flight_trajectory = 2
 disabled_predict_pos = true
+flying_animation_names = SubResource("Resource_uuifh")
+hit_animation_names = SubResource("Resource_sxt40")
+miss_animation_names = SubResource("Resource_lef6x")
 metadata/_custom_type_script = "uid://haoljvofy74e"

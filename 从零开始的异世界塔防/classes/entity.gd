@@ -92,7 +92,7 @@ var has_mods_ids: Array[int] = []
 ## 拥有的光环 ID 列表
 var has_auras_ids: Array[int] = []
 ## 等待状态
-var waiting: bool = false
+var _waiting: bool = false
 ## 锁定状态
 var blocking: bool = false
 ## 是否被点击选择
@@ -140,7 +140,7 @@ func _on_damage(target: Entity, d: Damage) -> void: pass
 	
 
 ## 实体死亡时调用
-func _on_dead(target: Entity, d: Damage) -> void: pass
+func _on_death(target: Entity, d: Damage) -> void: pass
 	
 
 ## 实体被吃时调用
@@ -427,34 +427,38 @@ func play_default_animation(sprite_idx: int = 0) -> Array:
 
 
 ## 等待动画播放完成
-func wait_animation(
-		sprite_idx: int = 0, times: int = 1, break_fn: Callable = Callable()
-	) -> void:
+func wait_animation(sprite_idx: int = 0, times: int = 1) -> void:
 	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
-	var loop_count: int = 0
 	
-	waiting = true
-	while (
-			loop_count < times 
-			and (
-				not break_fn.is_valid() 
-				or break_fn.call()
-				)
-		):
-		loop_count += 1
-		await sprite.animation_looped
-	waiting = false
+	_waiting = true
+	
+	for i: int in range(times):
+		# 等待动画完成当前循环
+		await _wait_for_animation_cycle(sprite)
+	
+	_waiting = false
+
+
+# 辅助函数：精确等待一个动画周期
+func _wait_for_animation_cycle(sprite: AnimatedSprite2D) -> void:
+	var current_frame: int = sprite.frame
+	var total_frames: int = sprite.sprite_frames.get_frame_count(sprite.animation)
+	var frames_remaining: int = total_frames - current_frame
+	
+	# 否则等待剩余帧数
+	for i: int in range(frames_remaining - 1):
+		await sprite.frame_changed
 #endregion
 
 
 ## 协程等待，break_fn 返回 true 表示中断等待
 func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
-	waiting = true
+	_waiting = true
 	Log.verbose("实体等待: %s, %.2f" % [self, time])
 	await TimeDB.y_wait(time, break_fn)
 	Log.verbose("实体等待完毕: %s, %.2f" % [self, time])
-	waiting = false
+	_waiting = false
 
 
 func is_waiting() -> bool:
-	return waiting or blocking
+	return _waiting or blocking

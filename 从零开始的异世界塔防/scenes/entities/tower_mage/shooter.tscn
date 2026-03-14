@@ -31,7 +31,6 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 script = ExtResource("2_i3jkb")
 list = [NodePath("AnimatedSprite2D")]
 sync_source = true
-sync_animations = null
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]

@@ -19,7 +19,12 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	_process_damege_queue()
 
-	for e: Entity in EntityDB.get_entities_group(C.CN_HEALTH):
+	var entities: Array = EntityDB.get_entities_group(C.CN_HEALTH).filter(
+		func(e: Entity):
+			return not e.is_waiting()
+	)
+
+	for e: Entity in entities:
 		var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
 		var health_bar: Node = health_c.health_bar
 		
@@ -69,9 +74,18 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> voi
 	)
 		
 	if t_health_c.hp <= 0:
-		target._on_dead(target, d)
+		target._on_death(target, d)
 		if source:
 			source._on_kill(target, d)
+			
+		t_health_c.health_bar.visible = false
+		
+		if t_health_c.death_animation_names:
+			target.play_animation_by_look(
+				t_health_c.death_animation_names, 0, "death"
+			)
+			await target.wait_animation()
+		
 		target.remove_entity()
 		
 

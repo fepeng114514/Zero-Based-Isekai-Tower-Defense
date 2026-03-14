@@ -15,6 +15,11 @@
 script = ExtResource("2_ovm3w")
 left_right = "idle_left_right"
 
+[sub_resource type="Resource" id="Resource_2a2qa"]
+script = ExtResource("2_ovm3w")
+left_right = "death_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
 [sub_resource type="Resource" id="Resource_p1ots"]
 script = ExtResource("2_ovm3w")
 left_right = "walk_left_right"
@@ -56,6 +61,7 @@ animation = &"idle_left_right"
 script = ExtResource("5_lmejv")
 health_bar = NodePath("HealthBar")
 hp_max = 1000.0
+death_animation_names = SubResource("Resource_2a2qa")
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_gtjci")]

@@ -45,7 +45,12 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.CN_BULLET):
+	var entities: Array = EntityDB.get_entities_group(C.CN_BULLET).filter(
+		func(e: Entity):
+			return not e.is_waiting()
+	)
+
+	for e: Entity in entities:
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
@@ -57,14 +62,13 @@ func _on_update(delta: float) -> void:
 			_trajectory_parabola_update(e, bullet_c, flying_time)
 		elif bullet_c.flight_trajectory & C.TRAJECTORY.TRACKING:
 			_trajectory_tracking_update(e, bullet_c, target)
-
+		
+		if bullet_c.flying_animation_names:
+			e.play_animation_by_look(bullet_c.flying_animation_names)
 		e.rotation += bullet_c.rotation_speed * delta
 		
 		if flying_time >= bullet_c.flight_time:
-			e._on_bullet_miss(target, bullet_c)
-
-			if bullet_c.miss_remove:
-				e.remove_entity()
+			_miss(e, bullet_c, target)
 			continue
 			
 		if not bullet_c.can_arrived:
@@ -80,7 +84,9 @@ func _on_update(delta: float) -> void:
 
 
 ## 击中目标调用
-func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
+func _hit(
+		e: Entity, bullet_c: BulletComponent, target: Entity
+	) -> void:
 	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
 		var targets: Array = EntityDB.search_targets_in_range(
 			bullet_c.search_mode, 
@@ -97,13 +103,18 @@ func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 		_damege_target(e, bullet_c, target)
 
 	e._on_bullet_hit(target, bullet_c)
+	if bullet_c.hit_animation_names:
+		e.play_animation_by_look(bullet_c.hit_animation_names)
+		await e.wait_animation()
 
 	if bullet_c.hit_remove:
 		e.remove_entity()
 	
 	
 ## 伤害目标
-func _damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
+func _damege_target(
+		e: Entity, bullet_c: BulletComponent, target: Entity
+	) -> void:
 	var damage_factor: float = e._on_bullet_calculate_damage_factor(
 			target, bullet_c
 		)
@@ -117,6 +128,18 @@ func _damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> voi
 	)
 	EntityDB.create_mods(target.id, bullet_c.mods, e.id)
 	EntityDB.create_entities_at_pos(bullet_c.payloads, e.global_position)
+
+
+func _miss(
+		e: Entity, bullet_c: BulletComponent, target: Entity
+	) -> void:
+	e._on_bullet_miss(target, bullet_c)
+	if bullet_c.miss_animation_names:
+		e.play_animation_by_look(bullet_c.hit_animation_names)
+		await e.wait_animation()
+
+	if bullet_c.miss_remove:
+		e.remove_entity()
 
 
 #region 轨迹相关函数

@@ -186,11 +186,11 @@
 			"from": 1,
 			"to": 1
 		},
-		"flying": {
+		"flying_left_right": {
 			"from": 2,
 			"to": 2
 		},
-		"hit": {
+		"hit_left_right": {
 			"from": 3,
 			"to": 10
 		}

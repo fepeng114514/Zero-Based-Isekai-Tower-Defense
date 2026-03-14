@@ -45,7 +45,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_300h1")
 }],
 "loop": true,
-"name": &"flying",
+"name": &"flying_left_right",
 "speed": 30.0
 }, {
 "frames": [{
@@ -74,7 +74,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_vk74n")
 }],
 "loop": true,
-"name": &"hit",
+"name": &"hit_left_right",
 "speed": 30.0
 }, {
 "frames": [{

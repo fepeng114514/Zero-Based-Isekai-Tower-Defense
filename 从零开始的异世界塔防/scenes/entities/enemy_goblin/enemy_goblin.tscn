@@ -15,6 +15,11 @@
 script = ExtResource("2_58mnm")
 left_right = "idle_left_right"
 
+[sub_resource type="Resource" id="Resource_58mnm"]
+script = ExtResource("2_58mnm")
+left_right = "death_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
 [sub_resource type="Resource" id="Resource_atygg"]
 script = ExtResource("2_58mnm")
 up = "walk_up"
@@ -55,12 +60,13 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
 position = Vector2(0, -19)
 sprite_frames = ExtResource("3_mee2f")
-animation = &"idle_left_right"
+animation = &"death_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("4_bfbt7")
 health_bar = NodePath("HealthBar")
 hp_max = 200.0
+death_animation_names = SubResource("Resource_58mnm")
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]

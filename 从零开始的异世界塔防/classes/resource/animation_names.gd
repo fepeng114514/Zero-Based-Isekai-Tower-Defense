@@ -1,5 +1,6 @@
 extends Resource
 class_name AnimationNames
+## 动画名称资源，存储所有方向的动画名
 
 ## 上方向的动画名
 @export var up: String = ""
@@ -25,31 +26,30 @@ func _init(data: Dictionary = {}) -> void:
 		set(key, data[key])
 	
 
-## 根据实体与看向目标点的角度返回对应的动画名称 [br]
+## 根据实体与目标点的角度返回对应的动画名称 [br]
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 	var anim_name: String = ""
 	var filp_h: bool = false
-
 	var angle: float = e.global_position.angle_to_point(
 		point
 	)
-
-	var dir_idx: C.DIRECTION = get_direction_idx(angle)
+	var direction: C.DIRECTION = get_direction(angle)
 			
 	if not any.is_empty():
 		anim_name = any
-		if dir_idx == C.DIRECTION.RIGHT:
+		if direction == C.DIRECTION.RIGHT:
 			# 默认朝右所以需要镜像
 			filp_h = true
 	else:
-		var result: Array = match_animation_name(dir_idx)
+		var result: Array = match_animation_name(direction)
 		anim_name = result[0]
 		filp_h = result[1]
 
-	return [anim_name, dir_idx, filp_h]
+	return [anim_name, direction, filp_h]
 
 
-func get_direction_idx(angle: float) -> C.DIRECTION:
+## 计算方向
+func get_direction(angle: float) -> C.DIRECTION:
 	if (
 			up_down or left.is_empty() 
 			and right.is_empty() 
@@ -80,11 +80,12 @@ func get_direction_idx(angle: float) -> C.DIRECTION:
 			return C.DIRECTION.LEFT
 
 
-func match_animation_name(dir_idx: C.DIRECTION) -> Array:
+## 根据方向返回相应动画名称
+func match_animation_name(direction: C.DIRECTION) -> Array:
 	var anim_name: String = ""
 	var filp_h: bool = false
 
-	match dir_idx:
+	match direction:
 		C.DIRECTION.UP:
 			if not up_down.is_empty():
 				anim_name = up_down

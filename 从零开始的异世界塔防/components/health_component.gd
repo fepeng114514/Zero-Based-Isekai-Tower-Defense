@@ -19,6 +19,8 @@ class_name HealthComponent
 @export var damage_reduction: float = 0
 ## 易伤值，表示实体的易伤值，易伤可以百分比增加实体受到的伤害值
 @export var vulnerable: float = 0
+## 死亡动画
+@export var death_animation_names: AnimationNames = null
 
 ## 当前血量，表示实体当前的血量，为 0 时表示实体死亡
 var hp: float = 0
