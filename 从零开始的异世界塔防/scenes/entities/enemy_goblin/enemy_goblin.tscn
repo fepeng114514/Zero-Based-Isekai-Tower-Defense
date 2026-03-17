@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://d1kxh6e7m4mc1"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0ncad"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_1nm20"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_1nm20"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_58mnm"]
 [ext_resource type="SpriteFrames" uid="uid://dj27vtf00p7el" path="res://resources/sprite_frames_resources/enemy_goblin.tres" id="3_mee2f"]
-[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="4_bfbt7"]
-[ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://components/nav_path_component.gd" id="5_gt3hg"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="4_bfbt7"]
+[ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="5_gt3hg"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_yidua"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resource/audio_data.gd" id="6_43dp3"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_ijmwd"]
-[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="8_wdwo4"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee_attack.gd" id="9_cit00"]
+[ext_resource type="AudioStream" uid="uid://bwjdfvm18eqhl" path="res://assets/audios/Sound_EnemyGoblinDead.ogg" id="6_atygg"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_ijmwd"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="8_wdwo4"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/melee_attack.gd" id="9_cit00"]
 
 [sub_resource type="Resource" id="Resource_58mnm"]
 script = ExtResource("2_58mnm")
@@ -23,7 +24,7 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_eo1sq"]
 script = ExtResource("6_43dp3")
-audio_list = Array[String](["uid://bwjdfvm18eqhl"])
+audio_list = Array[AudioStream]([ExtResource("6_atygg")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_atygg"]

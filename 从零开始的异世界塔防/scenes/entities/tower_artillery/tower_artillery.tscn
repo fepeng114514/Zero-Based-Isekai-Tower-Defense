@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_xqrgu"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_snldt"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="3_l80ei"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_l80ei"]
 [ext_resource type="Script" uid="uid://c51fj1yok5f5t" path="res://classes/resource/sprite_group.gd" id="4_l80ei"]
 [ext_resource type="SpriteFrames" uid="uid://prmlcknumm4q" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer1.tres" id="4_mbgfo"]
 [ext_resource type="SpriteFrames" uid="uid://dnvxuuv68o1tn" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer2.tres" id="5_1qc6l"]
@@ -11,9 +11,9 @@
 [ext_resource type="SpriteFrames" uid="uid://jwv8561hnfk3" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer5.tres" id="8_3uqv8"]
 [ext_resource type="SpriteFrames" uid="uid://b80vqhtuvk40l" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer6.tres" id="9_6ve1v"]
 [ext_resource type="SpriteFrames" uid="uid://dmyxk70sgcsj4" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer7.tres" id="10_s1vxx"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="12_mbgfo"]
-[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="13_l5l73"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged_attack.gd" id="14_n4ua5"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="12_mbgfo"]
+[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/ranged_component.gd" id="13_l5l73"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/ranged_attack.gd" id="14_n4ua5"]
 
 [sub_resource type="Resource" id="Resource_l80ei"]
 script = ExtResource("2_snldt")

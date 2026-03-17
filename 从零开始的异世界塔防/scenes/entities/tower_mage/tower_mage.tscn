@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://wc2518mmc5jt"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_7y6af"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="2_ag2v0"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="2_ag2v0"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_ewl0l"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="3_y3rhc"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_y3rhc"]
 [ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames_resources/tower_mage_lvl1.tres" id="4_as0po"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/resource/sync_animations_data.gd" id="5_aexug"]
-[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://components/tower_component.gd" id="5_ewl0l"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="5_ewl0l"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/tower_mage/shooter.tscn" id="6_aexug"]
 
 [sub_resource type="Resource" id="Resource_aexug"]

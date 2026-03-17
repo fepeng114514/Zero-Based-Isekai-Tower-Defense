@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resource/audio_data.gd" id="2_gmpev"]
 [ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/resource/wave_set.gd" id="2_iav0o"]
 [ext_resource type="PackedScene" uid="uid://cuqee6eum7tl6" path="res://scenes/systems.tscn" id="2_iwr0g"]
+[ext_resource type="AudioStream" uid="uid://dpl0mcs7s53br" path="res://assets/audios/MusicBattlePreparationsForest.ogg" id="2_mkypq"]
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resource/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner/wave_spawner.tscn" id="4_dga24"]
@@ -23,7 +24,7 @@
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("2_gmpev")
-audio_list = Array[String](["uid://dpl0mcs7s53br"])
+audio_list = Array[AudioStream]([ExtResource("2_mkypq")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]

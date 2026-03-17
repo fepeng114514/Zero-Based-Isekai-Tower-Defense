@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0v2wj"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/tower_archer/shooter.tscn" id="2_4mkqg"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation.gd" id="2_bgr08"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_x6o3l"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_bgr08"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_x6o3l"]
 [ext_resource type="Texture2D" uid="uid://bjw24pqqjas30" path="res://resources/atlas_texture_resources/archer_tower_0001.tres" id="3_ivbmm"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_d15la"]
-[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://components/tower_component.gd" id="7_plukg"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_d15la"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_plukg"]
 
-[sub_resource type="Resource" id="Resource_v0rba"]
+[sub_resource type="Resource" id="Resource_bgr08"]
 script = ExtResource("2_bgr08")
 left_right = "idle_left_right"
 
@@ -20,7 +20,7 @@ components = {
 "TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-default_animation_names = SubResource("Resource_v0rba")
+idle_animation = SubResource("Resource_bgr08")
 flags = Array[int]([16])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 

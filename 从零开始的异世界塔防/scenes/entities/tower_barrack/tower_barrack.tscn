@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
 [ext_resource type="Script" uid="uid://bgy6wevjchyl6" path="res://scenes/entities/tower_barrack/tower_barrack.gd" id="1_nawio"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation.gd" id="2_5r4pg"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_fm5wb"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_5r4pg"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_fm5wb"]
 [ext_resource type="Texture2D" uid="uid://d0l6eobu1q5fb" path="res://resources/atlas_texture_resources/tower_preview_barrack.tres" id="3_bfdgq"]
-[ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://components/barrack_component.gd" id="4_u6jgq"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="5_a0xnb"]
+[ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="5_a0xnb"]
 
 [sub_resource type="Resource" id="Resource_55su2"]
 script = ExtResource("2_5r4pg")

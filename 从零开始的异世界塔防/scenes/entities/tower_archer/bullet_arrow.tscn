@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://d25hnem6unbul"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_hikpk"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation.gd" id="2_ejip2"]
-[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://components/bullet_component.gd" id="2_ycjcd"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="3_ejip2"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_ejip2"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="2_ycjcd"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_ejip2"]
 [ext_resource type="Texture2D" uid="uid://yopsxiuosvod" path="res://resources/atlas_texture_resources/arrow.tres" id="4_ei4ui"]
 
-[sub_resource type="Resource" id="Resource_ei4ui"]
+[sub_resource type="Resource" id="Resource_ycjcd"]
 script = ExtResource("2_ejip2")
 left_right = "idle_left_right"
 
@@ -17,7 +17,7 @@ components = {
 "BulletComponent": NodePath("BulletComponent"),
 "SpriteComponent": NodePath("SpriteComponent")
 }
-default_animation_names = SubResource("Resource_ei4ui")
+idle_animation = SubResource("Resource_ycjcd")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="BulletComponent" type="Node" parent="." unique_id=797543197]

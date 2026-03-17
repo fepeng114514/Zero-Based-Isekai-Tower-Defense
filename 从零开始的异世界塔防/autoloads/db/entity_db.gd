@@ -51,12 +51,13 @@ func load() -> void:
 ## 加载实体场景
 func _load_entity_scenes() -> void:
 	for scene_path: String in U.load_json(
-		"res://datas/%s" % "entity_scene_paths.json"
+		"res://datas/entity_scene_paths.json"
 	):
 		if not ResourceLoader.exists(scene_path):
 			Log.error("未找到实体场景: %s" % scene_path)
 			return
-			
+		
+		Log.verbose("加载实体场景: %s" % scene_path)
 		var scene: PackedScene = load(scene_path)
 		var uid: String = ResourceUID.path_to_uid(scene_path)
 		

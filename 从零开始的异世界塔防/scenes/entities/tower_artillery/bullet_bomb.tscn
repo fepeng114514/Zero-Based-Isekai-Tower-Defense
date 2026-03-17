@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cx35c0rfd1fwr"]
 
 [ext_resource type="Script" uid="uid://bo8ey7a1rvldh" path="res://scenes/entities/tower_artillery/bullet_bomb.gd" id="1_g48kh"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_0mq2b"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation.gd" id="2_cbh1n"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0mq2b"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_cbh1n"]
 [ext_resource type="Texture2D" uid="uid://dkdjev2thqd6w" path="res://resources/atlas_texture_resources/bombs_0001.tres" id="3_cbh1n"]
-[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://components/bullet_component.gd" id="4_1jhx5"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_1jhx5"]
 
 [sub_resource type="Resource" id="Resource_1jhx5"]
 script = ExtResource("2_cbh1n")
