@@ -18,4 +18,4 @@ func _on_window_resized() -> void:
 	Log.debug("重设窗口大小: %s" % window_size)
 	WINDOW_SIZE = window_size
 	
-	S.resized_window_s.emit()
+	S.resized_window.emit()

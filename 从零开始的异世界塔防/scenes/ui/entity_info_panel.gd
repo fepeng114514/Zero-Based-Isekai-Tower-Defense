@@ -45,8 +45,8 @@ var info_type: C.InfoBarType = C.InfoBarType.UNIT
 }
 
 func _ready() -> void:
-	S.select_entity_s.connect(_show)
-	S.deselect_entity_s.connect(_hidden)
+	S.select_entity.connect(_show)
+	S.deselect_entity.connect(_hidden)
 	visible = false
 
 

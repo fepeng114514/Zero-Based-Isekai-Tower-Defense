@@ -2,21 +2,24 @@
 extends Entity
 @export var wave_set: WaveSet = null
 
-
 func _spawner() -> void:
 	var wave_list: Array[Wave] = wave_set.wave_list
 	
 	for wave_idx: int in range(wave_list.size()):
-		var wave: Wave = wave_list[wave_idx - 1]
-		
+		var wave: Wave = wave_list[wave_idx]
 		wave_idx += 1
+		
+		S.start_wave_timer.emit(wave)
+		
+		# 每波之间的等待
+		await y_wait(wave.interval, func(): 
+			return wave_idx < GlobalStore.force_wave
+		)
+		
 		if wave_idx < GlobalStore.force_wave:
 			continue
 		
-		# 每波之间的等待
-		await y_wait_time(wave.interval)
 		GlobalStore.current_wave = wave_idx
-		GlobalStore.force_wave = wave_idx
 		
 		for spawn_batch: WaveSpawnBatch in wave.spawn_batch_list:
 			# 批次并行
@@ -27,7 +30,7 @@ func _spawner() -> void:
 
 
 func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
-	await y_wait_time(spawn_batch.delay)
+	await y_wait(spawn_batch.delay)
 	var pathway_idx: int = spawn_batch.pathway_idx
 	
 	for spawn: WaveSpawn in spawn_batch.spawns:
@@ -48,6 +51,6 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 			
 			e.insert_entity()
 			
-			await y_wait_time(spawn.interval)
+			await y_wait(spawn.interval)
 			
-		await y_wait_time(spawn.next_interval)
+		await y_wait(spawn.next_interval)

@@ -78,7 +78,10 @@ death_sfx = SubResource("Resource_eo1sq")
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]
-position = Vector2(0, -36)
+offset_left = -20.0
+offset_top = -39.0
+offset_right = 21.0
+offset_bottom = -34.0
 scale = Vector2(1, 1.1)
 
 [node name="NavPathComponent" type="Node" parent="." unique_id=655679987]
@@ -103,5 +106,5 @@ script = ExtResource("9_cit00")
 min_damage = 30.0
 max_damage = 30.0
 animation = SubResource("Resource_m3i2n")
-delay_frame = 18
+delay = 0.3
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

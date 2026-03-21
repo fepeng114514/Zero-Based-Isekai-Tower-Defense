@@ -33,8 +33,7 @@ list = [NodePath("AnimatedSprite2D")]
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("4_e0w6f")
-animation = &"idle"
-frame_progress = 0.7882162
+animation = &"ranged"
 
 [node name="RangedComponent" type="Node2D" parent="." unique_id=129640034 node_paths=PackedStringArray("list")]
 script = ExtResource("4_d15la")
@@ -52,5 +51,5 @@ bullet_offsets = Dictionary[String, Vector2]({
 "up": Vector2(0, 0)
 })
 animation = SubResource("Resource_6rlp0")
-delay_frame = 12
+delay = 0.133
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

@@ -4,7 +4,7 @@ class_name HealthComponent
 ## 血量组件，负责实体的血量、护甲、抗性等属性，以及相关的伤害计算.
 
 ## 血条节点引用
-@export var health_bar: Node2D = null
+@export var health_bar: TextureProgressBar = null
 ## 最大血量，表示实体的最大血量
 @export var hp_max: float = 100
 ## 物理护甲值，表示实体的物理护甲值，护甲可以减少实体受到的物理伤害
@@ -38,7 +38,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _update_health_bar() -> void:
-	var new_health_bar: Node2D = get_node_or_null("HealthBar")
+	var new_health_bar: TextureProgressBar = get_node_or_null("HealthBar")
 	
 	# 只在变化时更新，避免无限循环
 	if health_bar != new_health_bar:
@@ -52,4 +52,4 @@ func _notification(what: int) -> void:
 	
 	
 func get_hp_percent() -> float:
-	return float(hp) / float(hp_max)
+	return float(hp) / float(hp_max) * 100

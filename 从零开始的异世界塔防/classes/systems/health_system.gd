@@ -31,9 +31,7 @@ func _on_update(_delta: float) -> void:
 		if not health_c:
 			continue
 			
-		health_bar.fg.scale.x = (
-			health_bar.origin_fg_scale.x * health_c.get_hp_percent()
-		)
+		health_bar.value = health_c.get_hp_percent()
 		
 func _process_damege_queue() -> void:
 	var damage_queue: Array[Entity] = SystemMgr.damage_queue

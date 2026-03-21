@@ -21,8 +21,6 @@ func load(new_systems: Array[System]) -> void:
 
 ## 系统主循环
 func _physics_process(delta: float) -> void:
-	S.continue_s.emit()
-	
 	for system: System in systems:
 		system._on_update(delta)
 	

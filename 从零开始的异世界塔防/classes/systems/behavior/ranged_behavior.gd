@@ -33,7 +33,7 @@ func _on_update(e: Entity) -> bool:
 func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.look_at_point = target.global_position
 	var result: Array = e.mixed_play_animation_by_look(a.animation, "ranged")
-	await e.y_wait_frame(a.delay_frame, func() -> bool:
+	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
 	var dir_idx: C.Direction = result[1]

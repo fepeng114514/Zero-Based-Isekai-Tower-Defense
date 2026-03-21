@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bgd5nra3mpc84"]
 
-[ext_resource type="Texture2D" uid="uid://clpxb8io3gno0" path="res://assets/rally_circle.png" id="1_nl5gu"]
+[ext_resource type="Texture2D" uid="uid://cjwth0l5e7mw2" path="res://resources/atlas_texture_resources/rally_circle.tres" id="1_47k2q"]
 [ext_resource type="Script" uid="uid://djikjf3p648na" path="res://scenes/circle_tween.gd" id="2_47k2q"]
 
 [node name="RallyCircle" type="Sprite2D" unique_id=2036888064]
-texture = ExtResource("1_nl5gu")
+texture = ExtResource("1_47k2q")
 script = ExtResource("2_47k2q")

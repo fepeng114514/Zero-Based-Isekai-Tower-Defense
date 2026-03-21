@@ -5,8 +5,8 @@ var select_type: C.SelectMode = C.SelectMode.NONE
 var selected_entity: Entity = null
 
 func _ready() -> void:
-	S.select_entity_s.connect(_on_select)
-	S.deselect_entity_s.connect(_on_deselect)
+	S.select_entity.connect(_on_select)
+	S.deselect_entity.connect(_on_deselect)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -38,14 +38,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			if U.is_vaild_entity(selected_entity):
 				selected_entity.selected = false
 				
-			S.deselect_entity_s.emit()
+			S.deselect_entity.emit()
 			selected_entity = null
 			return
 
 		Log.debug("选择实体: %s, %s" % [e, e.global_position])
 		e.selected = true
 		selected_entity = e
-		S.select_entity_s.emit(e)
+		S.select_entity.emit(e)
 		return
 		
 		

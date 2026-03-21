@@ -13,7 +13,7 @@ var dragging: bool = false
 var drag_start_position := Vector2.ZERO
 
 func _ready() -> void:
-	S.resized_window_s.connect(_on_resized_window)
+	S.resized_window.connect(_on_resized_window)
 	
 	limit_left = 0
 	limit_top = 0

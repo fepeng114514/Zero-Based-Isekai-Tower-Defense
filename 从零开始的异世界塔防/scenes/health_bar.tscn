@@ -1,25 +1,39 @@
 [gd_scene format=3 uid="uid://c2a35msevnk4d"]
 
-[ext_resource type="Script" uid="uid://ua1ib3sk4dgk" path="res://health_bar.gd" id="1_1bvlm"]
+[sub_resource type="Gradient" id="Gradient_iwqyq"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.9667981, 5.77569e-06, 1.540184e-06, 1)
 
-[node name="HealthBar" type="Node2D" unique_id=1048256100 node_paths=PackedStringArray("bg", "fg")]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1bvlm"]
+gradient = SubResource("Gradient_iwqyq")
+width = 40
+height = 5
+
+[sub_resource type="Gradient" id="Gradient_y3kqx"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(3.3210217e-06, 0.93028414, 3.465414e-06, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6opq1"]
+gradient = SubResource("Gradient_y3kqx")
+width = 40
+height = 5
+
+[node name="HealthBar" type="TextureProgressBar" unique_id=179515968]
 z_index = 1
-script = ExtResource("1_1bvlm")
-bg = NodePath("BG")
-fg = NodePath("FG")
+offset_left = -20.0
+offset_top = -3.0
+offset_right = 20.0
+offset_bottom = 2.0
+pivot_offset = Vector2(20, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+texture_under = SubResource("GradientTexture2D_1bvlm")
+texture_progress = SubResource("GradientTexture2D_6opq1")
 
-[node name="BG" type="ColorRect" parent="." unique_id=222392742]
-offset_left = -22.0
-offset_top = -2.0
-offset_right = 23.0
-offset_bottom = 83.0
-scale = Vector2(1, 0.04)
-color = Color(0.90590966, 0.165869, 0, 1)
-
-[node name="FG" type="ColorRect" parent="." unique_id=370820753]
-offset_left = -22.0
-offset_top = -2.0
-offset_right = 23.0
-offset_bottom = 83.0
-scale = Vector2(1, 0.04)
-color = Color(0.09019608, 0.85882354, 0, 1)
+[node name="ColorRect" type="ColorRect" parent="." unique_id=776750916]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 40.0
+offset_bottom = 5.0
+color = Color(0.21213487, 0.21213487, 0.21213487, 1)

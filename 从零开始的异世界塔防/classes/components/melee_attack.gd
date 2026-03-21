@@ -17,8 +17,8 @@ class_name MeleeAttack
 @export var animation: AnimationData = null
 ## 攻击音效数据
 @export var sfx: AudioData = null
-## 开始攻击到击中目标的延迟，单位为帧
-@export var delay_frame: int = 0
+## 开始攻击到击中目标的延迟，单位为秒
+@export var delay: float = 0
 @export var chance: float = 1
 @export var disabled: bool = false
 

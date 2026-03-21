@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://cufaf4wyw3b10" path="res://scenes/ui/game_ui_text.tscn" id="2_bma8u"]
 [ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/entity_info_panel.gd" id="2_xjfbv"]
 [ext_resource type="Script" uid="uid://c63j83w3vyiym" path="res://scenes/ui/speed_button.gd" id="3_8gp0l"]
-[ext_resource type="Script" uid="uid://bxq7ymbwdp2cp" path="res://scenes/ui/pause_button.gd" id="3_x7ddu"]
 [ext_resource type="PackedScene" uid="uid://t080pjf0rnto" path="res://scenes/range_circle.tscn" id="4_injcn"]
 [ext_resource type="PackedScene" uid="uid://bgd5nra3mpc84" path="res://scenes/rally_circle.tscn" id="5_kdhno"]
 [ext_resource type="PackedScene" uid="uid://dl3mrqjqn7bj3" path="res://scenes/rally_line.tscn" id="6_kdhno"]
@@ -153,15 +152,6 @@ theme_override_font_sizes/font_size = 24
 toggle_mode = true
 text = "1.0x"
 script = ExtResource("3_8gp0l")
-
-[node name="PauseButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=1544288290]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme = SubResource("5")
-theme_override_font_sizes/font_size = 24
-toggle_mode = true
-text = "⏱"
-script = ExtResource("3_x7ddu")
 
 [node name="MenuButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=1349281211]
 custom_minimum_size = Vector2(50, 50)

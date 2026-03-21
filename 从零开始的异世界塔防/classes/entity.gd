@@ -233,7 +233,7 @@ func _notification(what: int) -> void:
 
 
 func insert_entity() -> void:
-	S.insert_entity_s.emit(self)
+	S.insert_entity.emit(self)
 	SystemMgr.insert_queue.append(self)
 
 
@@ -547,28 +547,17 @@ func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
 	if current_frame == total_frames:
 		return
 	
-	# 等待剩余帧数 - 1
-	for i: int in range(frames_remaining - 1):
+	# 等待剩余帧数
+	for i: int in range(frames_remaining):
 		await sprite.frame_changed
 #endregion
 
 
-## 协程等待，等待帧，用于高精度的情况 [br]
-## break_fn 返回 true 表示中断等待
-func y_wait_frame(frame: int = 1, break_fn: Callable = Callable()) -> void:
-	_waiting = true
-	Log.verbose("实体等待: %s, %df" % [self, frame])
-	await TimeDB.y_wait_frame(frame, break_fn)
-	Log.verbose("实体等待完毕: %s, %df" % [self, frame])
-	_waiting = false
-
-
-## 协程等待，等待帧，用于低精度直观表示的情况 [br]
-## break_fn 返回 true 表示中断等待
-func y_wait_time(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
+## 协程等待，break_fn 返回 true 表示中断等待
+func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 	_waiting = true
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
-	await TimeDB.y_wait_time(time, break_fn)
+	await TimeDB.y_wait(time, break_fn)
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 	_waiting = false
 

@@ -56,8 +56,8 @@ class_name BulletComponent
 @export var flying_animation: AnimationData = null
 ## 击中动画数据
 @export var hit_animation: AnimationData = null
-## 击中后造成伤害的延迟，单位为帧
-@export var hit_delay_frame: int = 0
+## 击中后造成伤害的延迟，单位为秒
+@export var hit_delay: float = 0
 ## 未击中动画数据
 @export var miss_animation: AnimationData = null
 

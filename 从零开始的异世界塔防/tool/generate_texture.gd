@@ -50,7 +50,8 @@ const REQUIRED_ANIMATED_ATLAS: Array[String] = [
 	"animated_towers",
 ]
 const REQUIRED_IMAGE_ATLAS: Array[String] = [
-	"image_towers"
+	"image_towers",
+	"image_gui",
 ]
 var cached_atlas: Dictionary[String, Texture2D] = {}
 var image_db: Dictionary[String, AtlasTexture] = {}
@@ -170,6 +171,11 @@ func _process_sprite_frames(sprite_frames_name: String, anim_group: Dictionary) 
 
 		for idx: int in range(from, to + 1):
 			var atlas_texture_name: String = "%s_%04d" % [sprite_frames_name, idx]
+			
+			if not image_db.has(atlas_texture_name):
+				Log.warn("未找到帧: %s" % atlas_texture_name)
+				continue
+				
 			var frame: AtlasTexture = image_db[atlas_texture_name]
 			sprite_frames.add_frame(anim_name, frame)
 		

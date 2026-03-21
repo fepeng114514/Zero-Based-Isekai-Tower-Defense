@@ -30,23 +30,10 @@ func is_ready_time(ts: float, time: float) -> bool:
 ## 获取自指定时间戳以来过去的时间
 func get_time(ts: float) -> float:
 	return tick_ts - ts
-
-
-## 协程等待，等待帧，用于高精度的情况 [br]
-## break_fn 返回 true 表示中断等待
-func y_wait_frame(
-		frame: int = 1, break_fn: Callable = Callable()
-	) -> void:
-	for i: int in range(frame):
-		if break_fn.is_valid() and break_fn.call():
-			return
-			
-		await S.continue_s
 		
 		
-## 协程等待，等待时间，用于低精度直观表示的情况 [br]
-## break_fn 返回 true 表示中断等待
-func y_wait_time(
+## 协程等待，break_fn 返回 true 表示中断等待
+func y_wait(
 		time: float = U.fts(1), break_fn: Callable = Callable()
 	) -> void:
 	var ts: float = tick_ts
@@ -54,4 +41,4 @@ func y_wait_time(
 		not is_ready_time(ts, time) 
 		and (not break_fn.is_valid() or not break_fn.call())
 	):
-		await S.continue_s
+		await get_tree().process_frame

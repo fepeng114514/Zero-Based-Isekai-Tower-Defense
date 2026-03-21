@@ -102,5 +102,5 @@ bullet_offsets = Dictionary[String, Vector2]({
 "up": Vector2(0, 0)
 })
 animation = SubResource("Resource_3uqv8")
-delay_frame = 28
+delay = 0.466
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

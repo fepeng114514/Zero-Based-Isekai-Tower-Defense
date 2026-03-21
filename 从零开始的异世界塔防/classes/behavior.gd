@@ -104,7 +104,7 @@ func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 
 	e.look_at_point = target.global_position
 	e.mixed_play_animation_by_look(a.animation, "melee")
-	await e.y_wait_frame(a.delay_frame, func() -> bool:
+	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
 	a.ts = TimeDB.tick_ts

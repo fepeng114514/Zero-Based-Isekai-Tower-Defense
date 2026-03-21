@@ -92,7 +92,7 @@ func _hit(
 	) -> void:
 	if bullet_c.hit_animation:
 		e.mixed_play_animation_by_look(bullet_c.hit_animation)
-		await e.y_wait_frame(bullet_c.hit_delay_frame)
+		await e.y_wait(bullet_c.hit_delay)
 		
 	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
 		var targets: Array = EntityDB.search_targets_in_range(
