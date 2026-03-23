@@ -1,5 +1,8 @@
 extends Node
 class_name World
+## 世界类
+##
+## 实体通常会挂载到该节点下
 
 
 func _ready() -> void:

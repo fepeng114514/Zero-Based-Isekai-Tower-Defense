@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cxohlj7mh8hb6"]
 
-[ext_resource type="Script" uid="uid://b6l8uqpbpxei2" path="res://scenes/ui/game_ui/player_resources.gd" id="1_rltjd"]
+[ext_resource type="PackedScene" uid="uid://cv2hsfu7birtl" path="res://scenes/ui/game_ui/player_resources.tscn" id="1_rltjd"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="2_rltjd"]
 [ext_resource type="Script" uid="uid://c63j83w3vyiym" path="res://scenes/ui/game_ui/speed_button.gd" id="3_c6vw1"]
 
@@ -8,43 +8,8 @@
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="PlayerResources" type="HBoxContainer" parent="." unique_id=354615890 node_paths=PackedStringArray("life_icon", "life_value", "gold_icon", "gold_value")]
+[node name="PlayerResources" parent="." unique_id=883217190 instance=ExtResource("1_rltjd")]
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-script = ExtResource("1_rltjd")
-life_icon = NodePath("Life/Icon")
-life_value = NodePath("Life/Value")
-gold_icon = NodePath("Life/Icon")
-gold_value = NodePath("Gold/Value")
-
-[node name="Life" type="HBoxContainer" parent="PlayerResources" unique_id=38457988]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Icon" type="TextureRect" parent="PlayerResources/Life" unique_id=1567372416]
-layout_mode = 2
-expand_mode = 3
-
-[node name="Value" type="Label" parent="PlayerResources/Life" unique_id=444811463]
-layout_mode = 2
-theme = ExtResource("2_rltjd")
-theme_override_font_sizes/font_size = 24
-text = "20"
-
-[node name="Gold" type="HBoxContainer" parent="PlayerResources" unique_id=654158898]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Icon" type="TextureRect" parent="PlayerResources/Gold" unique_id=1217395937]
-layout_mode = 2
-expand_mode = 3
-
-[node name="Value" type="Label" parent="PlayerResources/Gold" unique_id=796261721]
-layout_mode = 2
-theme = ExtResource("2_rltjd")
-theme_override_font_sizes/font_size = 24
-text = "500"
 
 [node name="TopSpacer" type="Control" parent="." unique_id=1638167074]
 layout_mode = 2

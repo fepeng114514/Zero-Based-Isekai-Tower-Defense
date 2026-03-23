@@ -1,5 +1,6 @@
 extends Node
 class_name Behavior
+## 行为类
 
 
 #region 回调函数
@@ -40,7 +41,7 @@ func can_attack(a: Variant, target: Entity) -> bool:
 
 func go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	if melee_c.melee_pos_arrived or U.is_at_destination(
-			e.global_position, melee_c.melee_pos, melee_c.arrived_dist
+			e.global_position, melee_c.melee_pos, melee_c.arrived_distance
 	):
 		melee_c.melee_pos_arrived = true
 		return true
@@ -66,7 +67,7 @@ func go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	
 func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	if melee_c.origin_pos_arrived or U.is_at_destination(
-		e.global_position, melee_c.origin_pos, melee_c.arrived_dist
+		e.global_position, melee_c.origin_pos, melee_c.arrived_distance
 	):
 		melee_c.origin_pos_arrived = true
 		return true
@@ -113,7 +114,7 @@ func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 		return
 	
 	EntityDB.create_damage(
-		target.id, a.min_damage, a.max_damage, a.damage_type, e.id
+		target.id, a.damage_min, a.damage_max, a.damage_type, e.id
 	)
 	EntityDB.create_mods(target.id, a.mods, e.id)
 	

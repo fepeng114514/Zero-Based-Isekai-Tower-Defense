@@ -84,7 +84,7 @@ func _show(e: Entity) -> void:
 	if not ui_c:
 		return
 	
-	if not ui_c.can_click:
+	if not ui_c.can_select:
 		return
 		
 	selected_entity = e
@@ -218,7 +218,7 @@ func _create_range_circle(node_name: String, r: float) -> void:
 	
 	if selected_entity.has_c(C.CN_TOWER):
 		var tower_c: TowerComponent = selected_entity.get_c(C.CN_TOWER)
-		new_position = tower_c.position + tower_c.range_offset
+		new_position = tower_c.position + tower_c.show_range_offset
 	elif selected_entity.has_c(C.CN_RANGED):
 		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
 		new_position = ranged_c.position
@@ -279,8 +279,8 @@ func _set_value_ranged(e: Entity) -> void:
 	var bullet: Entity = EntityDB.get_entity_data(first_ranged_attack.bullet)
 	var bullet_c: BulletComponent = bullet.get_c(C.CN_BULLET)
 	ranged_value.text = "%d-%d/%.1f" % [
-		bullet_c.min_damage, 
-		bullet_c.max_damage, 
+		bullet_c.damage_min, 
+		bullet_c.damage_max, 
 		first_ranged_attack.cooldown
 	]
 	
@@ -290,7 +290,7 @@ func _set_value_melee(e: Entity) -> void:
 	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
 	var first_melee_attack: MeleeAttack = melee_c.list[0]
 	melee_value.text = "%d-%d/%.1f" % [
-		first_melee_attack.min_damage, 
-		first_melee_attack.max_damage, 
+		first_melee_attack.damage_min, 
+		first_melee_attack.damage_max, 
 		first_melee_attack.cooldown
 	]

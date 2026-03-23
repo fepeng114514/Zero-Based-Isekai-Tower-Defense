@@ -1,6 +1,8 @@
 @tool
 extends Node
 class_name Systems
+## 系统列表类
+
 
 @export var list: Array[System] = []
 

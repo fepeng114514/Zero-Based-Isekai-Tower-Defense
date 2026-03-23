@@ -1,5 +1,5 @@
 class_name PathwayNode
-## 路径节点，包含所有路径节点信息
+## 路径节点资源
 
 
 ## 路径索引
@@ -14,7 +14,7 @@ var pos := Vector2.ZERO
 var ratio: float = 0
 ## 位于的路径位置
 var progress: float = 0
-## 距离，特殊用途
+## 距离
 var dist_squared: float = 0
 
 

@@ -1,5 +1,9 @@
 extends System
 class_name AuraSystem
+## 光环系统
+##
+## 处理拥有 [AuraComponent] 光环组件的实体
+
 
 func _on_insert(e: Entity) -> bool:
 	var aura_c: AuraComponent = e.get_c(C.CN_AURA)
@@ -103,6 +107,8 @@ func _on_update(_delta: float) -> void:
 			e.flag_bits, 
 			e.ban_bits
 		)
+		if U.is_valid_number(aura_c.max_influence):
+			targets.resize(aura_c.max_influence)
 
 		# 周期效果
 		if (
@@ -117,11 +123,11 @@ func _on_update(_delta: float) -> void:
 			return
 
 		for target: Entity in targets:
-			if aura_c.min_damage > 0 or aura_c.max_damage > 0:
+			if aura_c.damage_min > 0 or aura_c.damage_max > 0:
 				EntityDB.create_damage(
 					target.id, 
-					aura_c.min_damage, 
-					aura_c.max_damage, 
+					aura_c.damage_min, 
+					aura_c.damage_max, 
 					aura_c.damage_type, 
 					e.id
 				)

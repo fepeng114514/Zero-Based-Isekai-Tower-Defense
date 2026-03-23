@@ -1,5 +1,8 @@
 extends System
 class_name EntitySystem
+## 实体系统
+##
+## 处理实体的回调与更新
 
 
 func _on_insert(e: Entity) -> bool:

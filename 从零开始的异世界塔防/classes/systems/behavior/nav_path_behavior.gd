@@ -1,5 +1,9 @@
 extends Behavior
 class_name NavPathBehavior
+## 导航路径行为系统
+##
+## 处理拥有 [NavPathComponent] 行为组件的实体的移动与到达终点判断
+
 
 func _on_insert(e: Entity) -> bool:
 	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)

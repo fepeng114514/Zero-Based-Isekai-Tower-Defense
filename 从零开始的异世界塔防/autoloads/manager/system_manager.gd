@@ -1,27 +1,30 @@
 extends Node
+## 系统管理器
+##
+## 控制系统主循环与实体插入移除，使用队列控制实体插入与移除。
 
-"""系统管理器:
-	控制系统主循环与实体插入移除。
-	使用队列控制实体插入与移除。
-"""
 
-var systems: Array[System] = []
+## 系统列表
+var system_list: Array[System] = []
+## 实体移除队列
 var remove_queue: Array[Entity] = []
+## 实体插入队列
 var insert_queue: Array[Entity] = []
+## 伤害队列
 var damage_queue: Array[Entity] = []
 
 
-func load(new_systems: Array[System]) -> void:
-	systems.clear()
+func load(new_system_list: Array[System]) -> void:
+	system_list.clear()
 	remove_queue.clear()
 	insert_queue.clear()
 	damage_queue.clear()
 	
-	systems = new_systems
+	system_list = new_system_list
 
 ## 系统主循环
 func _physics_process(delta: float) -> void:
-	for system: System in systems:
+	for system: System in system_list:
 		system._on_update(delta)
 	
 	# 帧末尾处理插入与移除
@@ -74,9 +77,11 @@ func _process_remove_queue() -> void:
 		e.free()
 
 
-## 调用所有系统中的指定回调函数，如果遇到一个返回 false 的系统则返回 false，否则返回 true
+## 调用所有系统中的指定回调函数
+## 
+## 如果遇到一个返回 false 的系统则返回 false，否则返回 true
 func call_systems(fn_name: String, arg) -> bool:
-	for system: System in systems:
+	for system: System in system_list:
 		var system_func = system.get(fn_name)
 
 		if not system_func.call(arg):

@@ -1,5 +1,10 @@
 extends System
 class_name SelectSystem
+## 选择系统
+##
+## 处理拥有 [UIComponent] 组件且可被选择（见 [（见 [annotation UIComponent.can_select]）]）
+## 的实体
+
 
 var select_type: C.SelectMode = C.SelectMode.NONE
 var selected_entity: Entity = null
@@ -56,7 +61,7 @@ func _on_select(e: Entity) -> void:
 	if e.has_c(C.CN_RALLY):
 		var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
 		
-		if not rally_c.can_click_rally:
+		if not rally_c.can_select_rally:
 			return
 			
 		select_type = C.SelectMode.RALLY

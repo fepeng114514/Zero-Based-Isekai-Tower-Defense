@@ -1,7 +1,6 @@
 extends Resource
-
-## 波次资源，存储阶段，所有阶段是并发的
 class_name Wave
+## 波次资源
 
 
 ## 波次间隔，单位为秒

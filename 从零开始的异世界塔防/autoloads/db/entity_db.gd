@@ -1,9 +1,11 @@
 extends Node
-
+## 实体数据库
+##
+## 存储所有实体与相关数据、工具函数
 
 """实体数据库:
-	存储所有实体与相关数据
-	待优化:
+	
+	todo:
 		1. 索敌的空间索引优化
 		2. 对象池
 """
@@ -47,6 +49,7 @@ func load() -> void:
 	_cached_entities_data.clear()
 	
 	_load_entity_scenes()
+
 
 ## 加载实体场景
 func _load_entity_scenes() -> void:
@@ -151,8 +154,8 @@ func create_auras(
 ## 创建伤害实体
 func create_damage(
 		target_id: int,
-		min_damage: float,
-		max_damage: float,
+		damage_min: float,
+		damage_max: float,
 		damage_type: C.DamageType = C.DamageType.PHYSICAL,
 		source_id: int = C.UNSET,
 		damage_factor: float = 1
@@ -162,7 +165,7 @@ func create_damage(
 	d.target_id = target_id
 	d.source_id = source_id
 	d.damage_type = damage_type
-	d.value = randf_range(min_damage, max_damage)
+	d.value = randf_range(damage_min, damage_max)
 	d.damage_factor = damage_factor
 
 	SystemMgr.damage_queue.append(d)
@@ -292,9 +295,9 @@ static func sort_entities_by_melee_damage(e1: Entity, e2: Entity, reversed: bool
 	var d2: float = INF if reversed else -INF
 
 	if e1.has_c(C.CN_MELEE):
-		d1 = e1.get_c(C.CN_MELEE).list[0].max_damage
+		d1 = e1.get_c(C.CN_MELEE).list[0].damage_max
 	if e2.has_c(C.CN_MELEE):
-		d2 = e2.get_c(C.CN_MELEE).list[0].max_damage
+		d2 = e2.get_c(C.CN_MELEE).list[0].damage_max
 
 	return d1 > d2 if not reversed else d1 < d2
 
@@ -307,11 +310,11 @@ static func sort_entities_by_ranged_damage(e1: Entity, e2: Entity, reversed: boo
 	if e1.has_c(C.CN_RANGED):
 		d1 = EntityDB.get_entity_data(
 			e1.get_c(C.CN_RANGED).list[0].bullet
-		).get_c(C.CN_BULLET).max_damage
+		).get_c(C.CN_BULLET).damage_max
 	if e2.has_c(C.CN_RANGED):
 		d2 = EntityDB.get_entity_data(
 			e2.get_c(C.CN_RANGED).list[0].bullet
-		).get_c(C.CN_BULLET).max_damage
+		).get_c(C.CN_BULLET).damage_max
 
 	return d1 > d2 if not reversed else d1 < d2
 
@@ -342,9 +345,9 @@ static func sort_entities_by_type(
 		entities_array.sort_custom(sort_functions[sort_type])
 
 
-## 搜索范围内目标, 
-## filter 匿名函数格式为 func(e: Entity) -> bool,
-## 并返回 bool 表示是否被过滤
+## 搜索范围内目标
+##
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
 func find_targets_in_range(
 		origin: Vector2,
 		max_range: float,
@@ -371,9 +374,9 @@ func find_targets_in_range(
 	)
 
 
-## 搜索并排序范围内目标, 
-## filter 匿名函数格式为 func(e: Entity) -> bool,
-## 并返回 bool 表示是否被过滤
+## 搜索并排序范围内目标
+##
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
 func find_sorted_targets(
 		sort_type: C.SortMode,
 		origin: Vector2,
@@ -392,9 +395,9 @@ func find_sorted_targets(
 	return targets
 
 
-## 搜索范围内相应值最大的目标, 
-## filter 匿名函数格式为 func(e: Entity) -> bool,
-## 并返回 bool 表示是否被过滤
+## 搜索范围内相应值最大的目标
+##
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
 func find_extreme_target(
 		sort_type: C.SortMode,
 		origin: Vector2,
@@ -470,9 +473,9 @@ const SEARCH_CONFIG: Dictionary[C.SearchMode, Array] = {
 }
 
 
-## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）,
-## filter 匿名函数格式为 func(e: Entity) -> bool,
-## 并返回 bool 表示是否被过滤
+## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）
+##	
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
 func search_target(
 		search_mode: int, 
 		origin: Vector2, 
@@ -493,9 +496,9 @@ func search_target(
 	)
 
 
-## 根据搜索模式选择相应索敌函数（搜索范围内所有目标）,
-## filter 匿名函数格式为 func(e: Entity) -> bool,
-## 并返回 bool 表示是否被过滤
+## 根据搜索模式选择相应索敌函数（搜索范围内所有目标）
+## 
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
 func search_targets_in_range(
 		search_mode: int, 
 		origin: Vector2, 

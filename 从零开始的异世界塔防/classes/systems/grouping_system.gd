@@ -1,6 +1,11 @@
 extends System
 class_name GroupingSystem
+## 分组系统
+##
+## 实时分组将实体分组到 [EntityDB]
 
+
+## 根据标识分到哪组配置枚举
 const FLAG_TO_GROUP = {
 	C.Flag.ENEMY: C.GROUP_ENEMIES,
 	C.Flag.FRIENDLY: C.GROUP_FRIENDLYS,

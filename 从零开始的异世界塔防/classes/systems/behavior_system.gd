@@ -1,6 +1,9 @@
 @tool
 extends System
 class_name BehaviorSystem
+## 行为系统
+##
+## 处理其下的子行为的调用
 
 
 @export var list: Array[Behavior] = []

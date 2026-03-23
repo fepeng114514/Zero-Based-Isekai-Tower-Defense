@@ -1,19 +1,22 @@
 extends Path2D
-
-## 子路径类
 class_name Subpathway
+## 子路径类
 
-var follow: PathFollow2D
+
+var follow: PathFollow2D = null
+## 子路径索引
 var idx: int = C.UNSET
+## 间距
 var spacing: float = 0
-var nodes: Array[PathwayNode] = []
+## 节点列表
+var node_list: Array[PathwayNode] = []
+## 子路径长度
 var length: float = 0
-var origin_path: Pathway
+## 父路径
+var parent_pathway: Pathway = null
 
 
 func _ready() -> void:
-	idx = origin_path.last_spi
-
 	follow = PathFollow2D.new()
 	follow.name = "Follow"
 	follow.loop = false
@@ -21,11 +24,12 @@ func _ready() -> void:
 	add_child(follow)
 	curve = create_offset_curve()
 	length = curve.get_baked_length()
-	nodes = get_equally_spaced_nodes()
+	node_list = get_equally_spaced_nodes()
 
 
+## 创建偏移曲线
 func create_offset_curve() -> Curve2D:
-	var origin_path_curve: Curve2D = origin_path.curve
+	var source_pathway_curve: Curve2D = parent_pathway.curve
 	var new_curve := Curve2D.new()
 	
 	# 沿着曲线采样多个点
@@ -33,14 +37,14 @@ func create_offset_curve() -> Curve2D:
 	var offset_points: PackedVector2Array = []
 	
 	# 获取曲线的长度
-	var curve_length: float = origin_path_curve.get_baked_length()
+	var curve_length: float = source_pathway_curve.get_baked_length()
 	var sample_count := int(curve_length)
 	
 	# 均匀采样
 	for i in range(sample_count):
 		var t: float = float(i) / (sample_count - 1)
 		var distance: float = t * curve_length
-		var point: Vector2 = origin_path_curve.sample_baked(distance)
+		var point: Vector2 = source_pathway_curve.sample_baked(distance)
 		sample_points.append(point)
 	
 	# 计算每个采样点的偏移
@@ -78,6 +82,7 @@ func create_offset_curve() -> Curve2D:
 	return new_curve
 
 
+## 获取等距的节点列表
 func get_equally_spaced_nodes() -> Array[PathwayNode]:
 	var nodes_list: Array[PathwayNode] = []
 	
@@ -89,7 +94,7 @@ func get_equally_spaced_nodes() -> Array[PathwayNode]:
 
 		nodes_list.append(
 			PathwayNode.new(
-				origin_path.idx,
+				parent_pathway.idx,
 				idx,
 				i,
 				pos,

@@ -8,9 +8,10 @@ class_name SpriteComponent
 ## 精灵列表
 @export_storage var list: Array[Node2D] = []
 
-@export_group("SyncAnimation")
+@export_group("Sync Animation")
 ## 是否所有者同步播放动画
 @export var sync_source: bool = false
+## 同步动画数据
 @export var sync_animations: SyncAnimationsData = null
 
 func _get_configuration_warnings() -> PackedStringArray:

@@ -1,6 +1,6 @@
 extends Resource
 class_name AnimationData
-## 动画数据资源，存储动画数据
+## 动画数据资源
 
 
 ## 要播放的精灵/精灵组索引

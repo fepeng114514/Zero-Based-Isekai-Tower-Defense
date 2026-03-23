@@ -37,6 +37,6 @@ texture = ExtResource("6_wcy0v")
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1624204329]
 script = ExtResource("3_qfsqy")
-click_rect = Rect2(-80.65, -46.145, 160, 84.385)
+select_rect = Rect2(-80.65, -46.145, 160, 84.385)
 info_bar_type = null
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

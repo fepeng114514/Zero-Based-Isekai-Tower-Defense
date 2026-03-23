@@ -43,6 +43,6 @@ metadata/_custom_type_script = "uid://b3vhika61oa7p"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=539105763]
 script = ExtResource("5_a0xnb")
-click_rect = Rect2(-60.815, -82.035, 118.91, 98.915)
+select_rect = Rect2(-60.815, -82.035, 118.91, 98.915)
 info_bar_type = 2
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

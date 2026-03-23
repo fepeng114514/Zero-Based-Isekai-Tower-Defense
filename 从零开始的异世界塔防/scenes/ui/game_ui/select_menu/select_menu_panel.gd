@@ -2,7 +2,7 @@ extends ScrollContainer
 
 
 @export var upgrade_item_scene: PackedScene = null
-@export var 
+#@export var 
 @export var item_list: VBoxContainer = null
 ## 当前选择的实体
 var selected_entity: Entity = null
@@ -31,11 +31,11 @@ func _show(e: Entity) -> void:
 	
 	selected_entity = e
 	visible = true
-	
-	for item_data: SelectMenuItemData in ui_c.select_menu_data.list:
-		var item: Button = item_scene.instantiate()
-		item.selected_entity = e
-		item_list.add_child(item)
+	#
+	#for item_data: SelectMenuItemData in ui_c.select_menu_data.list:
+		#var item: Button = item_scene.instantiate()
+		#item.selected_entity = e
+		#item_list.add_child(item)
 	
 func _hidden() -> void:
 	pass

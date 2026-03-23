@@ -1,5 +1,8 @@
 extends System
 class_name FXSystem
+## 特效系统
+##
+## 处理拥有 [FXComponent] 特效组件的实体
 
 
 func _on_insert(e: Entity) -> bool:

@@ -1,11 +1,8 @@
 extends System
 class_name BulletSystem
-
-"""子弹系统:
-	管理子弹实体的飞行轨迹、命中检测和伤害计算等相关逻辑。子弹系统会在每一帧更新子弹实体的位置，
-	并检测子弹是否命中目标或飞行到达目标位置。如果子弹命中目标，系统将计算伤害并应用状态效果，
-	同时触发相关事件回调。如果子弹飞行到达目标位置但未命中目标，系统将触发未命中事件回调。
-"""
+## 子弹系统
+##
+## 处理拥有 [BulletComponent] 子弹组件的实体的飞行轨迹、命中检测和伤害计算等相关逻辑。
 
 
 func _on_insert(e: Entity) -> bool:
@@ -18,7 +15,7 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	bullet_c.ts = TimeDB.tick_ts
-	var flying_time: float = TimeDB.get_time(bullet_c.ts)
+	var flying_time: float = TimeDB.get_time_by_ts(bullet_c.ts)
 	if not bullet_c.disabled_predict_pos:
 		bullet_c.predict_target_pos = PathDB.predict_target_pos(
 			target, bullet_c.flight_time
@@ -54,7 +51,7 @@ func _on_update(delta: float) -> void:
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
-		var flying_time: float = TimeDB.get_time(bullet_c.ts)
+		var flying_time: float = TimeDB.get_time_by_ts(bullet_c.ts)
 
 		if bullet_c.flight_trajectory & C.Trajectory.LINEAR:
 			_trajectory_liniear_update(e, bullet_c)
@@ -63,15 +60,15 @@ func _on_update(delta: float) -> void:
 		elif bullet_c.flight_trajectory & C.Trajectory.TRACKING:
 			_trajectory_tracking_update(e, bullet_c, target)
 		
-		if bullet_c.flying_animation:
-			e.mixed_play_animation_by_look(bullet_c.flying_animation)
+		if bullet_c.flight_animation:
+			e.mixed_play_animation_by_look(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 		
 		if (
 				flying_time >= bullet_c.flight_time 
 				or not target 
 				and U.is_at_destination(
-					e.global_position, bullet_c.to, bullet_c.hit_dist
+					e.global_position, bullet_c.to, bullet_c.hit_distance
 				)
 			):
 			_miss(e, bullet_c)
@@ -81,7 +78,7 @@ func _on_update(delta: float) -> void:
 			continue
 		
 		if U.is_at_destination(
-				e.global_position, bullet_c.to, bullet_c.hit_dist
+				e.global_position, bullet_c.to, bullet_c.hit_distance
 			):
 			_hit(e, bullet_c, target)
 
@@ -94,12 +91,12 @@ func _hit(
 		e.mixed_play_animation_by_look(bullet_c.hit_animation)
 		await e.y_wait(bullet_c.hit_delay)
 		
-	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
+	if bullet_c.damage_min_radius > 0 or bullet_c.damage_max_radius > 0:
 		var targets: Array = EntityDB.search_targets_in_range(
 			bullet_c.search_mode, 
 			bullet_c.to, 
-			bullet_c.max_damage_radius, 
-			bullet_c.min_damage_radius, 
+			bullet_c.damage_max_radius, 
+			bullet_c.damage_min_radius, 
 			e.flag_bits, 
 			e.ban_bits
 		)
@@ -129,8 +126,8 @@ func _damege_target(
 		)
 	EntityDB.create_damage(
 		target.id, 
-		bullet_c.min_damage, 
-		bullet_c.max_damage, 
+		bullet_c.damage_min, 
+		bullet_c.damage_max, 
 		bullet_c.damage_type, 
 		e.id, 
 		damage_factor
@@ -163,7 +160,7 @@ func _trajectory_liniear_init(bullet_c: BulletComponent) -> void:
 ## 直线轨迹更新
 func _trajectory_liniear_update(e: Entity, bullet_c: BulletComponent) -> void:
 	e.global_position = U.position_in_linear(
-		bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
+		bullet_c.velocity, bullet_c.from, TimeDB.get_time_by_ts(bullet_c.ts)
 	)
 
 
@@ -172,12 +169,12 @@ func _trajectory_parabola_init(
 		e: Entity, bullet_c: BulletComponent, flying_time: float
 	) -> void:
 	bullet_c.velocity = U.initial_parabola_velocity(
-		e.global_position, bullet_c.to, bullet_c.flight_time, bullet_c.g
+		e.global_position, bullet_c.to, bullet_c.flight_time, bullet_c.flight_gravity
 	)
 	
 	var next_time: float = flying_time + TimeDB.frame_length
 	var next_pos = U.position_in_parabola(
-		bullet_c.velocity, bullet_c.from, next_time, bullet_c.g
+		bullet_c.velocity, bullet_c.from, next_time, bullet_c.flight_gravity
 	)
 	
 	if bullet_c.look_to:
@@ -189,12 +186,12 @@ func _trajectory_parabola_update(
 		e: Entity, bullet_c: BulletComponent, flying_time: float
 	) -> void:
 	var current_pos: Vector2 = U.position_in_parabola(
-		bullet_c.velocity, bullet_c.from, flying_time, bullet_c.g
+		bullet_c.velocity, bullet_c.from, flying_time, bullet_c.flight_gravity
 	)
 	
 	var next_time: float = flying_time + TimeDB.frame_length
 	var next_pos: Vector2 = U.position_in_parabola(
-		bullet_c.velocity, bullet_c.from, next_time, bullet_c.g
+		bullet_c.velocity, bullet_c.from, next_time, bullet_c.flight_gravity
 	)
 	
 	e.global_position = current_pos
@@ -219,7 +216,7 @@ func _trajectory_tracking_update(
 		bullet_c.to = target.global_position + target.hit_offset
 	
 	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
-	e.global_position += direction * bullet_c.speed * TimeDB.frame_length
+	e.global_position += direction * bullet_c.flight_speed * TimeDB.frame_length
 	
 	if bullet_c.look_to:
 		e.look_at(bullet_c.to)

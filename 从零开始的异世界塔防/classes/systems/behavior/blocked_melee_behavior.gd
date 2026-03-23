@@ -1,10 +1,10 @@
 extends Behavior
 class_name BlockedMeleeBehavior
-
 ## 近战行为系统
 ##
-## 管理被拦截者实体的近战攻击 [br]
-## 被拦截者: 如果是被第一个拦截，原地等待拦截者到达自身近战位置，反之前往拦截者的近战位置
+## 处理拥有 [MeleeComponent] 近战攻击组件的被拦截者实体（见 [annotation MeleeComponent.is_blocker]）
+## 的攻击与拦截，如果是被第一个拦截，原地等待拦截者到达自身近战位置，
+## 反之前往拦截者的近战位置
 
 
 func _on_remove(e: Entity) -> bool:

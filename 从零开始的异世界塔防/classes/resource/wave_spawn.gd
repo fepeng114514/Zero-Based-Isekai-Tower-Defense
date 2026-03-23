@@ -1,7 +1,6 @@
 extends Resource
-
-## 敌人生成资源，存储生成的敌人数据
 class_name WaveSpawn
+## 敌人生成资源
 
 
 ## 敌人路径

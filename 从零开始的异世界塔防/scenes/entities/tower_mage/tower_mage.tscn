@@ -42,7 +42,7 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1427274464]
 script = ExtResource("2_ag2v0")
-click_rect = Rect2(-53.555, -80.205, 112.085, 109.085)
+select_rect = Rect2(-53.555, -80.205, 112.085, 109.085)
 info_bar_type = 2
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
@@ -60,7 +60,7 @@ animation = &"ranged"
 [node name="TowerComponent" type="Node2D" parent="." unique_id=676982162 node_paths=PackedStringArray("list")]
 script = ExtResource("5_ewl0l")
 list = [NodePath("Shooter")]
-range_offset = Vector2(0, -58.8)
+show_range_offset = Vector2(0, -58.8)
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="Shooter" parent="TowerComponent" unique_id=1442245649 node_paths=PackedStringArray("components") instance=ExtResource("6_aexug")]

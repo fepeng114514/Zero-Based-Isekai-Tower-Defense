@@ -1,9 +1,9 @@
 extends System
 class_name HealthSystem
-
-"""血量系统:
-	管理伤害造成与血条更新拦截
-"""
+## 血量系统
+##
+## 处理拥有 [HealthComponent] 血量组件的实体的血条更新
+## 处理伤害队列的伤害造成
 
 
 func _on_insert(e: Entity) -> bool:
@@ -93,13 +93,13 @@ func _predict_damage(
 	var resistance: float = 1 - health_c.damage_resistance
 	var reduction: float = health_c.damage_reduction
 	
-	var damage_inc: float = 0
+	var damage_bonus: float = 0
 	var physical_armor_factor: float = 1
 	var magical_armor_factor: float = 1
-	var physical_armor_inc: int = 0
-	var magical_armor_inc: int = 0
+	var physical_armor_bonus: int = 0
+	var magical_armor_bonus: int = 0
 	var vulnerable_factor: float = 1
-	var vulnerable_inc: float = 0
+	var vulnerable_bonus: float = 0
 	
 	# 汇总状态效果的影响
 	# 所有者
@@ -107,19 +107,19 @@ func _predict_damage(
 		for mod: Entity in source.get_has_mods():
 			var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
 			damage_factor *= mod_c.add_damage_factor
-			damage_inc += mod_c.add_damage_inc
+			damage_bonus += mod_c.add_damage_bonus
 			resistance *= mod_c.damage_resistance_factor
-			reduction += mod_c.damage_reduction_inc
+			reduction += mod_c.damage_reduction_bonus
 			physical_armor_factor *= mod_c.physical_armor_factor
 			magical_armor_factor *= mod_c.magical_armor_factor
-			physical_armor_inc += mod_c.physical_armor_inc
-			magical_armor_inc += mod_c.magical_armor_inc
+			physical_armor_bonus += mod_c.physical_armor_bonus
+			magical_armor_bonus += mod_c.magical_armor_bonus
 		
 	# 目标
 	for mod: Entity in target.get_has_mods():
 		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
 		vulnerable *= mod_c.vulnerable_factor
-		vulnerable += mod_c.vulnerable_inc
+		vulnerable += mod_c.vulnerable_bonus
 	
 	# 计算护甲减伤
 	var damage_type: int = damage.damage_type
@@ -131,7 +131,7 @@ func _predict_damage(
 		U.to_percent(
 			health_c.physical_armor 
 			* physical_armor_factor 
-			+ physical_armor_inc
+			+ physical_armor_bonus
 		), 
 		0,
 		1
@@ -140,7 +140,7 @@ func _predict_damage(
 		U.to_percent(
 			health_c.magical_armor
 			* magical_armor_factor
-			+ magical_armor_inc
+			+ magical_armor_bonus
 		),
 		0,
 		1
@@ -170,7 +170,7 @@ func _predict_damage(
 	
 	# 计算伤害
 	var total_damage_factor: float = damage_factor * resistance * vulnerable
-	var basic_value: float = damage.value - reduction + damage_inc
+	var basic_value: float = damage.value - reduction + damage_bonus
 	var actual_damage: float = roundi(basic_value * total_damage_factor)
 	
 	return actual_damage

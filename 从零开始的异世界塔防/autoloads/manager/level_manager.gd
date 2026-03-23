@@ -1,10 +1,10 @@
 extends Node
+## 关卡管理器
+##
+## 管理关卡
 
-"""关卡管理器:
-	管理进入关卡与关卡数据
-"""
 
-
+## 进入指定索引的关卡
 func enter_level(idx: int) -> void:
 	Store.level_idx = idx
 	

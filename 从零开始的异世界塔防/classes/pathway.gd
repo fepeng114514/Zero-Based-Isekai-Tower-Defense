@@ -1,16 +1,21 @@
 extends Path2D
 class_name Pathway
+## 路径类
 
 
-@export var active: bool = true
-var subpathways: Array[Subpathway] = []
-var last_spi: int = 0
+## 是否禁用当前路径
+@export var disabled: bool = true
+## 子路径列表
+var subpathway_list: Array[Subpathway] = []
+## 下一个子路径索引
+var next_spi: int = 0
+## 路径索引
 var idx: int = C.UNSET
 
 
 func _ready() -> void:
-	PathDB.pathways.append(self)
-	idx = PathDB.last_pi
+	PathDB.pathway_list.append(self)
+	idx = PathDB.next_pi
 
 	var max_subpathway: int = PathDB.max_subpathway
 	var spacing: float = PathDB.subpathway_spacing
@@ -23,34 +28,25 @@ func _ready() -> void:
 	
 		#add_line_visualization(subpathway, Color.RED)
 
-	PathDB.last_pi += 1
-	
-
-func enable() -> void:
-	active = true
+	PathDB.next_pi += 1
 
 
-func disable() -> void:
-	active = false
-
-
-func is_active() -> bool:
-	return active
-
-
+## 创建子路径
 func create_subpathway(spacing: float) -> Subpathway:
 	var subpathway := Subpathway.new()
 	subpathway.spacing = spacing
-	subpathway.origin_path = self
+	subpathway.parent_pathway = self
+	subpathway.idx = next_spi
 	add_child(subpathway)
 
-	subpathways.append(subpathway)
+	subpathway_list.append(subpathway)
 
-	last_spi += 1
+	next_spi += 1
 
 	return subpathway
 
 
+## 为子路径绘制线条
 func add_line_visualization(subpathway: Subpathway, color: Color) -> void:
 	var line := Line2D.new()
 	line.width = 3.0

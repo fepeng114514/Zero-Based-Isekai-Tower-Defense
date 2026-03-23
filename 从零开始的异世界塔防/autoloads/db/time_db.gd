@@ -1,8 +1,7 @@
 extends Node
-
-"""时间数据库:
-	存储所有时间信息
-"""
+## 时间数据库
+##
+## 存储所有时间信息
 
 ## 自上次初始化后已经过的时间戳
 var tick_ts: float = 0
@@ -12,7 +11,6 @@ var tick: int = 0
 var frame_length: float = 0
 ## 每秒的经过的帧数，始终等于 Engine.get_frames_per_second()
 var fps: float = 0
-@onready var curren_scene: SceneTree = get_tree()
 
 
 func load() -> void:
@@ -28,11 +26,13 @@ func is_ready_time(ts: float, time: float) -> bool:
 	
 
 ## 获取自指定时间戳以来过去的时间
-func get_time(ts: float) -> float:
+func get_time_by_ts(ts: float) -> float:
 	return tick_ts - ts
 		
 		
-## 协程等待，break_fn 返回 true 表示中断等待
+## 协程等待
+##
+## break_fn 返回 true 表示中断等待
 func y_wait(
 		time: float = U.fts(1), break_fn: Callable = Callable()
 	) -> void:

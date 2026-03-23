@@ -1,17 +1,29 @@
 @tool
 extends NavigationAgent2D
 class_name RallyComponent
+## 集结组件
+##
+## RallyComponent 可以使实体移动到指定位置，并支持阵型排列
 
+
+## 移动速度
 @export var speed: float = 100
+## 集结半径
+##
+## 集结半径用于阵型排列时单位之间的间距
 @export var rally_radius: float = 30
-@export var can_click_rally: bool = true
+## 是否可点击集结
+@export var can_select_rally: bool = true
 ## 移动动画数据
 @export var motion_animation: AnimationData = null
+
+## 集结目标位置
 @export var rally_pos := Vector2.ZERO:
 	set(value):
 		rally_pos = value
 		target_position = value
 
+## 是否已到达集结位置
 var arrived: bool = false
 
 
@@ -24,6 +36,7 @@ func _ready() -> void:
 		})
 
 
+## 设置新的集结目标
 func new_rally(
 		new_rally_pos: Vector2, new_rally_radius: float = C.UNSET
 ) -> void:
@@ -35,6 +48,9 @@ func new_rally(
 		rally_radius = new_rally_radius
 
 
+## 设置阵型位置
+##
+## 根据总数量和当前索引，计算单位在阵型中的位置
 func rally_formation_position(count: int, idx: int) -> void:
 	if count == 1:
 		return

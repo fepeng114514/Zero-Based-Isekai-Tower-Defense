@@ -71,10 +71,10 @@ animation = &"death_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("4_bfbt7")
-health_bar = NodePath("HealthBar")
 hp_max = 200.0
 death_animation = SubResource("Resource_43dp3")
 death_sfx = SubResource("Resource_eo1sq")
+health_bar = NodePath("HealthBar")
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]
@@ -90,7 +90,7 @@ metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1219032886]
 script = ExtResource("6_ijmwd")
-click_rect = Rect2(-16, -32, 32, 35)
+select_rect = Rect2(-16, -32, 32, 35)
 info_bar_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
@@ -103,8 +103,8 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
 script = ExtResource("9_cit00")
-min_damage = 30.0
-max_damage = 30.0
+damage_min = 30.0
+damage_max = 30.0
 animation = SubResource("Resource_m3i2n")
 delay = 0.3
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

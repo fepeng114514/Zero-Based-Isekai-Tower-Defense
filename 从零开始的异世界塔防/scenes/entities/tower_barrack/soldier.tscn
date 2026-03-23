@@ -92,6 +92,6 @@ metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=2093072497]
 script = ExtResource("9_8n3d5")
-click_rect = Rect2(-17.7, -38.315, 35.59, 40.08)
+select_rect = Rect2(-17.7, -38.315, 35.59, 40.08)
 info_bar_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

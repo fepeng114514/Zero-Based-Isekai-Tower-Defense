@@ -1,5 +1,7 @@
 extends Resource
 class_name AudioData
+## 音频数据资源
+
 
 ## 播放模式
 @export var play_mode: C.AudioPlayMode = C.AudioPlayMode.RANGDOM
@@ -7,5 +9,5 @@ class_name AudioData
 @export var audio_list: Array[AudioStream] = []
 ## 音量，单位为分贝
 @export var volume_db: float = 0
-## 音量，线性增长而非分贝
+## 音量，线性增长而非对数
 @export var volume_linear: float = 1

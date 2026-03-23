@@ -53,7 +53,7 @@ func _on_update(_delta: float) -> void:
 	# 飞向预判位置
 	if is_to_predict and not TimeDB.is_ready_time(bullet_c.ts, to_predict_time):
 		global_position = U.position_in_linear(
-			bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
+			bullet_c.velocity, bullet_c.from, TimeDB.get_time_by_ts(bullet_c.ts)
 		)
 		
 		return
@@ -73,7 +73,7 @@ func _on_update(_delta: float) -> void:
 
 	# 下落
 	global_position = U.position_in_linear(
-		bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
+		bullet_c.velocity, bullet_c.from, TimeDB.get_time_by_ts(bullet_c.ts)
 	)
 
 
@@ -83,6 +83,6 @@ func _on_bullet_calculate_damage_factor(
 	return U.dist_factor_inside_radius(
 		global_position, 
 		target.global_position, 
-		bullet_c.min_damage_radius, 
-		bullet_c.max_damage_radius
+		bullet_c.damage_min_radius, 
+		bullet_c.damage_max_radius
 	)

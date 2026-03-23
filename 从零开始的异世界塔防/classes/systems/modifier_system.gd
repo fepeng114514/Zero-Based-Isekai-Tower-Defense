@@ -1,5 +1,9 @@
 extends System
 class_name ModifierSystem
+## 状态效果系统
+##
+## 处理拥有 [ModifierComponent] 状态效果组件的实体
+
 
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_MODIFIER):
@@ -109,8 +113,8 @@ func _on_update(_delta: float) -> void:
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 		
-		if mod_c.min_damage > 0 or mod_c.max_damage > 0:
-			EntityDB.create_damage(e.target_id, mod_c.min_damage, mod_c.max_damage, mod_c.damage_type, e.id)
+		if mod_c.damage_min > 0 or mod_c.damage_max > 0:
+			EntityDB.create_damage(e.target_id, mod_c.damage_min, mod_c.damage_max, mod_c.damage_type, e.id)
 
 		e._on_modifier_period(target, mod_c)
 

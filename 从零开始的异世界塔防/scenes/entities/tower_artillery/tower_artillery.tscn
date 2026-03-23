@@ -83,7 +83,7 @@ frame_progress = 0.85702354
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1960010545]
 script = ExtResource("12_mbgfo")
-click_rect = Rect2(-86.015, -71.315, 169.8, 98.42)
+select_rect = Rect2(-86.015, -71.315, 169.8, 98.42)
 info_bar_type = 2
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 

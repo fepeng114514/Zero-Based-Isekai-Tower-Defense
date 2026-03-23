@@ -4,7 +4,7 @@ class_name Entity
 ## 实体节点
 ##
 ## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。 
-## 实体类负责管理实体的基本属性和组件，并提供一些通用的接口和事件回调，供系统和组件调用。
+## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 #region 属性
 ## 实体 UID
@@ -101,7 +101,9 @@ var selected: bool = false
 var removed: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
+## 状态
 var state := C.State.IDLE
+## 看向的点
 var look_at_point := Vector2.INF
 #endregion
 

@@ -8,6 +8,6 @@ func _on_bullet_calculate_damage_factor(
 	return U.dist_factor_inside_radius(
 		global_position, 
 		target.global_position, 
-		bullet_c.min_damage_radius, 
-		bullet_c.max_damage_radius
+		bullet_c.damage_min_radius, 
+		bullet_c.damage_max_radius
 	)

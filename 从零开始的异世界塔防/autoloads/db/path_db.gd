@@ -1,70 +1,84 @@
 extends Node
+## 路径数据库
+##
+## 存储所有路径与相关数据
 
-"""路径数据库:
-	存储所有路径
-"""
-
-var pathways: Array[Pathway] = []
-var last_pi: int = 0
+## 路径列表
+var pathway_list: Array[Pathway] = []
+## 下一个路径索引
+var next_pi: int = 0
+## 最大子路径
 var max_subpathway: int = 3
+## 子路径间距
 var subpathway_spacing: float = 33.33
+## 路径节点数量
 var node_count: int = 256
 
 
 func load() -> void:
-	pathways.clear()
-	last_pi = 0
+	pathway_list.clear()
+	next_pi = 0
 
 
+## 获取路径数量
 func get_pathway_count() -> int:
-	return pathways.size()
+	return pathway_list.size()
 
 
+## 获取指定索引的路径
 func get_pathway(pi: int) -> Pathway:
-	return pathways[pi]
+	return pathway_list[pi]
 
 
+## 获取指定索引的子路径
 func get_subpathway(pi: int, spi: int) -> Subpathway:
-	var pathway: Pathway = pathways[pi]
-	var subpathway: Subpathway = pathway.subpathways[spi]
+	var pathway: Pathway = pathway_list[pi]
+	var subpathway: Subpathway = pathway.subpathway_list[spi]
 	return subpathway
 
 
+## 获取指定索引的节点
 func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
-	var pathway: Pathway = pathways[pi]
-	var subpathway: Subpathway = pathway.subpathways[spi]
-	var pathway_node: PathwayNode = subpathway.nodes[ni]
+	var pathway: Pathway = pathway_list[pi]
+	var subpathway: Subpathway = pathway.subpathway_list[spi]
+	var pathway_node: PathwayNode = subpathway.node_list[ni]
 
 	return pathway_node
 	
 
+## 获取中间的子路径索引
 func get_middle_spi() -> int:
 	return roundi(1.0 * max_subpathway / 2)
 
 
-func get_active_pathways() -> Array[Pathway]:
-	return pathways.filter(func(p: Pathway): return p.active)
+## 获取启用的路径
+func get_disabled_pathways() -> Array[Pathway]:
+	return pathway_list.filter(func(p: Pathway): return p.disabled)
 
 
-func get_random_path() -> Pathway:
-	return get_active_pathways().pick_random()
+## 获取随机路径
+func get_random_pathway() -> Pathway:
+	return pathway_list.pick_random()
 
 
+## 获取随机路径索引
 func get_random_pi() -> int:
 	return randi_range(0, get_pathway_count() - 1)
 
 
-func get_random_subpathway(pi = null) -> Subpathway:
-	if not pi:
+## 获取指定路径上的随机子路径
+## 
+## 若不指定路径索引将会在随机路径上获取
+func get_random_subpathway(pi: int = C.UNSET) -> Subpathway:
+	if not U.is_valid_number(pi):
 		pi = get_random_pi()
-	else:
-		return null
 
-	var pathway: Pathway = pathways[pi]
+	var pathway: Pathway = pathway_list[pi]
 
-	return pathway.subpathways.pick_random()
+	return pathway.subpathway_list.pick_random()
 
 
+## 根据路程获取路程比率
 func get_ratio(pi: int, spi: int, progress: float) -> float:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 		
@@ -72,6 +86,7 @@ func get_ratio(pi: int, spi: int, progress: float) -> float:
 	return clampf(delta, 0, 1)
 	
 
+## 获取指定路径比率上的位置
 func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 	var path_follow: PathFollow2D = subpathway.follow
@@ -82,12 +97,14 @@ func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	return global_position
 
 
+## 根据路程比率获取路程
 func get_progress_by_ratio(pi: int, spi: int, ratio: float) -> float:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 
 	return subpathway.length * ratio
 	
 
+## 获取指定路程上的位置
 func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	var subpathway: Subpathway = get_subpathway(pi, spi)
 	var path_follow = subpathway.follow
@@ -98,6 +115,7 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	return global_position
 	
 
+## 预判目标位置
 func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 	var predict_pos: Vector2 = target.global_position
 
@@ -119,7 +137,7 @@ func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 	return predict_pos
 
 
-## 获取指定路径上按距离排序的所有节点
+## 获取指定路径上按距离排序的节点列表
 ##
 ## 可指定搜索的路径与子路径，不指定将会在所有路径搜索
 func get_nearst_nodes_list(
@@ -128,27 +146,27 @@ func get_nearst_nodes_list(
 		spi_l: Array = range(max_subpathway),
 		valid_only: bool = true
 	) -> Array[PathwayNode]:
-	var nodes: Array[PathwayNode] = []
+	var node_list: Array[PathwayNode] = []
 
 	for pi: int in pi_l:
-		if valid_only and not get_pathway(pi).is_active():
+		if valid_only and not get_pathway(pi).is_disabled():
 			Log.debug("路径 %s 已被禁用" % pi)
 			continue
 
 		for spi: int in spi_l:
 			var subpathway: Subpathway = get_subpathway(pi, spi)
 
-			for node: PathwayNode in subpathway.nodes:
+			for node: PathwayNode in subpathway.node_list:
 				node.dist_squared = node.pos.distance_squared_to(origin)
 
-				nodes.append(node)
+				node_list.append(node)
 
-	nodes.sort_custom(
+	node_list.sort_custom(
 		func(p1: Dictionary, p2: Dictionary): return (
 			p1.dist_squared < p2.dist_squared
 		)
 	)
-	return nodes
+	return node_list
 	
 
 ## 获取最近的路径上的一个节点
@@ -163,13 +181,13 @@ func get_nearst_node(
 	var nearst_node: PathwayNode = null
 	
 	for pi: int in pi_l:
-		if valid_only and not get_pathway(pi).is_active():
+		if valid_only and not get_pathway(pi).is_disabled():
 			continue
 		
 		for spi: int in spi_l:
 			var subpathway: Subpathway = get_subpathway(pi, spi)
 			
-			for node: PathwayNode in subpathway.nodes:
+			for node: PathwayNode in subpathway.node_list:
 				node.dist_squared = node.pos.distance_squared_to(origin)
 				
 				if (

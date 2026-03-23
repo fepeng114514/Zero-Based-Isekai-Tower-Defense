@@ -1,16 +1,21 @@
 extends Camera2D
-
-## 相机类
 class_name Camera
+## 相机类
 
 
+## 缩放因子
 @export var zoom_factor: float = 1.1
+## 缩放时间
 @export var zoom_duration: float = 0.2
+## 最小缩放
 @export var zoom_min: float = 0
+## 最大缩放
 @export var zoom_max: float = 1.5
 
-var dragging: bool = false
-var drag_start_position := Vector2.ZERO
+## 是否正在拖拽
+var _dragging: bool = false
+## 拖拽位置
+var _drag_start_position := Vector2.ZERO
 
 func _ready() -> void:
 	S.resized_window.connect(_on_resized_window)
@@ -35,14 +40,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	# 左键点击事件开始拖动
 	elif event.is_action_pressed("left_click"):
-		dragging = true
-		drag_start_position = event.position
+		_dragging = true
+		_drag_start_position = event.position
 	# 左键点击事件松开结束拖动
 	elif event.is_action_released("left_click"):
-		dragging = false
+		_dragging = false
 	
 	# 拖动时鼠标移动移动相机
-	if not dragging:
+	if not _dragging:
 		return
 		
 	_move(event.position)
@@ -71,10 +76,10 @@ func _smooth_zoom(reversed: bool = false) -> void:
 
 func _move(target_pos: Vector2) -> void:
 	# 计算鼠标移动距离
-	var drag_offset: Vector2 = drag_start_position - target_pos
+	var drag_offset: Vector2 = _drag_start_position - target_pos
 	# 移动相机（注意：要除以缩放倍数，否则缩放后拖动速度不对）
 	position += drag_offset / zoom
-	drag_start_position = target_pos
+	_drag_start_position = target_pos
 
 
 func _reset_zoom() -> void:

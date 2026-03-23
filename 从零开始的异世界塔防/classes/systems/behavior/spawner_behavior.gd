@@ -1,5 +1,9 @@
 extends Behavior
 class_name SpawnerBehavior
+## 生成器行为系统
+##
+## 处理拥有 [SpawnerComponent] 生成器组件的实体
+
 
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_SPAWNER):

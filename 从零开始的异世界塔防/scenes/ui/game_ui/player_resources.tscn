@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cv2hsfu7birtl"]
+
+[ext_resource type="Script" uid="uid://b6l8uqpbpxei2" path="res://scenes/ui/game_ui/player_resources.gd" id="1_asxmd"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="2_y7bry"]
+
+[node name="PlayerResources" type="HBoxContainer" unique_id=883217190 node_paths=PackedStringArray("life_icon", "life_value", "cash_icon", "cash_value")]
+mouse_filter = 2
+theme_override_constants/separation = 20
+script = ExtResource("1_asxmd")
+life_icon = NodePath("Life/Icon")
+life_value = NodePath("Life/Value")
+cash_icon = NodePath("Cash/Icon")
+cash_value = NodePath("Cash/Value")
+
+[node name="Life" type="HBoxContainer" parent="." unique_id=64149971]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="Life" unique_id=31423520]
+layout_mode = 2
+expand_mode = 3
+
+[node name="Value" type="Label" parent="Life" unique_id=287686407]
+layout_mode = 2
+theme = ExtResource("2_y7bry")
+theme_override_font_sizes/font_size = 24
+text = "20"
+
+[node name="Cash" type="HBoxContainer" parent="." unique_id=491625206]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="Cash" unique_id=516580731]
+layout_mode = 2
+expand_mode = 3
+
+[node name="Value" type="Label" parent="Cash" unique_id=461566231]
+layout_mode = 2
+theme = ExtResource("2_y7bry")
+theme_override_font_sizes/font_size = 24
+text = "500"

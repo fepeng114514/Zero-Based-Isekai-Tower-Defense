@@ -1,23 +1,41 @@
 @tool
 extends Node
 class_name NavPathComponent
+## 导航路径组件
+##
+## NavPathComponent 可以使实体沿着路径移动
 
+
+## 是否沿相反路线移动
 @export var reversed: bool = false
+## 移动速度
 @export var speed: float = 133
+## 终点节点
 @export var end_ni: int = C.UNSET
+## 是否循环
 @export var loop: bool = false
+## 循环次数
+##
+## 等待循环次数后再到达终点节点将会到达终点
 @export var loop_times: int = C.UNSET
 ## 移动动画数据
 @export var motion_animation: AnimationData = null
 
-
+## 所在路径索引
 var nav_pi: int = 0
+## 所在子路径索引
 var nav_spi: int = 0
+## 所在节点索引
 var nav_ni: int = 0
+## 所在路程比率
 var nav_ratio: float = 0
+## 所在路程
 var nav_progress: float = 0
+## 原始速度
 var origin_speed: float = 0
+## 当前循环次数
 var loop_count: int = 0
+## 时间戳
 var ts: float = 0
 
 
@@ -60,6 +78,7 @@ func get_pathway_node(ni: int = nav_ni) -> PathwayNode:
 	return PathDB.get_pathway_node(nav_pi, nav_spi, ni)
 
 
+## 设置导航路径
 func set_nav_path(
 		pi: int, spi: int = C.UNSET, ni: int = C.UNSET
 	) -> void:
@@ -69,6 +88,7 @@ func set_nav_path(
 		nav_ni = ni
 
 
+## 根据某个节点设置导航路径
 func set_pathway_node(node: PathwayNode) -> void:
 	nav_ni = node.ni
 	nav_progress = node.progress

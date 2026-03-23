@@ -7,21 +7,21 @@ extends HBoxContainer
 ## 生命值控件
 @export var life_value: Label = null
 ## 金币图标控件
-@export var gold_icon: TextureRect = null
+@export var cash_icon: TextureRect = null
 ## 金币值控件
-@export var gold_value: Label = null
+@export var cash_value: Label = null
 
 
 func _ready() -> void:
-	S.set_gold.connect(_on_set_gold)
+	S.set_cash.connect(_on_set_cash)
 	S.set_life.connect(_on_set_life)
 
 
 ## 设置金币时调用的信号处理函数
-func _on_set_gold(new_value: float) -> void:
-	pass
+func _on_set_cash(new_value: float) -> void:
+	cash_value.text = "%d" % new_value
 	
 	
 ## 设置生命时调用的信号处理函数
 func _on_set_life(new_value: float) -> void:
-	pass
+	life_value.text = "%d" % new_value

@@ -1,5 +1,8 @@
 extends Behavior
 class_name RallyBehavior
+## 集结点行为系统
+##
+## 处理拥有 [RallyComponent] 行为组件的实体的前往集结点移动
 
 
 func _on_update(e: Entity) -> bool:

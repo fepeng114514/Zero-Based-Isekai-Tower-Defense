@@ -1,5 +1,7 @@
 extends Resource
 class_name SyncAnimationsData
+## 同步动画数据资源
+
 
 @export var idle: AnimationData = null
 @export var melee: AnimationData = null

@@ -2,9 +2,11 @@
 extends Node2D
 class_name BarrackComponent
 ## 兵营组件
-## 兵营组件可以使实体生成士兵并管理士兵列表
+##
+## BarrackComponent 可以使实体生成士兵并管理士兵列表
 
-## 集结范围，表示士兵的可集结范围，单位为像素
+
+## 集结范围
 @export var rally_range: float = 300:
 	set(value):
 		rally_range = value
@@ -14,33 +16,33 @@ class_name BarrackComponent
 	set(value):
 		rally_pos = value
 		queue_redraw()
-@export var range_offset := Vector2.ZERO:
-	set(value):
-		range_offset = value
-		queue_redraw()
-## 集结点半径，表示士兵距离集结点中心的半径，单位为像素
+## 集结点半径
 @export var rally_radius: float = 30
-## 士兵 UID，表示生成的士兵实体将使用该模板进行创建
+## 士兵 UID
 @export_file("*.tscn") var soldier: String = ""
-## 兵营生成士兵的时间间隔，单位为秒
+## 兵营生成士兵的时间间隔（秒）
 @export var respawn_time: float = 10
-## 最大士兵数量，表示兵营最多可以同时存在的士兵数量，超过该数量时将不再生成新的士兵
+## 最大士兵数量
 @export var max_soldiers: int = 3
 ## 生成士兵动画数据
-@export var animation: AnimationData = null
+@export var spawn_animation: AnimationData = null
+## 范围显示偏移
+@export var show_range_offset := Vector2.ZERO:
+	set(value):
+		show_range_offset = value
+		queue_redraw()
 
-
-## 时间戳，表示上一次生成士兵的时间，用于计算生成士兵的时间间隔
+## 时间戳（秒）
 var ts: float = 0
-## 士兵列表，表示当前兵营生成的士兵实体列表
+## 士兵列表
 var soldiers_list: Array = []
-## 上一次士兵数量，表示上一次生成士兵时的士兵数量，用于检测士兵数量变化
+## 上一次士兵数量
 var last_soldier_count: int = C.UNSET
 
 
 func _ready() -> void:
-	if animation == null:
-		animation = AnimationData.new({
+	if spawn_animation == null:
+		spawn_animation = AnimationData.new({
 			"left_right": "spawn",
 		})
 
@@ -50,14 +52,14 @@ func _draw() -> void:
 		return
 		
 	draw_circle(
-		range_offset, 
+		show_range_offset, 
 		3,
 		Color(0.835, 0.416, 0.851, 0.604), 
 		true
 	)
 	
 	draw_circle(
-		position + range_offset, 
+		position + show_range_offset, 
 		rally_range,
 		Color(0.835, 0.416, 0.851, 0.604), 
 		false,

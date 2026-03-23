@@ -1,9 +1,9 @@
 extends Node
+## 信号库
+##
+## 存储所有信号
 
 
-"""信号库:
-    存储所有信号
-"""
 @warning_ignore_start("unused_signal")
 #region UI 相关
 ## 重设窗口大小信号
@@ -15,7 +15,7 @@ signal select_entity(e: Entity)
 signal deselect_entity
 
 ## 设置金币信号
-signal set_gold(new_value: float)
+signal set_cash(new_value: float)
 ## 设置生命信号
 signal set_life(new_value: float)
 #endregion

@@ -1,4 +1,8 @@
 extends Node
+## 音频管理器
+##
+## 管理音频播放与总线
+
 
 ## 主音频总线
 const MasterBus: StringName = &"Master"

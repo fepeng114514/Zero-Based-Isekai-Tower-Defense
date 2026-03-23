@@ -1,5 +1,9 @@
 extends System
 class_name TowerSystem
+## 防御塔系统
+##
+## 处理拥有 [TowerComponent] 防御塔组件的实体
+
 
 func _on_insert(e: Entity) -> bool:
 	var tower_c: TowerComponent = e.get_c(C.CN_TOWER)

@@ -1,5 +1,9 @@
 extends Behavior
 class_name RangedBehavior
+## 远程攻击行为系统
+##
+## 处理拥有 [RangedComponent] 远程攻击组件的实体的远程攻击
+
 
 func _on_update(e: Entity) -> bool:
 	var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)

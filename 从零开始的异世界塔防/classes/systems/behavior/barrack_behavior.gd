@@ -1,5 +1,9 @@
 extends Behavior
 class_name BarrackBehavior
+## 兵营行为系统
+##
+## 处理拥有 [BarrackComponent] 兵营组件的实体生成士兵
+
 
 func _on_insert(e: Entity) -> bool:
 	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)

@@ -1,58 +1,64 @@
 @tool
 extends Node2D
 class_name MeleeComponent
-
-## 近战组件，负责管理实体的近战属性和行为，例如近战攻击范围、近战攻击伤害、近战攻击效果等。
+## 近战组件
+##
+## MeleeComponent 可以使实体拥有近战攻击与拦截的能力
 
 ## 是否不主动前往近战位置
 @export var is_passive: bool = false
-## 移动速度，单位为像素/秒
+## 移动速度
 @export var speed: float = 100
 ## 移动动画数据
 @export var motion_animation: AnimationData = null
-
-## 近战攻击列表
-@export_storage var list: Array[MeleeAttack] = []
-
 ## 近战位置偏移
 @export var melee_pos_offset := Vector2.ZERO:
 	set(value):
 		melee_pos_offset = value
 		queue_redraw()
 ## 到达位置的阈值
-@export var arrived_dist: float = 10
+@export var arrived_distance: float = 10
+
+## 近战攻击列表
+@export_storage var list: Array[MeleeAttack] = []
 
 @export_group("Blocker")
-## 是否是拦截者，表示实体是否具有拦截能力
+## 是否是拦截者
 @export var is_blocker: bool = false
-## 拦截最小范围，单位为像素
+## 拦截最小范围
 @export var block_min_range: float = 0
-## 拦截最大范围，单位为像素
+## 拦截最大范围
 @export var block_max_range: float = 100
-## 搜索模式，实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
+## 搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 最大被拦截者数量
 @export var max_blocked: int = 1
 
 @export_group("Blocked")
-## 拦截成本，表示被拦截者的拦截成本
+## 拦截成本
 @export var block_cost: int = 1
 
 @export_group("Limit")
+## 拦截标识
 @export var block_flags: Array[C.Flag] = []:
 	set(value): 
 		block_flags = value
 		block_flag_bits = U.merge_flags(value)
+## 拦截禁止的标识
 @export var block_bans: Array[C.Flag] = []:
 	set(value): 
 		block_bans = value
 		block_ban_bits = U.merge_flags(value)
 
+## 二进制的拦截标识
 var block_flag_bits: int = 0
+## 二进制的拦截禁止的标识
 var block_ban_bits: int = 0
 ## 拦截者 ID 列表
 var blockers_ids: Array[int] = []
-## 拦截数量，拦截数量根据被拦截者的拦截成本计算
+## 拦截数量
+##
+## 拦截数量根据被拦截者的拦截成本计算
 var blocked_count: int = 0
 ## 被拦截者 ID 列表
 var blockeds_ids: Array[int] = []
@@ -64,7 +70,9 @@ var origin_pos_arrived: bool = true
 var melee_pos := Vector2.ZERO
 ## 是否到达近战位置
 var melee_pos_arrived: bool = true
+## 是否需要设置原位置
 var need_origin_setup: bool = true
+## 向量速度
 var velocity := Vector2.ZERO
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -131,6 +139,7 @@ func reset_blocked_count() -> void:
 	blocked_count = count
 
 
+## 获取被拦截者
 func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
 	var blocked_list: Array[Entity] = []
 	

@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resource/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner/wave_spawner.tscn" id="4_dga24"]
-[ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://classes/store.gd" id="4_oc4kc"]
+[ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://classes/world.gd" id="4_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://assets/level_1_bg.png" id="4_x42e6"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_6761a"]
 [ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/resource/wave_spawn_batch.gd" id="5_wtwp4"]
@@ -89,9 +89,9 @@ tile_set = ExtResource("6_sk5k4")
 script = ExtResource("22_vmrhw")
 metadata/_custom_type_script = "uid://c2hgryphol5kq"
 
-[node name="Pathways" type="Node" parent="." unique_id=1530672308]
+[node name="pathway_list" type="Node" parent="." unique_id=1530672308]
 
-[node name="Pathway" type="Path2D" parent="Pathways" unique_id=1122140574]
+[node name="Pathway" type="Path2D" parent="pathway_list" unique_id=1122140574]
 position = Vector2(96, 208)
 curve = SubResource("Curve2D_q8u5g")
 script = ExtResource("3_sk5k4")

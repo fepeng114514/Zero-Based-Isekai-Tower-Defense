@@ -5,11 +5,13 @@ class_name TowerComponent
 
 ## 每个子实体进行远程攻击轮换的间隔
 @export var attack_loop_time: float = 0
-@export var range_offset := Vector2.ZERO:
+## 显示范围的偏移
+@export var show_range_offset := Vector2.ZERO:
 	set(value):
-		range_offset = value
+		show_range_offset = value
 		queue_redraw()
-		
+
+## 子实体列表
 @export_storage var list: Array[Entity] = []
 
 
@@ -22,7 +24,7 @@ func _draw() -> void:
 		return
 		
 	draw_circle(
-		range_offset, 
+		show_range_offset, 
 		3,
 		Color(0.757, 0.0, 0.62, 1.0), 
 		true

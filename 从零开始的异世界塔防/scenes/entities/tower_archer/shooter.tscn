@@ -26,18 +26,26 @@ idle_animation = SubResource("Resource_e0w6f")
 flags = Array[int]([4])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870 node_paths=PackedStringArray("list")]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870]
 script = ExtResource("2_4mkqg")
-list = [NodePath("AnimatedSprite2D")]
+list = Array[Node2D]([Object(AnimatedSprite2D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, -24),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"sprite_frames":ExtResource("4_e0w6f"),"animation":&"ranged","autoplay":"","frame":0,"frame_progress":0.0,"speed_scale":1.0,"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"script":null)
+])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("4_e0w6f")
 animation = &"ranged"
 
-[node name="RangedComponent" type="Node2D" parent="." unique_id=129640034 node_paths=PackedStringArray("list")]
+[node name="RangedComponent" type="Node2D" parent="." unique_id=129640034]
 script = ExtResource("4_d15la")
-list = [NodePath("RangedAttack")]
+list = Array[ExtResource("5_plukg")]([Object(Node2D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"script":ExtResource("5_plukg"),"min_range":0.0,"max_range":300.0,"cooldown":1.0,"bullet":"uid://d25hnem6unbul","bullet_offsets":Dictionary[String, Vector2]({
+"any": Vector2(5.725, -18.35),
+"down": Vector2(0, 0),
+"left": Vector2(0, 0),
+"right": Vector2(0, 0),
+"up": Vector2(0, 0)
+}),"search_mode":12,"animation":SubResource("Resource_6rlp0"),"sfx":null,"delay":0.133,"chance":1.0,"with_melee":false,"disabled":false,"vis_flags":Array[int]([]),"vis_bans":Array[int]([]),"whitelist_uid":Array[String]([]),"blacklist_uid":Array[String]([]),"vis_flag_bits":0,"vis_ban_bits":0,"ts":0.0,"metadata/_custom_type_script":"uid://covaxdshxnvkn")
+])
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
