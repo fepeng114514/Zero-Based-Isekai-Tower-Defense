@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://t080pjf0rnto"]
-
-[ext_resource type="Texture2D" uid="uid://dy4dphv67pyr4" path="res://resources/atlas_texture_resources/range_circle.tres" id="1_kgxm0"]
-[ext_resource type="Script" uid="uid://djikjf3p648na" path="res://scenes/ui/game_ui/circle_tween.gd" id="2_kgxm0"]
-
-[node name="RangeCircle" type="Sprite2D" unique_id=124999546]
-texture = ExtResource("1_kgxm0")
-script = ExtResource("2_kgxm0")

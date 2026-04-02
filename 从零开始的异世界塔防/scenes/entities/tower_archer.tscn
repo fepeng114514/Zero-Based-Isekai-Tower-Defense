@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_x6o3l"]
 [ext_resource type="Texture2D" uid="uid://bjw24pqqjas30" path="res://resources/atlas_texture_resources/archer_tower_0001.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resource/select_menu/select_menu_item_data.gd" id="4_sqv3w"]
-[ext_resource type="Texture2D" uid="uid://bu6f1c7qrrs2f" path="res://resources/atlas_texture_resources/ico_sell_0001.tres" id="5_lw7ic"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="5_4541l"]
 [ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="6_15ohl"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_d15la"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_plukg"]
@@ -15,15 +15,9 @@
 script = ExtResource("2_bgr08")
 left_right = "idle_left_right"
 
-[sub_resource type="Resource" id="Resource_iwhmn"]
-script = ExtResource("4_sqv3w")
-type = 1
-icon = ExtResource("5_lw7ic")
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
 [sub_resource type="Resource" id="Resource_hdm32"]
 script = ExtResource("6_15ohl")
-list = Array[ExtResource("4_sqv3w")]([SubResource("Resource_iwhmn")])
+list = Array[ExtResource("4_sqv3w")]([ExtResource("5_4541l")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerArcher" type="Node2D" unique_id=1010851235 node_paths=PackedStringArray("components")]
@@ -58,7 +52,9 @@ texture = ExtResource("3_ivbmm")
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788 node_paths=PackedStringArray("list")]
 position = Vector2(0, -49)
 script = ExtResource("7_plukg")
+tower_type = 1
 attack_loop_time = 1.0
+show_range_offset = Vector2(0, 43.52)
 list = [NodePath("TowerArcherShooter"), NodePath("TowerArcherShooter2")]
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 

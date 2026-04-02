@@ -19,6 +19,20 @@ func _on_insert(e: Entity) -> bool:
 		
 	return true
 	
+	
+func _on_remove(e: Entity) -> bool:
+	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
+	if not barrack_c:
+		return true
+		
+	barrack_c.cleanup_soldiers()
+	
+	var soldiers_list: Array = barrack_c.soldiers_list
+	for soldier: Entity in soldiers_list:
+		soldier.remove_entity()
+		
+	return true
+	
 
 func _on_update(e: Entity) -> bool:
 	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
@@ -37,7 +51,7 @@ func _on_update(e: Entity) -> bool:
 	
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_count:
-		for i in range(soldier_count):
+		for i: int in range(soldier_count):
 			var soldier: Entity = soldiers_list[i]
 			var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
 			s_rally_c.rally_formation_position(soldier_count, i)

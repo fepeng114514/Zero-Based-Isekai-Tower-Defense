@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://ca75dg47m1q1a"]
+
+[ext_resource type="Script" uid="uid://cu2n4eqm2rpbd" path="res://scenes/ui/game_ui/info_circle.gd" id="1_dgwu4"]
+[ext_resource type="Texture2D" uid="uid://dy4dphv67pyr4" path="res://resources/atlas_texture_resources/range_circle.tres" id="2_2e158"]
+[ext_resource type="Texture2D" uid="uid://cjwth0l5e7mw2" path="res://resources/atlas_texture_resources/rally_circle.tres" id="3_sxjir"]
+
+[node name="InfoCircle" type="Control" unique_id=1487020159 node_paths=PackedStringArray("ranged_max_range_circle", "ranged_min_range_circle", "rally_max_range_circle", "rally_min_range_circle", "melee_max_range_circle", "melee_min_range_circle")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_dgwu4")
+ranged_max_range_circle = NodePath("RangedMaxRangeCircle")
+ranged_min_range_circle = NodePath("RangedMinRangeCircle")
+rally_max_range_circle = NodePath("RallyMaxRangeCircle")
+rally_min_range_circle = NodePath("RallyMinRangeCircle")
+melee_max_range_circle = NodePath("MeleeMaxRangeCircle")
+melee_min_range_circle = NodePath("MeleeMinRangeCircle")
+
+[node name="RangedMaxRangeCircle" type="TextureRect" parent="." unique_id=1534782061]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_2e158")
+
+[node name="RangedMinRangeCircle" type="TextureRect" parent="." unique_id=795272033]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_2e158")
+
+[node name="RallyMaxRangeCircle" type="TextureRect" parent="." unique_id=876061730]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_sxjir")
+
+[node name="RallyMinRangeCircle" type="TextureRect" parent="." unique_id=75749823]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_sxjir")
+
+[node name="MeleeMaxRangeCircle" type="TextureRect" parent="." unique_id=1935171373]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_sxjir")
+
+[node name="MeleeMinRangeCircle" type="TextureRect" parent="." unique_id=81789493]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_sxjir")

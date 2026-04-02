@@ -3,6 +3,8 @@ extends Node2D
 class_name TowerComponent
 
 
+## 防御塔类型
+@export var tower_type: C.TowerType = C.TowerType.TOWER_HOLDE
 ## 每个子实体进行远程攻击轮换的间隔
 @export var attack_loop_time: float = 0
 ## 显示范围的偏移
@@ -14,13 +16,13 @@ class_name TowerComponent
 @export var tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
 ## 子实体列表
 @export var list: Array[Entity] = []
+## 价格
+@export var price: float = 70
+## 出售比例（%）
+@export var sell_ratio: float = 0.5
 
 ## 总价格
-var total_price: float = 0
-## 价格
-var price: float = 70
-## 出售比例（%）
-var sell_ratio: float = 50
+var total_price: float = price
 ## 升级目标
 var upgrade_to: String = ""
 ## 出售状态
@@ -58,7 +60,7 @@ func _update_list() -> void:
 
 ## 当节点树变化时自动更新
 func _notification(what: int) -> void:
-	U.tool_on_tree_call(self, what, _update_list)
+	EditorUtils.tool_on_tree_call(self, what, _update_list)
 
 
 ## 清理 list 中已经不存在的实体

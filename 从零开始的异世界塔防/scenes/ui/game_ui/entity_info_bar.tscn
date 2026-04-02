@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://g4ovunr1s3vb"]
 
 [ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/game_ui/entity_info_bar.gd" id="1_1ujae"]
-[ext_resource type="PackedScene" uid="uid://t080pjf0rnto" path="res://scenes/ui/game_ui/range_circle.tscn" id="2_avff8"]
-[ext_resource type="PackedScene" uid="uid://bgd5nra3mpc84" path="res://scenes/ui/game_ui/rally_circle.tscn" id="3_nvtq1"]
-[ext_resource type="PackedScene" uid="uid://dl3mrqjqn7bj3" path="res://scenes/ui/game_ui/rally_line.tscn" id="4_l4e0i"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="5_nlacs"]
 [ext_resource type="Texture2D" uid="uid://ciotpk7kx0b6" path="res://resources/atlas_texture_resources/base_info_icons_0001.tres" id="6_fm2ec"]
 [ext_resource type="Texture2D" uid="uid://crepanmnlo6dm" path="res://resources/atlas_texture_resources/base_info_icons_0010.tres" id="7_avvo0"]
@@ -26,10 +23,6 @@ corner_radius_bottom_left = 6
 mouse_filter = 2
 theme_override_styles/panel = SubResource("4")
 script = ExtResource("1_1ujae")
-range_circle = ExtResource("2_avff8")
-melee_range_circle = ExtResource("3_nvtq1")
-rally_circle = ExtResource("3_nvtq1")
-rally_line = ExtResource("4_l4e0i")
 entity_name = NodePath("MarginContainer/HBoxContainer/EntityName")
 hp_label = NodePath("MarginContainer/HBoxContainer/HBoxHP/Label")
 hp_value = NodePath("MarginContainer/HBoxContainer/HBoxHP/Value")

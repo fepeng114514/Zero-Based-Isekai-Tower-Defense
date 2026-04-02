@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ck4m2qigdae35"]
 
-[ext_resource type="Script" uid="uid://clyc23ikknvhu" path="res://scenes/entities/tower_holder.gd" id="1_ikcv0"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_4v7bs"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_jrk33"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_pyfu2"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="3_qfsqy"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_eclg5"]
 [ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://scenes/entities/tower_holder.gdshader" id="5_rh6e0"]
@@ -12,9 +12,10 @@
 [ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="9_jcl8y"]
 [ext_resource type="Texture2D" uid="uid://d03deip2s24tx" path="res://resources/atlas_texture_resources/main_icons_0002.tres" id="10_60yds"]
 [ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_texture_resources/main_icons_0004.tres" id="11_m6ujs"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="12_pyfu2"]
 
-[sub_resource type="Resource" id="Resource_g7t81"]
-script = ExtResource("2_4v7bs")
+[sub_resource type="Resource" id="Resource_fdaav"]
+script = ExtResource("2_pyfu2")
 left_right = "idle_left_right"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jcl8y"]
@@ -22,49 +23,46 @@ shader = ExtResource("5_rh6e0")
 shader_parameter/outline_size = 20.0
 shader_parameter/outline_color = Color(1, 1, 0, 1)
 
-[sub_resource type="GDScript" id="GDScript_72f7h"]
-script/source = "extends SelectMenuItemData
-class_name SelectMenuItemAim 
-"
-
-[sub_resource type="Resource" id="Resource_yqgqx"]
-script = SubResource("GDScript_72f7h")
-upgrade_to = "uid://biuewnv7ms46d"
-icon = ExtResource("8_yqgqx")
-
-[sub_resource type="Resource" id="Resource_au025"]
+[sub_resource type="Resource" id="Resource_ri540"]
 script = ExtResource("7_rh6e0")
-upgrade_to = "uid://wc2518mmc5jt"
-icon = ExtResource("9_bdr3i")
-place = 2
+upgrade_to = "tower_archer"
+icon = ExtResource("8_yqgqx")
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
 [sub_resource type="Resource" id="Resource_mt6fh"]
 script = ExtResource("7_rh6e0")
-upgrade_to = "uid://cc3v5b7ci4wxv"
+upgrade_to = "tower_barrack"
 icon = ExtResource("10_60yds")
-place = 4
+place = 2
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_au025"]
+script = ExtResource("7_rh6e0")
+upgrade_to = "tower_mage"
+icon = ExtResource("9_bdr3i")
+place = 6
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
 [sub_resource type="Resource" id="Resource_x3qwx"]
 script = ExtResource("7_rh6e0")
-upgrade_to = "uid://fx352ubic8aw"
+upgrade_to = "tower_artillery"
 icon = ExtResource("11_m6ujs")
-place = 6
+place = 4
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
 [sub_resource type="Resource" id="Resource_bdr3i"]
 script = ExtResource("9_jcl8y")
-list = Array[ExtResource("7_rh6e0")]([SubResource("Resource_yqgqx"), SubResource("Resource_au025"), SubResource("Resource_mt6fh"), SubResource("Resource_x3qwx")])
+list = Array[ExtResource("7_rh6e0")]([SubResource("Resource_ri540"), SubResource("Resource_mt6fh"), SubResource("Resource_au025"), SubResource("Resource_x3qwx")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerHolder" type="Node2D" unique_id=1898604313 node_paths=PackedStringArray("components")]
-script = ExtResource("1_ikcv0")
+script = ExtResource("1_jrk33")
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-idle_animation = SubResource("Resource_g7t81")
+idle_animation = SubResource("Resource_fdaav")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454 node_paths=PackedStringArray("list")]
@@ -81,3 +79,7 @@ script = ExtResource("3_qfsqy")
 select_rect = Rect2(-80.65, -46.145, 160, 84.385)
 select_menu_data = SubResource("Resource_bdr3i")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=286705593]
+script = ExtResource("12_pyfu2")
+metadata/_custom_type_script = "uid://d104itkl6l02e"

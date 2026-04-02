@@ -232,7 +232,7 @@ func _update_components() -> void:
 
 ## 当节点树变化时自动更新
 func _notification(what: int) -> void:
-	U.tool_on_tree_call(self, what, _update_components)
+	EditorUtils.tool_on_tree_call(self, what, _update_components)
 
 
 ## 将实体增加到插入队列

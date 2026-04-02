@@ -15,7 +15,6 @@
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/resource/wave/wave_spawn.gd" id="6_iwr0g"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://resources/grid_tileset.tres" id="6_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui/game_ui_layer.tscn" id="7_oc4kc"]
-[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer.tscn" id="9_dnkej"]
 [ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack.tscn" id="14_iwr0g"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage.tscn" id="15_bahl2"]
@@ -23,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://scenes/entities/tower_holder.tscn" id="20_7h2jl"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://scenes/ui/game_ui/next_wave_time.tscn" id="22_ndtll"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
+[ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/ui/world_control.tscn" id="23_mqh5v"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("2_gmpev")
@@ -61,11 +61,11 @@ metadata/_custom_type_script = "uid://okpyko8fvmx4"
 script = ExtResource("14_np2pn")
 left_right = "idle_left_right"
 
-[sub_resource type="Resource" id="Resource_mkypq"]
+[sub_resource type="Resource" id="Resource_ndtll"]
 script = ExtResource("14_np2pn")
 left_right = "idle_left_right"
 
-[sub_resource type="Resource" id="Resource_ndtll"]
+[sub_resource type="Resource" id="Resource_mqh5v"]
 script = ExtResource("14_np2pn")
 left_right = "idle_left_right"
 
@@ -107,20 +107,12 @@ components = {
 }
 idle_animation = SubResource("Resource_gmpev")
 
-[node name="TowerArcher" parent="World" unique_id=1010851235 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
-position = Vector2(858, 400)
-components = {
-"SpriteComponent": NodePath("SpriteComponent"),
-"TowerComponent": NodePath("TowerComponent"),
-"UIComponent": NodePath("UIComponent")
-}
-idle_animation = SubResource("Resource_mkypq")
-
 [node name="TowerBarrack" parent="World" unique_id=383018069 node_paths=PackedStringArray("components") instance=ExtResource("14_iwr0g")]
 position = Vector2(1144, 512)
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
 idle_animation = SubResource("Resource_ndtll")
@@ -146,8 +138,10 @@ components = {
 position = Vector2(1016, 240)
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
+idle_animation = SubResource("Resource_mqh5v")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true
@@ -155,18 +149,22 @@ position_smoothing_speed = 15.0
 script = ExtResource("5_6761a")
 metadata/_custom_type_script = "uid://dkcjwrd81mf1p"
 
-[node name="NextWaveTime" parent="." unique_id=1400132623 instance=ExtResource("22_ndtll")]
+[node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("7_oc4kc")]
+
+[node name="WorldControl" parent="." unique_id=803235356 instance=ExtResource("23_mqh5v")]
+z_index = 1000
+
+[node name="NextWaveTime" parent="WorldControl" unique_id=1400132623 instance=ExtResource("22_ndtll")]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 165.0
-offset_top = 297.0
-offset_right = 250.0
-offset_bottom = 382.0
+offset_left = 145.0
+offset_top = 277.0
+offset_right = 230.0
+offset_bottom = 362.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-
-[node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("7_oc4kc")]

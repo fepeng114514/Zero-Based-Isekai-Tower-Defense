@@ -33,7 +33,7 @@ func _update_list() -> void:
 
 ## 当节点树变化时自动更新
 func _notification(what: int) -> void:
-	U.tool_on_tree_call(self, what, _update_list)
+	EditorUtils.tool_on_tree_call(self, what, _update_list)
 	
 	
 func _on_insert(e: Entity) -> bool:

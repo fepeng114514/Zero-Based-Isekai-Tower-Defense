@@ -4,9 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_texture_resources/main_icons_0004.tres" id="2_p7yov"]
 
 [node name="PlaceHolder" type="TextureRect" unique_id=1573593846 node_paths=PackedStringArray("lable")]
-anchors_preset = -1
-offset_right = 117.0
-offset_bottom = 106.0
+offset_right = 109.0
+offset_bottom = 98.0
 texture = ExtResource("2_p7yov")
 script = ExtResource("2_n7tvw")
 lable = NodePath("Label")

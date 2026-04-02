@@ -297,6 +297,21 @@ enum AudioPlayMode {
 }
 
 
+## 防御塔类型枚举
+enum TowerType {
+	## 防御塔类型：塔位
+	TOWER_HOLDE,
+	## 防御塔类型：箭塔
+	TOWER_ARCHER,
+	## 防御塔类型：兵营
+	TOWER_BARRACK,
+	## 防御塔类型：法师塔
+	TOWER_MAGE,
+	## 防御塔类型：炮塔
+	TOWER_ARTILLERY,
+}
+
+
 ## 塔位样式枚举
 enum TowerHolderStyle {
 	## 草地

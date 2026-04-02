@@ -6,10 +6,15 @@ class_name BarrackComponent
 ## BarrackComponent 可以使实体生成士兵并管理士兵列表
 
 
-## 集结范围
-@export var rally_range: float = 300:
+## 最小集结范围
+@export var rally_min_range: float = 0:
 	set(value):
-		rally_range = value
+		rally_min_range = value
+		queue_redraw()
+## 最大集结范围
+@export var rally_max_range: float = 300:
+	set(value):
+		rally_max_range = value
 		queue_redraw()
 ## 集结点位置
 @export var rally_pos := Vector2.ZERO:
@@ -60,7 +65,14 @@ func _draw() -> void:
 	
 	draw_circle(
 		position + show_range_offset, 
-		rally_range,
+		rally_min_range,
+		Color(0.835, 0.416, 0.851, 0.604), 
+		false,
+		6
+	)
+	draw_circle(
+		position + show_range_offset, 
+		rally_max_range,
 		Color(0.835, 0.416, 0.851, 0.604), 
 		false,
 		6

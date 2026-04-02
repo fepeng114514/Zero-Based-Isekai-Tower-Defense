@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://d0l6eobu1q5fb" path="res://resources/atlas_texture_resources/tower_preview_barrack.tres" id="3_bfdgq"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="5_a0xnb"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resource/select_menu/select_menu_item_data.gd" id="7_141pe"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_u6jgq"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="8_xe47h"]
+[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="9_6bfoh"]
 
 [sub_resource type="Resource" id="Resource_55su2"]
 script = ExtResource("2_5r4pg")
@@ -15,11 +19,17 @@ left_right = "idle_left_right"
 script = ExtResource("2_5r4pg")
 left_right = "spawn"
 
+[sub_resource type="Resource" id="Resource_513mk"]
+script = ExtResource("9_6bfoh")
+list = Array[ExtResource("7_141pe")]([ExtResource("8_xe47h")])
+metadata/_custom_type_script = "uid://blv3x62ywpu2v"
+
 [node name="TowerBarrack" type="Node2D" unique_id=383018069 node_paths=PackedStringArray("components")]
 script = ExtResource("1_nawio")
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
 idle_animation = SubResource("Resource_55su2")
@@ -44,4 +54,10 @@ metadata/_custom_type_script = "uid://b3vhika61oa7p"
 script = ExtResource("5_a0xnb")
 select_rect = Rect2(-60.815, -82.035, 118.91, 98.915)
 info_bar_type = 2
+select_menu_data = SubResource("Resource_513mk")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=1500102198]
+script = ExtResource("7_u6jgq")
+tower_type = 2
+metadata/_custom_type_script = "uid://d104itkl6l02e"

@@ -24,4 +24,4 @@ func _update_position_list() -> void:
 
 ## 当节点树变化时自动更新
 func _notification(what: int) -> void:
-	U.tool_on_tree_call(self, what, _update_position_list)
+	EditorUtils.tool_on_tree_call(self, what, _update_position_list)

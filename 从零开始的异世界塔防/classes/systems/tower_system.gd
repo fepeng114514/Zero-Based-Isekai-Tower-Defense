@@ -20,6 +20,9 @@ func _on_insert(e: Entity) -> bool:
 	if not tower_c.tower_holder_style:
 		tower_c.tower_holder_style = GameMgr.defaul_tower_holder_style
 		
+	if tower_c.tower_type == C.TowerType.TOWER_HOLDE:
+		tower_c.total_price = 0
+		
 	return true
 	
 	
@@ -35,24 +38,28 @@ func _on_update(_delta: float) -> void:
 			var price: float = new_tower_c.price
 			
 			new_tower.global_position = e.global_position
-			new_tower.total_price = (
+			new_tower_c.total_price = (
 				tower_c.total_price + price
 			)
-			new_tower.tower_holder_style = tower_c.tower_holder_style
+			new_tower_c.tower_holder_style = tower_c.tower_holder_style
 			
-			GameMgr.cash -= price
+			new_tower.insert_entity()
 			e.remove_entity()
+			GameMgr.cash -= price
 		if tower_c.is_sell:
-			GameMgr.cash += (
-				U.to_percent(tower_c.sell_ratio) * tower_c.total_price
-			)
-			
-			var tower_holder: EntityTowerHolder = EntityMgr.create_entity(
+			var tower_holder: Entity = EntityMgr.create_entity(
 				"tower_holder"
 			)
+			var holder_tower_c: TowerComponent = tower_holder.get_c(C.CN_TOWER)
 			tower_holder.global_position = e.global_position
-			tower_holder.tower_holder_style = e.tower_holder_style
+			holder_tower_c.tower_holder_style = tower_c.tower_holder_style
+			
+			tower_holder.insert_entity()
 			e.remove_entity()
+			
+			GameMgr.cash += (
+				tower_c.sell_ratio * tower_c.total_price
+			)
 		
 		# 处理防御塔更新
 		tower_c.cleanup_list()
@@ -60,13 +67,13 @@ func _on_update(_delta: float) -> void:
 		var list: Array[Entity] = tower_c.list
 		
 		if list.is_empty():
-			return
+			continue
 			
 		if tower_c.attack_loop_time == 0:
-			return
+			continue
 			
 		if not TimeMgr.is_ready_time(tower_c.ts, tower_c.attack_loop_time):
-			return
+			continue
 			
 		tower_c.attack_entity_idx += 1
 		if tower_c.attack_entity_idx >= list.size():

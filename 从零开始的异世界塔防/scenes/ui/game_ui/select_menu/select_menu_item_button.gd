@@ -31,6 +31,7 @@ func _on_pressed() -> void:
 		C.SelectMenuItemType.UPGRADE:
 			tower_c.upgrade_to = upgrade_to
 			
+			
 		C.SelectMenuItemType.SELL:
 			tower_c.is_sell = true
 			
