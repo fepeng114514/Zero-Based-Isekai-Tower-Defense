@@ -23,10 +23,6 @@ class_name HealthComponent
 ##
 ## 伤害减免可以直接减少受到的伤害值
 @export var damage_reduction: float = 0
-## 反伤
-##
-# ## 对
-# @export var spiked
 
 @export_group("Debuff")
 ## 易伤

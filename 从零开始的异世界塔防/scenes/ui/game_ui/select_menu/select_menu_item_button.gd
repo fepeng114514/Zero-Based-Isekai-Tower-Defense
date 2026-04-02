@@ -1,6 +1,9 @@
 extends Button
 class_name SelectMenuItemButton
 
+
+## 选择菜单引用
+var select_menu: SelectMenu = null
 ## 选择的实体
 var selected_entity: Entity = null
 ## 选择菜单项类型
@@ -31,11 +34,13 @@ func _on_pressed() -> void:
 		C.SelectMenuItemType.UPGRADE:
 			tower_c.upgrade_to = upgrade_to
 			
-			
 		C.SelectMenuItemType.SELL:
 			tower_c.is_sell = true
 			
-		#C.SelectMenuItemType.RALLY:
+		C.SelectMenuItemType.RALLY:
+			SelectMgr.select_mode = C.SelectMode.BARRACK_RALLY
+			select_menu.hide_select_menu.emit()
+			
 		#C.SelectMenuItemType.BUY:
 		#C.SelectMenuItemType.SKILL:
 		#C.SelectMenuItemType.AIM:

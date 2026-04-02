@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_u6jgq"]
 [ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="8_xe47h"]
 [ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="9_6bfoh"]
+[ext_resource type="Resource" uid="uid://cu12xalwranel" path="res://resources/select_menu/select_menu_item_rally.tres" id="9_xe47h"]
 
 [sub_resource type="Resource" id="Resource_55su2"]
 script = ExtResource("2_5r4pg")
@@ -21,7 +22,7 @@ left_right = "spawn"
 
 [sub_resource type="Resource" id="Resource_513mk"]
 script = ExtResource("9_6bfoh")
-list = Array[ExtResource("7_141pe")]([ExtResource("8_xe47h")])
+list = Array[ExtResource("7_141pe")]([ExtResource("8_xe47h"), ExtResource("9_xe47h")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerBarrack" type="Node2D" unique_id=383018069 node_paths=PackedStringArray("components")]

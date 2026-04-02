@@ -1,4 +1,8 @@
 extends Control
+class_name SelectMenu
+
+
+signal hide_select_menu
 
 
 @export_group("Node Ref")
@@ -26,6 +30,7 @@ func _ready() -> void:
 	
 	S.select_entity.connect(_show)
 	S.deselect_entity.connect(_hide)
+	hide_select_menu.connect(_hide)
 	
 	
 func _process(_delta: float) -> void:
@@ -49,6 +54,7 @@ func _show(e: Entity) -> void:
 		var upgrade_to: String = item_data.upgrade_to
 		
 		var item: SelectMenuItemButton = select_menu_item_button_scene.instantiate()
+		item.select_menu = self
 		item.position = place_holders.position_list[item_data.place]
 		item.selected_entity = e
 		item.icon = item_data.icon

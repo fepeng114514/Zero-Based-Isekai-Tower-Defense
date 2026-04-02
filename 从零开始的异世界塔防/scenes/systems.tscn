@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b5tuol6j7i8xv" path="res://classes/systems/grouping_system.gd" id="2_auotx"]
 [ext_resource type="Script" uid="uid://b0hmg8xtycc53" path="res://classes/systems/time_system.gd" id="3_26p61"]
 [ext_resource type="Script" uid="uid://doj2bbl12wisd" path="res://classes/systems/health_system.gd" id="4_s7ho2"]
+[ext_resource type="Script" uid="uid://deipl5q4eg7vg" path="res://classes/systems/damage_system.gd" id="5_26p61"]
 [ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://classes/systems/entity_system.gd" id="5_rh8dy"]
 [ext_resource type="Script" uid="uid://bhueujkwgexkx" path="res://classes/systems/aura_system.gd" id="7_714te"]
 [ext_resource type="Script" uid="uid://cbcje4j81kvmp" path="res://classes/systems/modifier_system.gd" id="8_cfs6e"]
@@ -22,7 +23,7 @@
 
 [node name="Systems" type="Node" unique_id=48795228 node_paths=PackedStringArray("list")]
 script = ExtResource("1_532ms")
-list = [NodePath("GroupingSystem"), NodePath("TimeSystem"), NodePath("HealthSystem"), NodePath("EntitySystem"), NodePath("AuraSystem"), NodePath("ModifierSystem"), NodePath("TowerSystem"), NodePath("BulletSystem"), NodePath("SpriteSystem"), NodePath("FXSystem"), NodePath("BehaviorSystem")]
+list = [NodePath("GroupingSystem"), NodePath("TimeSystem"), NodePath("HealthSystem"), NodePath("DamageSystem"), NodePath("EntitySystem"), NodePath("AuraSystem"), NodePath("ModifierSystem"), NodePath("TowerSystem"), NodePath("BulletSystem"), NodePath("SpriteSystem"), NodePath("FXSystem"), NodePath("BehaviorSystem")]
 metadata/_custom_type_script = "uid://j7j5n4bat6f8"
 
 [node name="GroupingSystem" type="Node" parent="." unique_id=351193381]
@@ -36,6 +37,10 @@ metadata/_custom_type_script = "uid://b0hmg8xtycc53"
 [node name="HealthSystem" type="Node" parent="." unique_id=386688030]
 script = ExtResource("4_s7ho2")
 metadata/_custom_type_script = "uid://doj2bbl12wisd"
+
+[node name="DamageSystem" type="Node" parent="." unique_id=513620388]
+script = ExtResource("5_26p61")
+metadata/_custom_type_script = "uid://deipl5q4eg7vg"
 
 [node name="EntitySystem" type="Node" parent="." unique_id=844543215]
 script = ExtResource("5_rh8dy")
