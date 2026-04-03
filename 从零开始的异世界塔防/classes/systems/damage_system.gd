@@ -6,9 +6,12 @@ class_name DamageSystem
 
 
 func _on_update(_delta: float) -> void:
+	var new_damage_queue: Array[Damage] = []
 	var damage_queue: Array[Damage] = SystemMgr.damage_queue
+	
 	while damage_queue:
 		var damage: Damage = damage_queue.pop_front()
+		var damage_data: DamageData = damage.data
 		
 		var target: Entity = EntityMgr.get_entity_by_id(damage.target_id)
 		if not target:
@@ -19,22 +22,34 @@ func _on_update(_delta: float) -> void:
 			continue
 			
 		var source: Entity = EntityMgr.get_entity_by_id(damage.source_id)
-			
-		if damage.data.damage_type & C.DamageType.EAT:
-			target._on_eat(target, damage)
-			
-			if source:
-				source._on_kill(target, damage)
-			target.remove_entity()
-			
-			return
 		
+		if damage_data.damage_type & health_c.immuned_bits:
+			continue
+			
 		var actual_damage: float = _predict_damage(
 			target, health_c, damage, source
 		)
 		health_c.hp -= actual_damage
 		target._on_damage(target, damage)
 		
+		if not damage_data.damage_flag_bits & C.DamageFlag.NO_SPIKED:
+			if U.is_valid_number(health_c.spiked) and source and source.get_c(C.CN_HEALTH):
+				var spiked_value: float = damage.value * health_c.spiked
+				
+				var bad_damage_data := DamageData.new()
+				bad_damage_data.damage_type = C.DamageType.TRUE
+				bad_damage_data.damage_max = spiked_value
+				bad_damage_data.damage_min = spiked_value
+				bad_damage_data.damage_flags.append(C.DamageFlag.NO_SPIKED)
+				
+				var bad_damage: Damage = EntityMgr.create_damage(
+					bad_damage_data,
+					target.id, 
+					source.id,
+					false
+				)
+				new_damage_queue.append(bad_damage)
+			
 		Log.verbose(
 			"造成伤害: 目标: %s，来源: %s，值: %s"
 			% [
@@ -45,7 +60,16 @@ func _on_update(_delta: float) -> void:
 		)
 		
 		if health_c.hp <= 0:
+			if damage_data.damage_flag_bits & C.DamageFlag.NOT_KILL:
+				health_c.hp = 1
+				return
+			
+			if damage_data.damage_flag_bits & C.DamageFlag.KILL_REMOVE:
+				target.remove_entity()
+				return
+			
 			target._on_death(target, damage)
+			
 			if source:
 				source._on_kill(target, damage)
 				
@@ -65,7 +89,8 @@ func _on_update(_delta: float) -> void:
 			await target.mixed_wait_animation(death_animation)
 
 			target.remove_entity()
-
+	
+	damage_queue = new_damage_queue
 
 func _predict_damage(
 		target: Entity, 

@@ -75,9 +75,9 @@ var insert_ts: float = 0
 var ts: float = 0
 ## 目标实体 ID
 var target_id: int = C.UNSET
-## 禁止的实体标识符（位运算）
+## 二进制的禁止的实体标识符
 var ban_bits: int = 0
-## 实体标识符（位运算）
+## 二进制的实体标识符
 var flag_bits: int = 0
 ## 二进制的禁止的状态效果标识
 var mod_ban_bits: int = 0

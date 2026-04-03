@@ -23,6 +23,15 @@ class_name HealthComponent
 ##
 ## 伤害减免可以直接减少受到的伤害值
 @export var damage_reduction: float = 0
+## 反伤
+##
+## 对伤害来源的反伤
+@export var spiked: float = C.UNSET
+## 免疫的伤害类型
+@export var immuned: Array[C.Flag] = []:
+	set(value): 
+		immuned = value
+		immuned_bits = U.merge_flags(value)
 
 @export_group("Debuff")
 ## 易伤
@@ -47,6 +56,8 @@ var hp: float = 0:
 	set(value):
 		hp = value
 		health_bar.value = get_hp_percent()
+## 二进制的免疫的伤害类型
+var immuned_bits: int = 0
 
 
 func _get_configuration_warnings() -> PackedStringArray:

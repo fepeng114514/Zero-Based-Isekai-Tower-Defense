@@ -168,7 +168,8 @@ func create_auras(
 func create_damage(
 		damage_data: DamageData,
 		target_id: int,
-		source_id: int = C.UNSET
+		source_id: int = C.UNSET,
+		auto_insert: bool = true
 	) -> Damage:
 	var d := Damage.new()
 	
@@ -176,8 +177,9 @@ func create_damage(
 	d.target_id = target_id
 	d.source_id = source_id
 	d.value = randf_range(damage_data.damage_min, damage_data.damage_max)
-
-	SystemMgr.damage_queue.append(d)
+	
+	if auto_insert:
+		SystemMgr.damage_queue.append(d)
 		
 	return d
 #endregion

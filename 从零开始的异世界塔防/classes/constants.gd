@@ -42,8 +42,23 @@ enum DamageType {
 	DISINTEGRATE = 1 << 5,
 	## 伤害类型: 毒伤
 	POISON = 1 << 6,
-	## 伤害类型: 吃
-	EAT = 1 << 7,
+	## 伤害类型：所有
+	ALL = 1 << 40 - 1
+}
+
+
+## 伤害标识
+enum DamageFlag {
+	## 伤害标识：无
+	NONE = 0,
+	## 伤害标识：不杀死目标而是留 1 血
+	NOT_KILL = 1,
+	## 伤害标识：杀死目标后直接移除
+	KILL_REMOVE = 1 << 1,
+	## 伤害标识：无法闪避
+	NO_DODGE = 1 << 2,
+	## 伤害标识：无法反伤
+	NO_SPIKED = 1 << 3,
 }
 
 
