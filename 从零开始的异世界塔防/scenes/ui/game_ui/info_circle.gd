@@ -34,9 +34,12 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	if visible and not U.is_vaild_entity(selected_entity):
-		_hide()
-		return
+	if not U.is_vaild_entity(selected_entity):
+		if visible:
+			_hide()
+			return
+	else:
+		global_position = selected_entity.global_position
 		
 
 func _show(e: Entity) -> void:

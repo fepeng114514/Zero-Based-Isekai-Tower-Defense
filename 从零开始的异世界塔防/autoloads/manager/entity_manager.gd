@@ -330,12 +330,11 @@ static func sort_entities_by_ranged_damage(e1: Entity, e2: Entity, reversed: boo
 
 
 ## 根据 ID 排序实体
-static func sort_entities_by_id(entities_array: Array, reversed: bool = false) -> void:
-	entities_array.sort_custom(func(e1: Entity, e2: Entity) -> bool:
-		var i1: int = e1.id
-		var i2: int = e2.id
-		return i1 > i2 if not reversed else i1 < i2
-	)
+static func sort_entities_by_id(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
+	var i1: int = e1.id
+	var i2: int = e2.id
+	
+	return i1 > i2 if not reversed else i1 < i2
 
 
 ## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
