@@ -31,9 +31,9 @@ mouse_filter = 2
 texture = ExtResource("2_qqvmo")
 
 [node name="PlaceHolders" type="Control" parent="Ring" unique_id=1074404296]
+visible = false
 anchors_preset = 0
 script = ExtResource("3_qqvmo")
-position_list = Array[Vector2]([Vector2(-24.999992, -15.999996), Vector2(84, -32.000004), Vector2(189, -16), Vector2(206, 87), Vector2(189, 186), Vector2(84, 211), Vector2(-24.999992, 186), Vector2(-40.999992, 87)])
 
 [node name="PlaceHolder" parent="Ring/PlaceHolders" unique_id=1573593846 instance=ExtResource("3_co3c8")]
 layout_mode = 1

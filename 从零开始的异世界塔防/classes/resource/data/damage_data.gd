@@ -3,6 +3,8 @@ class_name DamageData
 ## 伤害数据资源
 
 
+## 伤害值，会覆盖伤害的随机计算
+@export var value: float = C.UNSET
 ## 最小伤害
 @export var damage_min: float = 0
 ## 最大伤害

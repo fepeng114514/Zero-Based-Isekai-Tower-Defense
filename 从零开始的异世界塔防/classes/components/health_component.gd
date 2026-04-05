@@ -47,10 +47,6 @@ class_name HealthComponent
 ## 死亡音效数据
 @export var death_sfx: AudioData = null
 
-@export_group("Health Bar")
-## 血条节点引用
-@export var health_bar: TextureProgressBar = null
-
 ## 当前血量
 var hp: float = 0:
 	set(value):
@@ -60,27 +56,8 @@ var hp: float = 0:
 var immuned_bits: int = 0
 
 
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings = PackedStringArray()
-	
-	if not health_bar:
-		warnings.append("没有指定血条子节点！ 是否忘记增加血条子节点？")
-	
-	return warnings
-
-
-func _update_health_bar() -> void:
-	var new_health_bar: TextureProgressBar = get_node_or_null("HealthBar")
-	
-	# 只在变化时更新，避免无限循环
-	if health_bar != new_health_bar:
-		health_bar = new_health_bar
-		notify_property_list_changed()
-
-
-## 当节点树变化时自动更新
-func _notification(what: int) -> void:
-	EditorUtils.tool_on_tree_call(self, what, _update_health_bar)
+## 血条节点引用
+@onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")
 	
 
 ## 获取当前血量百分比

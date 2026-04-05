@@ -55,7 +55,7 @@ func _show(e: Entity) -> void:
 		
 		var item: SelectMenuItemButton = select_menu_item_button_scene.instantiate()
 		item.select_menu = self
-		item.position = place_holders.position_list[item_data.place]
+		item.position = place_holders.list[item_data.place]
 		item.selected_entity = e
 		item.icon = item_data.icon
 		item.type = type

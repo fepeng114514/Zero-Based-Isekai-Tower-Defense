@@ -6,36 +6,17 @@ class_name BehaviorSystem
 ## 处理其下的子行为的调用
 
 
-@export var list: Array[Behavior] = []
-#@export var init_priority_list: Array[Behavior] = []
-	
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings = PackedStringArray()
-	
-	if list.is_empty():
-		warnings.append("没有行为子节点！ 请至少增加一个行为子节点。")
+var list: Array[Behavior] = []
+
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 		
-	return warnings
-
-
-## 自动更新列表
-func _update_list() -> void:
-	var new_list: Array[Behavior] = []
-	
 	for child: Behavior in get_children():
-		new_list.append(child)
-	
-	# 只在变化时更新，避免无限循环
-	if new_list != list:
-		list = new_list
-		notify_property_list_changed()
+		list.append(child)
 
 
-## 当节点树变化时自动更新
-func _notification(what: int) -> void:
-	EditorUtils.tool_on_tree_call(self, what, _update_list)
-	
-	
 func _on_insert(e: Entity) -> bool:
 	if not call_behaviors("_on_insert", e):
 		return false

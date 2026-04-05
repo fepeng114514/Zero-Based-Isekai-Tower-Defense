@@ -195,6 +195,20 @@ func _ready() -> void:
 		
 	scene_name = scene_file_path.get_file().get_basename()
 
+	if Engine.is_editor_hint():
+		return
+
+	for child: Node in get_children():
+		var node_script: GDScript = child.get_script()
+		if not node_script:
+			continue
+		
+		var node_class: String = node_script.get_global_name()
+		if not node_class.find("Component"):
+			continue
+			
+		components[node_class] = child
+
 
 func _draw() -> void:
 	if not Engine.is_editor_hint():
@@ -206,32 +220,6 @@ func _draw() -> void:
 		Color(0.306, 0.914, 0.867, 1.0), 
 		true
 	)
-	
-
-## 自动更新组件字典
-func _update_components() -> void:
-	var new_dict: Dictionary[String, Node] = {}
-	
-	for node: Node in get_children():
-		var node_script: GDScript = node.get_script()
-		if not node_script:
-			continue
-		
-		var node_class: String = node_script.get_global_name()
-		if not node_class.find("Component"):
-			continue
-			
-		new_dict[node_class] = node
-		
-	# 只在变化时更新，避免无限循环
-	if new_dict != components:
-		components = new_dict
-		notify_property_list_changed()  # 刷新编辑器
-
-
-## 当节点树变化时自动更新
-func _notification(what: int) -> void:
-	EditorUtils.tool_on_tree_call(self, what, _update_components)
 
 
 ## 将实体增加到插入队列

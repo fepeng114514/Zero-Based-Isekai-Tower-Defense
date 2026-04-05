@@ -39,7 +39,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			selected_entity = null
 			return
 
-		Log.debug("选择实体: %s, %s" % [e, e.global_position])
+		Log.debug("选择实体: %s%s" % [e, e.global_position])
 		e.selected = true
 		selected_entity = e
 		S.select_entity.emit(e)

@@ -82,6 +82,8 @@ func mark_entity_dirty_id(id: int) -> void:
 ## 创建实体
 func create_entity(scene_name: String) -> Entity:
 	var e: Entity = get_entity_scene(scene_name).instantiate()
+	if scene_name == "tower_mage_shooter":
+		print()
 		
 	return process_create(e)
 	
@@ -176,7 +178,8 @@ func create_damage(
 	
 	d.target_id = target_id
 	d.source_id = source_id
-	d.value = randf_range(damage_data.damage_min, damage_data.damage_max)
+	if not U.is_valid_number(damage_data.value):
+		d.value = randf_range(damage_data.damage_min, damage_data.damage_max)
 	d.damage_min = damage_data.damage_min
 	d.damage_max = damage_data.damage_max
 	d.damage_type = damage_data.damage_type

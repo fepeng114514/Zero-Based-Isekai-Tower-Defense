@@ -6,21 +6,17 @@ class_name BulletComponent
 ## BulletComponent 可以使实体按照飞行轨迹飞行，命中目标后造成影响
 
 
-## 飞行时间（秒）
-## 
 ## 子弹从发射到命中或消失的时间
 @export var flight_time: float = 0
 ## 重力加速度
 @export var flight_gravity: float = 980
 ## 飞行轨迹类型
 @export var flight_trajectory: C.Trajectory = C.Trajectory.LINEAR
-## 子弹数值速度
-## 
 ## 子弹的飞行速度，用于无法指定飞行时间的飞行轨迹
 @export var flight_speed: float = 0
 ## 飞行动画数据
 @export var flight_animation: AnimationData = null
-## 是否禁用预判目标位置，表示子弹是否禁用预判目标位置
+## 是否禁用预判目标位置
 @export var disabled_predict_pos: bool = false
 
 @export_group("Damage")
@@ -31,8 +27,6 @@ class_name BulletComponent
 ## 最大伤害半径
 @export var damage_max_radius: float = 0
 ## 范围伤害的搜索模式
-##
-## 子弹在造成范围伤害时的目标选择策略
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 
 @export_group("Rotation")
@@ -54,7 +48,7 @@ class_name BulletComponent
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）
 @export var hit_delay: float = 0
-## 子弹携带的状态效果，表示子弹命中目标时附加的状态效果
+## 子弹携带的状态效果
 @export var mods: Array[String] = []
 ## 子弹击中目标时创建的实体场景名称
 @export var hit_payloads: Array[String] = []

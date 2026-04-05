@@ -42,12 +42,12 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	var entities: Array = EntityMgr.get_entities_group(C.CN_BULLET).filter(
+	var entity_list: Array = EntityMgr.get_entities_group(C.CN_BULLET).filter(
 		func(e: Entity):
 			return not e.is_waiting() and not e.removed
 	)
 
-	for e: Entity in entities:
+	for e: Entity in entity_list:
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)

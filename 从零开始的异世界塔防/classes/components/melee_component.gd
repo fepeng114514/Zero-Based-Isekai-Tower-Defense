@@ -18,8 +18,6 @@ class_name MeleeComponent
 		queue_redraw()
 ## 到达位置的阈值
 @export var arrived_distance: float = 10
-## 近战攻击列表
-@export var list: Array[MeleeAttack] = []
 
 @export_group("Blocker")
 ## 是否是拦截者
@@ -73,33 +71,9 @@ var melee_pos_arrived: bool = true
 var need_origin_setup: bool = true
 ## 向量速度
 var velocity := Vector2.ZERO
+## 近战攻击列表
+var list: Array[MeleeAttack] = []
 
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings = PackedStringArray()
-	
-	if list.is_empty():
-		warnings.append("没有攻击子节点！ 请至少增加一个攻击子节点。")
-	
-	return warnings
-
-
-## 自动更新列表
-func _update_list() -> void:
-	var new_list: Array[MeleeAttack] = []
-	
-	for child: MeleeAttack in get_children():
-		new_list.append(child)
-	
-	# 只在变化时更新，避免无限循环
-	if new_list != list:
-		list = new_list
-		notify_property_list_changed()
-
-
-## 当节点树变化时自动更新
-func _notification(what: int) -> void:
-	EditorUtils.tool_on_tree_call(self, what, _update_list)
-	
 
 func _ready() -> void:
 	if motion_animation == null:
@@ -108,6 +82,12 @@ func _ready() -> void:
 		motion_animation.down = "walk_down"
 		motion_animation.left_right = "walk_left_right"
 
+	if Engine.is_editor_hint():
+		return
+		
+	for child: MeleeAttack in get_children():
+		list.append(child)
+	
 	
 func _draw() -> void:
 	if not Engine.is_editor_hint():

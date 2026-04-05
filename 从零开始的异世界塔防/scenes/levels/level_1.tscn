@@ -36,12 +36,6 @@ _data = {
 }
 point_count = 14
 
-[sub_resource type="Curve2D" id="Curve2D_mqh5v"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1376, 24, 0, 0, 0, 0, 1544, 696)
-}
-point_count = 2
-
 [sub_resource type="Resource" id="Resource_mm8aj"]
 script = ExtResource("6_iwr0g")
 entity = "enemy_goblin"
@@ -98,11 +92,6 @@ script = ExtResource("8_mqh5v")
 [node name="Pathway" type="Path2D" parent="PathwayController" unique_id=1122140574]
 position = Vector2(96, 208)
 curve = SubResource("Curve2D_q8u5g")
-script = ExtResource("3_sk5k4")
-metadata/_custom_type_script = "uid://5rvcj41ueju4"
-
-[node name="Pathway2" type="Path2D" parent="PathwayController" unique_id=2128321142]
-curve = SubResource("Curve2D_mqh5v")
 script = ExtResource("3_sk5k4")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"
 

@@ -54,9 +54,8 @@ info_bar_type = 2
 select_menu_data = SubResource("Resource_5i66g")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=115720524 node_paths=PackedStringArray("list")]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=115720524]
 script = ExtResource("3_y3rhc")
-list = [NodePath("AnimatedSprite2D")]
 sync_animations = SubResource("Resource_vdoyo")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
@@ -65,11 +64,10 @@ position = Vector2(-1, -24)
 sprite_frames = ExtResource("4_as0po")
 animation = &"ranged"
 
-[node name="TowerComponent" type="Node2D" parent="." unique_id=676982162 node_paths=PackedStringArray("list")]
+[node name="TowerComponent" type="Node2D" parent="." unique_id=676982162]
 script = ExtResource("5_ewl0l")
 tower_type = 3
 show_range_offset = Vector2(0, -58.8)
-list = [NodePath("TowerMageShooter")]
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="TowerMageShooter" parent="TowerComponent" unique_id=1442245649 node_paths=PackedStringArray("components") instance=ExtResource("6_aexug")]

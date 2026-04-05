@@ -14,8 +14,6 @@ class_name TowerComponent
 		queue_redraw()
 ## 塔位样式
 @export var tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
-## 子实体列表
-@export var list: Array[Entity] = []
 ## 价格
 @export var price: float = 70
 ## 出售比例（%）
@@ -31,6 +29,16 @@ var is_sell: bool = false
 var attack_entity_idx: int = 0
 ## 时间戳
 var ts: float = 0
+## 子实体列表
+var list: Array[Entity] = []
+
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+		
+	for child: Entity in get_children():
+		list.append(child)
 
 
 func _draw() -> void:
@@ -43,24 +51,6 @@ func _draw() -> void:
 		Color(0.757, 0.0, 0.62, 1.0), 
 		true
 	)
-
-	
-## 自动更新列表
-func _update_list() -> void:
-	var new_list: Array[Entity] = []
-	
-	for child: Entity in get_children():
-		new_list.append(child)
-	
-	# 只在变化时更新，避免无限循环
-	if new_list != list:
-		list = new_list
-		notify_property_list_changed()
-
-
-## 当节点树变化时自动更新
-func _notification(what: int) -> void:
-	EditorUtils.tool_on_tree_call(self, what, _update_list)
 
 
 ## 清理 list 中已经不存在的实体
