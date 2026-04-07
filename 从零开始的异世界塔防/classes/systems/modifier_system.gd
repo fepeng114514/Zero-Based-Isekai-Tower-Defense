@@ -59,7 +59,7 @@ func _on_insert(e: Entity) -> bool:
 			
 			return false
 		
-		if other_m.uid == e.uid:
+		if other_m.scene_name == e.scene_name:
 			same_target_mods.append(other_m)
 			
 	if not same_target_mods:

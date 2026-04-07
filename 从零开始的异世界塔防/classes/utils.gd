@@ -85,6 +85,40 @@ static func point_on_ellipse(
 	return Vector2(x, y)
 
 
+## 判断点是否位于扇形中
+static func is_in_sector(
+		center: Vector2, point: Vector2, radius: float, angle_range: float, direction_angle: float
+	) -> bool:
+	if not is_in_radius(center, point, radius):
+		return false
+	
+	var angle_to_point: float = center.angle_to(point)
+	var delta_angle: float = abs(angle_to_point - direction_angle)
+	
+	return delta_angle <= angle_range / 2
+
+
+## 判断点是否位于线段中
+static func is_in_line(
+		center: Vector2, point: Vector2, width: float, length: float, angle: float = 0
+	) -> bool:
+	if is_in_radius(center, point, width):
+		return true
+
+	angle = fmod(angle, PI)
+	var local_point: Vector2 = point - center
+	local_point = local_point.rotated(-angle)
+	var abs_local_point_x = abs(local_point.x)
+	var abs_local_point_y = abs(local_point.y)
+	
+	return (
+		abs_local_point_x <= length 
+		and abs_local_point_x >= 0 
+		and abs_local_point_y <= width 
+		and abs_local_point_y >= -width
+	)
+
+
 ## 根据距离与时间计算直线速度
 static func initial_linear_velocity(from: Vector2, to: Vector2, t: float) -> Vector2:
 	var x: float = (to.x - from.x) / t

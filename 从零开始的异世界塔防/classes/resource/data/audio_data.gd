@@ -11,3 +11,5 @@ class_name AudioData
 @export var volume_db: float = 0
 ## 音量，线性增长而非对数
 @export var volume_linear: float = 1
+## 延迟，单位为秒
+@export var delay: float = 0

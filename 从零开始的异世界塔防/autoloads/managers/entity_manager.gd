@@ -455,7 +455,7 @@ const SEARCH_CONFIG: Dictionary[C.SearchMode, Array] = {
 ##	
 ## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
 func search_target(
-		search_mode: int, 
+		search_mode: C.SearchMode, 
 		origin: Vector2, 
 		max_range: float, 
 		min_range: float = 0, 
@@ -478,7 +478,7 @@ func search_target(
 ## 
 ## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
 func search_targets_in_range(
-		search_mode: int, 
+		search_mode: C.SearchMode, 
 		origin: Vector2, 
 		max_range: float, 
 		min_range: float = 0, 
@@ -494,5 +494,59 @@ func search_targets_in_range(
 	return find_sorted_targets(
 		config[0], origin, max_range, min_range, 
 		flags, bans, filter, config[1], config[2]
+	)
+
+
+## 根据搜索模式在扇形范围内搜索目标
+##
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
+func search_targets_in_sector(
+		search_mode: C.SearchMode,
+		origin: Vector2,
+		look_at: Vector2,
+		radius: float,
+		angle_range: float,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Callable = Callable()
+	) -> Array:
+	var sector_filter: Callable = func(e: Entity) -> bool:
+		return U.is_in_sector(
+			origin, 
+			e.global_position, 
+			radius, 
+			angle_range, 
+			origin.angle_to(look_at)
+		) and (not filter.is_valid() or filter.call(e))
+
+	return search_targets_in_range(
+		search_mode, origin, radius, 0, flags, bans, sector_filter
+	)
+
+
+## 根据搜索模式在矩形范围内搜索目标
+##
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
+func search_targets_in_rectangle(
+		search_mode: C.SearchMode,
+		origin: Vector2,
+		look_at: Vector2,
+		width: float,
+		length: float,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Callable = Callable()
+	) -> Array:
+	var rectangle_filter: Callable = func(e: Entity) -> bool:
+		return U.is_in_line(
+			origin, 
+			e.global_position, 
+			width,
+			length,
+			origin.angle_to(look_at)
+		) and (not filter.is_valid() or filter.call(e))
+
+	return search_targets_in_range(
+		search_mode, origin, length, 0, flags, bans, rectangle_filter
 	)
 #endregion

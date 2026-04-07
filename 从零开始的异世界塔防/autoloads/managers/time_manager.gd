@@ -36,6 +36,9 @@ func get_time_by_ts(ts: float) -> float:
 func y_wait(
 		time: float = U.fts(1), break_fn: Callable = Callable()
 	) -> void:
+	if time <= 0:
+		return
+
 	var ts: float = tick_ts
 	while (
 		not is_ready_time(ts, time) 

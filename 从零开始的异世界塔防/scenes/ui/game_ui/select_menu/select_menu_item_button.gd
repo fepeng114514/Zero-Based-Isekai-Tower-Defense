@@ -8,7 +8,7 @@ var select_menu: SelectMenu = null
 var selected_entity: Entity = null
 ## 选择菜单项类型
 var type: C.SelectMenuItemType = C.SelectMenuItemType.UPGRADE
-## 升级为的实体 uid
+## 升级为的实体名称
 ## 
 ## type 为 UPGRADE 时可用
 var upgrade_to: String = ""

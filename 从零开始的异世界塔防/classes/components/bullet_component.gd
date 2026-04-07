@@ -63,8 +63,8 @@ class_name BulletComponent
 @export var hit_payloads: Array[String] = []
 ## 击中动画数据
 @export var hit_animation: AnimationData = null
-## 击中音效 uid
-@export_file("*.ogg") var hit_sfx: String = ""
+## 击中音效数据
+@export var hit_sfx: AudioData = null
 
 @export_group("Miss")
 ## 未击中目标时是否移除子弹实体
@@ -73,8 +73,8 @@ class_name BulletComponent
 @export var miss_payloads: Array[String] = []
 ## 未击中动画数据
 @export var miss_animation: AnimationData = null
-## 未击中音效 uid
-@export_file("*.ogg") var miss_sfx: String = ""
+## 未击中音效数据
+@export var miss_sfx: AudioData = null
 
 ## 二进制的伤害标识
 var damage_flag_bits: int = 0

@@ -51,6 +51,8 @@ func play_sfx(audio_data: AudioData) -> void:
 func play_audio(
 		audio_data: AudioData, player: AudioStreamPlayer, bus: StringName
 	) -> void:
+	await TimeMgr.y_wait(audio_data.delay)
+
 	match audio_data.play_mode:
 		C.AudioPlayMode.RANGDOM:
 			var stream: AudioStream = audio_data.audio_list.pick_random()

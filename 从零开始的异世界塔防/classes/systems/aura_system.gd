@@ -59,7 +59,7 @@ func _on_insert(e: Entity) -> bool:
 			
 			return false
 		
-		if other_a.uid == e.uid:
+		if other_a.scene_name == e.scene_name:
 			same_source_auras.append(other_a)
 			
 	if not same_source_auras:

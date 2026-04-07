@@ -10,7 +10,7 @@ func _on_update(e: Entity) -> bool:
 	if not ranged_c:
 		return false
 		
-	for a: RangedAttack in ranged_c.list:
+	for a: RangedBase in ranged_c.list:
 		var target: Entity = null
 		
 		if U.is_valid_number(e.target_id):
@@ -27,16 +27,20 @@ func _on_update(e: Entity) -> bool:
 			
 		if not can_attack(a, target):
 			return false
-			
-		_do_attack(a, e, target)
+		
+		if a is RangedAttack:
+			_do_single_attack(a, e, target)
+		elif a is RangedLoopAttack:
+			_do_loop_attack(a, e, target)
 		return true
 			
 	return false
 	
 	
-func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
+func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.look_at_point = target.global_position
 	var result: Array = e.mixed_play_animation_by_look(a.animation, "ranged")
+	AudioMgr.play_sfx(a.sfx)
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
@@ -46,12 +50,68 @@ func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 
 	if not target:
 		return
-	
-	var b = EntityMgr.create_entity(a.bullet)
-	b.target_id = target.id
-	b.source_id = e.id
-	b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
-	
-	b.insert_entity()
+
+	spawn_bullets(a, e, target, direction)
+
 	await e.mixed_wait_animation(a.animation)
 	e.play_idle_animation()
+
+
+func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
+	e.look_at_point = target.global_position
+	e.mixed_play_animation_by_look(a.start_animation, "ranged")
+	a.ts = TimeMgr.tick_ts
+
+	AudioMgr.play_sfx(a.start_sfx)
+	await e.mixed_wait_animation(a.start_animation)
+
+	if not target:
+		return
+
+	for i: int in range(a.loop_count):
+		e.look_at_point = target.global_position
+		var result: Array = e.mixed_play_animation_by_look(a.loop_animation)
+		var direction: C.Direction = result[1]
+
+		AudioMgr.play_sfx(a.loop_sfx)
+		await e.y_wait(a.delay, func() -> bool:
+			return not U.is_vaild_entity(target)
+		)
+
+		spawn_bullets(a, e, target, direction)
+		await e.mixed_wait_animation(a.loop_animation)
+
+	await e.mixed_wait_animation(a.loop_animation)
+
+	e.mixed_play_animation_by_look(a.end_animation)
+	AudioMgr.play_sfx(a.end_sfx)
+	await e.mixed_wait_animation(a.end_animation)
+
+	e.play_idle_animation()
+
+
+func spawn_bullets(a: RangedBase, e: Entity, target: Entity, direction: C.Direction) -> void:
+	var e_to_target_angle: float = e.global_position.angle_to_point(target.global_position)
+	var bullet_count: int = a.bullet_count
+	var bullet_angle_range: float = a.bullet_angle_range
+	var half_angle_range: float = bullet_angle_range / 2
+	var da: float = (bullet_angle_range) / bullet_count + 1
+	
+	for i: int in range(bullet_count):
+		var b = EntityMgr.create_entity(a.bullet)
+		b.target_id = target.id
+		b.source_id = e.id
+
+		var rotation: float = 0
+		match a.bullet_spawn_mode:
+			C.BulletSpawnMode.EQUAL_INTERVAL:
+				rotation = e_to_target_angle + (da * i + -half_angle_range)
+			C.BulletSpawnMode.RANDOM:
+				var random_angle: float = randf_range(
+					-half_angle_range, half_angle_range	
+				)
+				rotation = e_to_target_angle + random_angle
+		b.rotation = rotation
+		b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
+
+		b.insert_entity()

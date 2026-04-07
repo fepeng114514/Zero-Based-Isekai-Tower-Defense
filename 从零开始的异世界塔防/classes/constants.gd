@@ -334,6 +334,19 @@ enum TowerHolderStyle {
 }
 
 
+## 子弹生成模式枚举
+enum BulletSpawnMode {
+	## 子弹生成模式：随机
+	##
+	## 子弹会以 bullet_angle_range 范围内的随机角度生成
+	RANDOM,
+	## 子弹生成模式：等距
+	##
+	## 子弹会以 bullet_angle_range 范围内等距的角度生成
+	EQUAL_INTERVAL,
+}
+
+
 ## 选择菜单项类型
 enum SelectMenuItemType {
 	## 升级

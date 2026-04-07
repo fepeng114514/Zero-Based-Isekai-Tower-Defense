@@ -64,6 +64,7 @@ func _on_update(delta: float) -> void:
 			e.mixed_play_animation_by_look(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 		
+		# 未击中处理
 		if (
 				flying_time >= bullet_c.flight_time 
 				or not target 
@@ -71,82 +72,68 @@ func _on_update(delta: float) -> void:
 					e.global_position, bullet_c.to, bullet_c.hit_distance
 				)
 			):
-			_miss(e, bullet_c)
+			e._on_bullet_miss(bullet_c)
+			if bullet_c.miss_animation:
+				e.mixed_play_animation_by_look(bullet_c.miss_animation)
+				AudioMgr.play_sfx(bullet_c.miss_sfx)
+				await e.mixed_wait_animation(bullet_c.miss_animation)
+
+			EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
+
+			if bullet_c.miss_remove:
+				e.remove_entity()
+				
 			continue
 			
 		if not bullet_c.can_arrived:
 			continue
 		
-		if U.is_at_destination(
+		# 击中处理
+		if not U.is_at_destination(
 				e.global_position, bullet_c.to, bullet_c.hit_distance
 			):
-			_hit(e, bullet_c, target)
+			continue
 
+		if bullet_c.hit_animation:
+			e.mixed_play_animation_by_look(bullet_c.hit_animation)
+			AudioMgr.play_sfx(bullet_c.hit_sfx)
+			await e.y_wait(bullet_c.hit_delay)
 
-## 击中目标调用
-func _hit(
-		e: Entity, bullet_c: BulletComponent, target: Entity
-	) -> void:
-	if bullet_c.hit_animation:
-		e.mixed_play_animation_by_look(bullet_c.hit_animation)
-		await e.y_wait(bullet_c.hit_delay)
+		var targets: Array = [target]
+			
+		if bullet_c.damage_min_radius > 0 or bullet_c.damage_max_radius > 0:
+			targets = EntityMgr.search_targets_in_range(
+				bullet_c.search_mode, 
+				bullet_c.to, 
+				bullet_c.damage_max_radius, 
+				bullet_c.damage_min_radius, 
+				e.flag_bits, 
+				e.ban_bits
+			)
 		
-	if bullet_c.damage_min_radius > 0 or bullet_c.damage_max_radius > 0:
-		var targets: Array = EntityMgr.search_targets_in_range(
-			bullet_c.search_mode, 
-			bullet_c.to, 
-			bullet_c.damage_max_radius, 
-			bullet_c.damage_min_radius, 
-			e.flag_bits, 
-			e.ban_bits
-		)
-
 		for t in targets:
-			_damege_target(e, bullet_c, t)
-	else:
-		_damege_target(e, bullet_c, target)
+			var d := Damage.new()
+			d.target_id = target.id
+			d.source_id = e.id
+			d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
+			d.damage_type = bullet_c.damage_type
+			d.damage_flags = bullet_c.damage_flag_bits
+			d.damage_factor = e._on_bullet_calculate_damage_factor(
+				target, bullet_c
+			)
+			d.insert_damage()
+			EntityMgr.create_mods(target.id, bullet_c.mods, e.id)
+			
+		EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
+
+		e._on_bullet_hit(target, bullet_c)
 		
-	EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
+		if bullet_c.hit_animation:
+			e.mixed_wait_animation(bullet_c.hit_animation)
 
-	e._on_bullet_hit(target, bullet_c)
-	
-	if bullet_c.hit_animation:
-		e.mixed_wait_animation(bullet_c.hit_animation)
-
-	if bullet_c.hit_remove:
-		e.remove_entity()
-	
-	
-## 伤害目标
-func _damege_target(
-		e: Entity, bullet_c: BulletComponent, target: Entity
-	) -> void:
-	var d := Damage.new()
-	d.target_id = target.id
-	d.source_id = e.id
-	d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
-	d.damage_type = bullet_c.damage_type
-	d.damage_flags = bullet_c.damage_flag_bits
-	d.damage_factor = e._on_bullet_calculate_damage_factor(
-		target, bullet_c
-	)
-	d.insert_damage()
-	EntityMgr.create_mods(target.id, bullet_c.mods, e.id)
-
-
-func _miss(
-		e: Entity, bullet_c: BulletComponent
-	) -> void:
-	e._on_bullet_miss(bullet_c)
-	if bullet_c.miss_animation:
-		e.mixed_play_animation_by_look(bullet_c.miss_animation)
-		await e.mixed_wait_animation(bullet_c.miss_animation)
-
-	EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
-
-	if bullet_c.miss_remove:
-		e.remove_entity()
-
+		if bullet_c.hit_remove:
+			e.remove_entity()
+		
 
 #region 轨迹相关函数
 ## 直线轨迹初始化

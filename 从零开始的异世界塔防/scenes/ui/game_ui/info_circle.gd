@@ -51,7 +51,7 @@ func _show(e: Entity) -> void:
 	
 	var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	if ranged_c:
-		var first_ranged_attack: RangedAttack = ranged_c.list[0]
+		var first_ranged_attack: RangedBase = ranged_c.list[0]
 		
 		_show_circle(ranged_max_range_circle, first_ranged_attack.max_range)
 		_show_circle(ranged_min_range_circle, first_ranged_attack.min_range)
@@ -67,7 +67,7 @@ func _show(e: Entity) -> void:
 		if not tower_c.list.is_empty():
 			var first_entity: Entity = tower_c.list[0]
 			var f_ranged_c: RangedComponent = first_entity.get_c(C.CN_RANGED)
-			var first_ranged_attack: RangedAttack = f_ranged_c.list[0]
+			var first_ranged_attack: RangedBase = f_ranged_c.list[0]
 		
 			_show_circle(
 				ranged_max_range_circle, 

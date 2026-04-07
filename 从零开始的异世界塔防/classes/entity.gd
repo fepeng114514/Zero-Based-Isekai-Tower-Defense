@@ -430,10 +430,10 @@ func mixed_play_animation_by_look(
 	if animation.is_group:
 		return play_animation_group_by_look(
 			animation, source_animation_key, force_play)
-	else:
-		return play_animation_by_look(
-			animation, source_animation_key, C.UNSET, force_play
-		)
+	
+	return play_animation_by_look(
+		animation, source_animation_key, C.UNSET, force_play
+	)
 
 
 ## 根据实体与看向目标点的角度播放对应的动画
@@ -483,7 +483,6 @@ func _source_play_animation_by_look(
 	source.mixed_play_animation_by_look(
 		animation, source_animation_key, force_play
 	)
-
 	source.mixed_wait_animation(animation)
 	
 	
