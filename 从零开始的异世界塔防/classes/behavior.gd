@@ -113,9 +113,14 @@ func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 	if not U.is_vaild_entity(target):
 		return
 	
-	EntityMgr.create_damage(
-		a.damage_data, target.id, e.id
-	)
+	var d := Damage.new()
+	d.target_id = target.id
+	d.source_id = e.id
+	d.value = d.get_random_value(a.damage_min, a.damage_max)
+	d.damage_type = a.damage_type
+	d.damage_flags = a.damage_flag_bits
+	d.insert_damage()
+
 	EntityMgr.create_mods(target.id, a.mods, e.id)
 	
 	await e.mixed_wait_animation(a.animation)

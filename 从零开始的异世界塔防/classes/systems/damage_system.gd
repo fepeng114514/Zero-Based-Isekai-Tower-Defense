@@ -11,6 +11,7 @@ func _on_update(_delta: float) -> void:
 	
 	while damage_queue:
 		var damage: Damage = damage_queue.pop_front()
+		var damage_flags: int = damage.damage_flags
 		
 		var target: Entity = EntityMgr.get_entity_by_id(damage.target_id)
 		if not target:
@@ -31,22 +32,16 @@ func _on_update(_delta: float) -> void:
 		health_c.hp -= actual_damage
 		target._on_damage(target, damage)
 		
-		if not damage.damage_flag_bits & C.DamageFlag.NO_SPIKED:
+		if not damage_flags & C.DamageFlag.NO_SPIKED:
 			if U.is_valid_number(health_c.spiked) and source and source.get_c(C.CN_HEALTH):
 				var spiked_value: float = damage.value * health_c.spiked
 				
-				var bad_damage_data := DamageData.new()
-				bad_damage_data.damage_type = C.DamageType.TRUE
-				bad_damage_data.damage_max = spiked_value
-				bad_damage_data.damage_min = spiked_value
-				bad_damage_data.damage_flags.append(C.DamageFlag.NO_SPIKED)
-				
-				var bad_damage: Damage = EntityMgr.create_damage(
-					bad_damage_data,
-					source.id, 
-					target.id,
-					false
-				)
+				var bad_damage := Damage.new()
+				bad_damage.target_id = source.id
+				bad_damage.source_id = target.id
+				bad_damage.value = spiked_value
+				bad_damage.damage_type = C.DamageType.TRUE
+				bad_damage.damage_flags = C.DamageFlag.NO_SPIKED
 				new_damage_queue.append(bad_damage)
 			
 		Log.verbose(
@@ -59,11 +54,11 @@ func _on_update(_delta: float) -> void:
 		)
 		
 		if health_c.hp <= 0:
-			if damage.damage_flag_bits & C.DamageFlag.NOT_KILL:
+			if damage_flags & C.DamageFlag.NOT_KILL:
 				health_c.hp = 1
 				return
 			
-			if damage.damage_flag_bits & C.DamageFlag.KILL_REMOVE:
+			if damage_flags & C.DamageFlag.KILL_REMOVE:
 				target.remove_entity()
 				return
 			

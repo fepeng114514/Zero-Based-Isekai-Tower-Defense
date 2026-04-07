@@ -20,8 +20,17 @@ class_name BulletComponent
 @export var disabled_predict_pos: bool = false
 
 @export_group("Damage")
-## 伤害数据
-@export var damage_data: DamageData = null
+## 子弹最小伤害
+@export var damage_min: float = 0
+## 子弹最大伤害
+@export var damage_max: float = 0
+## 伤害类型
+@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
+## 伤害标识
+@export var damage_flags: Array[C.DamageFlag] = []:
+	set(value):
+		damage_flags = value
+		damage_flag_bits = U.merge_flags(damage_flags)
 ## 最小伤害半径
 @export var damage_min_radius: float = 0
 ## 最大伤害半径
@@ -67,6 +76,8 @@ class_name BulletComponent
 ## 未击中音效 uid
 @export_file("*.ogg") var miss_sfx: String = ""
 
+## 二进制的伤害标识
+var damage_flag_bits: int = 0
 ## 起始位置
 var from := Vector2.ZERO
 ## 目标位置

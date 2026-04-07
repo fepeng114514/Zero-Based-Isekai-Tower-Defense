@@ -6,8 +6,6 @@ class_name MeleeAttack
 ## 用于 [MeleeComponent]
 
 
-## 伤害数据
-@export var damage_data: DamageData = null
 ## 冷却时间
 @export var cooldown: float = 1
 ## 击中目标给予的状态效果
@@ -22,6 +20,19 @@ class_name MeleeAttack
 @export var chance: float = 1
 ## 是否禁用
 @export var disabled: bool = false
+
+@export_group("Damage")
+## 最小伤害
+@export var damage_min: float = 25
+## 最大伤害
+@export var damage_max: float = 25
+## 伤害类型
+@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
+## 伤害标识
+@export var damage_flags: Array[C.DamageFlag] = []:
+	set(value):
+		damage_flags = value
+		damage_flag_bits = U.merge_flags(damage_flags)
 
 @export_group("Limit")
 ## 攻击标识
@@ -43,6 +54,8 @@ class_name MeleeAttack
 var flag_bits: int = 0
 ## 二进制的不可攻击的实体的标识
 var ban_bits: int = 0
+## 二进制的伤害标识
+var damage_flag_bits: int = 0
 ## 时间戳
 var ts: float = 0
 

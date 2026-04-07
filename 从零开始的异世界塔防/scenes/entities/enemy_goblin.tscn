@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_ijmwd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="8_wdwo4"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/melee_attack.gd" id="9_cit00"]
-[ext_resource type="Script" uid="uid://dlsjiii8fcmdd" path="res://classes/resource/data/damage_data.gd" id="13_0re74"]
 
 [sub_resource type="Resource" id="Resource_58mnm"]
 script = ExtResource("2_58mnm")
@@ -39,12 +38,6 @@ script = ExtResource("2_58mnm")
 up = "walk_up"
 down = "walk_down"
 left_right = "walk_left_right"
-
-[sub_resource type="Resource" id="Resource_hm813"]
-script = ExtResource("13_0re74")
-damage_min = 10.0
-damage_max = 30.0
-metadata/_custom_type_script = "uid://dlsjiii8fcmdd"
 
 [sub_resource type="Resource" id="Resource_m3i2n"]
 script = ExtResource("2_58mnm")
@@ -105,7 +98,6 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
 script = ExtResource("9_cit00")
-damage_data = SubResource("Resource_hm813")
 animation = SubResource("Resource_m3i2n")
 delay = 0.3
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

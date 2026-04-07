@@ -16,12 +16,12 @@ var idx: int = C.UNSET
 func _ready() -> void:
 	PathwayMgr.insert_pathway(self)
 	
-	var max_subpathway: int = PathwayMgr.max_subpathway
+	var subpathway_count: int = PathwayMgr.subpathway_count
 	var spacing: float = PathwayMgr.subpathway_spacing
 	
-	var half_total_spacing: float = max_subpathway * spacing / 2
+	var half_total_spacing: float = subpathway_count * spacing / 2
 
-	for i: int in range(max_subpathway):
+	for i: int in range(subpathway_count):
 		var subpathway := Subpathway.new()
 		subpathway.spacing = half_total_spacing - (spacing * i)
 		subpathway.parent_pathway = self
@@ -31,16 +31,3 @@ func _ready() -> void:
 		subpathway_list.append(subpathway)
 
 		next_spi += 1
-		#
-		#if not Engine.is_editor_hint():
-			#return
-	#
-		#var line := Line2D.new()
-		#line.width = 3.0
-		#line.default_color = Color.RED
-#
-		## 从曲线获取点
-		#var c: Curve2D = subpathway.curve
-		#line.points = c.get_baked_points()
-#
-		#subpathway.add_child(line)

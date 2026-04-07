@@ -40,8 +40,8 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 		for i: int in range(spawn.count):
 			var e: Entity = EntityMgr.create_entity(spawn.entity)
 			
-			if e.has_c(C.CN_NAV_PATH):
-				var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+			var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+			if nav_path_c:
 				var spi = spawn.subpathway_idx
 				
 				nav_path_c.reversed = spawn.reversed

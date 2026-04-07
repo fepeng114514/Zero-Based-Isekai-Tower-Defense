@@ -124,11 +124,14 @@ func _on_update(_delta: float) -> void:
 
 		for target: Entity in targets:
 			if aura_c.damage_min > 0 or aura_c.damage_max > 0:
-				EntityMgr.create_damage(
-					aura_c.damage_data,
-					target.id,
-					e.id
-				)
+				var d := Damage.new()
+				d.target_id = target.id
+				d.source_id = e.id
+				d.value = d.get_random_value(aura_c.damage_min, aura_c.damage_max)
+				d.damage_type = aura_c.damage_type
+				d.damage_flags = aura_c.damage_flag_bits
+				d.insert_damage()
+
 
 			EntityMgr.create_mods(target.id, aura_c.mods, e.id)
 

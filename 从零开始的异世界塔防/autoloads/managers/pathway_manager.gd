@@ -9,11 +9,11 @@ var pathway_list: Array[Pathway] = []
 var all_node_list: Array[PathwayNode] = []
 ## 下一个路径索引
 var next_pi: int = 0
-## 最大子路径
-var max_subpathway: int = 3
+## 子路径总数量
+var subpathway_count: int = 5
 ## 子路径间距
-var subpathway_spacing: float = 33.33
-## 路径节点数量
+var subpathway_spacing: float = 20
+## 路径节点总数量
 var node_count: int = 256
 ## 路径节点相交距离阈值
 var intersect_dist_threshold: float = 16
@@ -59,7 +59,7 @@ func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
 
 ## 获取中间的子路径索引
 func get_middle_spi() -> int:
-	return roundi(1.0 * max_subpathway / 2)
+	return roundi(1.0 * subpathway_count / 2)
 
 
 ## 获取启用的路径
@@ -130,9 +130,8 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 	var predict_pos: Vector2 = target.global_position
 
-	if target.has_c(C.CN_NAV_PATH) and target.state & C.State.NAV_PATH_WALK:
-		var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
-		
+	var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
+	if nav_path_c and target.state & C.State.NAV_PATH_WALK:
 		var progress: float = nav_path_c.nav_progress
 		var walk_lenth: float = nav_path_c.speed * predict_time
 		
@@ -154,7 +153,7 @@ func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 func get_nearst_nodes_list(
 		origin: Vector2, 
 		pi_l: Array = range(get_pathway_count()), 
-		spi_l: Array = range(max_subpathway),
+		spi_l: Array = range(subpathway_count),
 		valid_only: bool = true
 	) -> Array[PathwayNode]:
 	var node_list: Array[PathwayNode] = []
@@ -185,10 +184,15 @@ func get_nearst_nodes_list(
 ## 可指定搜索的路径、子路径，不指定将会在所有路径搜索
 func get_nearst_node(
 		origin: Vector2, 
-		pi_l: Array = range(get_pathway_count()), 
-		spi_l: Array = range(max_subpathway),
+		pi_l: Array = [], 
+		spi_l: Array = [],
 		valid_only: bool = true
 	) -> PathwayNode:
+	if pi_l.is_empty():
+		pi_l = range(get_pathway_count())
+	if spi_l.is_empty():
+		spi_l = range(subpathway_count)
+
 	var nearst_node: PathwayNode = null
 	
 	for pi: int in pi_l:

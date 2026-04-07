@@ -22,13 +22,18 @@ func _ready() -> void:
 	follow.loop = false
 
 	add_child(follow)
-	curve = create_offset_curve()
+	curve = _create_offset_curve()
 	length = curve.get_baked_length()
-	node_list = get_equally_spaced_nodes()
+	node_list = _get_equally_spaced_nodes()
+
+
+#func _draw() -> void:
+	#for node: PathwayNode in node_list:
+		#draw_circle(node.pos, 2, Color.RED)
 
 
 ## 创建偏移曲线
-func create_offset_curve() -> Curve2D:
+func _create_offset_curve() -> Curve2D:
 	var source_pathway_curve: Curve2D = parent_pathway.curve
 	var new_curve := Curve2D.new()
 	
@@ -41,14 +46,14 @@ func create_offset_curve() -> Curve2D:
 	var sample_count := int(curve_length)
 	
 	# 均匀采样
-	for i in range(sample_count):
+	for i: int in range(sample_count):
 		var t: float = float(i) / (sample_count - 1)
 		var distance: float = t * curve_length
 		var point: Vector2 = source_pathway_curve.sample_baked(distance)
 		sample_points.append(point)
 	
 	# 计算每个采样点的偏移
-	for i in range(sample_points.size()):
+	for i: int in range(sample_points.size()):
 		var tangent := Vector2.ZERO
 		
 		# 计算切线（前向差分）
@@ -62,7 +67,7 @@ func create_offset_curve() -> Curve2D:
 			offset_points.append(offset_point)
 	
 	# 将偏移点添加到新曲线
-	for i in range(offset_points.size()):
+	for i: int in range(offset_points.size()):
 		var point: Vector2 = offset_points[i]
 		
 		# 计算控制点（简化处理）
@@ -83,14 +88,14 @@ func create_offset_curve() -> Curve2D:
 
 
 ## 获取等距的节点列表
-func get_equally_spaced_nodes() -> Array[PathwayNode]:
+func _get_equally_spaced_nodes() -> Array[PathwayNode]:
 	var nodes_list: Array[PathwayNode] = []
 	
 	var point_spacing: float = length / (PathwayMgr.node_count - 1)
 	
 	for i: int in range(PathwayMgr.node_count):
 		var distance: float = i * point_spacing
-		var pos: Vector2 = to_global(curve.sample_baked(distance))
+		var pos: Vector2 = curve.sample_baked(distance)
 		
 		var n := PathwayNode.new()
 		n.pi = parent_pathway.idx

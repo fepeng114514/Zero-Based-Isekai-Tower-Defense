@@ -16,8 +16,17 @@ class_name ModifierComponent
 @export var max_cycle: int = C.UNSET
 
 @export_group("Cycle Damage")
-## 伤害数据
-@export var damage_data: DamageData = null
+## 最小伤害
+@export var damage_min: float = 0
+## 最大伤害
+@export var damage_max: float = 0
+## 伤害类型
+@export var damage_type: C.DamageType = C.DamageType.TRUE
+## 伤害标识
+@export var damage_flags: Array[C.DamageFlag] = []:
+	set(value):
+		damage_flags = value
+		damage_flag_bits = U.merge_flags(value)
 
 @export_group("Same Process")
 ## 是否允许相同状态效果叠加
@@ -63,3 +72,5 @@ var ts: float = 0
 var mod_type_bits: int = 0
 ## 当前周期数
 var curren_cycle: int = 0
+## 二进制的伤害标识
+var damage_flag_bits: int = 0

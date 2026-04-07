@@ -339,9 +339,8 @@ func clear_has_auras() -> void:
 func set_pos(pos: Vector2) -> void:
 	global_position = pos
 	
-	if has_c(C.CN_RALLY):
-		var rally_c: RallyComponent = get_c(C.CN_RALLY)
-		
+	var rally_c: RallyComponent = get_c(C.CN_RALLY)
+	if rally_c:
 		rally_c.new_rally(pos)
 	
 	if has_c(C.CN_NAV_PATH):
@@ -350,16 +349,19 @@ func set_pos(pos: Vector2) -> void:
 
 ## 设置导航路径到当前位置下最近的导航路径
 func set_nav_path_at_pos(pos: Vector2) -> void:
-	var source: Entity = EntityMgr.get_entity_by_id(source_id)
-	var node: PathwayNode
-
-	if source and source.has_c(C.CN_NAV_PATH):
-		var s_nav_path_c: NavPathComponent = source.get_c(C.CN_NAV_PATH)
-		node = PathwayMgr.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
-	else:
-		node = PathwayMgr.get_nearst_node(pos)
-
 	var nav_path_c: NavPathComponent = get_c(C.CN_NAV_PATH)
+
+	var pi_list: Array = []
+	var spi_list: Array = []
+
+	if nav_path_c.sync_source_path:
+		var source: Entity = EntityMgr.get_entity_by_id(source_id)
+		var s_nav_path_c: NavPathComponent = source.get_c(C.CN_NAV_PATH) if source else null
+		if s_nav_path_c:
+			pi_list = [s_nav_path_c.pi]
+			spi_list = [s_nav_path_c.spi]
+
+	var node: PathwayNode = PathwayMgr.get_nearst_node(pos, pi_list, spi_list)
 	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
 	
 

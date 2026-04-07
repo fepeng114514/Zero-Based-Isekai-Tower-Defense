@@ -165,31 +165,6 @@ func create_auras(
 		,
 		auto_insert
 	)
-	
-
-## 创建伤害实体
-func create_damage(
-		damage_data: DamageData,
-		target_id: int,
-		source_id: int = C.UNSET,
-		auto_insert: bool = true
-	) -> Damage:
-	var d := Damage.new()
-	
-	d.target_id = target_id
-	d.source_id = source_id
-	if not U.is_valid_number(damage_data.value):
-		d.value = randf_range(damage_data.damage_min, damage_data.damage_max)
-	d.damage_min = damage_data.damage_min
-	d.damage_max = damage_data.damage_max
-	d.damage_type = damage_data.damage_type
-	d.damage_factor = damage_data.damage_factor
-	d.damage_flags = damage_data.damage_flags.duplicate()
-	
-	if auto_insert:
-		SystemMgr.damage_queue.append(d)
-		
-	return d
 #endregion
 
 
@@ -280,10 +255,13 @@ static func sort_entities_by_type(
 				var p1: float = INF if reversed else -INF
 				var p2: float = INF if reversed else -INF
 
-				if e1.has_c(C.CN_NAV_PATH):
-					p1 = e1.get_c(C.CN_NAV_PATH).nav_progress
-				if e2.has_c(C.CN_NAV_PATH):
-					p2 = e2.get_c(C.CN_NAV_PATH).nav_progress
+				var e1_nav_c: NavPathComponent = e1.get_c(C.CN_NAV_PATH)
+				if e1_nav_c:
+					p1 = e1_nav_c.nav_progress
+
+				var e2_nav_c: NavPathComponent = e2.get_c(C.CN_NAV_PATH)
+				if e2_nav_c:
+					p2 = e2_nav_c.nav_progress
 
 				return p1 > p2 if not reversed else p1 < p2
 		C.SortMode.HEALTH:
@@ -291,10 +269,12 @@ static func sort_entities_by_type(
 				var h1: float = INF if reversed else -INF
 				var h2: float = INF if reversed else -INF
 
-				if e1.has_c(C.CN_HEALTH):
-					h1 = e1.get_c(C.CN_HEALTH).hp
-				if e2.has_c(C.CN_HEALTH):
-					h2 = e2.get_c(C.CN_HEALTH).hp
+				var e1_health_c: HealthComponent = e1.get_c(C.CN_HEALTH)
+				if e1_health_c:
+					h1 = e1_health_c.hp
+				var e2_health_c: HealthComponent = e2.get_c(C.CN_HEALTH)
+				if e2_health_c:
+					h2 = e2_health_c.hp
 
 				return h1 > h2 if not reversed else h1 < h2
 		C.SortMode.DISTANCE:
@@ -307,11 +287,13 @@ static func sort_entities_by_type(
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
-
-				if e1.has_c(C.CN_MELEE):
-					d1 = e1.get_c(C.CN_MELEE).list[0].damage_max
-				if e2.has_c(C.CN_MELEE):
-					d2 = e2.get_c(C.CN_MELEE).list[0].damage_max
+				
+				var e1_melee_c: MeleeComponent = e1.get_c(C.CN_MELEE)
+				if e1_melee_c:
+					d1 = e1_melee_c.list[0].damage_max
+				var e2_melee_c: MeleeComponent = e2.get_c(C.CN_MELEE)
+				if e2_melee_c:
+					d2 = e2_melee_c.list[0].damage_max
 
 				return d1 > d2 if not reversed else d1 < d2
 		C.SortMode.RANGE_DAMAGE:
@@ -319,13 +301,15 @@ static func sort_entities_by_type(
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
 
-				if e1.has_c(C.CN_RANGED):
+				var e1_ranged_c: RangedComponent = e1.get_c(C.CN_RANGED)
+				if e1_ranged_c:
 					d1 = EntityMgr.get_entity_data(
-						e1.get_c(C.CN_RANGED).list[0].bullet
+						e1_ranged_c.list[0].bullet
 					).get_c(C.CN_BULLET).damage_max
-				if e2.has_c(C.CN_RANGED):
+				var e2_ranged_c: RangedComponent = e2.get_c(C.CN_RANGED)
+				if e2_ranged_c:
 					d2 = EntityMgr.get_entity_data(
-						e2.get_c(C.CN_RANGED).list[0].bullet
+						e2_ranged_c.list[0].bullet
 					).get_c(C.CN_BULLET).damage_max
 
 				return d1 > d2 if not reversed else d1 < d2

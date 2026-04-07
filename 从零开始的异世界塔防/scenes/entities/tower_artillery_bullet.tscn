@@ -5,17 +5,10 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_cbh1n"]
 [ext_resource type="Texture2D" uid="uid://dkdjev2thqd6w" path="res://resources/atlas_texture_resources/bombs_0001.tres" id="3_cbh1n"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_1jhx5"]
-[ext_resource type="Script" uid="uid://dlsjiii8fcmdd" path="res://classes/resource/data/damage_data.gd" id="6_wmreg"]
 
 [sub_resource type="Resource" id="Resource_1jhx5"]
 script = ExtResource("2_cbh1n")
 left_right = "idle_left_right"
-
-[sub_resource type="Resource" id="Resource_d5kpc"]
-script = ExtResource("6_wmreg")
-damage_min = 15.0
-damage_max = 60.0
-metadata/_custom_type_script = "uid://dlsjiii8fcmdd"
 
 [node name="TowerArtilleryBullet" type="Node2D" unique_id=2094980939 node_paths=PackedStringArray("components")]
 script = ExtResource("1_g48kh")
@@ -26,9 +19,8 @@ components = {
 idle_animation = SubResource("Resource_1jhx5")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1297058768 node_paths=PackedStringArray("list")]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1297058768]
 script = ExtResource("2_0mq2b")
-list = [NodePath("Sprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2139566938]
@@ -38,7 +30,9 @@ texture = ExtResource("3_cbh1n")
 script = ExtResource("4_1jhx5")
 flight_time = 1.5
 flight_trajectory = 1
-damage_data = SubResource("Resource_d5kpc")
+damage_min = 5.0
+damage_max = 35.0
+damage_type = 4
 damage_max_radius = 100.0
 rotation_speed = 6.0
 look_to = false

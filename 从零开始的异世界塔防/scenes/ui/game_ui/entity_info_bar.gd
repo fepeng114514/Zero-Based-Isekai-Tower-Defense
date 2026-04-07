@@ -85,11 +85,6 @@ func _show(e: Entity) -> void:
 	_hide()
 	
 	var ui_c: UIComponent = e.get_c(C.CN_UI)
-	if not ui_c:
-		return
-	
-	if not ui_c.can_select:
-		return
 		
 	selected_entity = e
 	info_bar_type = ui_c.info_bar_type
@@ -113,14 +108,16 @@ func _update_unit_info() -> void:
 	phys_armor_value.text = "%d" % health_c.physical_armor
 	magic_armor_value.text = "%d" % health_c.magical_armor
 	
-	if selected_entity.has_c(C.CN_MELEE):
-		_set_value_melee(selected_entity)
+	var melee_c: MeleeComponent = selected_entity.get_c(C.CN_MELEE)
+	if melee_c:
+		_set_value_melee(melee_c)
 	else:
 		melee_value.visible = false
 		melee_type_icon.visible = false
 		
-	if selected_entity.has_c(C.CN_RANGED):
-		_set_value_ranged(selected_entity)
+	var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
+	if ranged_c:
+		_set_value_ranged(ranged_c)
 	else:
 		ranged_value.visible = false
 		ranged_type_icon.visible = false
@@ -131,19 +128,22 @@ func _update_tower_info() -> void:
 	var tower_c: TowerComponent = selected_entity.get_c(C.CN_TOWER)
 
 	if tower_c.list.is_empty():
-		if selected_entity.has_c(C.CN_RANGED):
-			_set_value_ranged(selected_entity)
+		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
+		if ranged_c:
+			_set_value_ranged(ranged_c)
 		else:
 			ranged_type_icon.visible = false
 			ranged_value.visible = false
 	else:
 		var first_entity: Entity = tower_c.list[0]
-		_set_value_ranged(first_entity)
+		var ranged_c: RangedComponent = first_entity.get_c(C.CN_RANGED)
+
+		if ranged_c:
+			_set_value_ranged(ranged_c)
 
 
 ## 设置远程攻击值
-func _set_value_ranged(e: Entity) -> void:
-	var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
+func _set_value_ranged(ranged_c: RangedComponent) -> void:
 	var first_ranged_attack: RangedAttack = ranged_c.list[0]
 	var bullet: Entity = EntityMgr.get_entity_data(first_ranged_attack.bullet)
 	var bullet_c: BulletComponent = bullet.get_c(C.CN_BULLET)
@@ -155,8 +155,7 @@ func _set_value_ranged(e: Entity) -> void:
 	
 	
 ## 设置近战攻击值
-func _set_value_melee(e: Entity) -> void:
-	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+func _set_value_melee(melee_c: MeleeComponent) -> void:
 	var first_melee_attack: MeleeAttack = melee_c.list[0]
 	melee_value.text = "%d-%d/%.1f" % [
 		first_melee_attack.damage_data.damage_min, 

@@ -20,10 +20,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			0, 
 			0, 
 			func(entity: Entity) -> bool:
-				if not entity.has_c(C.CN_UI):
-					return false
-
 				var ui_c: UIComponent = entity.get_c(C.CN_UI)
+				if not ui_c:
+					return false
 				
 				return ui_c.is_click_at(
 					entity.global_position, 
@@ -50,12 +49,8 @@ func _on_select(e: Entity) -> void:
 	e._on_select()
 	select_mode = C.SelectMode.NONE
 	
-	if e.has_c(C.CN_RALLY):
-		var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
-		
-		if not rally_c.can_select_rally:
-			return
-			
+	var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
+	if rally_c and rally_c.can_select_rally:
 		select_mode = C.SelectMode.RALLY
 	
 

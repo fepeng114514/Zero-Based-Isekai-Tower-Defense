@@ -114,7 +114,13 @@ func _on_update(_delta: float) -> void:
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		
 		if mod_c.damage_min > 0 or mod_c.damage_max > 0:
-			EntityMgr.create_damage(mod_c.damage_data, e.target_id, e.id)
+			var d := Damage.new()
+			d.target_id = target.id
+			d.source_id = e.id
+			d.value = d.get_random_value(mod_c.damage_min, mod_c.damage_max)
+			d.damage_type = mod_c.damage_type
+			d.damage_flags = mod_c.damage_flag_bits
+			d.insert_damage()
 
 		e._on_modifier_period(target, mod_c)
 
