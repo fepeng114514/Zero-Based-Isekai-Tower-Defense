@@ -38,7 +38,7 @@ config/icon="res://icon.svg"
 AudioMgr="*uid://vs7lopahte38"
 I18n="*uid://bwfu5q2p756wl"
 S="*uid://5xpvvkr5hlmu"
-Global="*uid://b1ax1cob25oom"
+GlobalMgr="*uid://ct01c5jk3ruit"
 GameMgr="*res://autoloads/managers/game_manager.gd"
 InputMgr="*uid://co6qf5rf1ox2n"
 SelectMgr="*uid://ceidpau7qbnp1"
@@ -49,7 +49,6 @@ EntityMgr="*res://autoloads/managers/entity_manager.gd"
 GridMgr="*uid://bsty3nv6hyvtv"
 PathwayMgr="*res://autoloads/managers/pathway_manager.gd"
 LevelMgr="*res://autoloads/managers/level_manager.gd"
-GameMgrgr="*res://autoloads/managers/game_manager.gd"
 
 [editor_plugins]
 

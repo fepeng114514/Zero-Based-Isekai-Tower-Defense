@@ -90,7 +90,7 @@ func cleanup_soldiers() -> void:
 	var new_soldiers_list: Array = []
 	
 	for s in soldiers_list:
-		if not U.is_vaild_entity(s):
+		if not U.is_valid_entity(s):
 			continue 
 			
 		new_soldiers_list.append(s)

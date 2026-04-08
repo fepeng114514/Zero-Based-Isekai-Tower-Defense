@@ -21,7 +21,7 @@ func _on_remove(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityMgr.get_vaild_entities():
+	for e: Entity in EntityMgr.get_valid_entities():
 		if U.is_valid_number(e.duration) and TimeMgr.is_ready_time(e.insert_ts, e.duration):
 			e.remove_entity()
 			continue

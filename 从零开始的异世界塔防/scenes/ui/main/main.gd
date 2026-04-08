@@ -2,5 +2,5 @@ extends PanelContainer
 
 
 #func _ready() -> void:
-	#if Global.IS_DEBUG:
+	#if GlobalMgr.is_debug:
 		#UpdateJsonDatas.new()._run()

@@ -31,7 +31,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		)
 		
 		if not e:
-			if U.is_vaild_entity(selected_entity):
+			if U.is_valid_entity(selected_entity):
 				selected_entity.selected = false
 				
 			S.deselect_entity.emit()
@@ -55,7 +55,7 @@ func _on_select(e: Entity) -> void:
 	
 
 func _on_deselect() -> void:
-	if not U.is_vaild_entity(selected_entity):
+	if not U.is_valid_entity(selected_entity):
 		select_mode = C.SelectMode.NONE
 		return
 	

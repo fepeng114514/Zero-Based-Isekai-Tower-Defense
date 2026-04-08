@@ -16,9 +16,7 @@
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://resources/grid_tileset.tres" id="6_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui/game_ui_layer.tscn" id="7_oc4kc"]
 [ext_resource type="Script" uid="uid://ds1pxsst6ylus" path="res://scenes/levels/pathway_controller.gd" id="8_mqh5v"]
-[ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack.tscn" id="14_iwr0g"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="14_np2pn"]
-[ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage.tscn" id="15_bahl2"]
 [ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/tower_artillery.tscn" id="17_v6ha0"]
 [ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://scenes/entities/tower_holder.tscn" id="20_7h2jl"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
@@ -104,23 +102,6 @@ components = {
 "SpawnerComponent": NodePath("SpawnerComponent")
 }
 idle_animation = SubResource("Resource_gmpev")
-
-[node name="TowerMage" parent="World" unique_id=88348674 node_paths=PackedStringArray("components") instance=ExtResource("15_bahl2")]
-position = Vector2(1127, 384)
-components = {
-"SpriteComponent": NodePath("SpriteComponent"),
-"TowerComponent": NodePath("TowerComponent"),
-"UIComponent": NodePath("UIComponent")
-}
-
-[node name="TowerBarrack" parent="World" unique_id=187367710 node_paths=PackedStringArray("components") instance=ExtResource("14_iwr0g")]
-position = Vector2(1127, 504)
-components = {
-"BarrackComponent": NodePath("BarrackComponent"),
-"SpriteComponent": NodePath("SpriteComponent"),
-"TowerComponent": NodePath("TowerComponent"),
-"UIComponent": NodePath("UIComponent")
-}
 
 [node name="TowerArtillery" parent="World" unique_id=1600363506 node_paths=PackedStringArray("components") instance=ExtResource("17_v6ha0")]
 position = Vector2(946, 504)

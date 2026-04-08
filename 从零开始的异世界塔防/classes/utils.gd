@@ -5,6 +5,9 @@ class_name U
 #region 数学工具函数
 ## 判断点是否在圆中
 static func is_in_radius(center: Vector2, point: Vector2, radius: float) -> bool:
+	if not U.is_valid_number(radius):
+		return true
+	
 	return center.distance_to(point) <= radius
 	
 	
@@ -16,8 +19,6 @@ static func dist_factor_inside_radius(
 		min_radius: float = 0, 
 	) -> float:
 	var dist: float = center.distance_to(point)
-	if dist / max_radius < 0:
-		print()
 	
 	if min_radius == 0:
 		return dist / max_radius
@@ -105,7 +106,7 @@ static func is_in_line(
 	if is_in_radius(center, point, width):
 		return true
 
-	angle = fmod(angle, PI)
+	angle = fmod(angle, C.HALF_PI)
 	var local_point: Vector2 = point - center
 	local_point = local_point.rotated(-angle)
 	var abs_local_point_x = abs(local_point.x)
@@ -520,7 +521,7 @@ static func get_component_name(node_name: String) -> String:
 
 
 ## 判断实体是否有效
-static func is_vaild_entity(e) -> bool:
+static func is_valid_entity(e) -> bool:
 	return e and is_instance_valid(e) and not e.removed
 
 

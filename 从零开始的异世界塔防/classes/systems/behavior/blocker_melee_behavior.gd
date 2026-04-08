@@ -114,9 +114,6 @@ func _find_pending_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 		filter
 	)	
 	
-	if targets:
-		print()
-	
 	return targets
 	
 

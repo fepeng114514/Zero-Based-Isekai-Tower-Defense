@@ -9,12 +9,18 @@ class_name Level
 @export var life: int = 20
 ## 默认塔位样式
 @export var defaul_tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
+## 地图大小
+@export var world_size: Vector2i = Vector2i(2560, 1440)
 
 @export_group("Music")
 ## 准备阶段播放的音乐数据
 @export var ready_music: AudioData = null
 ## 战斗阶段播放的音乐数据
 @export var battle_music: AudioData = null
+
+
+func _enter_tree() -> void:
+	GlobalMgr.world_size = world_size
 
 
 func _ready() -> void:

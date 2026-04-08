@@ -11,6 +11,9 @@ func _on_update(e: Entity) -> bool:
 		return false
 		
 	for a: RangedBase in ranged_c.list:
+		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
+			continue
+			
 		var target: Entity = null
 		
 		if U.is_valid_number(e.target_id):
@@ -42,7 +45,7 @@ func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	var result: Array = e.mixed_play_animation_by_look(a.animation, "ranged")
 	AudioMgr.play_sfx(a.sfx)
 	await e.y_wait(a.delay, func() -> bool:
-		return not U.is_vaild_entity(target)
+		return not U.is_valid_entity(target)
 	)
 	var direction: C.Direction = result[1]
 	
@@ -75,7 +78,7 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 
 		AudioMgr.play_sfx(a.loop_sfx)
 		await e.y_wait(a.delay, func() -> bool:
-			return not U.is_vaild_entity(target)
+			return not U.is_valid_entity(target)
 		)
 
 		spawn_bullets(a, e, target, direction)

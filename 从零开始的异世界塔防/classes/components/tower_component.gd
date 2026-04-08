@@ -58,7 +58,7 @@ func cleanup_list() -> void:
 	var new_list: Array[Entity] = []
 	
 	for sub_e in list:
-		if not U.is_vaild_entity(sub_e):
+		if not U.is_valid_entity(sub_e):
 			continue 
 			
 		new_list.append(sub_e)

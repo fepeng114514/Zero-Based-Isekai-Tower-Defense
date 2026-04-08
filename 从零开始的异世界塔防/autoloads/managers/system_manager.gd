@@ -53,7 +53,6 @@ func _process_insert_queue() -> void:
 			e.remove_entity()
 			continue
 		
-		EntityMgr.mark_entity_dirty_id(e.id)
 		Log.verbose("插入实体: %s" % e)
 		
 		e.visible = true
@@ -73,7 +72,6 @@ func _process_remove_queue() -> void:
 			e.removed = false
 			continue
 			
-		EntityMgr.mark_entity_dirty_id(e.id)
 		e.free()
 
 

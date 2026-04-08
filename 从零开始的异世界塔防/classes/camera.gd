@@ -11,6 +11,7 @@ class_name Camera
 @export var zoom_min: float = 0
 ## 最大缩放
 @export var zoom_max: float = 1.5
+## 
 
 ## 是否正在拖拽
 var _dragging: bool = false
@@ -20,13 +21,15 @@ var _drag_start_position := Vector2.ZERO
 
 func _ready() -> void:
 	S.resized_window.connect(_on_resized_window)
+
+	var limit_size: Vector2i = GlobalMgr.world_size
 	
 	limit_left = 0
 	limit_top = 0
-	limit_right = 2560
-	limit_bottom = 1440
+	limit_right = limit_size.x
+	limit_bottom = limit_size.y
 	editor_draw_limits = true
-	position = Vector2(1280, 720)
+	position = limit_size / 2.0
 	
 	_reset_zoom()
 	
@@ -82,7 +85,7 @@ func _move(target_pos: Vector2) -> void:
 
 func _reset_zoom() -> void:
 	var window_size_factor: Vector2 = (
-		Global.WINDOW_SIZE / Global.MAX_WINDOW_SIZE
+		GlobalMgr.window_size / GlobalMgr.max_window_size
 	)
 	zoom_min = window_size_factor.x
 	zoom = Vector2(zoom_min, zoom_min)

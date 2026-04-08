@@ -30,7 +30,6 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void: pass
 func can_attack(a: Variant, target: Entity) -> bool:
 	return (
 		target
-		and TimeMgr.is_ready_time(a.ts, a.cooldown) 
 		and not (
 			a.ban_bits & target.flag_bits
 			or a.flag_bits & target.ban_bits
@@ -93,6 +92,9 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 
 func try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> void:
 	for a: MeleeAttack in melee_c.list:
+		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
+			continue
+
 		if not can_attack(a, target):
 			continue
 			
@@ -106,11 +108,11 @@ func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 	e.look_at_point = target.global_position
 	e.mixed_play_animation_by_look(a.animation, "melee")
 	await e.y_wait(a.delay, func() -> bool:
-		return not U.is_vaild_entity(target)
+		return not U.is_valid_entity(target)
 	)
 	a.ts = TimeMgr.tick_ts
 	
-	if not U.is_vaild_entity(target):
+	if not U.is_valid_entity(target):
 		return
 	
 	var d := Damage.new()
