@@ -8,16 +8,16 @@
 
 [sub_resource type="Resource" id="Resource_sxt40"]
 script = ExtResource("2_4g6k2")
-left_right = "idle_left_right"
+left_right = &"idle_left_right"
 
 [sub_resource type="Resource" id="Resource_uuifh"]
 script = ExtResource("2_4g6k2")
-left_right = "flying_left_right"
+left_right = &"flying_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_03csp"]
 script = ExtResource("2_4g6k2")
-left_right = "hit_left_right"
+left_right = &"hit_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [node name="TowerMageBullet" type="Node2D" unique_id=511000022 node_paths=PackedStringArray("components")]

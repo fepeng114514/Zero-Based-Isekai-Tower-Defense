@@ -3,7 +3,7 @@ extends Node2D
 class_name RangedBase
 ## 远程攻击基类
 ##
-## RangedBase 是用于 [RangedComponent] 的远程攻击节点的基类，提供了远程攻击的基本属性和功能。
+## RangedBase 是 [RangedComponent] 的远程攻击节点的基类，提供了远程攻击的基本属性和功能。
 
 
 ## 最小攻击距离

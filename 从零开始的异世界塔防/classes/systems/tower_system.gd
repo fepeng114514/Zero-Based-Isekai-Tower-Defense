@@ -66,7 +66,7 @@ func _on_update(_delta: float) -> void:
 		
 		var list: Array[Entity] = tower_c.list
 		
-		if list.is_empty():
+		if not list:
 			continue
 			
 		if tower_c.attack_loop_time == 0:

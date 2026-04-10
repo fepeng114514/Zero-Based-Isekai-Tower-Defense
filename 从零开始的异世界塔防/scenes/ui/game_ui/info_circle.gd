@@ -64,7 +64,7 @@ func _show(e: Entity) -> void:
 
 	var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
 	if tower_c:
-		if not tower_c.list.is_empty():
+		if tower_c.list:
 			var first_entity: Entity = tower_c.list[0]
 			var f_ranged_c: RangedComponent = first_entity.get_c(C.CN_RANGED)
 			var first_ranged_attack: RangedBase = f_ranged_c.list[0]

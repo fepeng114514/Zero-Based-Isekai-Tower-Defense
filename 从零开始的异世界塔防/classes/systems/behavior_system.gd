@@ -11,6 +11,7 @@ var _return_true_cbs: Array[Callable] = []
 var _return_false_cbs: Array[Callable] = []
 var _insert_cbs: Array[Callable] = []
 var _remove_cbs: Array[Callable] = []
+var _behavior_count: int = 0
 
 
 func _ready() -> void:
@@ -21,7 +22,7 @@ func _ready() -> void:
 		_return_false_cbs.append(child.get("_on_return_false"))
 		_insert_cbs.append(child.get("_on_insert"))
 		_remove_cbs.append(child.get("_on_remove"))
-
+		_behavior_count += 1
 
 func _on_insert(e: Entity) -> bool:
 	for insert_fn: Callable in _insert_cbs:
@@ -44,14 +45,19 @@ func _on_update(_delta: float) -> void:
 		if e.is_waiting():
 			continue
 		
-		for i in _behaviors.size():
-			if not _update_cbs[i].call(e):
-				continue
+		var break_behavior: Behavior = null
 
+		for i: int in range(_behavior_count):
+			var updata_fn: Callable = _update_cbs[i]
+
+			if updata_fn.call(e):
+				break_behavior = _behaviors[i]
+				break
+		
+		if break_behavior:
 			for return_true_fn: Callable in _return_true_cbs:
-				return_true_fn.call(e, _behaviors[i])
-
-			break
+				return_true_fn.call(e, break_behavior)
+			continue
 
 		for return_false_fn: Callable in _return_false_cbs:
 			return_false_fn.call(e)
@@ -59,5 +65,6 @@ func _on_update(_delta: float) -> void:
 		if not e.has_c(C.CN_SPRITE):
 			continue
 			
-		e.play_idle_animation()
+		e.play_animation_by_look(e.idle_animation)
+			
 			

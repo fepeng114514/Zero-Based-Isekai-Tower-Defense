@@ -188,9 +188,9 @@ func get_nearst_node(
 		spi_l: Array = [],
 		valid_only: bool = true
 	) -> PathwayNode:
-	if pi_l.is_empty():
+	if not pi_l:
 		pi_l = range(get_pathway_count())
-	if spi_l.is_empty():
+	if not spi_l:
 		spi_l = range(subpathway_count)
 
 	var nearst_node: PathwayNode = null

@@ -39,7 +39,7 @@ func _on_update(e: Entity) -> bool:
 
 	var blockers_ids: Array[int] = melee_c.blockers_ids
 	
-	if blockers_ids.is_empty():
+	if not blockers_ids:
 		## need_origin_setup 默认为 true
 		if not melee_c.need_origin_setup:
 			melee_c.need_origin_setup = true
@@ -65,7 +65,7 @@ func _on_update(e: Entity) -> bool:
 		if (
 			not blocker_melee_c.melee_pos_arrived
 		):
-			e.play_idle_animation()
+			e.play_animation_by_look(e.idle_animation)
 			return true
 
 		if melee_c.need_origin_setup:
@@ -84,7 +84,7 @@ func _on_update(e: Entity) -> bool:
 			not is_first_blocked and not melee_c.melee_pos_arrived
 			or is_first_blocked and not blocker_melee_c.melee_pos_arrived
 		):
-		e.play_idle_animation()
+		e.play_animation_by_look(e.idle_animation)
 		return true
 	
 	try_melee_attack(e, melee_c, blocker)

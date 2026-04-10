@@ -127,7 +127,7 @@ func _update_unit_info() -> void:
 func _update_tower_info() -> void:
 	var tower_c: TowerComponent = selected_entity.get_c(C.CN_TOWER)
 
-	if tower_c.list.is_empty():
+	if not tower_c.list:
 		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
 		if ranged_c:
 			_set_value_ranged(ranged_c)

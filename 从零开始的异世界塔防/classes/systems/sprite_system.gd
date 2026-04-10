@@ -10,6 +10,6 @@ func _on_insert(e: Entity) -> bool:
 	if not sprite_c:
 		return true
 		
-	e.mixed_play_animation_by_look(e.idle_animation, "idle", true)
+	e.play_animation_by_look(e.idle_animation, "idle", true)
 		
 	return true

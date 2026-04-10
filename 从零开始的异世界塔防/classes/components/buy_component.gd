@@ -11,8 +11,5 @@ var list: Array[BuyItem] = []
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-		
 	for child: BuyItem in get_children():
 		list.append(child)

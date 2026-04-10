@@ -3,7 +3,7 @@ extends Node2D
 class_name SpriteComponent
 
 ## 精灵组
-@export var groups: Array[SpriteGroup] = []
+@export var groups: Array[Array] = []
 
 @export_group("Sync Animation")
 ## 是否所有者同步播放动画
@@ -16,8 +16,5 @@ var list: Array[Node2D] = []
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-		
 	for child: Node2D in get_children():
 		list.append(child)

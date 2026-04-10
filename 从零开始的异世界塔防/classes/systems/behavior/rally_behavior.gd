@@ -21,8 +21,8 @@ func _on_update(e: Entity) -> bool:
 
 func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	var next_position: Vector2 = rally_c.get_next_path_position()
-	e.look_at_point = next_position
-	e.mixed_play_animation_by_look(rally_c.motion_animation, "walk")
+	e.look_point = next_position
+	e.play_animation_by_look(rally_c.motion_animation, "walk")
 	
 	var direction: Vector2 = e.global_position.direction_to(
 		next_position

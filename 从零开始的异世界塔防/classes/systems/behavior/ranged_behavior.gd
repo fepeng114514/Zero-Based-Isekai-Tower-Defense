@@ -19,7 +19,7 @@ func _on_update(e: Entity) -> bool:
 		if U.is_valid_number(e.target_id):
 			target = EntityMgr.get_entity_by_id(e.target_id)
 		elif not ranged_c.disabled_search:
-			target = EntityMgr.search_target(
+			var targets: Array[Entity] = EntityMgr.search_targets(
 				a.search_mode, 
 				e.global_position, 
 				a.max_range, 
@@ -27,6 +27,8 @@ func _on_update(e: Entity) -> bool:
 				a.flag_bits, 
 				a.ban_bits
 			)
+			if targets:
+				target = targets[0]
 			
 		if not can_attack(a, target):
 			continue
@@ -42,8 +44,8 @@ func _on_update(e: Entity) -> bool:
 	
 	
 func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
-	e.look_at_point = target.global_position
-	var result: Array = e.mixed_play_animation_by_look(a.animation, "ranged")
+	e.look_point = target.global_position
+	var result: Array = e.play_animation_by_look(a.animation, "ranged")
 	AudioMgr.play_sfx(a.sfx)
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_valid_entity(target)
@@ -57,24 +59,24 @@ func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 
 	spawn_bullets(a, e, target, direction)
 
-	await e.mixed_wait_animation(a.animation)
-	e.play_idle_animation()
+	await e.wait_animation(a.animation)
+	e.play_animation_by_look(e.idle_animation)
 
 
 func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
-	e.look_at_point = target.global_position
-	e.mixed_play_animation_by_look(a.start_animation, "ranged")
+	e.look_point = target.global_position
+	e.play_animation_by_look(a.start_animation, "ranged")
 	a.ts = TimeMgr.tick_ts
 
 	AudioMgr.play_sfx(a.start_sfx)
-	await e.mixed_wait_animation(a.start_animation)
+	await e.wait_animation(a.start_animation)
 
 	if not target:
 		return
 
 	for i: int in range(a.loop_count):
-		e.look_at_point = target.global_position
-		var result: Array = e.mixed_play_animation_by_look(a.loop_animation)
+		e.look_point = target.global_position
+		var result: Array = e.play_animation_by_look(a.loop_animation)
 		var direction: C.Direction = result[1]
 
 		AudioMgr.play_sfx(a.loop_sfx)
@@ -83,15 +85,15 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 		)
 
 		spawn_bullets(a, e, target, direction)
-		await e.mixed_wait_animation(a.loop_animation)
+		await e.wait_animation(a.loop_animation)
 
-	await e.mixed_wait_animation(a.loop_animation)
+	await e.wait_animation(a.loop_animation)
 
-	e.mixed_play_animation_by_look(a.end_animation)
+	e.play_animation_by_look(a.end_animation)
 	AudioMgr.play_sfx(a.end_sfx)
-	await e.mixed_wait_animation(a.end_animation)
+	await e.wait_animation(a.end_animation)
 
-	e.play_idle_animation()
+	e.play_animation_by_look(e.idle_animation)
 
 
 func spawn_bullets(a: RangedBase, e: Entity, target: Entity, direction: C.Direction) -> void:

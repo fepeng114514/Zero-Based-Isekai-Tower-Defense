@@ -34,9 +34,6 @@ var list: Array[Entity] = []
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-		
 	for child: Entity in get_children():
 		list.append(child)
 

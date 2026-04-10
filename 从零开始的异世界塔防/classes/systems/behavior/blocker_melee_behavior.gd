@@ -27,7 +27,7 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 		
 	erase_blocker_from_blockeds(e.id, melee_c)
 	
-	if not melee_c.blockeds_ids.is_empty():
+	if melee_c.blockeds_ids:
 		melee_c.blockeds_ids.clear()
 		melee_c.need_origin_setup = true
 		melee_c.blocked_count = 0
@@ -46,7 +46,7 @@ func _on_update(e: Entity) -> bool:
 			entity.has_c(C.CN_MELEE) and entity.id not in melee_c.blockeds_ids
 		)
 		
-		var pending_blockeds: Array = EntityMgr.search_targets_in_range(
+		var pending_blockeds: Array = EntityMgr.search_targets(
 			melee_c.search_mode, 
 			e.global_position, 
 			melee_c.block_max_range, 

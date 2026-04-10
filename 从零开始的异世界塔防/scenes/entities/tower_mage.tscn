@@ -14,7 +14,7 @@
 
 [sub_resource type="Resource" id="Resource_aexug"]
 script = ExtResource("2_ewl0l")
-any = "idle"
+any = &"idle"
 
 [sub_resource type="Resource" id="Resource_5i66g"]
 script = ExtResource("6_usf1p")
@@ -23,12 +23,12 @@ metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [sub_resource type="Resource" id="Resource_fel6d"]
 script = ExtResource("2_ewl0l")
-any = "idle"
+any = &"idle"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_13cep"]
 script = ExtResource("2_ewl0l")
-any = "ranged"
+any = &"ranged"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_vdoyo"]

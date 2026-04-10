@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://classes/level.gd" id="1_x42e6"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resource/data/audio_data.gd" id="2_gmpev"]
 [ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/resource/wave/wave_set.gd" id="2_iav0o"]
-[ext_resource type="PackedScene" uid="uid://cuqee6eum7tl6" path="res://scenes/systems.tscn" id="2_iwr0g"]
+[ext_resource type="PackedScene" uid="uid://cuqee6eum7tl6" path="res://scenes/system_controller.tscn" id="2_iwr0g"]
 [ext_resource type="AudioStream" uid="uid://dpl0mcs7s53br" path="res://assets/audios/MusicBattlePreparationsForest.ogg" id="2_mkypq"]
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resource/wave/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner.tscn" id="4_dga24"]
 [ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://classes/world.gd" id="4_oc4kc"]
-[ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://assets/level_1_bg.png" id="4_x42e6"]
+[ext_resource type="Texture2D" uid="uid://c1r3800k4xpxv" path="res://assets/level_1_bg.png" id="5_7h2jl"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_6761a"]
 [ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/resource/wave/wave_spawn_batch.gd" id="5_wtwp4"]
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/resource/wave/wave_spawn.gd" id="6_iwr0g"]
@@ -59,11 +59,9 @@ metadata/_custom_type_script = "uid://okpyko8fvmx4"
 
 [sub_resource type="Resource" id="Resource_gmpev"]
 script = ExtResource("14_np2pn")
-left_right = "idle_left_right"
 
 [sub_resource type="Resource" id="Resource_mqh5v"]
 script = ExtResource("14_np2pn")
-left_right = "idle_left_right"
 
 [node name="Level1" type="Node2D" unique_id=1565788906]
 script = ExtResource("1_x42e6")
@@ -75,7 +73,7 @@ metadata/_edit_vertical_guides_ = [-464.0]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=74954041]
 position = Vector2(1280, 720)
-texture = ExtResource("4_x42e6")
+texture = ExtResource("5_7h2jl")
 
 [node name="Gird" type="TileMapLayer" parent="." unique_id=214359936]
 visible = false
@@ -105,7 +103,7 @@ components = {
 idle_animation = SubResource("Resource_gmpev")
 
 [node name="TowerArtillery" parent="World" unique_id=1600363506 node_paths=PackedStringArray("components") instance=ExtResource("17_v6ha0")]
-position = Vector2(946, 504)
+position = Vector2(901, 488)
 components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
@@ -123,7 +121,7 @@ components = {
 idle_animation = SubResource("Resource_mqh5v")
 
 [node name="TowerBarrack" parent="World" unique_id=187367710 node_paths=PackedStringArray("components") instance=ExtResource("19_7h2jl")]
-position = Vector2(1128, 504)
+position = Vector2(1152, 496)
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
@@ -138,6 +136,7 @@ script = ExtResource("5_6761a")
 metadata/_custom_type_script = "uid://dkcjwrd81mf1p"
 
 [node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("7_oc4kc")]
+visible = false
 
 [node name="WorldControl" parent="." unique_id=803235356 instance=ExtResource("23_mqh5v")]
 z_index = 1000

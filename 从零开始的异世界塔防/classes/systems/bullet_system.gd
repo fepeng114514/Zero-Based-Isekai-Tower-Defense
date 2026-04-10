@@ -43,7 +43,7 @@ func _on_insert(e: Entity) -> bool:
 
 func _on_update(delta: float) -> void:
 	var entity_list: Array = EntityMgr.get_entities_group(C.CN_BULLET).filter(
-		func(e: Entity):
+		func(e: Entity) -> bool:
 			return not e.is_waiting() and not e.removed
 	)
 
@@ -61,7 +61,7 @@ func _on_update(delta: float) -> void:
 			_trajectory_tracking_update(e, bullet_c, target)
 		
 		if bullet_c.flight_animation:
-			e.mixed_play_animation_by_look(bullet_c.flight_animation)
+			e.play_animation_by_look(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 		
 		# 未击中处理
@@ -74,9 +74,9 @@ func _on_update(delta: float) -> void:
 			):
 			e._on_bullet_miss(bullet_c)
 			if bullet_c.miss_animation:
-				e.mixed_play_animation_by_look(bullet_c.miss_animation)
+				e.play_animation_by_look(bullet_c.miss_animation)
 				AudioMgr.play_sfx(bullet_c.miss_sfx)
-				await e.mixed_wait_animation(bullet_c.miss_animation)
+				await e.wait_animation(bullet_c.miss_animation)
 
 			EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
 
@@ -95,14 +95,14 @@ func _on_update(delta: float) -> void:
 			continue
 
 		if bullet_c.hit_animation:
-			e.mixed_play_animation_by_look(bullet_c.hit_animation)
+			e.play_animation_by_look(bullet_c.hit_animation)
 			AudioMgr.play_sfx(bullet_c.hit_sfx)
 			await e.y_wait(bullet_c.hit_delay)
 
-		var targets: Array = [target]
+		var targets: Array[Entity] = [null]
 			
 		if bullet_c.damage_min_radius > 0 or bullet_c.damage_max_radius > 0:
-			targets = EntityMgr.search_targets_in_range(
+			targets = EntityMgr.search_targets(
 				bullet_c.search_mode, 
 				bullet_c.to, 
 				bullet_c.damage_max_radius, 
@@ -112,6 +112,8 @@ func _on_update(delta: float) -> void:
 				func(t: Entity) -> bool:
 					return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
 			)
+		else:
+			targets[0] = target
 			
 		for t: Entity in targets:
 			var d := Damage.new()
@@ -133,7 +135,7 @@ func _on_update(delta: float) -> void:
 		e._on_bullet_hit(target, bullet_c)
 		
 		if bullet_c.hit_animation:
-			e.mixed_wait_animation(bullet_c.hit_animation)
+			e.wait_animation(bullet_c.hit_animation)
 
 		if bullet_c.hit_remove:
 			e.remove_entity()

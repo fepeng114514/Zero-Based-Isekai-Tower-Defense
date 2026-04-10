@@ -53,8 +53,8 @@ func go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	melee_c.velocity = velocity
 
 	var next_position: Vector2 = e.global_position + velocity
-	e.look_at_point = next_position
-	e.mixed_play_animation_by_look(melee_c.motion_animation, "walk")
+	e.look_point = next_position
+	e.play_animation_by_look(melee_c.motion_animation, "walk")
 
 	e.global_position = next_position
 	
@@ -79,8 +79,8 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	melee_c.velocity = velocity
 
 	var next_position: Vector2 = e.global_position + velocity
-	e.look_at_point = next_position
-	e.mixed_play_animation_by_look(melee_c.motion_animation, "walk")
+	e.look_point = next_position
+	e.play_animation_by_look(melee_c.motion_animation, "walk")
 
 	e.global_position = next_position
 	
@@ -97,8 +97,8 @@ func try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> voi
 			
 		Log.verbose("近战攻击: %s" % e)
 
-		e.look_at_point = target.global_position
-		e.mixed_play_animation_by_look(a.animation, "melee")
+		e.look_point = target.global_position
+		e.play_animation_by_look(a.animation, "melee")
 		await e.y_wait(a.delay, func() -> bool:
 			return not U.is_valid_entity(target)
 		)
@@ -117,8 +117,8 @@ func try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> voi
 
 		EntityMgr.create_mods(target.id, a.mods, e.id)
 		
-		await e.mixed_wait_animation(a.animation)
-		e.play_idle_animation()
+		await e.wait_animation(a.animation)
+		e.play_animation_by_look(e.idle_animation)
 		break
 
 

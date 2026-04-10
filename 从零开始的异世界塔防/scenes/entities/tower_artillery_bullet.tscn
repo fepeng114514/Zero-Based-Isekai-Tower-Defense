@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_1jhx5"]
 script = ExtResource("2_cbh1n")
-left_right = "idle_left_right"
+left_right = &"idle_left_right"
 
 [node name="TowerArtilleryBullet" type="Node2D" unique_id=2094980939 node_paths=PackedStringArray("components")]
 script = ExtResource("1_g48kh")
@@ -34,6 +34,7 @@ damage_min = 5.0
 damage_max = 35.0
 damage_type = 4
 damage_max_radius = 100.0
+damage_max_count = -9223372036854775808
 rotation_speed = 6.0
 look_to = false
 hit_distance = 30.0

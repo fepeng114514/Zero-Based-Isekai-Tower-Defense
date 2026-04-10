@@ -16,7 +16,7 @@
 
 [sub_resource type="Resource" id="Resource_fdaav"]
 script = ExtResource("2_pyfu2")
-left_right = "idle_left_right"
+left_right = &"idle_left_right"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jcl8y"]
 shader = ExtResource("5_rh6e0")

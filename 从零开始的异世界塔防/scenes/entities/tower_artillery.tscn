@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_xqrgu"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_snldt"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_l80ei"]
-[ext_resource type="Script" uid="uid://c51fj1yok5f5t" path="res://classes/resource/data/sprite_group.gd" id="4_l80ei"]
 [ext_resource type="SpriteFrames" uid="uid://prmlcknumm4q" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer1.tres" id="4_mbgfo"]
 [ext_resource type="SpriteFrames" uid="uid://dnvxuuv68o1tn" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer2.tres" id="5_1qc6l"]
 [ext_resource type="SpriteFrames" uid="uid://c25uf33x7n6yy" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer3.tres" id="6_l5l73"]
@@ -14,7 +13,7 @@
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="12_mbgfo"]
 [ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resource/select_menu/select_menu_item_data.gd" id="13_16136"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/ranged_component.gd" id="13_l5l73"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/ranged_attack.gd" id="14_n4ua5"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/subcomponents/ranged_attack.gd" id="14_n4ua5"]
 [ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="14_w632u"]
 [ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="15_add2j"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="15_n4ua5"]
@@ -23,27 +22,22 @@
 [sub_resource type="Resource" id="Resource_l80ei"]
 script = ExtResource("2_snldt")
 is_group = true
-any = "idle"
-
-[sub_resource type="Resource" id="Resource_mbgfo"]
-script = ExtResource("4_l80ei")
-sprite_idx_list = Array[int]([0, 1, 2, 3, 4, 5, 6])
-metadata/_custom_type_script = "uid://c51fj1yok5f5t"
+any = &"idle"
 
 [sub_resource type="Resource" id="Resource_4gw7a"]
 script = ExtResource("15_add2j")
 list = Array[ExtResource("13_16136")]([ExtResource("14_w632u")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
+[sub_resource type="Resource" id="Resource_3uqv8"]
+script = ExtResource("2_snldt")
+is_group = true
+any = &"ranged"
+
 [sub_resource type="Resource" id="Resource_5et4c"]
 script = ExtResource("15_v8ksx")
 any = Vector2(0, -70.05)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
-
-[sub_resource type="Resource" id="Resource_3uqv8"]
-script = ExtResource("2_snldt")
-is_group = true
-any = "ranged"
 
 [node name="TowerArtillery" type="Node2D" unique_id=1600363506 node_paths=PackedStringArray("components")]
 script = ExtResource("1_xqrgu")
@@ -56,12 +50,11 @@ components = {
 idle_animation = SubResource("Resource_l80ei")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=505150196 node_paths=PackedStringArray("list")]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=505150196]
 show_behind_parent = true
 position = Vector2(-4, -49)
 script = ExtResource("3_l80ei")
-groups = Array[ExtResource("4_l80ei")]([SubResource("Resource_mbgfo")])
-list = [NodePath("AnimatedSprite2D"), NodePath("AnimatedSprite2D2"), NodePath("AnimatedSprite2D3"), NodePath("AnimatedSprite2D4"), NodePath("AnimatedSprite2D5"), NodePath("AnimatedSprite2D6"), NodePath("AnimatedSprite2D7")]
+groups = Array[Array]([[0, 1, 2, 3, 4, 5, 6]])
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=257270110]
@@ -101,17 +94,16 @@ info_bar_type = 2
 select_menu_data = SubResource("Resource_4gw7a")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="RangedComponent" type="Node2D" parent="." unique_id=52126447 node_paths=PackedStringArray("list")]
+[node name="RangedComponent" type="Node2D" parent="." unique_id=52126447]
 script = ExtResource("13_l5l73")
-list = [NodePath("RangedAttack")]
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1342825155]
 script = ExtResource("14_n4ua5")
+animation = SubResource("Resource_3uqv8")
 cooldown = 2.0
 bullet = "tower_artillery_bullet"
 bullet_offsets = SubResource("Resource_5et4c")
-animation = SubResource("Resource_3uqv8")
 delay = 0.466
 metadata/_custom_type_script = "uid://covaxdshxnvkn"
 

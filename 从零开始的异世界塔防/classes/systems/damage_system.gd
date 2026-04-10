@@ -72,7 +72,7 @@ func _on_update(_delta: float) -> void:
 			
 			var death_animation: AnimationData = health_c.death_animation
 			if death_animation:
-				target.mixed_play_animation_by_look(
+				target.play_animation_by_look(
 					death_animation, "death"
 				)
 				
@@ -80,7 +80,7 @@ func _on_update(_delta: float) -> void:
 			if death_sfx:
 				AudioMgr.play_sfx(death_sfx)
 			
-			await target.mixed_wait_animation(death_animation)
+			await target.wait_animation(death_animation)
 
 			target.remove_entity()
 	

@@ -5,12 +5,12 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_tbtsw"]
 [ext_resource type="SpriteFrames" uid="uid://3m515ccsttpt" path="res://resources/sprite_frames_resources/tower_archer_2.tres" id="4_k1w3w"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/ranged_component.gd" id="5_ory2n"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/ranged_attack.gd" id="6_j0iry"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/subcomponents/ranged_attack.gd" id="6_j0iry"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/resource/data/offset_data.gd" id="7_a4odr"]
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_es0ag")
-any = "idle"
+any = &"idle"
 
 [sub_resource type="Resource" id="Resource_367kr"]
 script = ExtResource("7_a4odr")
@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
 script = ExtResource("2_es0ag")
-any = "ranged"
+any = &"ranged"
 
 [node name="TowerArcherShooter" type="Node2D" unique_id=2011504655 node_paths=PackedStringArray("components")]
 script = ExtResource("1_nb8ge")

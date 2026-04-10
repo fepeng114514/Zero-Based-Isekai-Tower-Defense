@@ -81,9 +81,6 @@ func _ready() -> void:
 		motion_animation.up = "walk_up"
 		motion_animation.down = "walk_down"
 		motion_animation.left_right = "walk_left_right"
-
-	if Engine.is_editor_hint():
-		return
 		
 	for child: MeleeAttack in get_children():
 		list.append(child)

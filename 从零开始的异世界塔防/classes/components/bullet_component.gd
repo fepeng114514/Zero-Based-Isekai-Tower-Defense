@@ -35,6 +35,8 @@ class_name BulletComponent
 @export var damage_min_radius: float = 0
 ## 最大伤害半径
 @export var damage_max_radius: float = 0
+## 最大伤害数量
+@export var damage_max_count: int = C.UNSET
 ## 范围伤害的搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 是否可以伤害重复敌人

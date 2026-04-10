@@ -10,8 +10,5 @@ var list: Array[RangedBase] = []
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-		
 	for child: RangedBase in get_children():
 		list.append(child)

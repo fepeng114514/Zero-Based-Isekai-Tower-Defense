@@ -14,11 +14,11 @@
 
 [sub_resource type="Resource" id="Resource_6bfoh"]
 script = ExtResource("2_5r4pg")
-left_right = "idle_left_right"
+left_right = &"idle_left_right"
 
 [sub_resource type="Resource" id="Resource_bfdgq"]
 script = ExtResource("2_5r4pg")
-left_right = "spawn"
+left_right = &"spawn"
 
 [sub_resource type="Resource" id="Resource_513mk"]
 script = ExtResource("9_6bfoh")
@@ -26,6 +26,7 @@ list = Array[ExtResource("7_141pe")]([ExtResource("8_xe47h"), ExtResource("9_xe4
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerBarrack" type="Node2D" unique_id=187367710 node_paths=PackedStringArray("components")]
+process_mode = 4
 script = ExtResource("1_xe47h")
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
@@ -48,7 +49,6 @@ texture = ExtResource("3_bfdgq")
 script = ExtResource("4_u6jgq")
 rally_radius = 60.0
 soldier = "tower_barrack_soldier"
-max_soldiers = 590
 spawn_animation = SubResource("Resource_bfdgq")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"
 

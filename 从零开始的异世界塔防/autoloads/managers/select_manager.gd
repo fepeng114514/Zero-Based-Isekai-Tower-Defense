@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
-		var e: Entity = EntityMgr.search_target(
+		var targets: Array[Entity] = EntityMgr.search_targets(
 			C.SearchMode.ENTITY_MAX_ID, 
 			InputMgr.mouse_global_position, 
 			INF, 
@@ -30,13 +30,15 @@ func _unhandled_input(event: InputEvent) -> void:
 				)
 		)
 		
-		if not e:
+		if not targets:
 			if U.is_valid_entity(selected_entity):
 				selected_entity.selected = false
 				
 			S.deselect_entity.emit()
 			selected_entity = null
 			return
+
+		var e: Entity = targets[0]
 
 		Log.debug("选择实体: %s%s" % [e, e.global_position])
 		e.selected = true

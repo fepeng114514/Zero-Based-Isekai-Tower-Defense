@@ -13,13 +13,13 @@
 [ext_resource type="Script" uid="uid://dwbh7vjakpq82" path="res://classes/systems/sprite_system.gd" id="11_3rmfj"]
 [ext_resource type="Script" uid="uid://cbwfqyuju4hpn" path="res://classes/systems/fx_system.gd" id="12_26p61"]
 [ext_resource type="Script" uid="uid://7jx5jvy2sm5c" path="res://classes/systems/behavior_system.gd" id="12_ldgua"]
-[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behavior/ranged_behavior.gd" id="14_2vxs7"]
-[ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/systems/behavior/rally_behavior.gd" id="15_7apri"]
-[ext_resource type="Script" uid="uid://ce54ksvoyuxc8" path="res://classes/systems/behavior/blocker_melee_behavior.gd" id="15_auotx"]
-[ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behavior/blocked_melee_behavior.gd" id="16_26p61"]
-[ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behavior/spawner_behavior.gd" id="16_v8m1n"]
+[ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/systems/behavior/rally_behavior.gd" id="14_iar0h"]
+[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behavior/ranged_behavior.gd" id="15_c2rgd"]
+[ext_resource type="Script" uid="uid://ce54ksvoyuxc8" path="res://classes/systems/behavior/blocker_melee_behavior.gd" id="17_mcv1i"]
 [ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/systems/behavior/barrack_behavior.gd" id="17_nuy6s"]
-[ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/systems/behavior/nav_path_behavior.gd" id="18_063yh"]
+[ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behavior/spawner_behavior.gd" id="18_q0mbc"]
+[ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behavior/blocked_melee_behavior.gd" id="19_hw1tx"]
+[ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/systems/behavior/nav_path_behavior.gd" id="20_kohu1"]
 
 [node name="SystemController" type="Node" unique_id=48795228]
 script = ExtResource("1_532ms")
@@ -74,27 +74,27 @@ script = ExtResource("12_ldgua")
 metadata/_custom_type_script = "uid://7jx5jvy2sm5c"
 
 [node name="RallyBehavior" type="Node" parent="BehaviorSystem" unique_id=217452558]
-script = ExtResource("15_7apri")
+script = ExtResource("14_iar0h")
 metadata/_custom_type_script = "uid://balgrru65agvq"
 
-[node name="RangedBehavior" type="Node" parent="BehaviorSystem" unique_id=1425846983]
-script = ExtResource("14_2vxs7")
-metadata/_custom_type_script = "uid://c5w8px2jpopql"
-
 [node name="BlockerMeleeBehavior" type="Node" parent="BehaviorSystem" unique_id=1365160111]
-script = ExtResource("15_auotx")
+script = ExtResource("17_mcv1i")
 
 [node name="BlockedMeleeBehavior" type="Node" parent="BehaviorSystem" unique_id=265753770]
-script = ExtResource("16_26p61")
-
-[node name="NavPathBehavior" type="Node" parent="BehaviorSystem" unique_id=1973832408]
-script = ExtResource("18_063yh")
-metadata/_custom_type_script = "uid://dlkq6p4daka13"
-
-[node name="SpawnerBehavior" type="Node" parent="BehaviorSystem" unique_id=71576994]
-script = ExtResource("16_v8m1n")
-metadata/_custom_type_script = "uid://o0lkma3r7l41"
+script = ExtResource("19_hw1tx")
 
 [node name="BarrackBehavior" type="Node" parent="BehaviorSystem" unique_id=132430041]
 script = ExtResource("17_nuy6s")
 metadata/_custom_type_script = "uid://do5xlu5110cxi"
+
+[node name="RangedBehavior" type="Node" parent="BehaviorSystem" unique_id=1425846983]
+script = ExtResource("15_c2rgd")
+metadata/_custom_type_script = "uid://c5w8px2jpopql"
+
+[node name="NavPathBehavior" type="Node" parent="BehaviorSystem" unique_id=1973832408]
+script = ExtResource("20_kohu1")
+metadata/_custom_type_script = "uid://dlkq6p4daka13"
+
+[node name="SpawnerBehavior" type="Node" parent="BehaviorSystem" unique_id=71576994]
+script = ExtResource("18_q0mbc")
+metadata/_custom_type_script = "uid://o0lkma3r7l41"

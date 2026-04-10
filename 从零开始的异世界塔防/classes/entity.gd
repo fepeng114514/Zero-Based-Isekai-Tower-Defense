@@ -102,7 +102,7 @@ var last_position := Vector2.ZERO
 ## 状态
 var state := C.State.IDLE
 ## 看向的点
-var look_at_point := Vector2.INF
+var look_point := Vector2.INF
 ## 等待状态
 var _waiting: bool = false
 #endregion
@@ -194,9 +194,6 @@ func _ready() -> void:
 		idle_animation.left_right = "idle_left_right"
 		
 	scene_name = scene_file_path.get_file().get_basename()
-
-	if Engine.is_editor_hint():
-		return
 
 	for child: Node in get_children():
 		var node_script: GDScript = child.get_script()
@@ -366,32 +363,13 @@ func set_nav_path_at_pos(pos: Vector2) -> void:
 	
 
 #region 动画相关方法
-## 获取指定索引的动画精灵
-func get_animated_sprite(sprite_idx: int = 0) -> Node2D:
-	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
-	if not sprite_c:
-		Log.error("get_animated_sprite: 未找到 SpriteComponent 组件: %s" % self)
-		return null
-	
-	var sprite: Variant = sprite_c.list[sprite_idx]
-	
-	if sprite is not AnimatedSprite2D:
-		return null
-	
-	return sprite
-	
-
 ## 使一个精灵播放动画
 func play_animation(
-		anim_name: String, 
-		sprite_idx: int = 0, 
+		anim_name: StringName, 
+		sprite: AnimatedSprite2D, 
 		filp_h: bool = false,
 		force_play: bool = false
 	) -> void:
-	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
-	if not sprite:
-		return
-		
 	if (
 			not force_play 
 			and sprite.animation == anim_name 
@@ -410,145 +388,88 @@ func play_animation(
 	
 ## 使一个组中的所有精灵播放对应的动画
 func play_animation_group(
-		anim_name: String, 
+		anim_name: StringName, 
 		group_idx: int = 0, 
 		filp_h: bool = false,
 		force_play: bool = false
 	) -> void:
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 		
-	for sprite_idx: int in sprite_c.groups[group_idx].sprite_idx_list:
-		play_animation(anim_name, sprite_idx, filp_h, force_play)
+	for sprite_idx: int in sprite_c.groups[group_idx]:
+		play_animation(anim_name, sprite_c.list[sprite_idx], filp_h, force_play)
 
 
 ## 根据是否为组调用相应 play_animation_by_look 或 play_animation_group_by_look 函数
-func mixed_play_animation_by_look(
-		animation: AnimationData, 
-		source_animation_key: String = "",
-		force_play: bool = false
-	) -> Array:
-	if animation.is_group:
-		return play_animation_group_by_look(
-			animation, source_animation_key, force_play)
-	
-	return play_animation_by_look(
-		animation, source_animation_key, C.UNSET, force_play
-	)
-
-
-## 根据实体与看向目标点的角度播放对应的动画
 func play_animation_by_look(
 		animation: AnimationData, 
 		source_animation_key: String = "",
-		sprite_idx: int = C.UNSET,
-		force_play: bool = false
+		force_play: bool = false,
+		facing_data: Array = []
 	) -> Array:
-	var anim_name: String = ""
-
-	var result: Array = animation.get_animation_name_for_point(
-		self, look_at_point
-	)
-	anim_name = result[0]
-	var filp_h: bool = result[2]
-
-	var play_idx: int = sprite_idx if U.is_valid_number(sprite_idx) else animation.play_idx
-
-	play_animation(anim_name, play_idx, filp_h, force_play)
-
+	var play_idx: int = animation.play_idx
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	var sprite_list: Array[Node2D] = sprite_c.list
+
+	var sprite_idxs: Array = []
+
+	if animation.is_group:
+		sprite_idxs = sprite_c.groups[play_idx]
+	else:
+		sprite_idxs = [play_idx]
+
+	if not facing_data:
+		facing_data = animation.get_animation_name_for_point(
+			self, look_point
+		)
+	
+	var anim_name: StringName = facing_data[0]
+	var filp_h: bool = facing_data[2]
+
+	for sprite_idx: int in sprite_idxs:
+		var group_sprite: Node2D = sprite_list[sprite_idx]
+		if group_sprite is not AnimatedSprite2D:
+			continue
+
+		play_animation(anim_name, group_sprite, filp_h, force_play)
+
+	## 处理同步动画
 	if sprite_c.sync_source:
-		_source_play_animation_by_look(
-			source_animation_key,
-			force_play
-		)
-	return result
-	
-	
-func _source_play_animation_by_look(
-		source_animation_key: String = "",
-		force_play: bool = false
-	) -> void:
-	var source: Entity = EntityMgr.get_entity_by_id(source_id)
-	if not source or source.is_waiting():
-		return
-	
-	source.look_at_point = look_at_point
-	var sprite_c: SpriteComponent = source.get_c(C.CN_SPRITE)
-	var animation: AnimationData = sprite_c.sync_animations.get(
-		source_animation_key
-	)
-	if not animation:
-		return
-		
-	source.mixed_play_animation_by_look(
-		animation, source_animation_key, force_play
-	)
-	source.mixed_wait_animation(animation)
-	
-	
-## 根据实体与看向目标点的角度使一个组中的所有精灵播放对应的动画
-func play_animation_group_by_look(
-		animation: AnimationData, 
-		source_animation_key: String = "",
-		force_play: bool = false
-	) -> Array:
-	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
-	var result: Array = []
-		
-	for sprite_idx: int in sprite_c.groups[animation.play_idx].sprite_idx_list:
-		result = play_animation_by_look(
-			animation, source_animation_key, sprite_idx, force_play
-		)
-		
-	_source_play_animation_by_look(
-		source_animation_key, force_play
-	)
-	return result
+		var source: Entity = EntityMgr.get_entity_by_id(source_id)
+		if source and not is_waiting():
+			source.look_point = look_point
+			var s_sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+			var s_animation: AnimationData = s_sprite_c.sync_animations.get(
+				source_animation_key
+			)
+			if s_animation:
+				play_animation_by_look(
+					s_animation, source_animation_key, force_play, facing_data
+				)
+				wait_animation(s_animation)
 
-
-## 播放待机导航
-func play_idle_animation(force_play: bool = false) -> Array:
-	return mixed_play_animation_by_look(
-		idle_animation, "idle", force_play
-	)
+	return facing_data
 
 
 ## 根据是否为组调用 wait_animation 或 wait_animation_group 函数
-func mixed_wait_animation(
+func wait_animation(
 		animation: AnimationData
 	) -> void:
+	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	var sprite_list: Array[Node2D] = sprite_c.list
 	var play_idx: int = animation.play_idx
 	var times: int = animation.times
 
+	_waiting = true
+
 	if animation.is_group:
-		await wait_animation_group(play_idx, times)
-	else:
-		await wait_animation(play_idx, times)
-
-
-## 等待动画播放完成
-func wait_animation(sprite_idx: int = 0, times: int = 1) -> void:
-	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
-	
-	_waiting = true
-	
-	for i: int in range(times):
-		await _wait_for_animation_loop(sprite)
-	
-	_waiting = false
-
-
-## 等待动画组播放完成
-func wait_animation_group(group_idx: int = 0, times: int = 1) -> void:
-	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
-	
-	_waiting = true
-	
-	for i: int in range(times):
-		for sprite_idx: int in sprite_c.groups[group_idx].sprite_idx_list:
-			var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
+		var sprite: AnimatedSprite2D = sprite_list[sprite_c.groups[play_idx][0]]
+		
+		for _i: int in range(times):
 			await _wait_for_animation_loop(sprite)
-	
+	else:
+		for _i: int in range(times):
+			await _wait_for_animation_loop(sprite_list[play_idx])
+		
 	_waiting = false
 
 

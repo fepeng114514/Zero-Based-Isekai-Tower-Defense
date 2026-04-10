@@ -272,7 +272,7 @@ func get_entity_data(entity_name: String) -> Entity:
 #region 索敌相关
 ## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
 static func sort_entities_by_type(
-		entities_array: Array, sort_type: C.SortMode, origin: Vector2, reversed: bool = false
+		entities_array: Array[Entity], sort_type: C.SortMode, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_function: Callable = Callable()
 	
@@ -350,87 +350,6 @@ static func sort_entities_by_type(
 	entities_array.sort_custom(sort_function)
 
 
-## 搜索范围内目标
-##
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
-func find_targets_in_range(
-		origin: Vector2,
-		max_range: float,
-		min_range: float = 0,
-		flags: int = 0,
-		bans: int = 0,
-		filter: Callable = Callable(),
-		group: StringName = C.GROUP_ENTITIES
-	) -> Array[Entity]:
-	var targets: Array[Entity] = []
-
-	var grid_min_x: int = max(0, floor((origin.x - max_range) / SPACE_INDEX_GRID_SIZE))
-	var grid_max_x: int = min(space_index_grid_count_x - 1, ceil((origin.x + max_range) / SPACE_INDEX_GRID_SIZE))
-	var grid_min_y: int = max(0, floor((origin.y - max_range) / SPACE_INDEX_GRID_SIZE))
-	var grid_max_y: int = min(space_index_grid_count_y - 1, ceil((origin.y + max_range) / SPACE_INDEX_GRID_SIZE))
-
-	for grid_x: int in range(grid_min_x, grid_max_x + 1):
-		var grid_col: Dictionary = space_index_grids[grid_x]
-
-		if not grid_col["has_" + group]:
-			continue
-
-		var grid_row: Array = grid_col.row
-
-		for grid_y: int in range(grid_min_y, grid_max_y + 1):
-			var grid: Array = grid_row[grid_y][group]
-			for e: Entity in grid:
-				if (
-						not U.is_mutual_ban(e.flag_bits, bans, flags, e.ban_bits)
-						and U.is_in_ring(origin, e.global_position, min_range, max_range)
-						and (not filter.is_valid() or filter.call(e))
-				):
-					targets.append(e)
-
-	return targets
-
-
-## 搜索并排序范围内目标
-##
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
-func find_sorted_targets(
-		sort_type: C.SortMode,
-		origin: Vector2,
-		max_range: float,
-		min_range: float = 0,
-		flags: int = 0,
-		bans: int = 0,
-		filter: Callable = Callable(),
-		reversed: bool = false,
-		group = C.GROUP_ENTITIES
-	) -> Array:
-	var targets: Array = find_targets_in_range(
-		origin, max_range, min_range, flags, bans, filter, group
-	)
-	sort_entities_by_type(targets, sort_type, origin, reversed)
-	return targets
-
-
-## 搜索范围内相应值最大的目标
-##
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
-func find_extreme_target(
-		sort_type: C.SortMode,
-		origin: Vector2,
-		max_range: float,
-		min_range: float = 0,
-		flags: int = 0,
-		bans: int = 0,
-		filter: Callable = Callable(),
-		reversed: bool = false,
-		group: StringName = C.GROUP_ENTITIES
-	) -> Entity:
-	var targets: Array = find_targets_in_range(
-		origin, max_range, min_range, flags, bans, filter, group
-	)
-	sort_entities_by_type(targets, sort_type, origin, reversed)
-	return targets[0] if targets else null
-
 
 #region 实体的搜索模式配置
 const PROPERTY_META: Dictionary[String, C.SortMode] = {
@@ -478,23 +397,55 @@ static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
 
 	return config
 
+
 var search_config: Dictionary[C.SearchMode, SearchModeConfig] = build_search_config()
 
 
-## 根据搜索模式获取相应的数组配置
-func get_search_config(search_mode: C.SearchMode) -> SearchModeConfig:
-	if search_mode not in search_config:
-		Log.error("未知搜索模式: %s" % search_mode)
-		return null
+## 搜索范围内目标
+##
+## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
+func find_targets_in_range(
+		origin: Vector2,
+		max_range: float,
+		min_range: float = 0,
+		flags: int = 0,
+		bans: int = 0,
+		filter: Callable = Callable(),
+		group: StringName = C.GROUP_ENTITIES
+	) -> Array[Entity]:
+	var targets: Array[Entity] = []
 
-	return search_config[search_mode]
+	var grid_min_x: int = max(0, floor((origin.x - max_range) / SPACE_INDEX_GRID_SIZE))
+	var grid_max_x: int = min(space_index_grid_count_x - 1, ceil((origin.x + max_range) / SPACE_INDEX_GRID_SIZE))
+	var grid_min_y: int = max(0, floor((origin.y - max_range) / SPACE_INDEX_GRID_SIZE))
+	var grid_max_y: int = min(space_index_grid_count_y - 1, ceil((origin.y + max_range) / SPACE_INDEX_GRID_SIZE))
+
+	for grid_x: int in range(grid_min_x, grid_max_x + 1):
+		var grid_col: Dictionary = space_index_grids[grid_x]
+
+		if not grid_col["has_" + group]:
+			continue
+
+		var grid_row: Array = grid_col.row
+
+		for grid_y: int in range(grid_min_y, grid_max_y + 1):
+			var grid: Array = grid_row[grid_y][group]
+			for e: Entity in grid:
+				if (
+						not U.is_mutual_ban(e.flag_bits, bans, flags, e.ban_bits)
+						and U.is_in_ring(origin, e.global_position, min_range, max_range)
+						and (not filter.is_valid() or filter.call(e))
+				):
+					targets.append(e)
+
+	return targets
 #endregion
 
 
 ## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）
 ##	
 ## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
-func search_target(
+func search_targets(
 		search_mode: C.SearchMode, 
 		origin: Vector2, 
 		max_range: float, 
@@ -502,37 +453,26 @@ func search_target(
 		flags: int = 0, 
 		bans: int = 0, 
 		filter: Callable = Callable()
-	) -> Entity:
-	var config: SearchModeConfig = get_search_config(search_mode)
+	) -> Array[Entity]:
+	var config: SearchModeConfig = search_config.get(search_mode)
 	if not config:
-		return null
-
-	return find_extreme_target(
-		config.sort_mode, origin, max_range, min_range, 
-		flags, bans, filter, config.reversed, config.group
-	)
-
-
-## 根据搜索模式选择相应索敌函数（搜索范围内所有目标）
-## 
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
-func search_targets_in_range(
-		search_mode: C.SearchMode, 
-		origin: Vector2, 
-		max_range: float, 
-		min_range: float = 0, 
-		flags: int = 0, 
-		bans: int = 0, 
-		filter: Callable = Callable()
-	) -> Array:
-	var config: SearchModeConfig = get_search_config(search_mode)
-	if not config:
+		Log.error("未知搜索模式: %s" % search_mode)
 		return []
 
-	return find_sorted_targets(
-		config.sort_mode, origin, max_range, min_range, 
-		flags, bans, filter, config.reversed, config.group
+	var group: StringName = config.group
+
+	if flags & C.Flag.ENEMY:
+		match config.group:
+			C.GROUP_ENEMIES:
+				group = C.GROUP_FRIENDLYS
+			C.GROUP_FRIENDLYS:
+				group = C.GROUP_ENEMIES
+			
+	var targets: Array = find_targets_in_range(
+		origin, max_range, min_range, flags, bans, filter, group
 	)
+	sort_entities_by_type(targets, config.sort_mode, origin, config.reversed)
+	return targets
 
 
 ## 根据搜索模式在扇形范围内搜索目标
@@ -557,7 +497,7 @@ func search_targets_in_sector(
 			origin.angle_to(look_at)
 		) and (not filter.is_valid() or filter.call(e))
 
-	return search_targets_in_range(
+	return search_targets(
 		search_mode, origin, radius, 0, flags, bans, sector_filter
 	)
 
@@ -584,7 +524,7 @@ func search_targets_in_rectangle(
 			origin.angle_to(look_at)
 		) and (not filter.is_valid() or filter.call(e))
 
-	return search_targets_in_range(
+	return search_targets(
 		search_mode, origin, length, 0, flags, bans, rectangle_filter
 	)
 #endregion
