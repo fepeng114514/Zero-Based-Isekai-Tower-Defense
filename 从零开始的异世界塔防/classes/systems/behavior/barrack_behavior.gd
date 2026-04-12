@@ -59,6 +59,7 @@ func _on_update(e: Entity) -> bool:
 	barrack_c.last_soldier_count = soldier_count
 	return false
 
+
 func respawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent
 	) -> Variant:

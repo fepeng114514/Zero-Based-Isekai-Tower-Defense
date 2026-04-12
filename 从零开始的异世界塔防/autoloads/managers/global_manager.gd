@@ -5,7 +5,7 @@ var is_release: bool = OS.has_feature("release")
 var is_debug: bool = OS.has_feature("debug")
 var max_window_size := Vector2(2560, 1440)
 var window_size := Vector2.ZERO
-var world_size: Vector2i = Vector2i(2560, 1440)
+var world_size: Vector2 = Vector2(2560, 1440)
 
 
 func _ready() -> void:

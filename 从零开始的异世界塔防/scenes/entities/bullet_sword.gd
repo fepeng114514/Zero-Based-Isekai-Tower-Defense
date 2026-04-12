@@ -35,7 +35,7 @@ func _on_update(_delta: float) -> void:
 		
 		if is_instance_valid(target):
 			bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
-				target, (bullet_c.flight_time + to_predict_time)
+				target, (bullet_c.flight_total_time + to_predict_time)
 			)
 		else:
 			bullet_c.predict_target_pos = Vector2(
@@ -66,7 +66,7 @@ func _on_update(_delta: float) -> void:
 		bullet_c.from = global_position
 
 		bullet_c.velocity = U.initial_linear_velocity(
-			global_position, bullet_c.to, bullet_c.flight_time
+			global_position, bullet_c.to, bullet_c.flight_total_time
 		)
 
 		bullet_c.ts = TimeMgr.tick_ts

@@ -27,7 +27,37 @@ class_name AnimationData
 
 ## 根据实体与目标点的角度返回对应的动画名称
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
-	var dir: C.Direction = _get_direction(e, point)
+	var dir: C.Direction = C.Direction.DOWN
+	var angle: float = e.global_position.angle_to_point(
+		point
+	)
+	
+	if (
+			not (left or right or left_right) 
+			and up_down
+		):
+		if angle >= -PI and angle < 0:
+			dir = C.Direction.UP
+		else:
+			dir = C.Direction.DOWN
+	elif (
+			not (up or down or up_down)
+			and left_right
+		):
+		if angle <= C.HALF_PI and angle >= -C.HALF_PI:
+			dir = C.Direction.RIGHT
+		else:
+			dir = C.Direction.LEFT
+	else:
+		if angle >= -3 * C.QUARTER_PI and angle < -C.QUARTER_PI:
+			dir = C.Direction.UP
+		elif angle >= C.QUARTER_PI and angle < 3 * C.QUARTER_PI:
+			dir = C.Direction.DOWN
+		elif angle >= -C.QUARTER_PI and angle < C.QUARTER_PI:
+			dir = C.Direction.RIGHT
+		else:
+			dir = C.Direction.LEFT
+
 	var anim_name: StringName = ""
 	var flip_h: bool = false
 	
@@ -52,28 +82,3 @@ func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 					anim_name = right
 	
 	return [anim_name, dir, flip_h]
-
-func _get_direction(e: Entity, point: Vector2) -> C.Direction:
-	var v: Vector2 = point - e.global_position
-	if up_down:
-		return C.Direction.DOWN if v.y > 0 else C.Direction.UP
-	if left_right:
-		return C.Direction.RIGHT if v.x >= 0 else C.Direction.LEFT
-	
-	# 八方向：使用向量比较，完全避免 atan2
-	var abs_x: float = abs(v.x)
-	var abs_y: float = abs(v.y)
-	if abs_x > abs_y:
-		return C.Direction.RIGHT if v.x > 0 else C.Direction.LEFT
-	elif abs_y > abs_x:
-		return C.Direction.DOWN if v.y > 0 else C.Direction.UP
-	else:
-		# 对角线情况 (|x| == |y|)
-		if v.x > 0 and v.y > 0:
-			return C.Direction.DOWN   # 45°
-		elif v.x > 0 and v.y < 0:
-			return C.Direction.RIGHT  # -45°
-		elif v.x < 0 and v.y > 0:
-			return C.Direction.LEFT   # 135°
-		else:
-			return C.Direction.UP     # -135°

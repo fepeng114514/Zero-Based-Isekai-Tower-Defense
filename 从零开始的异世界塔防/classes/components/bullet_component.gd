@@ -1,4 +1,3 @@
-@tool
 extends Node
 class_name BulletComponent
 ## 子弹组件
@@ -7,12 +6,12 @@ class_name BulletComponent
 
 
 ## 子弹从发射到命中或消失的时间
-@export var flight_time: float = 0
+@export var flight_total_time: float = 0
 ## 重力加速度
 @export var flight_gravity: float = 980
 ## 飞行轨迹类型
 @export var flight_trajectory: C.Trajectory = C.Trajectory.LINEAR
-## 子弹的飞行速度，用于无法指定飞行时间的飞行轨迹
+## 子弹的飞行速度
 @export var flight_speed: float = 0
 ## 飞行动画数据
 @export var flight_animation: AnimationData = null
@@ -39,6 +38,8 @@ class_name BulletComponent
 @export var damage_max_count: int = C.UNSET
 ## 范围伤害的搜索模式
 @export var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+## 范围伤害是否随距离衰减
+@export var damage_falloff_enabled: bool = false
 ## 范围伤害的圆心偏移
 @export var damage_offset := Vector2.ZERO
 ## 是否可以伤害重复敌人

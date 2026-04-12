@@ -15,10 +15,9 @@
 [ext_resource type="Script" uid="uid://7jx5jvy2sm5c" path="res://classes/systems/behavior_system.gd" id="12_ldgua"]
 [ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/systems/behavior/rally_behavior.gd" id="14_iar0h"]
 [ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behavior/ranged_behavior.gd" id="15_c2rgd"]
-[ext_resource type="Script" uid="uid://ce54ksvoyuxc8" path="res://classes/systems/behavior/blocker_melee_behavior.gd" id="17_mcv1i"]
 [ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/systems/behavior/barrack_behavior.gd" id="17_nuy6s"]
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behavior/spawner_behavior.gd" id="18_q0mbc"]
-[ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behavior/blocked_melee_behavior.gd" id="19_hw1tx"]
+[ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behavior/melee_behavior.gd" id="19_hw1tx"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/systems/behavior/nav_path_behavior.gd" id="20_kohu1"]
 
 [node name="SystemController" type="Node" unique_id=48795228]
@@ -77,15 +76,13 @@ metadata/_custom_type_script = "uid://7jx5jvy2sm5c"
 script = ExtResource("14_iar0h")
 metadata/_custom_type_script = "uid://balgrru65agvq"
 
-[node name="BlockerMeleeBehavior" type="Node" parent="BehaviorSystem" unique_id=1365160111]
-script = ExtResource("17_mcv1i")
-
-[node name="BlockedMeleeBehavior" type="Node" parent="BehaviorSystem" unique_id=265753770]
-script = ExtResource("19_hw1tx")
-
 [node name="BarrackBehavior" type="Node" parent="BehaviorSystem" unique_id=132430041]
 script = ExtResource("17_nuy6s")
 metadata/_custom_type_script = "uid://do5xlu5110cxi"
+
+[node name="MeleeBehavior" type="Node" parent="BehaviorSystem" unique_id=727647648]
+script = ExtResource("19_hw1tx")
+metadata/_custom_type_script = "uid://ctpsivwplsj6l"
 
 [node name="RangedBehavior" type="Node" parent="BehaviorSystem" unique_id=1425846983]
 script = ExtResource("15_c2rgd")

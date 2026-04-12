@@ -21,12 +21,12 @@ static func dist_factor_inside_radius(
 	var dist: float = center.distance_to(point)
 	
 	if min_radius == 0:
-		return dist / max_radius
+		return 1 - dist / max_radius
 		
 	var ring_dist: float = dist - min_radius
 	var ring_radius: float = max_radius - min_radius
 		
-	return ring_dist / ring_radius
+	return 1 - ring_dist / ring_radius
 	
 	
 ## 计算点在指定方向和距离上的另一个点
@@ -149,8 +149,9 @@ static func position_in_linear(velocity: Vector2, from: Vector2, t: float) -> Ve
 static func initial_parabola_velocity(
 		from: Vector2, to: Vector2, t: float, g: float
 	) -> Vector2:
-	var x: float = (to.x - from.x) / t
-	var y: float = (to.y - from.y - g * t * t / 2) / t
+	var dv: Vector2 = to - from
+	var x: float = dv.x / t
+	var y: float = (dv.y - g * t * t / 2) / t
 	
 	return Vector2(x, y)
 	

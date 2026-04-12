@@ -61,16 +61,12 @@ var blocked_count: int = 0
 var blockeds_ids: Array[int] = []
 ## 原位置，用于实体返回原始位置
 var origin_pos := Vector2.ZERO
-## 是否到达原始位置
-var origin_pos_arrived: bool = true
 ## 近战位置
 var melee_pos := Vector2.ZERO
-## 是否到达近战位置
-var melee_pos_arrived: bool = true
-## 是否需要设置原位置
-var need_origin_setup: bool = true
 ## 向量速度
 var velocity := Vector2.ZERO
+## 近战状态
+var melee_state: C.MeleeState = C.MeleeState.IDLE
 ## 近战攻击列表
 var list: Array[MeleeAttack] = []
 
@@ -96,34 +92,61 @@ func _draw() -> void:
 		Color.GREEN, 
 		true
 	)
-
-
+	
+	
 ## 重新计算并设置被拦截者数量（考虑拦截代价）
 func reset_blocked_count() -> void:
-	var count: int = 0
+	blocked_count = 0
 	
 	for id: int in blockeds_ids:
-		var b: Entity = EntityMgr.get_entity_by_id(id)
-		if not b:
+		var blocked: Entity = EntityMgr.get_entity_by_id(id)
+		if not U.is_valid_entity(blocked):
 			continue
 			
-		var b_melee_c: MeleeComponent = b.get_c(C.CN_MELEE)
+		var b_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
 			
-		count += b_melee_c.block_cost
-		
-	blocked_count = count
-
-
-## 获取被拦截者
-func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
-	var blocked_list: Array[Entity] = []
+		blocked_count += b_melee_c.block_cost
 	
-	for id: int in blockeds_ids:
-		var e: Entity = EntityMgr.get_entity_by_id(id)
+
+## 解除拦截关系
+func unbind_melee_relations(erase_id: int) -> void:
+	if is_blocker:
+		for blocked_id: int in blockeds_ids:
+			var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
+			var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+			blocked_melee_c.blockers_ids.erase(erase_id)
+	else:
+		for blocker_id: int in blockers_ids:
+			var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
+			var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
+			blocker_melee_c.blockeds_ids.erase(erase_id)
+
+
+## 清理无效拦截关系
+func cleanup_melee_relations() -> void:
+	if is_blocker:
+		var new_blockeds_ids: Array[int] = []
+		blocked_count = 0
 		
-		if not e or filter.is_valid() and not filter.call(e):
-			continue
+		for id: int in blockeds_ids:
+			var blocked: Entity = EntityMgr.get_entity_by_id(id)
+			if not U.is_valid_entity(blocked):
+				continue 
+				
+			var b_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+				
+			new_blockeds_ids.append(id)
+			blocked_count += b_melee_c.block_cost
+			
+		blockeds_ids = new_blockeds_ids
+	else:
+		var new_blockers_ids: Array[int] = []
 		
-		blocked_list.append(e)
-		
-	return blocked_list
+		for id: int in blockers_ids:
+			var blocker: Entity = EntityMgr.get_entity_by_id(id)
+			if not U.is_valid_entity(blocker):
+				continue 
+				
+			new_blockers_ids.append(id)
+			
+		blockers_ids = new_blockers_ids

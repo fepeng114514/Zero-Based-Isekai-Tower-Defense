@@ -15,7 +15,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var targets: Array[Entity] = EntityMgr.search_targets(
 			C.SearchMode.ENTITY_MAX_ID, 
 			InputMgr.mouse_global_position, 
-			INF, 
+			9999, 
 			0, 
 			0, 
 			0, 

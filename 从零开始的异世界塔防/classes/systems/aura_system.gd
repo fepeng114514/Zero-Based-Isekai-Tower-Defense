@@ -100,7 +100,7 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.GROUP_AURAS):
 		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
-		var targets: Array = EntityMgr.search_targets(
+		var targets: Array[Entity] = EntityMgr.search_targets(
 			aura_c.search_mode, 
 			e.global_position, 
 			aura_c.max_radius, 

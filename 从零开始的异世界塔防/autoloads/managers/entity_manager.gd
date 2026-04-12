@@ -74,8 +74,8 @@ func load() -> void:
 		_entity_scenes[scene_name] = scene
 
 	# 初始化空间索引网格
-	var grid_count_x: int = ceil(GlobalMgr.world_size.x / SPACE_INDEX_GRID_SIZE)
-	var grid_count_y: int = ceil(GlobalMgr.world_size.y / SPACE_INDEX_GRID_SIZE)
+	var grid_count_x: int = ceili(GlobalMgr.world_size.x / SPACE_INDEX_GRID_SIZE)
+	var grid_count_y: int = ceili(GlobalMgr.world_size.y / SPACE_INDEX_GRID_SIZE)
 	
 	for x: int in range(grid_count_x):
 		var grid_col: Dictionary = {
@@ -415,10 +415,10 @@ func find_targets_in_range(
 	) -> Array[Entity]:
 	var targets: Array[Entity] = []
 
-	var grid_min_x: int = max(0, floor((origin.x - max_range) / SPACE_INDEX_GRID_SIZE))
-	var grid_max_x: int = min(space_index_grid_count_x - 1, ceil((origin.x + max_range) / SPACE_INDEX_GRID_SIZE))
-	var grid_min_y: int = max(0, floor((origin.y - max_range) / SPACE_INDEX_GRID_SIZE))
-	var grid_max_y: int = min(space_index_grid_count_y - 1, ceil((origin.y + max_range) / SPACE_INDEX_GRID_SIZE))
+	var grid_min_x: int = max(0, floori((origin.x - max_range) / SPACE_INDEX_GRID_SIZE))
+	var grid_max_x: int = min(space_index_grid_count_x - 1, ceili((origin.x + max_range) / SPACE_INDEX_GRID_SIZE))
+	var grid_min_y: int = max(0, floori((origin.y - max_range) / SPACE_INDEX_GRID_SIZE))
+	var grid_max_y: int = min(space_index_grid_count_y - 1, ceili((origin.y + max_range) / SPACE_INDEX_GRID_SIZE))
 
 	for grid_x: int in range(grid_min_x, grid_max_x + 1):
 		var grid_col: Dictionary = space_index_grids[grid_x]

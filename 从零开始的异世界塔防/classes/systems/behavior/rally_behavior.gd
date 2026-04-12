@@ -16,10 +16,6 @@ func _on_update(e: Entity) -> bool:
 		e._on_arrived_rally(rally_c)
 		return false
 
-	walk_step(e, rally_c)
-	return true
-
-func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	var next_position: Vector2 = rally_c.get_next_path_position()
 	e.look_point = next_position
 	e.play_animation_by_look(rally_c.motion_animation, "walk")
@@ -37,3 +33,5 @@ func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	e.global_position += velocity
 	
 	e._on_rally_walk(rally_c)
+
+	return true

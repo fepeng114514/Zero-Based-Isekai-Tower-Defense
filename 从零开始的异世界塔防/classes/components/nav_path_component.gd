@@ -1,4 +1,3 @@
-@tool
 extends Node
 class_name NavPathComponent
 ## 导航路径组件

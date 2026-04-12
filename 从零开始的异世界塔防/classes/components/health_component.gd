@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 class_name HealthComponent
 ## 血量组件

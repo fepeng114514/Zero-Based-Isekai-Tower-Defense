@@ -38,9 +38,14 @@ func _on_update(_delta: float) -> void:
 		_type_groups[group_name].clear()
 
 	for e: Entity in EntityMgr.get_valid_entities():
+		var e_global_position: Vector2 = e.global_position
+		
 		# 根据实体的坐标将实体插入到空间索引中
-		var x: int = ceil(e.position.x / _space_index_grid_size)
-		var y: int = ceil(e.position.y / _space_index_grid_size)
+		var x: int = floori(e_global_position.x / _space_index_grid_size)
+		var y: int = floori(e_global_position.y / _space_index_grid_size)
+
+		if x > _space_index_grids.size():
+			continue
 
 		var grid_col: Dictionary = _space_index_grids[x]
 		var grid_row: Dictionary = grid_col.row[y]

@@ -31,6 +31,7 @@ flight_trajectory = 1
 flight_animation = SubResource("Resource_ejip2")
 damage_min = 10.0
 damage_max = 25.0
+damage_falloff_enabled = null
 metadata/_custom_type_script = "uid://haoljvofy74e"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1158787809]

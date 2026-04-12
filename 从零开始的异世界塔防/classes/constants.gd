@@ -366,6 +366,19 @@ enum SelectMenuItemType {
 }
 
 
+## 近战状态枚举
+enum MeleeState {
+	## 到达原点
+	IDLE,
+	## 返回位置中
+	RETURNING,      
+	## 前往近战位置中
+	MOVING_TO_POS,  
+	## 已到达位置
+	MELEE_POS_ARRIVED,    
+}
+
+
 #region 组件名称 (StringName)
 ## 组件名称: 血量
 const CN_HEALTH: StringName = &"HealthComponent"

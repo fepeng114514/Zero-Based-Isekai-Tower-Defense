@@ -15,10 +15,9 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	bullet_c.ts = TimeMgr.tick_ts
-	var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
 	if not bullet_c.disabled_predict_pos:
 		bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
-			target, bullet_c.flight_time
+			target, bullet_c.flight_total_time
 		)
 	else:
 		bullet_c.predict_target_pos = target.global_position
@@ -29,14 +28,15 @@ func _on_insert(e: Entity) -> bool:
 
 	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.global_position.x else 1
 
-	if bullet_c.flight_trajectory & C.Trajectory.LINEAR:
-		_trajectory_liniear_init(bullet_c)
-	elif bullet_c.flight_trajectory & C.Trajectory.PARABOLA:
-		_trajectory_parabola_init(e, bullet_c, flying_time)
-	elif bullet_c.flight_trajectory & C.Trajectory.TRACKING:
-		_trajectory_tracking_init(e, bullet_c)
-	elif bullet_c.flight_trajectory & C.Trajectory.INSTANT:
-		_trajectory_instant_init(e, target)
+	match bullet_c.flight_trajectory:
+		C.Trajectory.LINEAR:
+			_trajectory_liniear_init(bullet_c)
+		C.Trajectory.PARABOLA:
+			_trajectory_parabola_init(e, bullet_c)
+		C.Trajectory.TRACKING:
+			_trajectory_tracking_init(e, bullet_c)
+		C.Trajectory.INSTANT:
+			_trajectory_instant_init(e, target)
 
 	return true
 
@@ -53,20 +53,25 @@ func _on_update(delta: float) -> void:
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
 
-		if bullet_c.flight_trajectory & C.Trajectory.LINEAR:
-			_trajectory_liniear_update(e, bullet_c)
-		elif bullet_c.flight_trajectory & C.Trajectory.PARABOLA:
-			_trajectory_parabola_update(e, bullet_c, flying_time)
-		elif bullet_c.flight_trajectory & C.Trajectory.TRACKING:
-			_trajectory_tracking_update(e, bullet_c, target)
+		match bullet_c.flight_trajectory:
+			C.Trajectory.LINEAR:
+				_trajectory_liniear_update(e, bullet_c)
+			C.Trajectory.PARABOLA:
+				_trajectory_parabola_update(e, bullet_c, flying_time)
+			C.Trajectory.TRACKING:
+				_trajectory_tracking_update(e, bullet_c, target)
 		
 		if bullet_c.flight_animation:
 			e.play_animation_by_look(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
+
+		var targets: Array[Entity] = [null]
+		var is_range_damage: bool = bullet_c.damage_max_radius > 0
+		var flight_total_time: float = bullet_c.flight_total_time 
 		
 		# 未击中处理
 		if (
-				flying_time >= bullet_c.flight_time 
+				flying_time >= flight_total_time 
 				or not target 
 				and U.is_at_destination(
 					e.global_position, bullet_c.to, bullet_c.hit_distance
@@ -78,7 +83,19 @@ func _on_update(delta: float) -> void:
 				AudioMgr.play_sfx(bullet_c.miss_sfx)
 				await e.wait_animation(bullet_c.miss_animation)
 
-			EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
+			if is_range_damage:
+				targets = EntityMgr.search_targets(
+					bullet_c.damage_search_mode, 
+					bullet_c.to + bullet_c.damage_offset, 
+					bullet_c.damage_max_radius, 
+					bullet_c.damage_min_radius, 
+					e.flag_bits, 
+					e.ban_bits,
+					func(t: Entity) -> bool:
+						return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
+				)
+
+				_take_damage(e, bullet_c, targets, is_range_damage, bullet_c.miss_payloads)
 
 			if bullet_c.miss_remove:
 				e.remove_entity()
@@ -89,6 +106,11 @@ func _on_update(delta: float) -> void:
 			continue
 		
 		# 击中处理
+		match bullet_c.flight_trajectory:
+			C.Trajectory.PARABOLA:
+				if flying_time <= flight_total_time * 0.8:
+					return
+		
 		if not U.is_at_destination(
 				e.global_position, bullet_c.to, bullet_c.hit_distance
 			):
@@ -98,10 +120,8 @@ func _on_update(delta: float) -> void:
 			e.play_animation_by_look(bullet_c.hit_animation)
 			AudioMgr.play_sfx(bullet_c.hit_sfx)
 			await e.y_wait(bullet_c.hit_delay)
-
-		var targets: Array[Entity] = [null]
 			
-		if bullet_c.damage_min_radius > 0 or bullet_c.damage_max_radius > 0:
+		if is_range_damage:
 			targets = EntityMgr.search_targets(
 				bullet_c.damage_search_mode, 
 				bullet_c.to + bullet_c.damage_offset, 
@@ -114,27 +134,8 @@ func _on_update(delta: float) -> void:
 			)
 		else:
 			targets[0] = target
-			
-		for i: int in range(targets.size()):
-			if i > bullet_c.damage_max_count:
-				break
-				
-			var t: Entity = targets[i]
-			
-			var d := Damage.new()
-			d.target_id = t.id
-			d.source_id = e.id
-			d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
-			d.damage_type = bullet_c.damage_type
-			d.damage_flags = bullet_c.damage_flag_bits
-			d.damage_factor = e._on_bullet_calculate_damage_factor(
-				t, bullet_c
-			)
-			d.insert_damage()
-			EntityMgr.create_mods(t.id, bullet_c.mods, e.id)
-			bullet_c.damaged_entity_ids.append(t.id)
-			
-		EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
+
+		_take_damage(e, bullet_c, targets, is_range_damage, bullet_c.hit_payloads)
 
 		e._on_bullet_hit(target, bullet_c)
 		
@@ -145,11 +146,48 @@ func _on_update(delta: float) -> void:
 			e.remove_entity()
 		
 
+func _take_damage(
+		e: Entity, 
+		bullet_c: BulletComponent, 
+		targets: Array[Entity], 
+		is_range_damage: bool,
+		payloads: Array[String]
+		) -> void:
+	var damage_max_count: int = bullet_c.damage_max_count
+	var e_id: int = e.id
+		
+	for i: int in range(targets.size()):
+		if U.is_valid_number(damage_max_count) and i > damage_max_count:
+			break
+			
+		var t: Entity = targets[i]
+		var t_id: int = t.id
+		
+		var d := Damage.new()
+		d.target_id = t.id
+		d.source_id = e_id
+		d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
+		d.damage_type = bullet_c.damage_type
+		d.damage_flags = bullet_c.damage_flag_bits
+		if is_range_damage and bullet_c.damage_falloff_enabled:
+			d.damage_factor = U.dist_factor_inside_radius(
+				e.global_position, 
+				t.global_position, 
+				bullet_c.damage_max_radius,
+				bullet_c.damage_min_radius
+			)
+		d.insert_damage()
+		EntityMgr.create_mods(t.id, bullet_c.mods, e_id)
+		bullet_c.damaged_entity_ids.append(t_id)
+		
+	EntityMgr.create_entities_at_pos(payloads, bullet_c.to)
+
+
 #region 轨迹相关函数
 ## 直线轨迹初始化
 func _trajectory_liniear_init(bullet_c: BulletComponent) -> void:
 	bullet_c.velocity = U.initial_linear_velocity(
-		bullet_c.from, bullet_c.to, bullet_c.flight_time
+		bullet_c.from, bullet_c.to, bullet_c.flight_total_time
 	)
 
 
@@ -162,15 +200,19 @@ func _trajectory_liniear_update(e: Entity, bullet_c: BulletComponent) -> void:
 
 ## 抛物线轨迹初始化
 func _trajectory_parabola_init(
-		e: Entity, bullet_c: BulletComponent, flying_time: float
+		e: Entity, bullet_c: BulletComponent
 	) -> void:
-	bullet_c.velocity = U.initial_parabola_velocity(
-		e.global_position, bullet_c.to, bullet_c.flight_time, bullet_c.flight_gravity
-	)
+	var from: Vector2 = bullet_c.from
+	var to: Vector2 = bullet_c.to
 	
-	var next_time: float = flying_time + TimeMgr.frame_length
+	var velocity: Vector2 = U.initial_parabola_velocity(
+		from, to, bullet_c.flight_total_time, bullet_c.flight_gravity
+	)
+	bullet_c.velocity = velocity
+	
+	var next_time: float = bullet_c.ts + TimeMgr.frame_length
 	var next_pos = U.position_in_parabola(
-		bullet_c.velocity, bullet_c.from, next_time, bullet_c.flight_gravity
+		velocity, from, next_time, bullet_c.flight_gravity
 	)
 	
 	if bullet_c.look_to:

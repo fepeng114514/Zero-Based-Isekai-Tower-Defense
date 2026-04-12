@@ -27,6 +27,17 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
+func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
+	if break_behavior == self:
+		return
+
+	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+	if not nav_path_c:
+		return
+		
+	e.state = C.State.IDLE
+
+
 func _on_update(e: Entity) -> bool:
 	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 	if not nav_path_c:
@@ -43,21 +54,6 @@ func _on_update(e: Entity) -> bool:
 		arrived_end(e, nav_path_c, reversed)
 		return false
 		
-	walk_step(e, nav_path_c, reversed)
-	return true
-
-
-func get_mod_speed_factor(e: Entity) -> float:
-	var speed_factor: float = 1
-
-	for mod: Entity in e.get_has_auras():
-		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
-		speed_factor *= mod_c.speed_factor
-	
-	return speed_factor
-
-
-func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 	e.state = C.State.NAV_PATH_WALK
 	
 	var walk_lenth: float = nav_path_c.speed * TimeMgr.frame_length
@@ -97,6 +93,17 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 		nav_path_c.nav_ni = next_ni
 
 	e._on_pathway_walk(nav_path_c)
+	return true
+
+
+func get_mod_speed_factor(e: Entity) -> float:
+	var speed_factor: float = 1
+
+	for mod: Entity in e.get_has_auras():
+		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
+		speed_factor *= mod_c.speed_factor
+	
+	return speed_factor
 
 
 func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
@@ -117,14 +124,3 @@ func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> voi
 	):
 		GameMgr.life -= nav_path_c.life_cost
 		e.remove_entity()
-
-
-func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
-	if break_behavior == self:
-		return
-
-	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
-	if not nav_path_c:
-		return
-		
-	e.state = C.State.IDLE
