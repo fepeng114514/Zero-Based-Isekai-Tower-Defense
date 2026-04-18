@@ -8,11 +8,8 @@
 script = ExtResource("2_n3r7w")
 left_right = "idle_left_right"
 
-[node name="WaveSpawner" type="Node2D" unique_id=708476456 node_paths=PackedStringArray("components")]
+[node name="WaveSpawner" type="Node2D" unique_id=708476456]
 script = ExtResource("1_x08x5")
-components = {
-&"SpawnerComponent": NodePath("SpawnerComponent")
-}
 scene_name = "wave_spawner"
 idle_animation = SubResource("Resource_x08x5")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

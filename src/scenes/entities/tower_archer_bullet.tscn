@@ -15,12 +15,8 @@ script = ExtResource("2_mletm")
 left_right = &"flying"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
-[node name="TowerArcherBullet" type="Node2D" unique_id=43521632 node_paths=PackedStringArray("components")]
+[node name="TowerArcherBullet" type="Node2D" unique_id=43521632]
 script = ExtResource("1_0t5nh")
-components = {
-&"BulletComponent": NodePath("BulletComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 scene_name = "tower_archer_bullet"
 idle_animation = SubResource("Resource_ycjcd")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

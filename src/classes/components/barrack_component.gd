@@ -100,6 +100,6 @@ func new_rally(pos: Vector2) -> void:
 	
 	for i: int in soldiers_list.size():
 		var s: Entity = soldiers_list[i]
-		var s_rally_c: RallyComponent = s.get_c(C.CN_RALLY)
+		var s_rally_c: RallyComponent = s.get_child_node(C.CN_RALLY)
 		s_rally_c.new_rally(pos)
 		s_rally_c.rally_formation_position(max_soldiers, i)

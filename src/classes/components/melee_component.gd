@@ -100,7 +100,7 @@ func reset_blocked_count() -> void:
 		if not U.is_valid_entity(blocked):
 			continue
 			
-		var b_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+		var b_melee_c: MeleeComponent = blocked.get_child_node(C.CN_MELEE)
 			
 		blocked_count += b_melee_c.block_cost
 	
@@ -110,12 +110,12 @@ func unbind_melee_relations(erase_id: int) -> void:
 	if is_blocker:
 		for blocked_id: int in blockeds_ids:
 			var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
-			var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+			var blocked_melee_c: MeleeComponent = blocked.get_child_node(C.CN_MELEE)
 			blocked_melee_c.blockers_ids.erase(erase_id)
 	else:
 		for blocker_id: int in blockers_ids:
 			var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
-			var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
+			var blocker_melee_c: MeleeComponent = blocker.get_child_node(C.CN_MELEE)
 			blocker_melee_c.blockeds_ids.erase(erase_id)
 
 
@@ -130,7 +130,7 @@ func cleanup_melee_relations() -> void:
 			if not U.is_valid_entity(blocked):
 				continue 
 				
-			var b_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+			var b_melee_c: MeleeComponent = blocked.get_child_node(C.CN_MELEE)
 				
 			new_blockeds_ids.append(id)
 			blocked_count += b_melee_c.block_cost

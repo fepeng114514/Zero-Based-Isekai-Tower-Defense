@@ -32,15 +32,8 @@ left_right = &"melee_left_right"
 script = ExtResource("2_ovm3w")
 left_right = &"walk_left_right"
 
-[node name="TowerBarrackSoldier" type="Node2D" unique_id=1677548747 node_paths=PackedStringArray("components")]
+[node name="TowerBarrackSoldier" type="Node2D" unique_id=1677548747]
 script = ExtResource("1_8n3d5")
-components = {
-&"HealthComponent": NodePath("HealthComponent"),
-&"MeleeComponent": NodePath("MeleeComponent"),
-&"RallyComponent": NodePath("RallyComponent"),
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"UIComponent": NodePath("")
-}
 scene_name = "tower_barrack_soldier"
 idle_animation = SubResource("Resource_ovm3w")
 hit_offset = Vector2(0, -16.4)

@@ -20,12 +20,8 @@ script = ExtResource("2_4g6k2")
 left_right = &"hit_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
-[node name="TowerMageBullet" type="Node2D" unique_id=511000022 node_paths=PackedStringArray("components")]
+[node name="TowerMageBullet" type="Node2D" unique_id=511000022]
 script = ExtResource("1_tdsfa")
-components = {
-&"BulletComponent": NodePath("BulletComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 scene_name = "tower_mage_bullet"
 idle_animation = SubResource("Resource_sxt40")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

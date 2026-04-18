@@ -6,7 +6,7 @@ class_name BarrackBehavior
 	
 	
 func _on_remove(e: Entity) -> bool:
-	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
+	var barrack_c: BarrackComponent = e.get_child_node(C.CN_BARRACK)
 	if not barrack_c:
 		return true
 		
@@ -20,7 +20,7 @@ func _on_remove(e: Entity) -> bool:
 	
 
 func _on_update(e: Entity) -> bool:
-	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
+	var barrack_c: BarrackComponent = e.get_child_node(C.CN_BARRACK)
 	if not barrack_c:
 		return false
 		
@@ -34,7 +34,7 @@ func _on_update(e: Entity) -> bool:
 			
 		for i: int in max_soldiers:
 			var soldier: Entity = respawn_soldier(e, barrack_c)
-			var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
+			var s_rally_c: RallyComponent = soldier.get_child_node(C.CN_RALLY)
 			s_rally_c.rally_formation_position(max_soldiers, i)
 		
 	barrack_c.cleanup_soldiers()
@@ -51,7 +51,7 @@ func _on_update(e: Entity) -> bool:
 	if barrack_c.last_soldier_count != soldier_count:
 		for i: int in soldier_count:
 			var soldier: Entity = soldiers_list[i]
-			var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
+			var s_rally_c: RallyComponent = soldier.get_child_node(C.CN_RALLY)
 			s_rally_c.rally_formation_position(soldier_count, i)
 	
 	barrack_c.last_soldier_count = soldier_count
@@ -67,7 +67,7 @@ func respawn_soldier(
 	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
 	soldier.global_position = barrack.global_position
 	
-	var rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
+	var rally_c: RallyComponent = soldier.get_child_node(C.CN_RALLY)
 	rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
 		
 	if not barrack._on_barrack_respawn(soldier, barrack_c):

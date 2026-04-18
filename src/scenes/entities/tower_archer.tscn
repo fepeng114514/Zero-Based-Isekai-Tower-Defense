@@ -21,13 +21,8 @@ script = ExtResource("11_a42kk")
 list = Array[ExtResource("9_auhbk")]([ExtResource("10_nv2ef")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
-[node name="TowerArcher" type="Node2D" unique_id=1010851235 node_paths=PackedStringArray("components")]
+[node name="TowerArcher" type="Node2D" unique_id=1010851235]
 script = ExtResource("1_0v2wj")
-components = {
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("")
-}
 scene_name = "tower_archer"
 idle_animation = SubResource("Resource_bgr08")
 flags = 16
@@ -58,21 +53,13 @@ attack_loop_time = 0.7
 show_range_offset = Vector2(0, 43.52)
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="TowerArcherShooter" parent="TowerComponent" unique_id=2011504655 node_paths=PackedStringArray("components") instance=ExtResource("2_4mkqg")]
+[node name="TowerArcherShooter" parent="TowerComponent" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(13, -18)
-components = {
-&"RangedComponent": NodePath("RangedComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 
-[node name="TowerArcherShooter2" parent="TowerComponent" unique_id=1394184842 node_paths=PackedStringArray("components") instance=ExtResource("2_4mkqg")]
+[node name="TowerArcherShooter2" parent="TowerComponent" unique_id=1394184842 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(-25, -18)
-components = {
-&"RangedComponent": NodePath("RangedComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=602361207]
 script = ExtResource("3_4ig6i")

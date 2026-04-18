@@ -10,12 +10,8 @@
 script = ExtResource("2_bgj51")
 left_right = &"idle_left_right"
 
-[node name="TowerArtilleryBullet" type="Node2D" unique_id=2094980939 node_paths=PackedStringArray("components")]
+[node name="TowerArtilleryBullet" type="Node2D" unique_id=2094980939]
 script = ExtResource("1_121ob")
-components = {
-&"BulletComponent": NodePath("BulletComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 scene_name = "tower_artillery_bullet"
 idle_animation = SubResource("Resource_wmreg")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

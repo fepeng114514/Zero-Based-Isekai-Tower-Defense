@@ -31,14 +31,8 @@ script = ExtResource("15_v8ksx")
 any = Vector2(0, -70.05)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[node name="TowerArtillery" type="Node2D" unique_id=1600363506 node_paths=PackedStringArray("components")]
+[node name="TowerArtillery" type="Node2D" unique_id=1600363506]
 script = ExtResource("1_xqrgu")
-components = {
-&"RangedComponent": NodePath("RangedComponent"),
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("UIComponent")
-}
 scene_name = "tower_artillery"
 idle_animation = SubResource("Resource_l80ei")
 flags = 16

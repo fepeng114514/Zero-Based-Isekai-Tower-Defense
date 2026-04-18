@@ -6,7 +6,7 @@ class_name AuraSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	var aura_c: AuraComponent = e.get_c(C.CN_AURA)
+	var aura_c: AuraComponent = e.get_child_node(C.CN_AURA)
 	if not aura_c:
 		return true
 		
@@ -36,7 +36,7 @@ func _on_insert(e: Entity) -> bool:
 		if not other_a:
 			continue
 		
-		var other_aura_c: AuraComponent = other_a.get_c(C.CN_AURA)
+		var other_aura_c: AuraComponent = other_a.get_child_node(C.CN_AURA)
 		
 		# 检查是否被其他光环禁止
 		if U.is_mutual_ban(
@@ -99,7 +99,7 @@ func _on_insert(e: Entity) -> bool:
 
 func _on_update(_delta: float) -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.GROUP_AURAS):
-		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
+		var aura_c: AuraComponent = e.get_child_node(C.CN_AURA)
 		var targets: Array[Entity] = EntityMgr.search_targets(
 			aura_c.search_mode, 
 			e.global_position, 
@@ -145,7 +145,7 @@ func _on_update(_delta: float) -> void:
 
 
 func _on_remove(e: Entity) -> bool:
-	if not e.has_c(C.CN_AURA):
+	if not e.get_child_node(C.CN_AURA):
 		return true
 	
 	var source: Entity = EntityMgr.get_entity_by_id(e.source_id)

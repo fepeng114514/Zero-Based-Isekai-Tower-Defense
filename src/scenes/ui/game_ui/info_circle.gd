@@ -49,24 +49,24 @@ func _show(e: Entity) -> void:
 		circle.scale = Vector2.ZERO
 		circle.visible = false
 	
-	var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
+	var ranged_c: RangedComponent = e.get_child_node(C.CN_RANGED)
 	if ranged_c:
 		var first_ranged_attack: RangedBase = ranged_c.list[0]
 		
 		_show_circle(ranged_max_range_circle, first_ranged_attack.max_range)
 		_show_circle(ranged_min_range_circle, first_ranged_attack.min_range)
 
-	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_child_node(C.CN_MELEE)
 	if melee_c:
 		if melee_c.is_blocker:
 			_show_circle(melee_max_range_circle, melee_c.block_max_range)
 			_show_circle(melee_min_range_circle, melee_c.block_min_range)
 
-	var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
+	var tower_c: TowerComponent = e.get_child_node(C.CN_TOWER)
 	if tower_c:
 		if tower_c.list:
 			var first_entity: Entity = tower_c.list[0]
-			var f_ranged_c: RangedComponent = first_entity.get_c(C.CN_RANGED)
+			var f_ranged_c: RangedComponent = first_entity.get_child_node(C.CN_RANGED)
 			var first_ranged_attack: RangedBase = f_ranged_c.list[0]
 		
 			_show_circle(
@@ -79,7 +79,7 @@ func _show(e: Entity) -> void:
 				tower_c.show_range_offset
 			)
 
-	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
+	var barrack_c: BarrackComponent = e.get_child_node(C.CN_BARRACK)
 	if barrack_c:
 		_show_circle(rally_max_range_circle, barrack_c.rally_max_range, barrack_c.show_range_offset)
 		_show_circle(rally_min_range_circle, barrack_c.rally_min_range, barrack_c.show_range_offset)

@@ -277,11 +277,11 @@ static func sort_entities_by_type(
 				var p1: float = INF if reversed else -INF
 				var p2: float = INF if reversed else -INF
 
-				var e1_nav_c: NavPathComponent = e1.get_c(C.CN_NAV_PATH)
+				var e1_nav_c: NavPathComponent = e1.get_child_node(C.CN_NAV_PATH)
 				if e1_nav_c:
 					p1 = e1_nav_c.nav_progress
 
-				var e2_nav_c: NavPathComponent = e2.get_c(C.CN_NAV_PATH)
+				var e2_nav_c: NavPathComponent = e2.get_child_node(C.CN_NAV_PATH)
 				if e2_nav_c:
 					p2 = e2_nav_c.nav_progress
 
@@ -291,10 +291,10 @@ static func sort_entities_by_type(
 				var h1: float = INF if reversed else -INF
 				var h2: float = INF if reversed else -INF
 
-				var e1_health_c: HealthComponent = e1.get_c(C.CN_HEALTH)
+				var e1_health_c: HealthComponent = e1.get_child_node(C.CN_HEALTH)
 				if e1_health_c:
 					h1 = e1_health_c.hp
-				var e2_health_c: HealthComponent = e2.get_c(C.CN_HEALTH)
+				var e2_health_c: HealthComponent = e2.get_child_node(C.CN_HEALTH)
 				if e2_health_c:
 					h2 = e2_health_c.hp
 
@@ -310,10 +310,10 @@ static func sort_entities_by_type(
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
 				
-				var e1_melee_c: MeleeComponent = e1.get_c(C.CN_MELEE)
+				var e1_melee_c: MeleeComponent = e1.get_child_node(C.CN_MELEE)
 				if e1_melee_c:
 					d1 = e1_melee_c.list[0].damage_max
-				var e2_melee_c: MeleeComponent = e2.get_c(C.CN_MELEE)
+				var e2_melee_c: MeleeComponent = e2.get_child_node(C.CN_MELEE)
 				if e2_melee_c:
 					d2 = e2_melee_c.list[0].damage_max
 
@@ -323,16 +323,16 @@ static func sort_entities_by_type(
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
 
-				var e1_ranged_c: RangedComponent = e1.get_c(C.CN_RANGED)
+				var e1_ranged_c: RangedComponent = e1.get_child_node(C.CN_RANGED)
 				if e1_ranged_c:
 					d1 = EntityMgr.get_entity_data(
 						e1_ranged_c.list[0].bullet
-					).get_c(C.CN_BULLET).damage_max
-				var e2_ranged_c: RangedComponent = e2.get_c(C.CN_RANGED)
+					).get_child_node(C.CN_BULLET).damage_max
+				var e2_ranged_c: RangedComponent = e2.get_child_node(C.CN_RANGED)
 				if e2_ranged_c:
 					d2 = EntityMgr.get_entity_data(
 						e2_ranged_c.list[0].bullet
-					).get_c(C.CN_BULLET).damage_max
+					).get_child_node(C.CN_BULLET).damage_max
 
 				return d1 > d2 if not reversed else d1 < d2
 		C.SortMode.ID:

@@ -6,7 +6,7 @@ class_name FXSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	var fx_c: FXComponent = e.get_c(C.CN_FX)
+	var fx_c: FXComponent = e.get_child_node(C.CN_FX)
 	if not fx_c:
 		return true
 		

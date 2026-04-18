@@ -8,7 +8,7 @@ class_name MeleeBehavior
 ## - 若 [member MeleeComponent.is_blocker] 为 `false`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
 
 func _on_remove(e: Entity) -> bool:
-	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_child_node(C.CN_MELEE)
 	if not melee_c:
 		return true
 	
@@ -21,7 +21,7 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 	if break_behavior == self:
 		return
 	
-	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_child_node(C.CN_MELEE)
 	if not melee_c:
 		return
 	
@@ -35,7 +35,7 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 
 
 func _on_update(e: Entity) -> bool:
-	var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_child_node(C.CN_MELEE)
 	if not melee_c:
 		return false
 		
@@ -68,7 +68,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 				if melee_c.blocked_count >= max_blocked:
 					break
 				
-				var t_melee_c: MeleeComponent = t.get_c(C.CN_MELEE)
+				var t_melee_c: MeleeComponent = t.get_child_node(C.CN_MELEE)
 				if not t_melee_c:
 					continue
 				
@@ -95,7 +95,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	# 有被拦截者
 	e.state = C.State.MELEE
 	var blocked: Entity = EntityMgr.get_entity_by_id(blockeds_ids[0])
-	var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+	var blocked_melee_c: MeleeComponent = blocked.get_child_node(C.CN_MELEE)
 	
 	# 不是被动被拦截者，前往近战位置
 	if not melee_c.is_passive:
@@ -123,7 +123,7 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 	
 	e.state = C.State.MELEE
 	var blocker: Entity = EntityMgr.get_entity_by_id(blockers_ids[0])
-	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
+	var blocker_melee_c: MeleeComponent = blocker.get_child_node(C.CN_MELEE)
 	var is_first_blocked: bool = e.id == blocker_melee_c.blockeds_ids[0]
 
 	if is_first_blocked:

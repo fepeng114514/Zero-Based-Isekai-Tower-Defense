@@ -6,7 +6,7 @@ class_name TowerSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
+	var tower_c: TowerComponent = e.get_child_node(C.CN_TOWER)
 	
 	if not tower_c:
 		return true
@@ -28,12 +28,12 @@ func _on_insert(e: Entity) -> bool:
 	
 func _on_update(_delta: float) -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.CN_TOWER):
-		var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
+		var tower_c: TowerComponent = e.get_child_node(C.CN_TOWER)
 		
 		# 处理防御塔升级
 		if tower_c.upgrade_to:
 			var new_tower: Entity = EntityMgr.create_entity(tower_c.upgrade_to)
-			var new_tower_c: TowerComponent = new_tower.get_c(C.CN_TOWER)
+			var new_tower_c: TowerComponent = new_tower.get_child_node(C.CN_TOWER)
 			
 			var price: float = new_tower_c.price
 			
@@ -50,7 +50,7 @@ func _on_update(_delta: float) -> void:
 			var tower_holder: Entity = EntityMgr.create_entity(
 				"tower_holder"
 			)
-			var holder_tower_c: TowerComponent = tower_holder.get_c(C.CN_TOWER)
+			var holder_tower_c: TowerComponent = tower_holder.get_child_node(C.CN_TOWER)
 			tower_holder.global_position = e.global_position
 			holder_tower_c.tower_holder_style = tower_c.tower_holder_style
 			

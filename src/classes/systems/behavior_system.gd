@@ -63,7 +63,7 @@ func _on_update(_delta: float) -> void:
 		for return_false_fn: Callable in _return_false_cbs:
 			return_false_fn.call(e)
 
-		if not e.has_c(C.CN_SPRITE):
+		if not e.get_child_node(C.CN_SPRITE):
 			continue
 			
 		e.play_animation_by_look(e.idle_animation)

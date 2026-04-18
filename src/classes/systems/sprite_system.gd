@@ -6,7 +6,7 @@ class_name SpriteSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	var sprite_c: SpriteComponent = e.get_c(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = e.get_child_node(C.CN_SPRITE)
 	if not sprite_c:
 		return true
 		

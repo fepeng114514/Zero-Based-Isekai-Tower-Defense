@@ -8,8 +8,6 @@ class_name Entity
 
 
 #region 属性
-## 拥有的所有组件节点引用
-@export var components: Dictionary[StringName, Node] = {}
 ## 实体场景名称
 @export var scene_name: String = ""
 ## 持续时间
@@ -74,8 +72,11 @@ var state := C.State.IDLE
 var look_point := Vector2.INF
 ## 是否是首次更新
 var is_first_update: bool = true
+## 拥有的所有组件节点引用
+var components: Dictionary[StringName, Node] = {}
 ## 等待状态
 var _waiting: bool = false
+var _child_cache: Dictionary[StringName, Node] = {}
 #endregion
 
 
@@ -217,25 +218,24 @@ func remove_entity() -> void:
 	Log.debug("移除实体: %s" % self)
 
 
+## 获取子节点（带缓存）
+func get_child_node(key: String) -> Node:
+	if not _child_cache.has(key):
+		var node: Node = get_node_or_null(key)
+		if not node:
+			return null
+			
+		_child_cache[key] = node
+		
+	return _child_cache[key]
+	
+	
 #region 组件相关方法
-## 获取组件
-func get_c(c_name: StringName) -> Node:
-	return components.get(c_name)
-
-
-## 判断是否拥有指定组件
-func has_c(c_name: StringName) -> bool:
-	return components.has(c_name)
-
-
 ## 增加组件
 func add_c(component: GDScript) -> Node:
 	var component_node: Node = component.new()
 	
 	add_child(component_node)
-	var node_class: StringName = component.get_global_name()
-			
-	components[node_class] = component_node
 	return component_node
 #endregion
 
@@ -283,7 +283,7 @@ func apply_mods_damage_factor(damage: float) -> float:
 	var total_damage_bonus: float = 0
 	
 	for mod: Entity in get_has_mods():
-		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
+		var mod_c: ModifierComponent = mod.get_child_node(C.CN_MODIFIER)
 		total_damage_factor *= mod_c.add_damage_factor
 		total_damage_bonus += mod_c.add_damage_bonus
 		
@@ -320,24 +320,24 @@ func clear_has_auras() -> void:
 func set_pos(pos: Vector2) -> void:
 	global_position = pos
 	
-	var rally_c: RallyComponent = get_c(C.CN_RALLY)
+	var rally_c: RallyComponent = get_child_node(C.CN_RALLY)
 	if rally_c:
 		rally_c.new_rally(pos)
 	
-	if has_c(C.CN_NAV_PATH):
+	if get_child_node(C.CN_NAV_PATH):
 		set_nav_path_at_pos(pos)
 
 
 ## 设置导航路径到当前位置下最近的导航路径
 func set_nav_path_at_pos(pos: Vector2) -> void:
-	var nav_path_c: NavPathComponent = get_c(C.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = get_child_node(C.CN_NAV_PATH)
 
 	var pi_list: Array = []
 	var spi_list: Array = []
 
 	if nav_path_c.sync_source_path:
 		var source: Entity = EntityMgr.get_entity_by_id(source_id)
-		var s_nav_path_c: NavPathComponent = source.get_c(C.CN_NAV_PATH) if source else null
+		var s_nav_path_c: NavPathComponent = source.get_child_node(C.CN_NAV_PATH) if source else null
 		if s_nav_path_c:
 			pi_list = [s_nav_path_c.pi]
 			spi_list = [s_nav_path_c.spi]
@@ -377,7 +377,7 @@ func play_animation_group(
 		filp_h: bool = false,
 		force_play: bool = false
 	) -> void:
-	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_child_node(C.CN_SPRITE)
 		
 	for sprite_idx: int in sprite_c.groups[group_idx]:
 		play_animation(anim_name, sprite_c.list[sprite_idx], filp_h, force_play)
@@ -393,7 +393,7 @@ func play_animation_by_look(
 		return []
 		
 	var play_idx: int = animation.play_idx
-	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_child_node(C.CN_SPRITE)
 	var sprite_list: Array[Node2D] = sprite_c.list
 
 	var sprite_idxs: Array = []
@@ -422,7 +422,7 @@ func play_animation_by_look(
 		var source: Entity = EntityMgr.get_entity_by_id(source_id)
 		if source and not is_waiting():
 			source.look_point = look_point
-			var s_sprite_c: SpriteComponent = source.get_c(C.CN_SPRITE)
+			var s_sprite_c: SpriteComponent = source.get_child_node(C.CN_SPRITE)
 			var s_animation: AnimationData = s_sprite_c.sync_animations.get(
 				source_animation_key
 			)
@@ -442,7 +442,7 @@ func wait_animation(
 	if not animation:
 		return
 		
-	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_child_node(C.CN_SPRITE)
 	var sprite_list: Array[Node2D] = sprite_c.list
 	var play_idx: int = animation.play_idx
 	var times: int = animation.times

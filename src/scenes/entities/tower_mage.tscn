@@ -37,13 +37,8 @@ script = ExtResource("11_usf1p")
 list = Array[ExtResource("9_mo82c")]([ExtResource("10_p2r8t")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
-[node name="TowerMage" type="Node2D" unique_id=88348674 node_paths=PackedStringArray("components")]
+[node name="TowerMage" type="Node2D" unique_id=88348674]
 script = ExtResource("1_7y6af")
-components = {
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("")
-}
 scene_name = "tower_mage"
 idle_animation = SubResource("Resource_aexug")
 flags = 16
@@ -65,18 +60,13 @@ tower_type = 3
 show_range_offset = Vector2(0, -58.8)
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="TowerMageShooter" parent="TowerComponent" unique_id=1442245649 node_paths=PackedStringArray("components") instance=ExtResource("6_aexug")]
+[node name="TowerMageShooter" parent="TowerComponent" unique_id=1442245649 instance=ExtResource("6_aexug")]
 show_behind_parent = true
 position = Vector2(1, -48)
-components = {
-&"RangedComponent": NodePath("RangedComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=131609689]
 script = ExtResource("2_ag2v0")
 select_rect = Rect2(-53.405, -80.22, 109.12, 108.205)
 info_bar_type = 2
-select_menu_offset = Vector2(0, 0)
 select_menu_data = SubResource("Resource_avxdj")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

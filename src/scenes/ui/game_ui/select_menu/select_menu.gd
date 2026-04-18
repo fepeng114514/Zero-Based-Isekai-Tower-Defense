@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 func _show(e: Entity) -> void:
 	_clear_menu()
 	
-	var ui_c: UIComponent = e.get_c(C.CN_UI)
+	var ui_c: UIComponent = e.get_child_node(C.CN_UI)
 	if not ui_c:
 		return
 	
@@ -71,7 +71,7 @@ func _show(e: Entity) -> void:
 					upgrade_to
 				)
 				
-				if upgrade_target.get_c(C.CN_TOWER).price > GameMgr.cash:
+				if upgrade_target.get_child_node(C.CN_TOWER).price > GameMgr.cash:
 					item.disabled = true
 			#C.SelectMenuItemType.BUY:
 			#C.SelectMenuItemType.SKILL:

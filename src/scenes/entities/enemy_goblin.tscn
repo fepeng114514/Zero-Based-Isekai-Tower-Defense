@@ -41,15 +41,8 @@ left_right = &"walk_left_right"
 script = ExtResource("2_58mnm")
 left_right = &"melee_left_right"
 
-[node name="EnemyGoblin" type="Node2D" unique_id=71433118 node_paths=PackedStringArray("components")]
+[node name="EnemyGoblin" type="Node2D" unique_id=71433118]
 script = ExtResource("1_0ncad")
-components = {
-&"HealthComponent": NodePath("HealthComponent"),
-&"MeleeComponent": NodePath("MeleeComponent"),
-&"NavPathComponent": NodePath("NavPathComponent"),
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"UIComponent": NodePath("UIComponent")
-}
 scene_name = "enemy_goblin"
 idle_animation = SubResource("Resource_58mnm")
 hit_offset = Vector2(0, -14.81)

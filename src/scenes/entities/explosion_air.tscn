@@ -10,12 +10,8 @@
 script = ExtResource("2_knu7h")
 any = &"idle"
 
-[node name="ExplosionAir" type="Node2D" unique_id=1041664771 node_paths=PackedStringArray("components")]
+[node name="ExplosionAir" type="Node2D" unique_id=1041664771]
 script = ExtResource("1_0cxwq")
-components = {
-&"FXComponent": NodePath("FXComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 scene_name = "explosion_air"
 idle_animation = SubResource("Resource_qvfn2")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

@@ -10,6 +10,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="SelectMenu" parent="." unique_id=1082728830 instance=ExtResource("2_fwq2g")]
+visible = false
 layout_mode = 0
 
 [node name="InfoCircle" parent="." unique_id=1487020159 instance=ExtResource("1_kha13")]

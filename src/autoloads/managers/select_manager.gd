@@ -24,7 +24,7 @@ func try_select() -> void:
 		0, 
 		0, 
 		func(entity: Entity) -> bool:
-			var ui_c: UIComponent = entity.get_c(C.CN_UI)
+			var ui_c: UIComponent = entity.get_child_node(C.CN_UI)
 			if not ui_c:
 				return false
 			
@@ -54,7 +54,7 @@ func _on_select(e: Entity) -> void:
 	e._on_select()
 	select_mode = C.SelectMode.NONE
 	
-	var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
+	var rally_c: RallyComponent = e.get_child_node(C.CN_RALLY)
 	if rally_c and rally_c.can_select_rally:
 		select_mode = C.SelectMode.RALLY
 	
@@ -66,12 +66,12 @@ func _on_deselect() -> void:
 	
 	match select_mode:
 		C.SelectMode.RALLY:
-			var rally_c: RallyComponent = selected_entity.get_c(
+			var rally_c: RallyComponent = selected_entity.get_child_node(
 				C.CN_RALLY
 			)
 			rally_c.new_rally(InputMgr.mouse_global_position)
 		C.SelectMode.BARRACK_RALLY:
-			var barrack_c: BarrackComponent = selected_entity.get_c(
+			var barrack_c: BarrackComponent = selected_entity.get_child_node(
 				C.CN_BARRACK
 			)
 

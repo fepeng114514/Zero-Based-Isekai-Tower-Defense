@@ -40,7 +40,7 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 		for i: int in spawn.count:
 			var e: Entity = EntityMgr.create_entity(spawn.entity)
 			
-			var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+			var nav_path_c: NavPathComponent = e.get_child_node(C.CN_NAV_PATH)
 			if nav_path_c:
 				var spi = spawn.subpathway_idx
 				

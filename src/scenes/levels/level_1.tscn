@@ -33,7 +33,6 @@
 [ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/systems/behaviors/barrack_behavior.gd" id="18_to6s4"]
 [ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behaviors/melee_behavior.gd" id="19_7tcdn"]
 [ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behaviors/ranged_behavior.gd" id="20_4gp5p"]
-[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer.tscn" id="20_mqh5v"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/systems/behaviors/nav_path_behavior.gd" id="21_y73h4"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behaviors/spawner_behavior.gd" id="22_yhfkw"]
@@ -191,14 +190,6 @@ components = {
 }
 track_target = true
 idle_animation = SubResource("Resource_gmpev")
-
-[node name="TowerArcher" parent="World" unique_id=1010851235 node_paths=PackedStringArray("components") instance=ExtResource("20_mqh5v")]
-position = Vector2(1344, 784)
-components = {
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("UIComponent")
-}
 
 [node name="TowerBarrack" parent="World" unique_id=187367710 node_paths=PackedStringArray("components") instance=ExtResource("36_dp4fg")]
 position = Vector2(1120, 904)

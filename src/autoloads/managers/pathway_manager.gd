@@ -130,7 +130,7 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 	var predict_pos: Vector2 = target.global_position
 
-	var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = target.get_child_node(C.CN_NAV_PATH)
 	if nav_path_c and target.state & C.State.NAV_PATH_WALK:
 		var progress: float = nav_path_c.nav_progress
 		var walk_lenth: float = nav_path_c.speed * predict_time

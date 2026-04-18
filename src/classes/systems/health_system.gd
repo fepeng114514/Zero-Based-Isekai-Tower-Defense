@@ -6,7 +6,7 @@ class_name HealthSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
+	var health_c: HealthComponent = e.get_child_node(C.CN_HEALTH)
 	if not health_c:
 		return true
 		

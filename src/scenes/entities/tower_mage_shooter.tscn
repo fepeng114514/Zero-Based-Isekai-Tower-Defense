@@ -25,12 +25,8 @@ up = Vector2(12.195, -30.935)
 down = Vector2(-13.38, -31.645)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[node name="TowerMageShooter" type="Node2D" unique_id=1442245649 node_paths=PackedStringArray("components")]
+[node name="TowerMageShooter" type="Node2D" unique_id=1442245649]
 script = ExtResource("1_3kgdc")
-components = {
-&"RangedComponent": NodePath("RangedComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 scene_name = "tower_mage_shooter"
 idle_animation = SubResource("Resource_i3jkb")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

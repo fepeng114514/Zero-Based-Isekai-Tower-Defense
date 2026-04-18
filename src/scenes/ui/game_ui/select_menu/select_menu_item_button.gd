@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 ## 点击并松开按钮时调用的信号处理函数
 func _on_pressed() -> void:
-	var tower_c: TowerComponent = selected_entity.get_c(C.CN_TOWER)
+	var tower_c: TowerComponent = selected_entity.get_child_node(C.CN_TOWER)
 	
 	match type:
 		C.SelectMenuItemType.UPGRADE:

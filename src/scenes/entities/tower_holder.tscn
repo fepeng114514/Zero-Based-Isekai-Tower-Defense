@@ -58,13 +58,8 @@ metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qkubq"]
 size = Vector2(160, 96)
 
-[node name="TowerHolder" type="Node2D" unique_id=1898604313 node_paths=PackedStringArray("components")]
+[node name="TowerHolder" type="Node2D" unique_id=1898604313]
 script = ExtResource("1_jrk33")
-components = {
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("UIComponent")
-}
 scene_name = "tower_holder"
 idle_animation = SubResource("Resource_fdaav")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

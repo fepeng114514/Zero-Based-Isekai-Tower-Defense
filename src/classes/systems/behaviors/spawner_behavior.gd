@@ -6,7 +6,7 @@ class_name SpawnerBehavior
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(C.CN_SPAWNER):
+	if not e.get_child_node(C.CN_SPAWNER):
 		return true
 		
 	e._spawner.call()

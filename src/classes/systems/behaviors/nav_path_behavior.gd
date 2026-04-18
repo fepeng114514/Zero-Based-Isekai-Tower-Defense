@@ -6,7 +6,7 @@ class_name NavPathBehavior
 
 
 func _on_insert(e: Entity) -> bool:
-	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = e.get_child_node(C.CN_NAV_PATH)
 	if not nav_path_c:
 		return true
 
@@ -31,7 +31,7 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 	if break_behavior == self:
 		return
 
-	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = e.get_child_node(C.CN_NAV_PATH)
 	if not nav_path_c:
 		return
 		
@@ -39,7 +39,7 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 
 
 func _on_update(e: Entity) -> bool:
-	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = e.get_child_node(C.CN_NAV_PATH)
 	if not nav_path_c:
 		return false
 	
@@ -100,7 +100,7 @@ func get_mod_speed_factor(e: Entity) -> float:
 	var speed_factor: float = 1
 
 	for mod: Entity in e.get_has_auras():
-		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
+		var mod_c: ModifierComponent = mod.get_child_node(C.CN_MODIFIER)
 		speed_factor *= mod_c.speed_factor
 	
 	return speed_factor

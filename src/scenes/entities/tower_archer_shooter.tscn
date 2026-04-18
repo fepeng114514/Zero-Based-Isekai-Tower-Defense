@@ -21,12 +21,8 @@ script = ExtResource("7_a4odr")
 any = Vector2(5.725, -18.35)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[node name="TowerArcherShooter" type="Node2D" unique_id=2011504655 node_paths=PackedStringArray("components")]
+[node name="TowerArcherShooter" type="Node2D" unique_id=2011504655]
 script = ExtResource("1_nb8ge")
-components = {
-&"RangedComponent": NodePath("RangedComponent"),
-&"SpriteComponent": NodePath("SpriteComponent")
-}
 scene_name = "tower_archer_shooter"
 idle_animation = SubResource("Resource_e0w6f")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

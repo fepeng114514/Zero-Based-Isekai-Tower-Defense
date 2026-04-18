@@ -6,7 +6,7 @@ class_name ModifierSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(C.CN_MODIFIER):
+	if not e.get_child_node(C.CN_MODIFIER):
 		return true
 
 	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
@@ -29,7 +29,7 @@ func _on_insert(e: Entity) -> bool:
 		
 	var t_has_mods_ids: Array[int] = target.has_mods_ids
 	var same_target_mods: Array[Entity] = []
-	var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
+	var mod_c: ModifierComponent = e.get_child_node(C.CN_MODIFIER)
 
 	mod_c.ts = TimeMgr.tick_ts
 
@@ -39,7 +39,7 @@ func _on_insert(e: Entity) -> bool:
 		if not other_m:
 			continue
 		
-		var other_mod_c: ModifierComponent = other_m.get_c(C.CN_MODIFIER)
+		var other_mod_c: ModifierComponent = other_m.get_child_node(C.CN_MODIFIER)
 		
 		# 检查是否被其他效果禁止
 		if U.is_mutual_ban(
@@ -101,7 +101,7 @@ func _on_insert(e: Entity) -> bool:
 
 func _on_update(_delta: float) -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.GROUP_MODIFIERS):
-		var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
+		var mod_c: ModifierComponent = e.get_child_node(C.CN_MODIFIER)
 		
 		# 周期效果
 		if (
@@ -134,7 +134,7 @@ func _on_update(_delta: float) -> void:
 	
 
 func _on_remove(e: Entity) -> bool:
-	if not e.has_c(C.CN_MODIFIER):
+	if not e.get_child_node(C.CN_MODIFIER):
 		return true
 	
 	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)

@@ -17,7 +17,7 @@ func _on_update(_delta: float) -> void:
 		if not target:
 			continue
 
-		var health_c: HealthComponent = target.get_c(C.CN_HEALTH)
+		var health_c: HealthComponent = target.get_child_node(C.CN_HEALTH)
 		if not health_c:
 			continue
 			
@@ -34,7 +34,7 @@ func _on_update(_delta: float) -> void:
 		target._on_damage(target, d)
 		
 		if not damage_flags & C.DamageFlag.NO_SPIKED:
-			if U.is_valid_number(health_c.spiked) and source and source.get_c(C.CN_HEALTH):
+			if U.is_valid_number(health_c.spiked) and source and source.get_child_node(C.CN_HEALTH):
 				var spiked_value: float = d.value * health_c.spiked
 				
 				var bad_damage := Damage.new()
@@ -111,7 +111,7 @@ func _predict_damage(
 	# 所有者
 	if source:
 		for mod: Entity in source.get_has_mods():
-			var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
+			var mod_c: ModifierComponent = mod.get_child_node(C.CN_MODIFIER)
 			damage_factor *= mod_c.add_damage_factor
 			damage_bonus += mod_c.add_damage_bonus
 			
@@ -124,7 +124,7 @@ func _predict_damage(
 		
 	# 目标
 	for mod: Entity in target.get_has_mods():
-		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
+		var mod_c: ModifierComponent = mod.get_child_node(C.CN_MODIFIER)
 		vulnerable *= mod_c.vulnerable_factor
 		vulnerable += mod_c.vulnerable_bonus
 	

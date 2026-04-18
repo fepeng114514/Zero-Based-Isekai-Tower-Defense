@@ -6,7 +6,7 @@ class_name BulletSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
+	var bullet_c: BulletComponent = e.get_child_node(C.CN_BULLET)
 	if not bullet_c:
 		return true
 
@@ -50,7 +50,7 @@ func _on_update(delta: float) -> void:
 	)
 
 	for e: Entity in entity_list:
-		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
+		var bullet_c: BulletComponent = e.get_child_node(C.CN_BULLET)
 
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)

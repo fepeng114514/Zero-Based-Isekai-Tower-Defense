@@ -73,7 +73,7 @@ func _process(_delta: float) -> void:
 		C.InfoBarType.UNIT:
 			_update_unit_info()
 		C.InfoBarType.TOWER:
-			if selected_entity.has_c(C.CN_TOWER):
+			if selected_entity.get_child_node(C.CN_TOWER):
 				_update_tower_info()
 	
 	
@@ -84,7 +84,7 @@ func _show(e: Entity) -> void:
 		
 	_hide()
 	
-	var ui_c: UIComponent = e.get_c(C.CN_UI)
+	var ui_c: UIComponent = e.get_child_node(C.CN_UI)
 		
 	selected_entity = e
 	info_bar_type = ui_c.info_bar_type
@@ -103,19 +103,19 @@ func _hide() -> void:
 
 ## 更新单位信息
 func _update_unit_info() -> void:
-	var health_c: HealthComponent = selected_entity.get_c(C.CN_HEALTH)
+	var health_c: HealthComponent = selected_entity.get_child_node(C.CN_HEALTH)
 	hp_value.text = "%d/%d" % [health_c.hp_max, health_c.hp]
 	phys_armor_value.text = "%d" % health_c.physical_armor
 	magic_armor_value.text = "%d" % health_c.magical_armor
 	
-	var melee_c: MeleeComponent = selected_entity.get_c(C.CN_MELEE)
+	var melee_c: MeleeComponent = selected_entity.get_child_node(C.CN_MELEE)
 	if melee_c:
 		_set_value_melee(melee_c)
 	else:
 		melee_value.visible = false
 		melee_type_icon.visible = false
 		
-	var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
+	var ranged_c: RangedComponent = selected_entity.get_child_node(C.CN_RANGED)
 	if ranged_c:
 		_set_value_ranged(ranged_c)
 	else:
@@ -125,10 +125,10 @@ func _update_unit_info() -> void:
 
 ## 更新防御塔信息
 func _update_tower_info() -> void:
-	var tower_c: TowerComponent = selected_entity.get_c(C.CN_TOWER)
+	var tower_c: TowerComponent = selected_entity.get_child_node(C.CN_TOWER)
 
 	if not tower_c.list:
-		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
+		var ranged_c: RangedComponent = selected_entity.get_child_node(C.CN_RANGED)
 		if ranged_c:
 			_set_value_ranged(ranged_c)
 		else:
@@ -136,7 +136,7 @@ func _update_tower_info() -> void:
 			ranged_value.visible = false
 	else:
 		var first_entity: Entity = tower_c.list[0]
-		var ranged_c: RangedComponent = first_entity.get_c(C.CN_RANGED)
+		var ranged_c: RangedComponent = first_entity.get_child_node(C.CN_RANGED)
 
 		if ranged_c:
 			_set_value_ranged(ranged_c)

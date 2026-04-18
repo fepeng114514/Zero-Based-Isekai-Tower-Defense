@@ -6,7 +6,7 @@ class_name RallyBehavior
 
 
 func _on_update(e: Entity) -> bool:
-	var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
+	var rally_c: RallyComponent = e.get_child_node(C.CN_RALLY)
 	if not rally_c or rally_c.arrived:
 		return false
 		
