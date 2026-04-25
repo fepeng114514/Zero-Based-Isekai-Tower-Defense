@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://71s0bo3xbapv"]
+
+[ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/tower.tscn" id="1_1k3m4"]
+[ext_resource type="Texture2D" uid="uid://bilx3cvah0voe" path="res://resources/atlas_textures/archer_tower_0002.tres" id="2_fuiib"]
+[ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group.gd" id="3_8t32b"]
+[ext_resource type="PackedScene" uid="uid://bt5cby21sk5sc" path="res://scenes/entities/tower_archer_lvl_2_shooter.tscn" id="4_s0mgi"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="5_aq81k"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="6_kgdsl"]
+[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="7_ymbuu"]
+[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="8_ixkxj"]
+
+[sub_resource type="Resource" id="Resource_h1i0b"]
+resource_local_to_scene = true
+script = ExtResource("5_aq81k")
+upgrade_to = "tower_archer_lvl_3"
+icon = ExtResource("7_ymbuu")
+place = 1
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_3fhle"]
+resource_local_to_scene = true
+script = ExtResource("8_ixkxj")
+list = Array[ExtResource("5_aq81k")]([ExtResource("6_kgdsl"), SubResource("Resource_h1i0b")])
+metadata/_custom_type_script = "uid://blv3x62ywpu2v"
+
+[node name="TowerArcherLvl2" unique_id=1010851235 instance=ExtResource("1_1k3m4")]
+scene_name = "tower_archer_lvl_2"
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=869472279]
+texture = ExtResource("2_fuiib")
+
+[node name="EntityGroup" type="Node2D" parent="TowerComponent" parent_id_path=PackedInt32Array(1150016788) index="0" unique_id=551242185]
+script = ExtResource("3_8t32b")
+metadata/_custom_type_script = "uid://cb268fbjlobm5"
+
+[node name="TowerArcherLvl2Shooter" parent="TowerComponent/EntityGroup" index="0" unique_id=2011504655 instance=ExtResource("4_s0mgi")]
+position = Vector2(-15, -23)
+
+[node name="TowerArcherLvl2Shooter2" parent="TowerComponent/EntityGroup" index="1" unique_id=334249118 instance=ExtResource("4_s0mgi")]
+position = Vector2(15, -24)
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_menu_data = SubResource("Resource_3fhle")

@@ -38,7 +38,7 @@
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behaviors/spawner_behavior.gd" id="22_yhfkw"]
 [ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/ui/world_control.tscn" id="23_mqh5v"]
 [ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://scenes/levels/wave_flag_controller.gd" id="24_7o3do"]
-[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer.tscn" id="35_hvllt"]
+[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer_lvl_1.tscn" id="35_hvllt"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("2_gmpev")
@@ -188,8 +188,8 @@ wave_set = SubResource("Resource_bahl2")
 track_target = true
 idle_animation = SubResource("Resource_gmpev")
 
-[node name="TowerArcher" parent="World" unique_id=1010851235 instance=ExtResource("35_hvllt")]
-position = Vector2(1400, 712)
+[node name="TowerArcheLvl1" parent="World" unique_id=1010851235 instance=ExtResource("35_hvllt")]
+position = Vector2(1416, 680)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true

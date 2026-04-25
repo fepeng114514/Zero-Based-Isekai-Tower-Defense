@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SelectMenuItemData" format=3 uid="uid://ckw5crfkm7kor"]
+
+[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="1_d46ag"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="2_b8dfn"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_b8dfn")
+icon = ExtResource("1_d46ag")
+place = 1
+metadata/_custom_type_script = "uid://bu253boudy5i5"

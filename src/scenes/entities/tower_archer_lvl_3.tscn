@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://d0kns13pm62mu"]
+
+[ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/tower.tscn" id="1_n4rnl"]
+[ext_resource type="Texture2D" uid="uid://dy36m6asnjp36" path="res://resources/atlas_textures/archer_tower_0003.tres" id="2_1rmxj"]
+[ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group.gd" id="2_xvuyv"]
+[ext_resource type="PackedScene" uid="uid://bleej3esxi75b" path="res://scenes/entities/tower_archer_lvl_3_shooter.tscn" id="3_1rmxj"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="4_d0dd3"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="5_f37tw"]
+[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="6_sf43r"]
+
+[sub_resource type="Resource" id="Resource_iwesb"]
+resource_local_to_scene = true
+script = ExtResource("6_sf43r")
+list = Array[ExtResource("4_d0dd3")]([ExtResource("5_f37tw")])
+metadata/_custom_type_script = "uid://blv3x62ywpu2v"
+
+[node name="TowerArcherLvl3" unique_id=1010851235 instance=ExtResource("1_n4rnl")]
+scene_name = ""
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=869472279]
+texture = ExtResource("2_1rmxj")
+
+[node name="EntityGroup" type="Node2D" parent="TowerComponent" parent_id_path=PackedInt32Array(1150016788) index="0" unique_id=21400322]
+script = ExtResource("2_xvuyv")
+metadata/_custom_type_script = "uid://cb268fbjlobm5"
+
+[node name="TowerArcherLvl3Shooter" parent="TowerComponent/EntityGroup" index="0" unique_id=2011504655 instance=ExtResource("3_1rmxj")]
+position = Vector2(-16, -30)
+scene_name = "tower_archer_lvl_3_shooter"
+
+[node name="TowerArcherLvl3Shooter2" parent="TowerComponent/EntityGroup" index="1" unique_id=1538760009 instance=ExtResource("3_1rmxj")]
+position = Vector2(17, -30)
+scene_name = "tower_archer_lvl_3_shooter"
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_menu_data = SubResource("Resource_iwesb")

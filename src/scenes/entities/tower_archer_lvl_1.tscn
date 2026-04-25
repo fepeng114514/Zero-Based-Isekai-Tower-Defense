@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://biuewnv7ms46d"]
+
+[ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/tower.tscn" id="1_4joti"]
+[ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/tower_archer_lvl_1_shooter.tscn" id="2_4mkqg"]
+[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="6_gnqw8"]
+[ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group.gd" id="7_nv2ef"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="9_auhbk"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="10_nv2ef"]
+[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="11_a42kk"]
+
+[sub_resource type="Resource" id="Resource_d8wrq"]
+resource_local_to_scene = true
+script = ExtResource("9_auhbk")
+upgrade_to = "tower_archer_lvl_2"
+icon = ExtResource("6_gnqw8")
+place = 1
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_u1awt"]
+resource_local_to_scene = true
+script = ExtResource("11_a42kk")
+list = Array[ExtResource("9_auhbk")]([ExtResource("10_nv2ef"), SubResource("Resource_d8wrq")])
+metadata/_custom_type_script = "uid://blv3x62ywpu2v"
+
+[node name="TowerArcheLvl1" unique_id=1010851235 instance=ExtResource("1_4joti")]
+scene_name = "tower_archer_lvl_1"
+
+[node name="EntityGroup" type="Node2D" parent="TowerComponent" parent_id_path=PackedInt32Array(1150016788) index="0" unique_id=1846981393]
+script = ExtResource("7_nv2ef")
+metadata/_custom_type_script = "uid://cb268fbjlobm5"
+
+[node name="TowerArcherLvl1Shooter" parent="TowerComponent/EntityGroup" index="0" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
+show_behind_parent = true
+position = Vector2(-15, -20)
+
+[node name="TowerArcherLvl1Shooter2" parent="TowerComponent/EntityGroup" index="1" unique_id=656258836 instance=ExtResource("2_4mkqg")]
+show_behind_parent = true
+position = Vector2(17, -20)
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_menu_data = SubResource("Resource_u1awt")

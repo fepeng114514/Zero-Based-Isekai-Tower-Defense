@@ -69,8 +69,9 @@ func load() -> void:
 		_entity_scenes[scene_name] = scene
 
 	# 初始化空间索引网格
-	var grid_count_x: int = ceili(GlobalMgr.world_size.x / SPACE_INDEX_GRID_SIZE)
-	var grid_count_y: int = ceili(GlobalMgr.world_size.y / SPACE_INDEX_GRID_SIZE)
+	var world_size: Vector2 = GlobalMgr.world_size
+	var grid_count_x: int = ceili(world_size.x / SPACE_INDEX_GRID_SIZE)
+	var grid_count_y: int = ceili(world_size.y / SPACE_INDEX_GRID_SIZE)
 	
 	for x: int in grid_count_x:
 		var grid_col: Dictionary = {
