@@ -189,7 +189,7 @@ track_target = true
 idle_animation = SubResource("Resource_gmpev")
 
 [node name="TowerArcher" parent="World" unique_id=1010851235 instance=ExtResource("35_hvllt")]
-position = Vector2(1408, 648)
+position = Vector2(1400, 712)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true

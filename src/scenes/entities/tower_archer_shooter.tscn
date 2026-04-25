@@ -3,18 +3,20 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_nb8ge"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_es0ag"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_tbtsw"]
-[ext_resource type="SpriteFrames" uid="uid://dw8x2ltf4eglw" path="res://resources/sprite_frames/tower_archer_lvl1_shooter_2.tres" id="4_a4odr"]
+[ext_resource type="SpriteFrames" uid="uid://xk8gt6uqtvqv" path="res://resources/sprite_frames/tower_archer_lvl1_shooter.tres" id="4_a4odr"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/ranged_component.gd" id="5_ory2n"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/subcomponents/ranged_attack.gd" id="6_j0iry"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/resources/data/offset_data.gd" id="7_a4odr"]
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_es0ag")
-left_right = &"idle"
+up = &"idle_up"
+down = &"idle_down"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
 script = ExtResource("2_es0ag")
-left_right = &"ranged"
+up = &"ranged_up"
+down = &"ranged_down"
 
 [sub_resource type="Resource" id="Resource_367kr"]
 script = ExtResource("7_a4odr")
@@ -31,10 +33,9 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 script = ExtResource("3_tbtsw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
-position = Vector2(0, -25)
-scale = Vector2(0.23624256, 0.23624256)
+position = Vector2(3, -22)
 sprite_frames = ExtResource("4_a4odr")
-animation = &"idle"
+animation = &"idle_down"
 
 [node name="RangedComponent" type="Node2D" parent="." unique_id=129640034]
 script = ExtResource("5_ory2n")
@@ -43,9 +44,11 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
 script = ExtResource("6_j0iry")
 animation = SubResource("Resource_6rlp0")
+cooldown = 0.9
 bullet = "tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
-delay = 0.133
+delay = 0.167
 damage_min = 15.0
 damage_max = 25.0
+group_cooldown_disabled = null
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

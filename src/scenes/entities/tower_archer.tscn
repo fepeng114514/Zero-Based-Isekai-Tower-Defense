@@ -5,11 +5,10 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_bgr08"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_x6o3l"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="3_4ig6i"]
+[ext_resource type="Texture2D" uid="uid://bjw24pqqjas30" path="res://resources/atlas_textures/archer_tower_0001.tres" id="4_auhbk"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group.gd" id="7_nv2ef"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_plukg"]
-[ext_resource type="Texture2D" uid="uid://d1lldqjt0jduw" path="res://resources/atlas_textures/archer_tower_0006.tres" id="8_auhbk"]
 [ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="9_auhbk"]
-[ext_resource type="Texture2D" uid="uid://cd21j42tcbtp4" path="res://resources/atlas_textures/archer_tower_0006_back.tres" id="9_nv2ef"]
 [ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="10_nv2ef"]
 [ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="11_a42kk"]
 
@@ -36,15 +35,7 @@ script = ExtResource("2_x6o3l")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=869472279]
-z_index = 1
-position = Vector2(-1, 18)
-scale = Vector2(0.1813241, 0.1813241)
-texture = ExtResource("8_auhbk")
-
-[node name="Sprite2D2" type="Sprite2D" parent="SpriteComponent" unique_id=520805627]
-position = Vector2(0, 17.999998)
-scale = Vector2(0.1813241, 0.1813241)
-texture = ExtResource("9_nv2ef")
+texture = ExtResource("4_auhbk")
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
 position = Vector2(0, -49)
@@ -53,17 +44,17 @@ tower_type = 1
 show_range_offset = Vector2(0, 43.52)
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="EntityGroup" type="Node2D" parent="TowerComponent" unique_id=320805541]
+[node name="EntityGroup" type="Node2D" parent="TowerComponent" unique_id=2052391730]
 script = ExtResource("7_nv2ef")
 metadata/_custom_type_script = "uid://cb268fbjlobm5"
 
 [node name="TowerArcherShooter" parent="TowerComponent/EntityGroup" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
-position = Vector2(-25, -19)
+position = Vector2(-15, -20)
 
 [node name="TowerArcherShooter2" parent="TowerComponent/EntityGroup" unique_id=1394184842 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
-position = Vector2(14, -18)
+position = Vector2(17, -20)
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=602361207]
 script = ExtResource("3_4ig6i")

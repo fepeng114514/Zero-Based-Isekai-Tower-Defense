@@ -197,6 +197,7 @@ func _to_string():
 
 ## 将实体增加到插入队列
 func insert_entity() -> void:
+	visible = false
 	S.insert_entity.emit(self)
 	SystemMgr.insert_queue.append(self)
 

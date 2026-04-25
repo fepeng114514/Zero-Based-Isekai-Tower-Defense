@@ -213,9 +213,8 @@ func _trajectory_parabola_init(
 	)
 	bullet_c.velocity = velocity
 	
-	var next_time: float = bullet_c.ts + TimeMgr.frame_length
 	var next_pos = U.position_in_parabola(
-		velocity, from, next_time, bullet_c.flight_gravity
+		velocity, from, 0.1, bullet_c.flight_gravity
 	)
 	
 	if bullet_c.look_to:

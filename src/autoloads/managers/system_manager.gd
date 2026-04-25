@@ -55,7 +55,6 @@ func _process_insert_queue() -> void:
 			continue
 		
 		Log.verbose("插入实体: %s" % e)
-		
 		e.visible = true
 
 
