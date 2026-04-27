@@ -13,7 +13,7 @@ func _on_insert(e: Entity) -> bool:
 	for child: Node in tower_c.get_children():
 		var entity_list: Array = []
 		
-		if child is EntityGroup:
+		if child is EntityGroup2D:
 			entity_list = child.get_children()
 		else:
 			entity_list = [child]

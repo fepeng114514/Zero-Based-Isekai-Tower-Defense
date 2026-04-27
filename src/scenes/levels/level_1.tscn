@@ -41,6 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer_lvl_1.tscn" id="35_hvllt"]
 [ext_resource type="PackedScene" uid="uid://wxrkke7541g" path="res://scenes/entities/tower_mage_lvl_1.tscn" id="36_dp4fg"]
 [ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/tower_artillery_lvl_1.tscn" id="37_svqqs"]
+[ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack_lvl_1.tscn" id="38_2to4m"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("2_gmpev")
@@ -203,6 +204,10 @@ position = Vector2(1464, 548)
 
 [node name="TowerArcherLvl1" parent="World" unique_id=1010851235 instance=ExtResource("35_hvllt")]
 position = Vector2(1424, 680)
+
+[node name="TowerBarrackLvl1" parent="World" unique_id=187367710 instance=ExtResource("38_2to4m")]
+position = Vector2(1208, 896)
+scene_name = "tower_barrack_lvl_1"
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true

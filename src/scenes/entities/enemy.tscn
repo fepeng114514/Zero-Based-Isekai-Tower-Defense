@@ -81,7 +81,7 @@ metadata/_custom_type_script = "uid://btct3ysbbulk0"
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=768145759]
 script = ExtResource("8_wdwo4")
 motion_animation = SubResource("Resource_yek3w")
-melee_pos_offset = Vector2(24.3, 0)
+melee_pos_offset = Vector2(35, 0)
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
@@ -92,6 +92,6 @@ metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=673866706]
 script = ExtResource("6_ijmwd")
-select_rect = Rect2(-16.21, -32.025, 32, 32)
+select_rect = Rect2(-15.69, -32.025, 32, 32)
 info_bar_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

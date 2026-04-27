@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bg7aeaobp45q8"]
+
+[ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://scenes/entities/tower_barrack_lvl_1_soldier.tscn" id="1_6fjjf"]
+[ext_resource type="SpriteFrames" uid="uid://coyusa5y0kb8i" path="res://resources/sprite_frames/tower_barracks_soldier_lvl3.tres" id="2_na7o5"]
+
+[node name="TowerBarrackLvl3Soldier" unique_id=1677548747 instance=ExtResource("1_6fjjf")]
+scene_name = ""
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(389197924) index="0" unique_id=1889529730]
+sprite_frames = ExtResource("2_na7o5")
+
+[node name="HealthComponent" parent="." index="1" unique_id=949799713]
+hp_max = 150.0
+physical_armor = 30
+
+[node name="MeleeAttack" parent="MeleeComponent" parent_id_path=PackedInt32Array(668314156) index="0" unique_id=1014449767]
+damage_min = 6.0
+damage_max = 10.0
+
+[node name="UIComponent" parent="." index="4" unique_id=346591849]
+select_rect = Rect2(-15.555, -40.245, 32.735, 40.255)

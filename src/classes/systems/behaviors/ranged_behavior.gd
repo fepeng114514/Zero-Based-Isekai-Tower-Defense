@@ -41,7 +41,7 @@ func _on_update(e: Entity) -> bool:
 		
 		if not a.group_cooldown_disabled:
 			var parent: Node = e.get_parent()
-			if parent is EntityGroup:
+			if parent is EntityGroup2D:
 				for member: Entity in parent.get_children():
 					if member == e:
 						continue

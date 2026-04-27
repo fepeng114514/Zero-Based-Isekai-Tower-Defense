@@ -6,6 +6,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("2_b8dfn")
+upgrade_to = "tower_barrack_lvl_3"
 icon = ExtResource("1_d46ag")
 place = 1
 metadata/_custom_type_script = "uid://bu253boudy5i5"

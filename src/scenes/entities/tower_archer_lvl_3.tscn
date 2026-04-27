@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/tower_archer.tscn" id="1_n4rnl"]
 [ext_resource type="Texture2D" uid="uid://dy36m6asnjp36" path="res://resources/atlas_textures/archer_tower_0003.tres" id="2_1rmxj"]
-[ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group.gd" id="2_xvuyv"]
+[ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group_2d.gd" id="2_xvuyv"]
 [ext_resource type="PackedScene" uid="uid://bleej3esxi75b" path="res://scenes/entities/tower_archer_lvl_3_shooter.tscn" id="3_1rmxj"]
 [ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="6_1rmxj"]
 [ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="7_d0dd3"]
@@ -19,14 +19,14 @@ scene_name = "tower_archer_lvl_3"
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
 texture = ExtResource("2_1rmxj")
 
-[node name="EntityGroup" type="Node2D" parent="TowerComponent" parent_id_path=PackedInt32Array(1150016788) index="0" unique_id=21400322]
+[node name="EntityGroup2D" type="Node2D" parent="TowerComponent" parent_id_path=PackedInt32Array(1150016788) index="0" unique_id=21400322]
 script = ExtResource("2_xvuyv")
 metadata/_custom_type_script = "uid://cb268fbjlobm5"
 
-[node name="TowerArcherLvl3Shooter" parent="TowerComponent/EntityGroup" index="0" unique_id=2011504655 instance=ExtResource("3_1rmxj")]
+[node name="TowerArcherLvl3Shooter" parent="TowerComponent/EntityGroup2D" index="0" unique_id=2011504655 instance=ExtResource("3_1rmxj")]
 position = Vector2(-15, -17)
 
-[node name="TowerArcherLvl3Shooter2" parent="TowerComponent/EntityGroup" index="1" unique_id=1538760009 instance=ExtResource("3_1rmxj")]
+[node name="TowerArcherLvl3Shooter2" parent="TowerComponent/EntityGroup2D" index="1" unique_id=1538760009 instance=ExtResource("3_1rmxj")]
 position = Vector2(17, -18)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]

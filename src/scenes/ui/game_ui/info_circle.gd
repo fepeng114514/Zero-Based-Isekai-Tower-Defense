@@ -66,7 +66,7 @@ func _show(e: Entity) -> void:
 	if tower_c:
 		if tower_c.get_child_count() > 0:
 			var first_entity = tower_c.get_child(0)
-			if first_entity is EntityGroup:
+			if first_entity is EntityGroup2D:
 				first_entity = first_entity.get_child(0)
 			
 			var f_ranged_c: RangedComponent = first_entity.get_node_or_null(C.CN_RANGED)

@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
+
+[ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/tower.tscn" id="1_og8n7"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_5r4pg"]
+[ext_resource type="Texture2D" uid="uid://d0l6eobu1q5fb" path="res://resources/atlas_textures/tower_preview_barrack.tres" id="3_bfdgq"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="3_t1q52"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="4_r3ohy"]
+[ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
+[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="5_r3ohy"]
+[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="6_5xtra"]
+[ext_resource type="Resource" uid="uid://cu12xalwranel" path="res://resources/select_menu/select_menu_item_rally.tres" id="6_r3ohy"]
+
+[sub_resource type="Resource" id="Resource_8uae8"]
+resource_local_to_scene = true
+script = ExtResource("3_t1q52")
+upgrade_to = "tower_barrack_lvl_2"
+icon = ExtResource("5_r3ohy")
+place = 1
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_cr2gu"]
+script = ExtResource("6_5xtra")
+list = Array[ExtResource("3_t1q52")]([ExtResource("4_r3ohy"), SubResource("Resource_8uae8"), ExtResource("6_r3ohy")])
+metadata/_custom_type_script = "uid://blv3x62ywpu2v"
+
+[sub_resource type="Resource" id="Resource_xe47h"]
+script = ExtResource("2_5r4pg")
+left_right = &"spawn"
+
+[node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_og8n7")]
+scene_name = "tower_barrack"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
+position = Vector2(0, -48)
+texture = ExtResource("3_bfdgq")
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+tower_type = 2
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_rect = Rect2(-55.715, -82, 107.405, 102.935)
+select_menu_data = SubResource("Resource_cr2gu")
+
+[node name="BarrackComponent" type="Node2D" parent="." index="3" unique_id=441339810]
+script = ExtResource("4_u6jgq")
+rally_radius = 60.0
+soldier = "tower_barrack_lvl_1_soldier"
+animation = SubResource("Resource_xe47h")
+metadata/_custom_type_script = "uid://b3vhika61oa7p"

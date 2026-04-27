@@ -22,7 +22,10 @@ scale = Vector2(1.12, 1.1)
 [node name="NavPathComponent" parent="." index="2" unique_id=655679987]
 speed = 66.0
 
-[node name="MeleeAttack" parent="MeleeComponent" parent_id_path=PackedInt32Array(768145759) index="0" unique_id=1304104648]
+[node name="MeleeComponent" parent="." index="3" unique_id=768145759]
+melee_pos_offset = Vector2(35.265, 0)
+
+[node name="MeleeAttack" parent="MeleeComponent" index="0" unique_id=1304104648]
 damage_min = 4.0
 damage_max = 8.0
 

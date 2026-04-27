@@ -32,13 +32,18 @@ var _space_index_grids: Array[Dictionary] = []
 var _world_size := Vector2i.ZERO
 var _component_groups: Dictionary[String, Array] = {}
 var _type_groups: Dictionary[String, Array] = {}
-
+## 空间索引列数
+var _space_index_grid_count_x: int = EntityMgr.space_index_grid_count_x
+## 空间索引行数
+var _space_index_grid_count_y: int = EntityMgr.space_index_grid_count_y
 
 func _ready() -> void:
 	_space_index_grids = EntityMgr.space_index_grids
 	_world_size = GlobalMgr.world_size
 	_component_groups = EntityMgr.component_groups
 	_type_groups = EntityMgr.type_groups
+	_space_index_grid_count_x = EntityMgr.space_index_grid_count_x
+	_space_index_grid_count_y = EntityMgr.space_index_grid_count_y
 
 
 func _on_update(_delta: float) -> void:
@@ -66,7 +71,10 @@ func _on_update(_delta: float) -> void:
 		var x: int = floori(e_global_position.x / _space_index_grid_size)
 		var y: int = floori(e_global_position.y / _space_index_grid_size)
 
-		if x > _space_index_grid_size:
+		if x >= _space_index_grid_count_x:
+			continue
+			
+		if y >= _space_index_grid_count_y:
 			continue
 
 		var grid_col: Dictionary = _space_index_grids[x]
