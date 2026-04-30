@@ -9,19 +9,11 @@
 [ext_resource type="SpriteFrames" uid="uid://dkcix4x3wf1pv" path="res://resources/sprite_frames/tower_artillery_lvl3_layer5.tres" id="7_girm7"]
 [ext_resource type="SpriteFrames" uid="uid://dfw3ikm2yyryo" path="res://resources/sprite_frames/tower_artillery_lvl3_layer6.tres" id="8_g61dv"]
 [ext_resource type="SpriteFrames" uid="uid://b5vkry04pen5a" path="res://resources/sprite_frames/tower_artillery_lvl3_layer7.tres" id="9_npkjw"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="10_rqxmr"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="11_oynos"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="12_fhfju"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/resources/data/offset_data.gd" id="13_mgs43"]
 
 [sub_resource type="Resource" id="Resource_mgs43"]
 script = ExtResource("2_pqn5j")
 any = &"idle"
-
-[sub_resource type="Resource" id="Resource_pqn5j"]
-script = ExtResource("12_fhfju")
-list = Array[ExtResource("10_rqxmr")]([ExtResource("11_oynos")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [sub_resource type="Resource" id="Resource_32uxe"]
 script = ExtResource("13_mgs43")
@@ -63,7 +55,6 @@ price = 320.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
-select_menu_data = SubResource("Resource_pqn5j")
 
 [node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 bullet = "tower_artillery_lvl_3_bullet"

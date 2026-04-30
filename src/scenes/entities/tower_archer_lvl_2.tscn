@@ -4,22 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bilx3cvah0voe" path="res://resources/atlas_textures/archer_tower_0002.tres" id="2_fuiib"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group_2d.gd" id="3_8t32b"]
 [ext_resource type="PackedScene" uid="uid://bt5cby21sk5sc" path="res://scenes/entities/tower_archer_lvl_2_shooter.tscn" id="4_s0mgi"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="5_aq81k"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="6_kgdsl"]
-[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="7_ymbuu"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="8_ixkxj"]
-
-[sub_resource type="Resource" id="Resource_h1i0b"]
-script = ExtResource("5_aq81k")
-upgrade_to = "tower_archer_lvl_3"
-icon = ExtResource("7_ymbuu")
-place = 1
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_3fhle"]
-script = ExtResource("8_ixkxj")
-list = Array[ExtResource("5_aq81k")]([ExtResource("6_kgdsl"), SubResource("Resource_h1i0b")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerArcherLvl2" unique_id=1010851235 instance=ExtResource("1_1k3m4")]
 scene_name = "tower_archer_lvl_2"
@@ -43,4 +27,3 @@ position = Vector2(16, -10)
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-48.61, -89.745, 95.585, 103.79)
 select_menu_offset = Vector2(0, -35.675)
-select_menu_data = SubResource("Resource_3fhle")

@@ -1,5 +1,5 @@
 extends Resource
-class_name WaveSpawnBatch
+class_name WaveSpawnGroup
 ## 生成批次资源
 
 
@@ -10,4 +10,4 @@ class_name WaveSpawnBatch
 ## 因为所有批次都是并发的所以使用延迟控制
 @export var delay: float = 0
 ## 敌人生成列表
-@export var spawns: Array[WaveSpawn] = []
+@export var spawn_list: Array[WaveSpawn] = []

@@ -24,9 +24,6 @@ class_name UIComponent
 	set(value):
 		select_menu_offset = value
 		queue_redraw()
-## 选择菜单数据
-@export var select_menu_data: SelectMenuData = null
-
 
 func _draw() -> void:
 	if not Engine.is_editor_hint():

@@ -6,13 +6,7 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_eclg5"]
 [ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://scenes/entities/tower_holder.gdshader" id="5_rh6e0"]
 [ext_resource type="Texture2D" uid="uid://byk75f3pfixc" path="res://resources/atlas_textures/build_terrain_0001.tres" id="6_wcy0v"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="8_pyfu2"]
-[ext_resource type="Texture2D" uid="uid://bk4vjfex0yago" path="res://resources/atlas_textures/main_icons_0001.tres" id="9_fdaav"]
-[ext_resource type="Texture2D" uid="uid://d03deip2s24tx" path="res://resources/atlas_textures/main_icons_0002.tres" id="10_ri540"]
-[ext_resource type="Texture2D" uid="uid://cnygsu62w1cxt" path="res://resources/atlas_textures/main_icons_0003.tres" id="11_xs2xh"]
-[ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_textures/main_icons_0004.tres" id="12_4c844"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="12_pyfu2"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="13_ougbk"]
 
 [sub_resource type="Resource" id="Resource_fdaav"]
 script = ExtResource("2_pyfu2")
@@ -22,38 +16,6 @@ left_right = &"idle_left_right"
 shader = ExtResource("5_rh6e0")
 shader_parameter/outline_size = 20.0
 shader_parameter/outline_color = Color(1, 1, 0, 1)
-
-[sub_resource type="Resource" id="Resource_kum73"]
-script = ExtResource("8_pyfu2")
-upgrade_to = "tower_archer_lvl_1"
-icon = ExtResource("9_fdaav")
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_pb8ff"]
-script = ExtResource("8_pyfu2")
-upgrade_to = "tower_barrack_lvl_1"
-icon = ExtResource("10_ri540")
-place = 2
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_06tn3"]
-script = ExtResource("8_pyfu2")
-upgrade_to = "tower_mage_lvl_1"
-icon = ExtResource("11_xs2xh")
-place = 4
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_tyk0o"]
-script = ExtResource("8_pyfu2")
-upgrade_to = "tower_artillery_lvl_1"
-icon = ExtResource("12_4c844")
-place = 6
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_77b72"]
-script = ExtResource("13_ougbk")
-list = Array[ExtResource("8_pyfu2")]([SubResource("Resource_kum73"), SubResource("Resource_pb8ff"), SubResource("Resource_06tn3"), SubResource("Resource_tyk0o")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerHolder" type="Node2D" unique_id=1898604313]
 script = ExtResource("1_jrk33")
@@ -78,5 +40,4 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 script = ExtResource("3_qfsqy")
 select_rect = Rect2(-77.425, -45.79, 156.65, 85.995)
 info_bar_type = 2
-select_menu_data = SubResource("Resource_77b72")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

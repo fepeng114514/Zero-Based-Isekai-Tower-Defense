@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/resources/data/sync_animations_data.gd" id="5_aexug"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="5_ewl0l"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/tower_mage_lvl_1_shooter.tscn" id="6_aexug"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="9_mo82c"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="10_p2r8t"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="11_usf1p"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_button_data.gd" id="9_mo82c"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_button_sell.tres" id="10_p2r8t"]
+[ext_resource type="Script" path="res://classes/resources/select_menu/select_menu_data.gd" id="11_usf1p"]
 
 [sub_resource type="Resource" id="Resource_aexug"]
 script = ExtResource("2_ewl0l")

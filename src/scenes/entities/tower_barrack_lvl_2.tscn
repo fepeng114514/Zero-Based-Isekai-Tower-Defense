@@ -2,24 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack_lvl_1.tscn" id="1_kssh0"]
 [ext_resource type="Texture2D" uid="uid://cnr4f5nrp6bsd" path="res://resources/atlas_textures/tower_barracks_lvl2_layer1_0001.tres" id="2_2cem1"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="3_1plyg"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="4_7fvjt"]
-[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="5_vk53i"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="6_jq3qh"]
-[ext_resource type="Resource" uid="uid://cu12xalwranel" path="res://resources/select_menu/select_menu_item_rally.tres" id="6_vk53i"]
-
-[sub_resource type="Resource" id="Resource_7fvjt"]
-resource_local_to_scene = true
-script = ExtResource("3_1plyg")
-upgrade_to = "tower_barrack_lvl_3"
-icon = ExtResource("5_vk53i")
-place = 1
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_vk53i"]
-script = ExtResource("6_jq3qh")
-list = Array[ExtResource("3_1plyg")]([ExtResource("4_7fvjt"), SubResource("Resource_7fvjt"), ExtResource("6_vk53i")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerBarrackLvl2" unique_id=187367710 instance=ExtResource("1_kssh0")]
 scene_name = "tower_barrack_lvl_2"
@@ -32,7 +14,6 @@ price = 110.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-61.3, -91.985, 120.505, 108.965)
-select_menu_data = SubResource("Resource_vk53i")
 
 [node name="BarrackComponent" parent="." index="3" unique_id=441339810]
 soldier = "tower_barrack_lvl_2_soldier"

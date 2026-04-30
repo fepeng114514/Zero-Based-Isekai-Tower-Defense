@@ -8,23 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://dqyfnoeh01r4w" path="res://resources/sprite_frames/tower_artillery_lvl2_layer5.tres" id="6_3bdla"]
 [ext_resource type="SpriteFrames" uid="uid://hpvtev0hwbxa" path="res://resources/sprite_frames/tower_artillery_lvl2_layer6.tres" id="7_thpnf"]
 [ext_resource type="SpriteFrames" uid="uid://b63ovjjyltnck" path="res://resources/sprite_frames/tower_artillery_lvl2_layer7.tres" id="8_78n2l"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="10_thpnf"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="11_78n2l"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="12_knn8j"]
-[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="12_thpnf"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/resources/data/offset_data.gd" id="13_3bdla"]
-
-[sub_resource type="Resource" id="Resource_knn8j"]
-script = ExtResource("10_thpnf")
-upgrade_to = "tower_artillery_lvl_3"
-icon = ExtResource("12_thpnf")
-place = 1
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_1apaj"]
-script = ExtResource("12_knn8j")
-list = Array[ExtResource("10_thpnf")]([ExtResource("11_78n2l"), SubResource("Resource_knn8j")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [sub_resource type="Resource" id="Resource_thpnf"]
 script = ExtResource("13_3bdla")
@@ -62,9 +46,6 @@ frame_progress = 0.0
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 225.0
-
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
-select_menu_data = SubResource("Resource_1apaj")
 
 [node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 bullet = "tower_artillery_lvl_2_bullet"

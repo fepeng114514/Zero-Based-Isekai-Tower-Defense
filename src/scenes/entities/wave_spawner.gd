@@ -2,11 +2,11 @@
 extends Entity
 
 
-@export var wave_set: WaveSet = null
+@export var wave_group: WaveGroup = null
 
 
 func _spawner() -> void:
-	var wave_list: Array[Wave] = wave_set.wave_list
+	var wave_list: Array[Wave] = wave_group.wave_list
 	
 	for wave_idx: int in wave_list.size():
 		var wave: Wave = wave_list[wave_idx]
@@ -24,19 +24,19 @@ func _spawner() -> void:
 		
 		GameMgr.current_wave = wave_idx
 		
-		for spawn_batch: WaveSpawnBatch in wave.spawn_batch_list:
+		for spawn_group: WaveSpawnGroup in wave.spawn_group_list:
 			# 批次并行
-			_spawn_batch_spawner(spawn_batch)
+			_spawn_group_spawner(spawn_group)
 			
 	# 所有波次释放完毕
 	GameMgr.waves_finished = true
 
 
-func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
-	await y_wait(spawn_batch.delay)
-	var pathway_idx: int = spawn_batch.pathway_idx
+func _spawn_group_spawner(spawn_group: WaveSpawnGroup) -> void:
+	await y_wait(spawn_group.delay)
+	var pathway_idx: int = spawn_group.pathway_idx
 	
-	for spawn: WaveSpawn in spawn_batch.spawns:
+	for spawn: WaveSpawn in spawn_group.spawn_list:
 		for i: int in spawn.count:
 			var e: Entity = EntityMgr.create_entity(spawn.entity)
 			

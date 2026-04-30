@@ -3,22 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://dgdv4ixqwp3ot" path="res://scenes/entities/tower_mage.tscn" id="1_4dbkk"]
 [ext_resource type="SpriteFrames" uid="uid://bbxrjrb203tjr" path="res://resources/sprite_frames/tower_mage_lvl2.tres" id="2_t06wg"]
 [ext_resource type="PackedScene" uid="uid://dy5nu6xryehuk" path="res://scenes/entities/tower_mage_lvl_2_shooter.tscn" id="3_6eiy2"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="5_5ble6"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="6_8ec7b"]
-[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="7_8ec7b"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="7_wwsac"]
-
-[sub_resource type="Resource" id="Resource_wwsac"]
-script = ExtResource("5_5ble6")
-upgrade_to = "tower_mage_lvl_3"
-icon = ExtResource("7_8ec7b")
-place = 1
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_8tgsi"]
-script = ExtResource("7_wwsac")
-list = Array[ExtResource("5_5ble6")]([ExtResource("6_8ec7b"), SubResource("Resource_wwsac")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerMageLvl2" unique_id=88348674 instance=ExtResource("1_4dbkk")]
 scene_name = "tower_mage_lvl_2"
@@ -34,4 +18,3 @@ position = Vector2(0, -2)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-60.545, -85.265, 126.87, 110.86)
-select_menu_data = SubResource("Resource_8tgsi")

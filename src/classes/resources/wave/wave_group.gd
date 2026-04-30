@@ -1,5 +1,5 @@
 extends Resource
-class_name WaveSet
+class_name WaveGroup
 ## 波次集合资源
 
 

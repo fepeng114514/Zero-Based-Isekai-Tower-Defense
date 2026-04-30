@@ -26,7 +26,6 @@
 	"tower_barrack_lvl_3": "res://scenes/entities/tower_barrack_lvl_3.tscn",
 	"tower_barrack_lvl_3_soldier": "res://scenes/entities/tower_barrack_lvl_3_soldier.tscn",
 	"tower_holder": "res://scenes/entities/tower_holder.tscn",
-	"tower_holder_grass": "res://scenes/entities/tower_holder_grass.tscn",
 	"tower_mage": "res://scenes/entities/tower_mage.tscn",
 	"tower_mage_bullet": "res://scenes/entities/tower_mage_bullet.tscn",
 	"tower_mage_lvl_1": "res://scenes/entities/tower_mage_lvl_1.tscn",

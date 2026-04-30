@@ -1,21 +1,21 @@
 extends Resource
-class_name SelectMenuItemData
+class_name SelectMenuButtonData
 ## 选择菜单项数据资源
 
 
 ## 项类型
-@export var type: C.SelectMenuItemType = C.SelectMenuItemType.UPGRADE
+@export var type: C.SelectMenuButtonType = C.SelectMenuButtonType.UPGRADE
 ## 升级为的实体场景名称
 ## 
-## [annotation SelectMenuItemData.type] 为 UPGRADE 时可用
+## [annotation SelectMenuButtonData.type] 为 UPGRADE 时可用
 @export var upgrade_to: String = ""
 ## 升级的技能索引
 ## 
-## [annotation SelectMenuItemData.type] 为 SKILL 时可用
+## [annotation SelectMenuButtonData.type] 为 SKILL 时可用
 @export var upgraded_skill: int = C.UNSET
 ## 购买的条目索引
 ##
-## [annotation SelectMenuItemData.type] 为 BUY 时可用
+## [annotation SelectMenuButtonData.type] 为 BUY 时可用
 @export var buy_item: int = C.UNSET
 ## 图标
 @export var icon: AtlasTexture = null

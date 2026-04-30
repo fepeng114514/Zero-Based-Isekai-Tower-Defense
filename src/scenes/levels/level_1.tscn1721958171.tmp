@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://classes/level.gd" id="1_x42e6"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resources/data/audio_data.gd" id="2_gmpev"]
-[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/resources/wave/wave_group.gd" id="2_iav0o"]
 [ext_resource type="AudioStream" uid="uid://dpl0mcs7s53br" path="res://assets/audios/MusicBattlePreparationsForest.ogg" id="2_mkypq"]
-[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resources/wave/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://classes/pathway.gd" id="3_sk5k4"]
 [ext_resource type="Script" uid="uid://j7j5n4bat6f8" path="res://classes/system_controller.gd" id="4_2to4m"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner.tscn" id="4_dga24"]
@@ -36,8 +34,6 @@
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behaviors/spawner_behavior.gd" id="22_yhfkw"]
 [ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/ui/world_control.tscn" id="23_mqh5v"]
 [ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://scenes/levels/wave_flag_controller.gd" id="24_7o3do"]
-[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/resources/wave/wave_spawn_group.gd" id="32_hvllt"]
-[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/resources/wave/wave_spawn.gd" id="33_dp4fg"]
 [ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://scenes/entities/tower_holder.tscn" id="35_hvllt"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
@@ -50,27 +46,6 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 1126, -259, 63.601402, -126.59874, -63.601402, 126.59874, 1100, 294, 137.66904, -125.59731, -137.66904, 125.59731, 821, 452, -68.62308, -47.060608, 68.62308, 47.060608, 831, 768, -140.94301, -2.1355002, 140.94301, 2.1355002, 1098, 803, -221.94675, -78.84466, 221.94675, 78.84466, 1408, 818, -271.0144, 15.530907, 271.0144, -15.530907, 1863, 636, 0, 0, 0, 0, 2538, 617)
 }
 point_count = 8
-
-[sub_resource type="Resource" id="Resource_svqqs"]
-script = ExtResource("33_dp4fg")
-entity = "enemy_goblin"
-metadata/_custom_type_script = "uid://d3o7lg62owyu5"
-
-[sub_resource type="Resource" id="Resource_2to4m"]
-script = ExtResource("32_hvllt")
-spawn_list = Array[ExtResource("33_dp4fg")]([SubResource("Resource_svqqs")])
-metadata/_custom_type_script = "uid://sexo7n8p0jrb"
-
-[sub_resource type="Resource" id="Resource_kc3v0"]
-script = ExtResource("3_dnkej")
-interval = 5.0
-spawn_group_list = Array[ExtResource("32_hvllt")]([SubResource("Resource_2to4m")])
-metadata/_custom_type_script = "uid://b1twtcymtb7c1"
-
-[sub_resource type="Resource" id="Resource_prmli"]
-script = ExtResource("2_iav0o")
-wave_list = Array[ExtResource("3_dnkej")]([SubResource("Resource_kc3v0")])
-metadata/_custom_type_script = "uid://okpyko8fvmx4"
 
 [sub_resource type="Resource" id="Resource_gmpev"]
 script = ExtResource("14_np2pn")
@@ -184,7 +159,6 @@ metadata/_custom_type_script = "uid://5rvcj41ueju4"
 script = ExtResource("4_oc4kc")
 
 [node name="WaveSpawner" parent="World" unique_id=1677388100 instance=ExtResource("4_dga24")]
-wave_group = SubResource("Resource_prmli")
 track_target = true
 idle_animation = SubResource("Resource_gmpev")
 

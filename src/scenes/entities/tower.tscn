@@ -4,14 +4,6 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_vrxc8"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="5_r47bq"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_6m6kf"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="7_1dw58"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="8_78j4v"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="9_xgfbs"]
-
-[sub_resource type="Resource" id="Resource_pge3x"]
-script = ExtResource("9_xgfbs")
-list = Array[ExtResource("7_1dw58")]([ExtResource("8_78j4v")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="Tower" type="Node2D" unique_id=794445410]
 script = ExtResource("1_lq4cm")
@@ -35,5 +27,4 @@ script = ExtResource("6_6m6kf")
 select_rect = Rect2(-48.73, -98.54, 95.585, 101.565)
 info_bar_type = 2
 select_menu_offset = Vector2(0, -36.32)
-select_menu_data = SubResource("Resource_pge3x")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

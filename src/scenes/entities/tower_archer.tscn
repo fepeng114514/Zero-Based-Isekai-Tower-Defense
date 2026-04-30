@@ -12,6 +12,7 @@ texture = ExtResource("2_4541l")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 1
+show_range_offset = Vector2(0, -43.52)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-48.73, -87.33, 95.585, 101.565)

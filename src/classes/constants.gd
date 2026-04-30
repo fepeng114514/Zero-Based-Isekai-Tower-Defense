@@ -350,8 +350,8 @@ enum BulletSpawnMode {
 }
 
 
-## 选择菜单项类型
-enum SelectMenuItemType {
+## 选择菜单按钮类型
+enum SelectMenuButtonType {
 	## 升级
 	UPGRADE,
 	## 出售
