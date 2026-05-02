@@ -49,15 +49,15 @@ func _on_update(_delta: float) -> void:
 			)
 			new_tower_c.tower_holder_style = tower_c.tower_holder_style
 			
-			var default_rally_pos: Vector2 = tower_c.default_rally_pos
-			new_tower_c.default_rally_pos = default_rally_pos
+			var default_rally_center_local_pos: Vector2 = tower_c.default_rally_center_local_pos
+			new_tower_c.default_rally_center_local_pos = default_rally_center_local_pos
 			var new_barrack_c: BarrackComponent = new_tower.get_node_or_null(C.CN_BARRACK)
 			if new_barrack_c:
 				var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
 				if barrack_c:
-					new_barrack_c.rally_pos = new_barrack_c.to_local(barrack_c.rally_pos)
+					new_barrack_c.rally_center_position = barrack_c.rally_center_position
 				else:
-					new_barrack_c.rally_pos = default_rally_pos
+					new_barrack_c.rally_center_position = tower_c.to_global(default_rally_center_local_pos)
 			
 			new_tower.insert_entity()
 			e.remove_entity()

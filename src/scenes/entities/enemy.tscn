@@ -82,12 +82,13 @@ metadata/_custom_type_script = "uid://btct3ysbbulk0"
 script = ExtResource("8_wdwo4")
 motion_animation = SubResource("Resource_yek3w")
 melee_pos_offset = Vector2(35, 0)
+is_blocked = true
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
 script = ExtResource("9_cit00")
-animation = SubResource("Resource_m3i2n")
 delay = 0.3
+animation = SubResource("Resource_m3i2n")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=673866706]

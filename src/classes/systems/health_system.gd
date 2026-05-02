@@ -45,7 +45,8 @@ func _death(e: Entity, health_c: HealthComponent) -> void:
 	
 	var death_data: DeathData = health_c.death_data
 	if death_data:
-		death_data.killer._on_kill(e)
+		if death_data.killer:
+			death_data.killer._on_kill(e)
 		
 	health_c.health_bar.visible = false
 	e.state = C.State.DEATH

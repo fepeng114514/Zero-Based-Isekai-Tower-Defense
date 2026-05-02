@@ -27,6 +27,5 @@ select_rect = Rect2(-55.715, -82, 107.405, 102.935)
 script = ExtResource("4_u6jgq")
 rally_radius = 45.0
 soldier = "tower_barrack_lvl_1_soldier"
-max_soldiers = 1
 animation = SubResource("Resource_xe47h")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"

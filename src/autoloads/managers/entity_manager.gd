@@ -209,8 +209,7 @@ func get_entity_by_id(id: int) -> Entity:
 		return null
 
 	var e = entity_list.get(id)
-
-	if not U.is_valid_entity(e):
+	if not e or not is_instance_valid(e) :
 		return null
 
 	return e

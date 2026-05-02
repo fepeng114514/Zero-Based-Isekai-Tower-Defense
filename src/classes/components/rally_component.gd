@@ -16,15 +16,17 @@ class_name RallyComponent
 ## 是否已到达集结位置
 var arrived: bool = false
 var is_force_rally: bool = false
+var rally_center_position := Vector2.ZERO
 
 
 ## 设置新的集结位置
 func new_rally_position(
 		pos: Vector2, 
-		is_force: bool = false
+		is_force: bool = false,
+		center: Vector2 = pos
 	) -> void:
 	is_force_rally = is_force
 	arrived = false
 	target_position = pos
-	
+	rally_center_position = center
 	

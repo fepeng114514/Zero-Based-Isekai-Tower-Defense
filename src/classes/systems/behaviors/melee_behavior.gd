@@ -4,7 +4,7 @@ class_name MeleeBehavior
 ##
 ## 处理拥有 [MeleeComponent] 组件的实体的攻击与拦截。
 ## 若 [member MeleeComponent.is_blocker] 为 `true`，作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。
-## 若 [member MeleeComponent.is_blocker] 为 `false`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
+## 若 [member MeleeComponent.is_blocked] 为 `true`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
 
 
 func _on_remove(e: Entity) -> bool:
@@ -12,6 +12,7 @@ func _on_remove(e: Entity) -> bool:
 	if not melee_c:
 		return true
 	
+	melee_c.cleanup_melee_relations(e)
 	melee_c.unbind_melee_relations(e.id)
 	
 	return true
@@ -22,13 +23,14 @@ func _on_skip(e: Entity) -> void:
 	if not melee_c:
 		return
 	
+	melee_c.cleanup_melee_relations(e)
 	melee_c.unbind_melee_relations(e.id)
 	if melee_c.is_blocker:
-		melee_c.blockeds_ids.clear()
+		melee_c.blocked_ids.clear()
 		melee_c.blocked_count = 0
 		melee_c.melee_state = C.MeleeState.ORIGIN_POS_ARRIVED
-	else:
-		melee_c.blockers_ids.clear()
+	elif melee_c.is_blocked:
+		melee_c.blocker_ids.clear()
 		
 	if e.state & C.State.IDLE:
 		melee_c.origin_pos = e.global_position
@@ -43,59 +45,77 @@ func _on_update(e: Entity) -> bool:
 	
 	if melee_c.is_blocker:
 		return _update_blocker(e, melee_c)
-	else:
+	elif melee_c.is_blocked:
 		return _update_blocked(e, melee_c)
+		
+	return false
 
 
 func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
-	var max_blocked: int = melee_c.max_blocked
-
-	# 不超过最大拦截数量时索敌
-	if melee_c.blocked_count < max_blocked:
-		var pending_blockeds: Array[Entity] = EntityMgr.search_targets(
-			melee_c.search_mode,
-			e.global_position,
-			melee_c.block_max_range,
-			melee_c.block_min_range,
-			melee_c.block_flags,
-			melee_c.block_bans,
-			func(t: Entity) -> bool:
-				var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
-				if not t_melee_c:
-					return false
-				# 优先选择未被任何拦截者锁定的目标
-				return not t_melee_c.blockers_ids
-		)
+	if not melee_c.blocked_ids:
+		melee_c.is_extra_blocker = false
+	
+	# 索敌
+	var center: Vector2 = e.global_position
+	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
+	if rally_c:
+		var rally_center_position: Vector2 = rally_c.rally_center_position
 		
-		# 如果没有未被拦截的目标，则允许围攻
-		if not pending_blockeds:
-			pending_blockeds = EntityMgr.search_targets(
+		if rally_center_position != Vector2.ZERO:
+			center = rally_center_position
+	
+	var pending_blockeds: Array[Entity] = EntityMgr.search_targets(
+		melee_c.search_mode,
+		center,
+		melee_c.block_max_range,
+		melee_c.block_min_range,
+		melee_c.block_flags,
+		melee_c.block_bans,
+		func(t: Entity) -> bool:
+			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
+			if not t_melee_c:
+				return false
+			return not t_melee_c.blocker_ids
+	)
+	
+	if pending_blockeds:
+		if melee_c.blocked_ids and melee_c.is_extra_blocker:
+			var first_blocked_id: int = melee_c.blocked_ids[0]
+			var first_blocked_target: Entity = EntityMgr.get_entity_by_id(first_blocked_id)
+			var blocked_melee_c: MeleeComponent = first_blocked_target.get_node_or_null(C.CN_MELEE)
+			if blocked_melee_c.blocker_ids.size() > 1:
+				melee_c.blocked_count = 0
+				melee_c.unbind_melee_relations(e.id)
+		
+		var max_blocked: int = melee_c.max_blocked
+		for t: Entity in pending_blockeds:
+			if melee_c.blocked_count >= max_blocked:
+				break
+			
+			melee_c.bind_melee_relations(t, e)
+	else:
+		if not melee_c.blocked_ids:
+			var blocked_targets: Array[Entity] = EntityMgr.search_targets(
 				melee_c.search_mode,
-				e.global_position,
+				center,
 				melee_c.block_max_range,
 				melee_c.block_min_range,
 				melee_c.block_flags,
 				melee_c.block_bans,
-			)
-		
-		if pending_blockeds:
-			var new_blockeds_ids: Array[int] = []
-			
-			for t: Entity in pending_blockeds:
-				if melee_c.blocked_count >= max_blocked:
-					break
-				
+				func(t: Entity) -> bool:
 				var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
-				
-				t_melee_c.blockers_ids.append(e.id)
-				new_blockeds_ids.append(t.id)
-				melee_c.blocked_count += t_melee_c.block_cost
-				
-			melee_c.blockeds_ids = new_blockeds_ids
+				if not t_melee_c:
+					return false
+					
+				return true
+			)
+			var first_blocked_target: Entity = blocked_targets[0] if blocked_targets else null
+			if first_blocked_target and not melee_c.is_extra_blocker:
+				melee_c.bind_melee_relations(first_blocked_target, e)
+				melee_c.is_extra_blocker = true
 	
-	var blockeds_ids: Array = melee_c.blockeds_ids
-	# 没有被拦截者
-	if not blockeds_ids:
+	var blocked_ids: Array = melee_c.blocked_ids
+	if not blocked_ids:
 		match melee_c.melee_state:
 			C.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e.global_position
@@ -106,7 +126,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	else:
 		e.state = C.State.MELEE
-		var blocked: Entity = EntityMgr.get_entity_by_id(blockeds_ids[0])
+		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_ids[0])
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
 		
 		# 不是被动被拦截者，前往近战位置
@@ -126,8 +146,8 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 
 
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
-	var blockers_ids: Array[int] = melee_c.blockers_ids
-	if not blockers_ids:
+	var blocker_ids: Array[int] = melee_c.blocker_ids
+	if not blocker_ids:
 		match melee_c.melee_state:
 			C.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e.global_position
@@ -138,9 +158,9 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	else:
 		e.state = C.State.MELEE
-		var blocker: Entity = EntityMgr.get_entity_by_id(blockers_ids[0])
+		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_ids[0])
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
-		var is_first_blocked: bool = e.id == blocker_melee_c.blockeds_ids[0]
+		var is_first_blocked: bool = e.id == blocker_melee_c.blocked_ids[0]
 
 		if is_first_blocked:
 			if blocker_melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
@@ -167,11 +187,11 @@ func _go_melee_pos(e: Entity, melee_c: MeleeComponent, melee_pos: Vector2) -> bo
 	if U.is_at_destination(
 			e.global_position, melee_pos, melee_c.arrived_distance	 
 	):
-		#print("Arrived! Pos: %s, Target: %s, Dist: %s" % [e.global_position, melee_c.melee_pos, e.global_position.distance_to(melee_c.melee_pos)])
+		#Log.verbose("Arrived! Pos: %s, Target: %s, Dist: %s" % [e.global_position, melee_c.melee_pos, e.global_position.distance_to(melee_c.melee_pos)])
 		melee_c.melee_state = C.MeleeState.MELEE_POS_ARRIVED
 		return true
 	else:
-		#print("Moving to %s, current %s, velocity %s" % [melee_c.melee_pos, e.global_position, melee_c.velocity])
+		#Log.verbose("Moving to %s, current %s, velocity %s" % [melee_c.melee_pos, e.global_position, melee_c.velocity])
 		melee_c.melee_state = C.MeleeState.MELEE_POS_MOVING
 		var direction: Vector2 = e.global_position.direction_to(melee_pos)
 		var velocity: Vector2 = (
@@ -220,9 +240,7 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 func _try_melee_attack(
 		e: Entity, melee_c: MeleeComponent, target: Entity
 	) -> void:
-	var is_valid_target: bool = U.is_valid_entity(target)
-	
-	if is_valid_target:
+	if U.is_valid_entity(target):
 		e.look_point = target.global_position
 	e.play_animation_by_look(e.idle_animation)
 	
@@ -251,7 +269,7 @@ func _try_melee_attack(
 				e.bans
 			)
 		else:
-			if not is_valid_target:
+			if not U.is_valid_entity(target):
 				break
 				
 			targets[0] = target
@@ -264,6 +282,9 @@ func _try_melee_attack(
 				break
 				
 			var t: Entity = targets[i]
+			if not U.is_valid_entity(t):
+				continue
+			
 			var t_id: int = t.id
 			
 			var d := Damage.new()

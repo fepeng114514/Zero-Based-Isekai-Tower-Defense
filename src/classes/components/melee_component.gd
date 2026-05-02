@@ -21,7 +21,10 @@ class_name MeleeComponent
 
 @export_group("Blocker")
 ## 是否是拦截者
-@export var is_blocker: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_blocker: bool = false:
+	set(value):
+		is_blocker = value
+		update_configuration_warnings()
 ## 拦截最小范围
 @export var block_min_range: float = 0
 ## 拦截最大范围
@@ -32,6 +35,11 @@ class_name MeleeComponent
 @export var max_blocked: int = 1
 
 @export_group("Blocked")
+## 是否是被拦截者
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_blocked: bool = false:
+	set(value):
+		is_blocked = value
+		update_configuration_warnings()
 ## 拦截成本
 @export var block_cost: int = 1
 
@@ -42,13 +50,15 @@ class_name MeleeComponent
 @export var block_bans: int = 0
 
 ## 拦截者 ID 列表
-var blockers_ids: Array[int] = []
+var blocker_ids: Array[int] = []
 ## 拦截数量
 ##
 ## 拦截数量根据被拦截者的拦截成本计算
 var blocked_count: int = 0
 ## 被拦截者 ID 列表
-var blockeds_ids: Array[int] = []
+var blocked_ids: Array[int] = []
+## 是额外拦截者
+var is_extra_blocker: bool = false
 ## 原位置，用于实体返回原始位置
 var origin_pos := Vector2.ZERO
 ## 近战位置
@@ -72,53 +82,73 @@ func _draw() -> void:
 	
 	
 func _get_configuration_warnings() -> PackedStringArray:
+	var warn: PackedStringArray = []
+	
 	if not get_children():
-		return ["请至少增加一个 MeleeBase 节点或其类型的节点，否则实体无法攻击。"]
+		warn.append("请至少增加一个 MeleeBase 节点或其类型的节点，否则实体无法攻击。")
+	
+	if not is_blocked and not is_blocker:
+		warn.append("请至少勾选一个 is_blocked 或 is_blocker 属性，否则无法识别被拦截者与拦截者。")
 		
-	return []
+	return warn
 	
+
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"block_flags":
+			property.hint_string = "mask_enum:Flag"
+		"block_bans":
+			property.hint_string = "mask_enum:Flag"
+
 	
-## 重新计算并设置被拦截者数量（考虑拦截代价）
-func reset_blocked_count() -> void:
-	blocked_count = 0
+## 绑定拦截关系
+func bind_melee_relations(target: Entity, e: Entity) -> void: 
+	var t_melee_c: MeleeComponent = target.get_node_or_null(C.CN_MELEE)
 	
-	for id: int in blockeds_ids:
-		var blocked: Entity = EntityMgr.get_entity_by_id(id)
-		if not U.is_valid_entity(blocked):
-			continue
-			
-		var b_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
-			
-		blocked_count += b_melee_c.block_cost
+	t_melee_c.blocker_ids.append(e.id)
+	blocked_ids.append(target.id)
+	blocked_count += t_melee_c.block_cost
 	
 
 ## 解除拦截关系
 func unbind_melee_relations(erase_id: int) -> void:
 	if is_blocker:
-		for blocked_id: int in blockeds_ids:
+		for blocked_id: int in blocked_ids:
 			var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
 			var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
-			blocked_melee_c.blockers_ids.erase(erase_id)
-	else:
-		for blocker_id: int in blockers_ids:
+			blocked_melee_c.blocker_ids.erase(erase_id)
+			
+		blocked_ids.clear()
+		is_extra_blocker = false
+	elif is_blocked:
+		for blocker_id: int in blocker_ids:
 			var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
 			var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
-			blocker_melee_c.blockeds_ids.erase(erase_id)
-
+			blocker_melee_c.blocked_ids.erase(erase_id)
+		
+		blocker_ids.clear()
 
 ## 清理无效拦截关系
 func cleanup_melee_relations(e: Entity) -> void:
 	if is_blocker:
+		var center: Vector2 = e.global_position
+		var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
+		if rally_c:
+			var rally_center_position: Vector2 = rally_c.rally_center_position
+			
+			if rally_center_position != Vector2.ZERO:
+				center = rally_center_position
+
 		var new_blockeds_ids: Array[int] = []
 		blocked_count = 0
 		
-		for id: int in blockeds_ids:
+		for id: int in blocked_ids:
 			var blocked: Entity = EntityMgr.get_entity_by_id(id)
 			if not U.is_valid_entity(blocked) :
 				continue 
 				
 			if not U.is_in_ring(
-					e.global_position, blocked.global_position, block_min_range, block_max_range
+					center, blocked.global_position, block_min_range, block_max_range
 				):
 				continue
 				
@@ -127,23 +157,15 @@ func cleanup_melee_relations(e: Entity) -> void:
 			new_blockeds_ids.append(id)
 			blocked_count += b_melee_c.block_cost
 			
-		blockeds_ids = new_blockeds_ids
-	else:
+		blocked_ids = new_blockeds_ids
+	elif is_blocked:
 		var new_blockers_ids: Array[int] = []
 		
-		for id: int in blockers_ids:
+		for id: int in blocker_ids:
 			var blocker: Entity = EntityMgr.get_entity_by_id(id)
 			if not U.is_valid_entity(blocker):
 				continue 
 				
 			new_blockers_ids.append(id)
 			
-		blockers_ids = new_blockers_ids
-
-
-func _validate_property(property: Dictionary) -> void:
-	match property.name:
-		"block_flags":
-			property.hint_string = "mask_enum:Flag"
-		"block_bans":
-			property.hint_string = "mask_enum:Flag"
+		blocker_ids = new_blockers_ids

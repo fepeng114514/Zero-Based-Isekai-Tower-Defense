@@ -17,9 +17,9 @@ class_name BarrackComponent
 		rally_max_range = value
 		queue_redraw()
 ## 集结点位置
-@export var rally_pos := Vector2.ZERO:
+@export var rally_center_position := Vector2.ZERO:
 	set(value):
-		rally_pos = value
+		rally_center_position = value
 		queue_redraw()
 ## 集结点半径
 @export var rally_radius: float = 30
@@ -78,7 +78,7 @@ func _draw() -> void:
 	)
 	
 	draw_circle(
-		rally_pos,
+		rally_center_position,
 		9,
 		Color(0.486, 0.294, 1.0, 1.0), 
 		true
@@ -91,18 +91,22 @@ func _draw() -> void:
 	)
 
 
-func new_rally_position(
-		pos: Vector2, 
+func new_rally_center_position(
+		center_position: Vector2, 
 		is_force: bool = false
 	) -> void:
-	rally_pos = pos
+	rally_center_position = center_position
 	
 	for i: int in soldier_group.get_child_count():
 		var s: Entity = soldier_group.get_child(i)
 		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
-		var formation_position: Vector2 = to_formation_position(pos, max_soldiers, i)
-		s_rally_c.new_rally_position(formation_position, is_force)
-
+		var formation_position: Vector2 = to_formation_position(rally_center_position, max_soldiers, i)
+		s_rally_c.new_rally_position(formation_position, is_force, rally_center_position)
+		
+		var melee_c: MeleeComponent = s.get_node_or_null(C.CN_MELEE)
+		if melee_c:
+			melee_c.origin_pos = formation_position
+	
 
 ## 将位置转换为阵型位置
 func to_formation_position(pos: Vector2, count: int, idx: int) -> Vector2:

@@ -193,49 +193,49 @@ idle_animation = SubResource("Resource_gmpev")
 position = Vector2(1036, 748)
 
 [node name="TowerComponent" parent="World/TowerHolder" index="1" unique_id=286705593]
-default_rally_pos = Vector2(-183.06, 0)
+default_rally_center_local_pos = Vector2(-183.06, 0)
 
 [node name="TowerHolder2" parent="World" unique_id=438887793 instance=ExtResource("35_hvllt")]
 position = Vector2(1032, 894)
 
 [node name="TowerComponent" parent="World/TowerHolder2" index="1" unique_id=286705593]
-default_rally_pos = Vector2(-157.59, 61.74)
+default_rally_center_local_pos = Vector2(-157.59, 61.74)
 
 [node name="TowerHolder3" parent="World" unique_id=1343523794 instance=ExtResource("35_hvllt")]
 position = Vector2(1218, 889)
 
 [node name="TowerComponent" parent="World/TowerHolder3" index="1" unique_id=286705593]
-default_rally_pos = Vector2(-0.81, 130.77)
+default_rally_center_local_pos = Vector2(-0.81, 130.77)
 
 [node name="TowerHolder4" parent="World" unique_id=1276960137 instance=ExtResource("35_hvllt")]
 position = Vector2(1365, 1112)
 
 [node name="TowerComponent" parent="World/TowerHolder4" index="1" unique_id=286705593]
-default_rally_pos = Vector2(-55.71, -114.48)
+default_rally_center_local_pos = Vector2(-55.71, -114.48)
 
 [node name="TowerHolder5" parent="World" unique_id=1022913075 instance=ExtResource("35_hvllt")]
 position = Vector2(1549, 914)
 
 [node name="TowerComponent" parent="World/TowerHolder5" index="1" unique_id=286705593]
-default_rally_pos = Vector2(-71.64, 120.42)
+default_rally_center_local_pos = Vector2(-71.64, 120.42)
 
 [node name="TowerHolder6" parent="World" unique_id=960081911 instance=ExtResource("35_hvllt")]
 position = Vector2(1841, 1060)
 
 [node name="TowerComponent" parent="World/TowerHolder6" index="1" unique_id=286705593]
-default_rally_pos = Vector2(-115.2, -89.1)
+default_rally_center_local_pos = Vector2(-115.2, -89.1)
 
 [node name="TowerHolder7" parent="World" unique_id=50005341 instance=ExtResource("35_hvllt")]
 position = Vector2(1015, 454)
 
 [node name="TowerComponent" parent="World/TowerHolder7" index="1" unique_id=286705593]
-default_rally_pos = Vector2(101.61, 120.6)
+default_rally_center_local_pos = Vector2(101.61, 120.6)
 
 [node name="TowerHolder8" parent="World" unique_id=1736562095 instance=ExtResource("35_hvllt")]
 position = Vector2(850, 515)
 
 [node name="TowerComponent" parent="World/TowerHolder8" index="1" unique_id=286705593]
-default_rally_pos = Vector2(82.004, 140.709)
+default_rally_center_local_pos = Vector2(82.004, 140.709)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true

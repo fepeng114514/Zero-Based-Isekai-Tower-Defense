@@ -17,9 +17,9 @@ class_name TowerComponent
 ## 出售比例（%）
 @export var sell_ratio: float = 0.5
 ## 默认集结点
-@export var default_rally_pos := Vector2.ZERO:
+@export var default_rally_center_local_pos := Vector2.ZERO:
 	set(value):
-		default_rally_pos = value
+		default_rally_center_local_pos = value
 		queue_redraw()
 
 ## 总价格
@@ -35,7 +35,7 @@ var ts: float = 0
 
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
-		"default_rally_pos":
+		"default_rally_center_local_pos":
 			property.hint_string = "vector_picker"
 
 
@@ -51,13 +51,13 @@ func _draw() -> void:
 	)
 	
 	draw_circle(
-		default_rally_pos,
+		default_rally_center_local_pos,
 		9,
 		Color.BLUE, 
 		true
 	)
 	draw_line(
-		default_rally_pos, 
+		default_rally_center_local_pos, 
 		to_local(parent.global_position), 
 		Color.BLUE, 
 		2
