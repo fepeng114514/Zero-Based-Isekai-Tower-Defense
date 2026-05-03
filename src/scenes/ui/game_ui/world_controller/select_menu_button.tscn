@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://btvuol38n5gp"]
+
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="1_8k4f0"]
+[ext_resource type="Script" uid="uid://178r1p0k26uo" path="res://scenes/ui/game_ui/world_controller/select_menu_button.gd" id="1_8tbqb"]
+[ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_textures/main_icons_0004.tres" id="2_5xrme"]
+
+[node name="SelectMenuItemButton" type="Button" unique_id=677417909]
+offset_right = 113.0
+offset_bottom = 102.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("1_8k4f0")
+icon = ExtResource("2_5xrme")
+flat = true
+icon_alignment = 1
+script = ExtResource("1_8tbqb")

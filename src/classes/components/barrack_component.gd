@@ -40,11 +40,6 @@ class_name BarrackComponent
 @export var delay: float = 0
 ## 生成士兵播放的音效
 @export var sfx: AudioData = null
-## 范围显示偏移
-@export var show_range_offset := Vector2.ZERO:
-	set(value):
-		show_range_offset = value
-		queue_redraw()
 
 ## 时间戳（秒）
 var ts: float = 0
@@ -63,14 +58,14 @@ func _draw() -> void:
 		return
 	
 	draw_circle(
-		show_range_offset, 
+		position, 
 		rally_min_range,
 		Color(0.448, 0.506, 0.927, 0.604), 
 		false,
 		6
 	)
 	draw_circle(
-		show_range_offset, 
+		position, 
 		rally_max_range,
 		Color(0.448, 0.506, 0.927, 0.604), 
 		false,
@@ -114,7 +109,7 @@ func to_formation_position(pos: Vector2, count: int, idx: int) -> Vector2:
 		return pos
 		
 	var a: float = 2 * PI / count
-	var angle: float = (idx - 1) * a - PI / 2
+	var angle: float = (idx - 1) * a - C.HALF_PI
 	
 	return U.point_on_circle(
 		pos, rally_radius, angle

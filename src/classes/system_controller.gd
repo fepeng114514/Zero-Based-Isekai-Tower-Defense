@@ -1,5 +1,4 @@
 extends Node
-class_name SystemController
 ## 系统列表类
 
 

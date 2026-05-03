@@ -26,9 +26,15 @@ class_name MeleeComponent
 		is_blocker = value
 		update_configuration_warnings()
 ## 拦截最小范围
-@export var block_min_range: float = 0
+@export var block_min_range: float = 0:
+	set(value):
+		block_min_range = value
+		queue_redraw()
 ## 拦截最大范围
-@export var block_max_range: float = 100
+@export var block_max_range: float = 100:
+	set(value):
+		block_max_range = value
+		queue_redraw()
 ## 搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 最大被拦截者数量
@@ -79,6 +85,20 @@ func _draw() -> void:
 		Color.GREEN, 
 		true
 	)
+	draw_circle(
+		position, 
+		block_max_range,
+		Color(0.448, 0.506, 0.927, 0.604), 
+		false,
+		6
+	)
+	draw_circle(
+		position, 
+		block_min_range,
+		Color(0.448, 0.506, 0.927, 0.604), 
+		false,
+		6
+	)
 	
 	
 func _get_configuration_warnings() -> PackedStringArray:
@@ -127,6 +147,7 @@ func unbind_melee_relations(erase_id: int) -> void:
 			blocker_melee_c.blocked_ids.erase(erase_id)
 		
 		blocker_ids.clear()
+
 
 ## 清理无效拦截关系
 func cleanup_melee_relations(e: Entity) -> void:

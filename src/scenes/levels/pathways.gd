@@ -1,5 +1,4 @@
-extends Node
-class_name PathwayController
+extends Control
 ## 路径管理器
 ##
 ## 管理路径子节点 [Pathway]

@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://hcte1ndvirps"]
+
+[ext_resource type="Script" uid="uid://j7j5n4bat6f8" path="res://classes/system_controller.gd" id="1_fdo0a"]
+[ext_resource type="Script" uid="uid://b5tuol6j7i8xv" path="res://classes/systems/grouping_system.gd" id="2_kitie"]
+[ext_resource type="Script" uid="uid://b0hmg8xtycc53" path="res://classes/systems/time_system.gd" id="3_k2a6a"]
+[ext_resource type="Script" uid="uid://doj2bbl12wisd" path="res://classes/systems/health_system.gd" id="4_lmf5y"]
+[ext_resource type="Script" uid="uid://deipl5q4eg7vg" path="res://classes/systems/damage_system.gd" id="5_41cih"]
+[ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://classes/systems/entity_system.gd" id="6_7h3fx"]
+[ext_resource type="Script" uid="uid://bhueujkwgexkx" path="res://classes/systems/aura_system.gd" id="7_2kk3o"]
+[ext_resource type="Script" uid="uid://cbcje4j81kvmp" path="res://classes/systems/modifier_system.gd" id="8_vsn67"]
+[ext_resource type="Script" uid="uid://bu47hvw5yociy" path="res://classes/systems/tower_system.gd" id="9_1ruj1"]
+[ext_resource type="Script" uid="uid://ch7tw5a5qflj7" path="res://classes/systems/bullet_system.gd" id="10_xx71n"]
+[ext_resource type="Script" uid="uid://dwbh7vjakpq82" path="res://classes/systems/sprite_system.gd" id="11_i47jy"]
+[ext_resource type="Script" uid="uid://cbwfqyuju4hpn" path="res://classes/systems/fx_system.gd" id="12_5tk3r"]
+[ext_resource type="Script" uid="uid://7jx5jvy2sm5c" path="res://classes/systems/behavior_system.gd" id="13_t6uwa"]
+[ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/systems/behaviors/rally_behavior.gd" id="14_80xc4"]
+[ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/systems/behaviors/barrack_behavior.gd" id="15_v2b0g"]
+[ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behaviors/melee_behavior.gd" id="16_iiuyt"]
+[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behaviors/ranged_behavior.gd" id="17_rnt2e"]
+[ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/systems/behaviors/nav_path_behavior.gd" id="18_oeoj4"]
+[ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behaviors/spawner_behavior.gd" id="19_xth6e"]
+
+[node name="Systems" type="Node" unique_id=48795228]
+script = ExtResource("1_fdo0a")
+metadata/_custom_type_script = "uid://j7j5n4bat6f8"
+
+[node name="GroupingSystem" type="Node" parent="." unique_id=351193381]
+script = ExtResource("2_kitie")
+metadata/_custom_type_script = "uid://b5tuol6j7i8xv"
+
+[node name="TimeSystem" type="Node" parent="." unique_id=403895044]
+script = ExtResource("3_k2a6a")
+metadata/_custom_type_script = "uid://b0hmg8xtycc53"
+
+[node name="HealthSystem" type="Node" parent="." unique_id=386688030]
+script = ExtResource("4_lmf5y")
+metadata/_custom_type_script = "uid://doj2bbl12wisd"
+
+[node name="DamageSystem" type="Node" parent="." unique_id=513620388]
+script = ExtResource("5_41cih")
+metadata/_custom_type_script = "uid://deipl5q4eg7vg"
+
+[node name="EntitySystem" type="Node" parent="." unique_id=844543215]
+script = ExtResource("6_7h3fx")
+metadata/_custom_type_script = "uid://cia8mo148t6pb"
+
+[node name="AuraSystem" type="Node" parent="." unique_id=252822561]
+script = ExtResource("7_2kk3o")
+metadata/_custom_type_script = "uid://bhueujkwgexkx"
+
+[node name="ModifierSystem" type="Node" parent="." unique_id=488084895]
+script = ExtResource("8_vsn67")
+metadata/_custom_type_script = "uid://cbcje4j81kvmp"
+
+[node name="TowerSystem" type="Node" parent="." unique_id=1631838999]
+script = ExtResource("9_1ruj1")
+metadata/_custom_type_script = "uid://bu47hvw5yociy"
+
+[node name="BulletSystem" type="Node" parent="." unique_id=1224848662]
+script = ExtResource("10_xx71n")
+metadata/_custom_type_script = "uid://ch7tw5a5qflj7"
+
+[node name="SpriteSystem" type="Node" parent="." unique_id=542397139]
+script = ExtResource("11_i47jy")
+metadata/_custom_type_script = "uid://dwbh7vjakpq82"
+
+[node name="FXSystem" type="Node" parent="." unique_id=1121498593]
+script = ExtResource("12_5tk3r")
+metadata/_custom_type_script = "uid://cbwfqyuju4hpn"
+
+[node name="BehaviorSystem" type="Node" parent="." unique_id=1681972103]
+script = ExtResource("13_t6uwa")
+metadata/_custom_type_script = "uid://7jx5jvy2sm5c"
+
+[node name="RallyBehavior" type="Node" parent="BehaviorSystem" unique_id=217452558]
+script = ExtResource("14_80xc4")
+metadata/_custom_type_script = "uid://balgrru65agvq"
+
+[node name="BarrackBehavior" type="Node" parent="BehaviorSystem" unique_id=132430041]
+script = ExtResource("15_v2b0g")
+metadata/_custom_type_script = "uid://do5xlu5110cxi"
+
+[node name="MeleeBehavior" type="Node" parent="BehaviorSystem" unique_id=727647648]
+script = ExtResource("16_iiuyt")
+metadata/_custom_type_script = "uid://ctpsivwplsj6l"
+
+[node name="RangedBehavior" type="Node" parent="BehaviorSystem" unique_id=1425846983]
+script = ExtResource("17_rnt2e")
+metadata/_custom_type_script = "uid://c5w8px2jpopql"
+
+[node name="NavPathBehavior" type="Node" parent="BehaviorSystem" unique_id=1973832408]
+script = ExtResource("18_oeoj4")
+metadata/_custom_type_script = "uid://dlkq6p4daka13"
+
+[node name="SpawnerBehavior" type="Node" parent="BehaviorSystem" unique_id=71576994]
+script = ExtResource("19_xth6e")
+metadata/_custom_type_script = "uid://o0lkma3r7l41"

@@ -23,7 +23,6 @@ func _on_skip(e: Entity) -> void:
 	if not melee_c:
 		return
 	
-	melee_c.cleanup_melee_relations(e)
 	melee_c.unbind_melee_relations(e.id)
 	if melee_c.is_blocker:
 		melee_c.blocked_ids.clear()

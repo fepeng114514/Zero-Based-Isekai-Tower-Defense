@@ -75,14 +75,3 @@ func _on_update(_delta: float) -> void:
 	global_position = U.position_in_linear(
 		bullet_c.velocity, bullet_c.from, TimeMgr.get_time_by_ts(bullet_c.ts)
 	)
-
-
-func _on_bullet_calculate_damage_factor(
-		target: Entity, _bullet_c: BulletComponent
-	) -> float:
-	return U.dist_factor_inside_radius(
-		global_position, 
-		target.global_position, 
-		bullet_c.damage_max_radius,
-		bullet_c.damage_min_radius
-	)

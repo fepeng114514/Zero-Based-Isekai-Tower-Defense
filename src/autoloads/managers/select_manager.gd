@@ -88,22 +88,21 @@ func _on_deselect() -> void:
 				var direction_to: Vector2 = selected_entity.global_position.direction_to(
 						InputMgr.mouse_global_position
 					) 
-
+				
+				var rally_center_position := Vector2.ZERO
 				if to_mouse_dist >= barrack_c.rally_max_range:
-					var rally_center_position: Vector2 = (
+					rally_center_position = (
 						direction_to
 						* barrack_c.rally_max_range 
 						+ selected_entity.global_position
 					)
-					
-					barrack_c.new_rally_center_position(rally_center_position, true)
 				else:
-					var rally_center_position: Vector2 = (
+					rally_center_position = (
 						direction_to
 						* barrack_c.rally_min_range 
 						+ selected_entity.global_position
 					)
 					
-					barrack_c.new_rally_center_position(rally_center_position, true)
+				barrack_c.new_rally_center_position(rally_center_position, true)
 
 	select_mode = C.SelectMode.NONE

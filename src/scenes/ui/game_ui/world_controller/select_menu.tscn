@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://co5ehekpd71r8"]
 
-[ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://scenes/ui/game_ui/select_menu/select_menu.gd" id="1_co3c8"]
-[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/ui/game_ui/select_menu/select_menu_button.tscn" id="2_ipvfw"]
+[ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://scenes/ui/game_ui/world_controller/select_menu.gd" id="1_co3c8"]
+[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/ui/game_ui/world_controller/select_menu_button.tscn" id="2_ipvfw"]
 [ext_resource type="Texture2D" uid="uid://pdal2ubobvg3" path="res://resources/atlas_textures/gui_ring.tres" id="2_qqvmo"]
 [ext_resource type="Script" uid="uid://c2igk5xsppdxf" path="res://classes/resources/select_menu/select_menu_group.gd" id="2_yaomf"]
 [ext_resource type="Script" uid="uid://i6rnyxwnxl8h" path="res://classes/resources/select_menu/select_menu_config.gd" id="3_1ivvh"]
-[ext_resource type="PackedScene" uid="uid://cmb0wne3u8ent" path="res://scenes/ui/game_ui/select_menu/place_holder.tscn" id="3_co3c8"]
-[ext_resource type="Script" uid="uid://20gor2v745du" path="res://scenes/ui/game_ui/select_menu/place_holders.gd" id="3_qqvmo"]
+[ext_resource type="PackedScene" uid="uid://cmb0wne3u8ent" path="res://scenes/ui/game_ui/world_controller/place_holder.tscn" id="3_co3c8"]
+[ext_resource type="Script" uid="uid://20gor2v745du" path="res://scenes/ui/game_ui/world_controller/place_holders.gd" id="3_qqvmo"]
 [ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_button_data.gd" id="3_tbaii"]
 [ext_resource type="Texture2D" uid="uid://bk4vjfex0yago" path="res://resources/atlas_textures/main_icons_0001.tres" id="4_vyhis"]
 [ext_resource type="Texture2D" uid="uid://cnygsu62w1cxt" path="res://resources/atlas_textures/main_icons_0003.tres" id="5_w7f45"]
@@ -215,24 +215,23 @@ script = ExtResource("3_qqvmo")
 
 [node name="PlaceHolder" parent="Ring/PlaceHolderController" unique_id=1573593846 instance=ExtResource("3_co3c8")]
 layout_mode = 1
-offset_left = -24.999992
-offset_top = -15.999996
-offset_right = 84.00001
-offset_bottom = 82.0
+offset_left = -4.9999924
+offset_right = 104.00001
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder2" parent="Ring/PlaceHolderController" unique_id=2048445007 instance=ExtResource("3_co3c8")]
 layout_mode = 1
 offset_left = 84.0
-offset_top = -32.000004
+offset_top = -37.000004
 offset_right = 193.0
-offset_bottom = 66.0
+offset_bottom = 60.999996
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder3" parent="Ring/PlaceHolderController" unique_id=1468267262 instance=ExtResource("3_co3c8")]
 layout_mode = 1
-offset_left = 189.0
-offset_top = -16.0
-offset_right = 298.0
-offset_bottom = 82.0
+offset_left = 171.0
+offset_right = 280.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder4" parent="Ring/PlaceHolderController" unique_id=1342193981 instance=ExtResource("3_co3c8")]
 layout_mode = 1
@@ -240,13 +239,15 @@ offset_left = 206.0
 offset_top = 87.0
 offset_right = 315.0
 offset_bottom = 185.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder5" parent="Ring/PlaceHolderController" unique_id=71226205 instance=ExtResource("3_co3c8")]
 layout_mode = 1
-offset_left = 189.0
-offset_top = 186.0
-offset_right = 298.0
-offset_bottom = 284.0
+offset_left = 179.0
+offset_top = 179.0
+offset_right = 288.0
+offset_bottom = 277.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder6" parent="Ring/PlaceHolderController" unique_id=653747198 instance=ExtResource("3_co3c8")]
 layout_mode = 1
@@ -254,13 +255,15 @@ offset_left = 84.0
 offset_top = 211.0
 offset_right = 193.0
 offset_bottom = 309.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder7" parent="Ring/PlaceHolderController" unique_id=74992892 instance=ExtResource("3_co3c8")]
 layout_mode = 1
-offset_left = -24.999992
-offset_top = 186.0
-offset_right = 84.00001
-offset_bottom = 284.0
+offset_left = -12.999992
+offset_top = 179.0
+offset_right = 96.00001
+offset_bottom = 277.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder8" parent="Ring/PlaceHolderController" unique_id=1682614831 instance=ExtResource("3_co3c8")]
 layout_mode = 1
@@ -268,3 +271,4 @@ offset_left = -40.999992
 offset_top = 87.0
 offset_right = 68.00001
 offset_bottom = 185.0
+pivot_offset_ratio = Vector2(0.5, 0.5)

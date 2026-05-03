@@ -173,10 +173,6 @@ func _on_bullet_hit(target: Entity, bullet_c: BulletComponent) -> void: pass
 func _on_bullet_miss(bullet_c: BulletComponent) -> void: pass
 
 
-## 计算子弹伤害系数时调用，返回值为伤害系数
-func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponent) -> float: return 1.0
-
-
 ## 实体被选择时调用
 func _on_select() -> void: pass
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmb0wne3u8ent"]
 
-[ext_resource type="Script" uid="uid://c1w456y0cgk45" path="res://scenes/ui/game_ui/select_menu/place_holder.gd" id="2_n7tvw"]
+[ext_resource type="Script" uid="uid://c1w456y0cgk45" path="res://scenes/ui/game_ui/world_controller/place_holder.gd" id="2_n7tvw"]
 [ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_textures/main_icons_0004.tres" id="2_p7yov"]
 
 [node name="PlaceHolder" type="TextureRect" unique_id=1573593846 node_paths=PackedStringArray("lable")]

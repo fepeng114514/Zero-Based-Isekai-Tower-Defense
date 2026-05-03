@@ -64,6 +64,7 @@ func _show(e: Entity) -> void:
 		var button: SelectMenuButton = select_menu_button_scene.instantiate()
 		button.select_menu = self
 		button.position = place_holder_controller.list[button_data.place]
+		button.pivot_offset_ratio = Vector2(0.5, 0.5)
 		button.selected_entity = e
 		button.icon = button_data.icon
 		button.type = button_type

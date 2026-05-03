@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b7grxp4wq0api"]
 
-[ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://scenes/ui/game_ui/info_circle.tscn" id="1_kha13"]
-[ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://scenes/ui/game_ui/select_menu/select_menu.tscn" id="2_fwq2g"]
+[ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://scenes/ui/game_ui/world_controller/info_circle.tscn" id="1_kha13"]
+[ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://scenes/ui/game_ui/world_controller/select_menu.tscn" id="2_fwq2g"]
 
-[node name="WorldControl" type="Control" unique_id=803235356]
+[node name="WorldController" type="Control" unique_id=803235356]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

@@ -7,16 +7,14 @@ class_name RangedBase
 
 
 ## 最小攻击距离
-@export var min_range: float = 0
+@export var min_range: float = 0:
+	set(value):
+		min_range = value
+		queue_redraw()
 ## 最大攻击距离
 @export var max_range: float = 300:
 	set(value):
 		max_range = value
-		queue_redraw()
-## 范围显示偏移
-@export var show_range_offset := Vector2.ZERO:
-	set(value):
-		show_range_offset = value
 		queue_redraw()
 ## 目标搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
@@ -62,14 +60,14 @@ func _draw() -> void:
 		)
 
 	draw_circle(
-		show_range_offset, 
+		position, 
 		max_range,
 		Color(0.401, 0.865, 0.386, 0.604), 
 		false,
 		6
 	)
 	draw_circle(
-		show_range_offset, 
+		position, 
 		min_range,
 		Color(0.401, 0.865, 0.386, 0.604), 
 		false,

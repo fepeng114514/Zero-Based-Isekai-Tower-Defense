@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ca75dg47m1q1a"]
 
-[ext_resource type="Script" uid="uid://cu2n4eqm2rpbd" path="res://scenes/ui/game_ui/info_circle.gd" id="1_dgwu4"]
+[ext_resource type="Script" uid="uid://cu2n4eqm2rpbd" path="res://scenes/ui/game_ui/world_controller/info_circle.gd" id="1_dgwu4"]
 [ext_resource type="Texture2D" uid="uid://dy4dphv67pyr4" path="res://resources/atlas_textures/range_circle.tres" id="2_2e158"]
 [ext_resource type="Texture2D" uid="uid://cjwth0l5e7mw2" path="res://resources/atlas_textures/rally_circle.tres" id="3_sxjir"]
 
@@ -29,7 +29,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(200, 200)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("2_2e158")
 
@@ -46,7 +46,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(200, 200)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("2_2e158")
 
@@ -63,7 +63,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(200, 200)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -80,7 +80,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(200, 200)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -97,7 +97,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(200, 200)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -114,6 +114,6 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(200, 200)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
