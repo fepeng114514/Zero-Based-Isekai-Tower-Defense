@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dy522da6n6jb1"]
+
+[ext_resource type="PackedScene" uid="uid://dgdv4ixqwp3ot" path="res://scenes/entities/towers/tower_mage.tscn" id="1_4dbkk"]
+[ext_resource type="SpriteFrames" uid="uid://bbxrjrb203tjr" path="res://resources/sprite_frames/tower_mage_lvl2.tres" id="2_t06wg"]
+[ext_resource type="PackedScene" uid="uid://dy5nu6xryehuk" path="res://scenes/entities/towers/tower_mage_lvl_2_shooter.tscn" id="3_6eiy2"]
+
+[node name="TowerMageLvl2" unique_id=88348674 instance=ExtResource("1_4dbkk")]
+scene_name = "tower_mage_lvl_2"
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=793888686]
+sprite_frames = ExtResource("2_t06wg")
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 160.0
+
+[node name="TowerMageLvl2Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("3_6eiy2")]
+position = Vector2(0, -2)
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_rect = Rect2(-60.545, -85.265, 126.87, 110.86)

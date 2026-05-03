@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://d25hnem6unbul"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_ijd73"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_gqtod"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="3_vv5c4"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="4_6s8cc"]
+[ext_resource type="Texture2D" uid="uid://yopsxiuosvod" path="res://resources/atlas_textures/arrow.tres" id="5_5gwj3"]
+
+[sub_resource type="Resource" id="Resource_ycjcd"]
+script = ExtResource("2_gqtod")
+left_right = &"idle_left_right"
+
+[sub_resource type="Resource" id="Resource_ejip2"]
+script = ExtResource("2_gqtod")
+left_right = &"flying"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[node name="TowerArcherBullet" type="Node2D" unique_id=43521632]
+script = ExtResource("1_ijd73")
+scene_name = "tower_archer_bullet"
+idle_animation = SubResource("Resource_ycjcd")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="BulletComponent" type="Node" parent="." unique_id=797543197]
+script = ExtResource("3_vv5c4")
+flight_trajectory = 1
+flight_total_time = 1.0
+flight_animation = SubResource("Resource_ejip2")
+metadata/_custom_type_script = "uid://haoljvofy74e"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1158787809]
+script = ExtResource("4_6s8cc")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1900013004]
+texture = ExtResource("5_5gwj3")

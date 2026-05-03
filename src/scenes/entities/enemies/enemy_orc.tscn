@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://drgcomkmcowby"]
+
+[ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemies/enemy.tscn" id="1_wlnjt"]
+[ext_resource type="SpriteFrames" uid="uid://l8jfd7j0becy" path="res://resources/sprite_frames/enemy_orc.tres" id="2_nquq8"]
+
+[node name="EnemyOrc" unique_id=71433118 instance=ExtResource("1_wlnjt")]
+scene_name = "enemy_orc"
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
+position = Vector2(0, -25)
+sprite_frames = ExtResource("2_nquq8")
+
+[node name="HealthComponent" parent="." index="1" unique_id=1435825868]
+hp_max = 80.0
+physical_armor = 30
+death_gold = 9.0
+
+[node name="HealthBar" parent="HealthComponent" index="0" unique_id=1048256100]
+offset_top = -50.999996
+offset_bottom = -45.999996
+scale = Vector2(1.12, 1.1)
+
+[node name="NavPathComponent" parent="." index="2" unique_id=655679987]
+speed = 66.0
+
+[node name="MeleeComponent" parent="." index="3" unique_id=768145759]
+melee_pos_offset = Vector2(35.265, 0)
+
+[node name="MeleeAttack" parent="MeleeComponent" index="0" unique_id=1304104648]
+damage_min = 4.0
+damage_max = 8.0
+
+[node name="UIComponent" parent="." index="4" unique_id=673866706]
+select_rect = Rect2(-20.88, -44.235, 41.88, 45.37)

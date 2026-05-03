@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cb2m3hbh7yyxl"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_3kgdc"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_8g6nx"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_i3jkb"]
+[ext_resource type="SpriteFrames" uid="uid://dt35d8kjlji8x" path="res://resources/sprite_frames/tower_mage_shooter.tres" id="3_8g6nx"]
+[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/ranged_component.gd" id="4_nhbol"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/ranged_attack.gd" id="5_vssey"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_data.gd" id="7_2m7r5"]
+
+[sub_resource type="Resource" id="Resource_i3jkb"]
+script = ExtResource("2_8g6nx")
+up = &"idle_up"
+down = &"idle_down"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_8g6nx"]
+script = ExtResource("2_8g6nx")
+up = &"ranged_up"
+down = &"ranged_down"
+
+[sub_resource type="Resource" id="Resource_45avb"]
+script = ExtResource("7_2m7r5")
+up = Vector2(12.195, -30.935)
+down = Vector2(-13.38, -31.645)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[node name="TowerMageLvl1Shooter" type="Node2D" unique_id=1442245649]
+script = ExtResource("1_3kgdc")
+scene_name = "tower_mage_lvl_1_shooter"
+idle_animation = SubResource("Resource_i3jkb")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1069558628]
+script = ExtResource("2_i3jkb")
+sync_source = true
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("3_8g6nx")
+animation = &"ranged_down"
+
+[node name="RangedComponent" type="Node2D" parent="." unique_id=1268978688]
+script = ExtResource("4_nhbol")
+metadata/_custom_type_script = "uid://7hja048qjkj0"
+
+[node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=14077948]
+script = ExtResource("5_vssey")
+animation = SubResource("Resource_8g6nx")
+cooldown = 1.5
+bullet = "tower_mage_bullet"
+bullet_offsets = SubResource("Resource_45avb")
+bullet_spawn_mode = 350
+delay = 0.3
+with_melee = true
+damage_min = 9.0
+damage_max = 17.0
+damage_type = 2
+metadata/_custom_type_script = "uid://covaxdshxnvkn"

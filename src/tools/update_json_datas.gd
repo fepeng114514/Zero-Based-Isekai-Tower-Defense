@@ -1,31 +1,38 @@
 @tool
 extends EditorScript
-#class_name UpdateJsonDatas
-## 更新 "res://datas/" 目录的 JSON
+
 
 const DIR_ENTITY_SCENES: String = "res://scenes/entities/"
 
 
 func _run() -> void:
-	_updata_entity_scene_paths()
+	_update_entity_scene_paths()
 	
 
 ## 更新 entity_scene_paths
-func _updata_entity_scene_paths() -> void:
-	var dir_entity_scenes: DirAccess = U.open_directory(
-		DIR_ENTITY_SCENES
-	)
-	var entity_scene_paths: Dictionary[String, String] = {}
+func _update_entity_scene_paths() -> void:
+	var entity_scene_paths: Array[String] = []
 	
-	for scene_file: String in dir_entity_scenes.get_files():		
-		if scene_file.get_extension() != "tscn":
-			continue
-			
-		var full_path: String = DIR_ENTITY_SCENES.path_join(scene_file)
-		entity_scene_paths[scene_file.get_basename()] = full_path
-		Log.verbose("处理 %s" % full_path)
+	_process_scene_dir(DIR_ENTITY_SCENES, entity_scene_paths)
+	
+	var entity_scene_dir: DirAccess = U.open_directory(DIR_ENTITY_SCENES)
+	for dir_name: String in entity_scene_dir.get_directories():
+		var dir_path: String = DIR_ENTITY_SCENES.path_join(dir_name)
+		_process_scene_dir(dir_path, entity_scene_paths)
 			
 	U.save_json(
 		entity_scene_paths, 
-		"res://datas/%s.json" % "entity_scenes"
+		DIR_ENTITY_SCENES.path_join("entity_scene_paths.json")
 	)
+	
+	
+func _process_scene_dir(dir_path: String, entity_scene_paths: Array[String]) -> void:
+	var dir: DirAccess = U.open_directory(dir_path)
+	
+	for file: String in dir.get_files():		
+		if file.get_extension() != "tscn":
+			continue
+			
+		var full_path: String = dir_path.path_join(file)
+		entity_scene_paths.append(full_path)
+		Log.verbose("处理 %s" % full_path)

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dgdv4ixqwp3ot"]
+
+[ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/towers/tower.tscn" id="1_og8n7"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_ewl0l"]
+[ext_resource type="Script" uid="uid://qu0synx4c136" path="res://resources/classes/sync_animations_data.gd" id="3_t83il"]
+[ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames/tower_mage_lvl1.tres" id="4_as0po"]
+
+[sub_resource type="Resource" id="Resource_t83il"]
+script = ExtResource("2_ewl0l")
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_fel6d"]
+script = ExtResource("2_ewl0l")
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_13cep"]
+script = ExtResource("2_ewl0l")
+any = &"ranged"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_lvkar"]
+script = ExtResource("3_t83il")
+idle = SubResource("Resource_fel6d")
+ranged = SubResource("Resource_13cep")
+metadata/_custom_type_script = "uid://qu0synx4c136"
+
+[node name="TowerMage" unique_id=88348674 instance=ExtResource("1_og8n7")]
+scene_name = "tower_mage"
+idle_animation = SubResource("Resource_t83il")
+
+[node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
+position = Vector2(-1, -27)
+sync_animations = SubResource("Resource_lvkar")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=793888686]
+sprite_frames = ExtResource("4_as0po")
+animation = &"ranged"
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+tower_type = 3
+show_range_offset = Vector2(0, -4.45)
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_rect = Rect2(-53.405, -80.22, 111.71, 108.205)

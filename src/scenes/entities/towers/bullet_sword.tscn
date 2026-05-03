@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c6gkf0vm8qw33"]
+
+[ext_resource type="Script" uid="uid://8tx7qiiobuv0" path="res://scenes/entities/towers/bullet_sword.gd" id="1_gx4ol"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_bxukn"]
+
+[sub_resource type="Resource" id="Resource_p38qc"]
+script = ExtResource("2_bxukn")
+left_right = &"idle_left_right"
+
+[node name="BulletSword" type="Node2D" unique_id=1014526181]
+script = ExtResource("1_gx4ol")
+scene_name = "bullet_sword"
+idle_animation = SubResource("Resource_p38qc")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=2115831294]
+position = Vector2(0, 1.9073486e-06)
+rotation = 4.923574
+scale = Vector2(1, 0.6333333)
+offset = Vector2(-607, -214.73685)
+polygon = PackedVector2Array(597, 203, 606, 230, 616, 200, 606, 213.1579)

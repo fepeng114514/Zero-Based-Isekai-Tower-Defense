@@ -1,0 +1,146 @@
+extends System
+class_name ModifierSystem
+## 状态效果系统
+##
+## 处理拥有 [ModifierComponent] 状态效果组件的实体
+
+
+func _on_insert(e: Entity) -> bool:
+	if not e.get_node_or_null(C.CN_MODIFIER):
+		return true
+
+	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+
+	if not target:
+		return false
+		
+	e.global_position = target.global_position
+		
+	# 检查黑白名单
+	if not U.is_allowed_entity(e, target):
+		return false
+
+	# 检查是否被目标禁止
+	if U.is_banned(
+			target.flags,
+			e.bans, 
+		):
+		return false
+		
+	var t_has_mods_ids: Array[int] = target.has_mods_ids
+	var same_target_mods: Array[Entity] = []
+	var mod_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
+
+	mod_c.ts = TimeMgr.tick_ts
+
+	for mod_id: int in t_has_mods_ids:
+		var other_m: Entity = EntityMgr.get_entity_by_id(mod_id)
+		
+		if not other_m:
+			continue
+		
+		var other_mod_c: ModifierComponent = other_m.get_node_or_null(C.CN_MODIFIER)
+		
+		# 检查是否被其他效果禁止
+		if U.is_mutual_ban(
+				e.flags,
+				other_m.bans,
+				mod_c.mod_type,
+				other_m.mod_type_bans
+		):
+			return false
+			
+		# 检查是否被当前效果禁止
+		if U.is_mutual_ban(
+				other_m.flags,
+				e.bans,
+				other_mod_c.mod_type,
+				e.mod_type_bans
+		):
+			if mod_c.remove_banned:
+				other_m.remove_entity()
+				continue
+			
+			return false
+		
+		if other_m.scene_name == e.scene_name:
+			same_target_mods.append(other_m)
+			
+	if not same_target_mods:
+		t_has_mods_ids.append(e.id)
+		return true
+		
+	# 处理相同效果
+	# 按照等级降序排序
+	same_target_mods.sort_custom(
+		func(m1: Entity, m2: Entity) -> bool: return m1.level > m2.level
+	)
+	var min_level_mod: Entity = same_target_mods[-1]
+	var max_level_mod: Entity = same_target_mods[0]
+		
+	# 重置持续时间，优先重置等级最高的
+	if mod_c.reset_same:
+		max_level_mod.insert_ts -= TimeMgr.tick_ts
+		return false
+	# 替换，优先替换等级最低的
+	if mod_c.replace_same:
+		min_level_mod.remove_entity()
+		t_has_mods_ids.append(e.id)
+		return true
+	# 叠加持续时间，优先与最高等级叠加
+	if mod_c.overlay_duration_same:
+		max_level_mod.insert_ts -= e.duration
+		return false
+	# 叠加
+	if not mod_c.allow_same:
+		return false
+
+	t_has_mods_ids.append(e.id)
+	return true
+
+
+func _on_update(_delta: float) -> void:
+	for e: Entity in EntityMgr.get_entities_group(C.GROUP_MODIFIERS):
+		var mod_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
+		
+		# 周期效果
+		if (
+			U.is_valid_number(mod_c.cycle_time) 
+			and not TimeMgr.is_ready_time(mod_c.ts, mod_c.cycle_time)
+		):
+			return
+
+		# 最大周期数
+		if U.is_valid_number(mod_c.max_cycle) and mod_c.curren_cycle > mod_c.max_cycle:
+			e.remove_entity()
+			return
+
+		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+		
+		if mod_c.damage_min > 0 or mod_c.damage_max > 0:
+			var d := Damage.new()
+			d.target_id = target.id
+			d.source_id = e.id
+			d.source_name = e.name
+			d.value = d.get_random_value(mod_c.damage_min, mod_c.damage_max)
+			d.damage_type = mod_c.damage_type
+			d.damage_flags = mod_c.damage_flags
+			d.insert_damage()
+
+		e._on_modifier_period(target, mod_c)
+
+		mod_c.curren_cycle += 1
+		mod_c.ts = TimeMgr.tick_ts
+	
+
+func _on_remove(e: Entity) -> bool:
+	if not e.get_node_or_null(C.CN_MODIFIER):
+		return true
+	
+	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+
+	if not target:
+		return true
+
+	target.has_mods_ids.erase(e.id)
+	return true

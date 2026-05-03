@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://gwdut1ms2ouh"]
+
+[ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/towers/tower_artillery_lvl_1.tscn" id="1_mlysv"]
+[ext_resource type="SpriteFrames" uid="uid://ygj2l1qr5oj6" path="res://resources/sprite_frames/tower_artillery_lvl2_layer1.tres" id="2_r35bc"]
+[ext_resource type="SpriteFrames" uid="uid://d1xejxo0sh2rj" path="res://resources/sprite_frames/tower_artillery_lvl2_layer2.tres" id="3_ciw6x"]
+[ext_resource type="SpriteFrames" uid="uid://cs8v11x3xatam" path="res://resources/sprite_frames/tower_artillery_lvl2_layer3.tres" id="4_grby4"]
+[ext_resource type="SpriteFrames" uid="uid://c7shpdn4hqatw" path="res://resources/sprite_frames/tower_artillery_lvl2_layer4.tres" id="5_61c2u"]
+[ext_resource type="SpriteFrames" uid="uid://dqyfnoeh01r4w" path="res://resources/sprite_frames/tower_artillery_lvl2_layer5.tres" id="6_3bdla"]
+[ext_resource type="SpriteFrames" uid="uid://hpvtev0hwbxa" path="res://resources/sprite_frames/tower_artillery_lvl2_layer6.tres" id="7_thpnf"]
+[ext_resource type="SpriteFrames" uid="uid://b63ovjjyltnck" path="res://resources/sprite_frames/tower_artillery_lvl2_layer7.tres" id="8_78n2l"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_data.gd" id="13_3bdla"]
+
+[sub_resource type="Resource" id="Resource_thpnf"]
+script = ExtResource("13_3bdla")
+any = Vector2(0, -71.905)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[node name="TowerArtilleryLvl2" unique_id=1600363506 instance=ExtResource("1_mlysv")]
+scene_name = "tower_artillery_lvl_2"
+
+[node name="SpriteGroup" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
+position = Vector2(0, -49)
+
+[node name="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="0" unique_id=257270110]
+sprite_frames = ExtResource("2_r35bc")
+
+[node name="AnimatedSprite2D2" parent="SpriteComponent/SpriteGroup" index="1" unique_id=2085102450]
+sprite_frames = ExtResource("3_ciw6x")
+
+[node name="AnimatedSprite2D3" parent="SpriteComponent/SpriteGroup" index="2" unique_id=532296352]
+sprite_frames = ExtResource("4_grby4")
+
+[node name="AnimatedSprite2D4" parent="SpriteComponent/SpriteGroup" index="3" unique_id=1525718789]
+sprite_frames = ExtResource("5_61c2u")
+frame_progress = 0.0
+
+[node name="AnimatedSprite2D5" parent="SpriteComponent/SpriteGroup" index="4" unique_id=859521095]
+sprite_frames = ExtResource("6_3bdla")
+
+[node name="AnimatedSprite2D6" parent="SpriteComponent/SpriteGroup" index="5" unique_id=1766719931]
+sprite_frames = ExtResource("7_thpnf")
+
+[node name="AnimatedSprite2D7" parent="SpriteComponent/SpriteGroup" index="6" unique_id=473479711]
+sprite_frames = ExtResource("8_78n2l")
+frame_progress = 0.0
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 225.0
+
+[node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
+bullet = "tower_artillery_lvl_2_bullet"
+bullet_offsets = SubResource("Resource_thpnf")
+damage_min = 20.0
+damage_max = 40.0

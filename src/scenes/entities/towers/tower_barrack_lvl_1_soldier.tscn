@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://f30rl46i8akx"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_0rikb"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_i4u0u"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_63s5i"]
+[ext_resource type="SpriteFrames" uid="uid://bcuypu8u2qhpt" path="res://resources/sprite_frames/tower_barracks_soldier_lvl1.tres" id="4_d8utj"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="5_uecfs"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://ecs/components/health_bar.tscn" id="6_7yqqd"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://ecs/components/melee_component.gd" id="7_xu63r"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/subcomponents/melee_attack.gd" id="8_qo1np"]
+[ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://ecs/components/rally_component.gd" id="9_uhicr"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="10_700db"]
+
+[sub_resource type="Resource" id="Resource_ovm3w"]
+script = ExtResource("2_i4u0u")
+left_right = &"idle_left_right"
+
+[sub_resource type="Resource" id="Resource_2a2qa"]
+script = ExtResource("2_i4u0u")
+left_right = &"death_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_enhu5"]
+script = ExtResource("2_i4u0u")
+left_right = &"walk_left_right"
+
+[sub_resource type="Resource" id="Resource_p1ots"]
+script = ExtResource("2_i4u0u")
+left_right = &"melee_left_right"
+
+[sub_resource type="Resource" id="Resource_afkjg"]
+script = ExtResource("2_i4u0u")
+left_right = &"walk_left_right"
+
+[node name="TowerBarrackLvl1Soldier" type="Node2D" unique_id=1677548747]
+script = ExtResource("1_0rikb")
+scene_name = "tower_barrack_lvl_1_soldier"
+idle_animation = SubResource("Resource_ovm3w")
+hit_offset = Vector2(0, -16.4)
+flags = 4
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=389197924]
+show_behind_parent = true
+script = ExtResource("3_63s5i")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
+position = Vector2(0, -34)
+sprite_frames = ExtResource("4_d8utj")
+animation = &"idle_left_right"
+
+[node name="HealthComponent" type="Node2D" parent="." unique_id=949799713]
+script = ExtResource("5_uecfs")
+hp_max = 50.0
+idle_regen_hp = 5.0
+idle_regen_cooldown = 1.0
+death_animation = SubResource("Resource_2a2qa")
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
+
+[node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("6_7yqqd")]
+offset_top = -46.0
+offset_right = 21.0
+offset_bottom = -40.0
+
+[node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
+script = ExtResource("7_xu63r")
+speed = 208.0
+motion_animation = SubResource("Resource_enhu5")
+melee_pos_offset = Vector2(33.47, 0)
+is_blocker = true
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
+script = ExtResource("8_qo1np")
+cooldown = 1.36
+delay = 0.2
+animation = SubResource("Resource_p1ots")
+damage_min = 1.0
+damage_max = 3.0
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="RallyComponent" type="NavigationAgent2D" parent="." unique_id=905200269]
+navigation_layers = 2
+script = ExtResource("9_uhicr")
+speed = 208.0
+can_select_rally = false
+motion_animation = SubResource("Resource_afkjg")
+metadata/_custom_type_script = "uid://2keyy5hsydyv"
+
+[node name="UIComponent" type="Node2D" parent="." unique_id=346591849]
+script = ExtResource("10_700db")
+select_rect = Rect2(-15.555, -38.17, 30.45, 38.605)
+info_bar_type = 1
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

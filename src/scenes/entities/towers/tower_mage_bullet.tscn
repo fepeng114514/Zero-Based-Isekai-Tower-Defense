@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://c77v7yq60lpig"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_tdsfa"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_4g6k2"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_23yll"]
+[ext_resource type="SpriteFrames" uid="uid://cmmma3bsr3u1q" path="res://resources/sprite_frames/tower_mage_bolt.tres" id="4_udsdf"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="5_8yeue"]
+
+[sub_resource type="Resource" id="Resource_sxt40"]
+script = ExtResource("2_4g6k2")
+left_right = &"idle_left_right"
+
+[sub_resource type="Resource" id="Resource_uuifh"]
+script = ExtResource("2_4g6k2")
+left_right = &"flying_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_03csp"]
+script = ExtResource("2_4g6k2")
+left_right = &"hit_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[node name="TowerMageBullet" type="Node2D" unique_id=511000022]
+script = ExtResource("1_tdsfa")
+scene_name = "tower_mage_bullet"
+idle_animation = SubResource("Resource_sxt40")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1302005454]
+script = ExtResource("3_23yll")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=435859138]
+position = Vector2(12, 0)
+sprite_frames = ExtResource("4_udsdf")
+animation = &"hit_left_right"
+
+[node name="BulletComponent" type="Node" parent="." unique_id=1314316915]
+script = ExtResource("5_8yeue")
+flight_trajectory = 2
+flight_speed = 500.0
+flight_animation = SubResource("Resource_uuifh")
+disabled_predict_pos = true
+hit_animation = SubResource("Resource_03csp")
+metadata/_custom_type_script = "uid://haoljvofy74e"

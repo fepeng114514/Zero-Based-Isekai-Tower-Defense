@@ -60,10 +60,12 @@ enabled=PackedStringArray("res://addons/mask_check/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://classes/components/": "blue",
-"res://classes/systems/": "blue",
+"res://ecs/components/": "blue",
+"res://ecs/systems/": "blue",
 "res://resources/": "yellow",
-"res://scenes/": "green"
+"res://scenes/": "green",
+"res://scenes/entities/enemies/": "red",
+"res://scenes/entities/towers/": "teal"
 }
 
 [input]

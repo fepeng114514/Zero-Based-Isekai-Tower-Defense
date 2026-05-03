@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dy5nu6xryehuk"]
+
+[ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/towers/tower_mage_lvl_1_shooter.tscn" id="1_xmdlt"]
+
+[node name="TowerMageLvl2Shooter" unique_id=1442245649 instance=ExtResource("1_xmdlt")]
+scene_name = "tower_mage_lvl_2_shooter"
+
+[node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(1268978688) index="0" unique_id=14077948]
+damage_min = 23.0
+damage_max = 43.0

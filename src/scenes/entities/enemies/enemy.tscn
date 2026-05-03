@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://d1kxh6e7m4mc1"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_0ncad"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_1nm20"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_58mnm"]
+[ext_resource type="SpriteFrames" uid="uid://dj27vtf00p7el" path="res://resources/sprite_frames/enemy_goblin.tres" id="3_mee2f"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="4_bfbt7"]
+[ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://ecs/components/nav_path_component.gd" id="5_gt3hg"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://ecs/components/health_bar.tscn" id="5_yidua"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="6_43dp3"]
+[ext_resource type="AudioStream" uid="uid://bwjdfvm18eqhl" path="res://assets/audios/Sound_EnemyGoblinDead.ogg" id="6_atygg"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="6_ijmwd"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://ecs/components/melee_component.gd" id="8_wdwo4"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/subcomponents/melee_attack.gd" id="9_cit00"]
+
+[sub_resource type="Resource" id="Resource_58mnm"]
+script = ExtResource("2_58mnm")
+left_right = &"idle_left_right"
+
+[sub_resource type="Resource" id="Resource_43dp3"]
+script = ExtResource("2_58mnm")
+left_right = &"death_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_eo1sq"]
+script = ExtResource("6_43dp3")
+audio_list = Array[AudioStream]([ExtResource("6_atygg")])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_atygg"]
+script = ExtResource("2_58mnm")
+up = &"walk_up"
+down = &"walk_down"
+left_right = &"walk_left_right"
+
+[sub_resource type="Resource" id="Resource_yek3w"]
+script = ExtResource("2_58mnm")
+left_right = &"walk_left_right"
+
+[sub_resource type="Resource" id="Resource_m3i2n"]
+script = ExtResource("2_58mnm")
+left_right = &"melee_left_right"
+
+[node name="Enemy" type="Node2D" unique_id=71433118]
+script = ExtResource("1_0ncad")
+scene_name = "enemy"
+idle_animation = SubResource("Resource_58mnm")
+hit_offset = Vector2(0, -14.81)
+flags = 1
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225]
+show_behind_parent = true
+script = ExtResource("2_1nm20")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
+position = Vector2(0, -19)
+sprite_frames = ExtResource("3_mee2f")
+animation = &"idle_left_right"
+
+[node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]
+script = ExtResource("4_bfbt7")
+hp_max = 20.0
+death_animation = SubResource("Resource_43dp3")
+death_sfx = SubResource("Resource_eo1sq")
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
+
+[node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]
+offset_top = -39.0
+offset_right = 21.0
+offset_bottom = -34.0
+scale = Vector2(1, 1.1)
+
+[node name="NavPathComponent" type="Node" parent="." unique_id=655679987]
+script = ExtResource("5_gt3hg")
+speed = 100.0
+motion_animation = SubResource("Resource_atygg")
+metadata/_custom_type_script = "uid://btct3ysbbulk0"
+
+[node name="MeleeComponent" type="Node2D" parent="." unique_id=768145759]
+script = ExtResource("8_wdwo4")
+motion_animation = SubResource("Resource_yek3w")
+melee_pos_offset = Vector2(35, 0)
+is_blocked = true
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
+script = ExtResource("9_cit00")
+delay = 0.3
+animation = SubResource("Resource_m3i2n")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="UIComponent" type="Node2D" parent="." unique_id=673866706]
+script = ExtResource("6_ijmwd")
+select_rect = Rect2(-15.69, -32.025, 32, 32)
+info_bar_type = 1
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

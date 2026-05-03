@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ck4m2qigdae35"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_jrk33"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_pyfu2"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="3_qfsqy"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="4_eclg5"]
+[ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://scenes/entities/towers/tower_holder.gdshader" id="5_rh6e0"]
+[ext_resource type="Texture2D" uid="uid://byk75f3pfixc" path="res://resources/atlas_textures/build_terrain_0001.tres" id="6_wcy0v"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://ecs/components/tower_component.gd" id="12_pyfu2"]
+
+[sub_resource type="Resource" id="Resource_fdaav"]
+script = ExtResource("2_pyfu2")
+left_right = &"idle_left_right"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jcl8y"]
+shader = ExtResource("5_rh6e0")
+shader_parameter/outline_size = 20.0
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+
+[node name="TowerHolder" type="Node2D" unique_id=1898604313]
+script = ExtResource("1_jrk33")
+scene_name = "tower_holder"
+idle_animation = SubResource("Resource_fdaav")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454]
+position = Vector2(0, -10)
+script = ExtResource("4_eclg5")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2043930113]
+material = SubResource("ShaderMaterial_jcl8y")
+texture = ExtResource("6_wcy0v")
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=286705593]
+script = ExtResource("12_pyfu2")
+metadata/_custom_type_script = "uid://d104itkl6l02e"
+
+[node name="UIComponent" type="Node2D" parent="." unique_id=2005923123]
+script = ExtResource("3_qfsqy")
+select_rect = Rect2(-77.425, -45.79, 156.65, 85.995)
+info_bar_type = 2
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

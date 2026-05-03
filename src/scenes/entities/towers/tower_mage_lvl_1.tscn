@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://wxrkke7541g"]
+
+[ext_resource type="PackedScene" uid="uid://dgdv4ixqwp3ot" path="res://scenes/entities/towers/tower_mage.tscn" id="1_g3ohr"]
+[ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/towers/tower_mage_lvl_1_shooter.tscn" id="3_j8o77"]
+
+[node name="TowerMageLvl1" unique_id=794445410 instance=ExtResource("1_g3ohr")]
+scene_name = "tower_mage_lvl_1"
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 100.0
+
+[node name="TowerMageLvl1Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("3_j8o77")]
+position = Vector2(1, -2)
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_rect = Rect2(-54.73, -78.54, 112.585, 102.565)

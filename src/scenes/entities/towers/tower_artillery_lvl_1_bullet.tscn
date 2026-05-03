@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cx35c0rfd1fwr"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_121ob"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_0mq2b"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_bgj51"]
+[ext_resource type="Texture2D" uid="uid://dkdjev2thqd6w" path="res://resources/atlas_textures/bombs_0001.tres" id="3_cbh1n"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="4_1jhx5"]
+
+[sub_resource type="Resource" id="Resource_wmreg"]
+script = ExtResource("2_bgj51")
+left_right = &"idle_left_right"
+
+[node name="TowerArtilleryLvl1Bullet" type="Node2D" unique_id=2094980939]
+script = ExtResource("1_121ob")
+scene_name = "tower_artillery_lvl1_bullet"
+idle_animation = SubResource("Resource_wmreg")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1297058768]
+script = ExtResource("2_0mq2b")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2139566938]
+texture = ExtResource("3_cbh1n")
+
+[node name="BulletComponent" type="Node" parent="." unique_id=444267291]
+script = ExtResource("4_1jhx5")
+flight_total_time = 1.5
+flight_trajectory = 1
+rotation_speed = 6.0
+look_to = false
+hit_distance = 30.0
+hit_payloads = Array[String](["explosion_air"])
+miss_payloads = Array[String](["explosion_air"])
+metadata/_custom_type_script = "uid://haoljvofy74e"

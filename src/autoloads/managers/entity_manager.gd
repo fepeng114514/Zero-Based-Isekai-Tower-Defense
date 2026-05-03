@@ -51,13 +51,13 @@ func load() -> void:
 
 	_next_id = 0
 
-	var json_data: Dictionary = U.load_json(
-		"res://datas/entity_scenes.json"
+	var json_data: Array = U.load_json(
+		"res://scenes/entities/entity_scene_paths.json"
 	)
 	
 	# 加载实体场景
-	for scene_name: String in json_data:
-		var scene_path: String = json_data[scene_name]
+	for scene_path: String in json_data:
+		var scene_name: String = scene_path.get_file().get_basename()
 		
 		if not ResourceLoader.exists(scene_path):
 			Log.error("未找到实体场景: %s" % scene_path)

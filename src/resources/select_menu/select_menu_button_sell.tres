@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SelectMenuButtonData" format=3 uid="uid://cybduk6ftr3f0"]
 
 [ext_resource type="Texture2D" uid="uid://bu6f1c7qrrs2f" path="res://resources/atlas_textures/ico_sell_0001.tres" id="1_k2ti6"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_button_data.gd" id="2_8g578"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://resources/classes/select_menu/select_menu_button_data.gd" id="2_8g578"]
 
 [resource]
 script = ExtResource("2_8g578")
