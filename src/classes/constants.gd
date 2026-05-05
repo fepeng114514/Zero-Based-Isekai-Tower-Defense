@@ -148,9 +148,9 @@ enum SearchMode {
 	## 搜索模式: 实体近战伤害最低
 	ENTITY_MIN_MELEE_DAMAGE,
 	## 搜索模式: 实体远程伤害最高
-	ENTITY_MAX_RANGE_DAMAGE,
+	ENTITY_MAX_RANGED_DAMAGE,
 	## 搜索模式: 实体远程伤害最低
-	ENTITY_MIN_RANGE_DAMAGE,
+	ENTITY_MIN_RANGED_DAMAGE,
 	## 搜索模式: 实体 ID 最大
 	ENTITY_MAX_ID,
 	## 搜索模式: 实体 ID 最小
@@ -179,9 +179,9 @@ enum SearchMode {
 	## 搜索模式: 敌人近战伤害最低
 	ENEMY_MIN_MELEE_DAMAGE,
 	## 搜索模式: 敌人远程伤害最高
-	ENEMY_MAX_RANGE_DAMAGE,
+	ENEMY_MAX_RANGED_DAMAGE,
 	## 搜索模式: 敌人远程伤害最低
-	ENEMY_MIN_RANGE_DAMAGE,
+	ENEMY_MIN_RANGED_DAMAGE,
 	## 搜索模式: 敌人 ID 最大
 	ENEMY_MAX_ID,
 	## 搜索模式: 敌人 ID 最小
@@ -210,9 +210,9 @@ enum SearchMode {
 	## 搜索模式: 友军近战伤害最低
 	FRIENDLY_MIN_MELEE_DAMAGE,
 	## 搜索模式: 友军远程伤害最高
-	FRIENDLY_MAX_RANGE_DAMAGE,
+	FRIENDLY_MAX_RANGED_DAMAGE,
 	## 搜索模式: 友军远程伤害最低
-	FRIENDLY_MIN_RANGE_DAMAGE,
+	FRIENDLY_MIN_RANGED_DAMAGE,
 	## 搜索模式: 友军 ID 最大
 	FRIENDLY_MAX_ID,
 	## 搜索模式: 友军 ID 最小
@@ -241,9 +241,9 @@ enum SearchMode {
 	## 搜索模式: 单位近战伤害最低
 	UNIT_MIN_MELEE_DAMAGE,
 	## 搜索模式: 单位远程伤害最高
-	UNIT_MAX_RANGE_DAMAGE,
+	UNIT_MAX_RANGED_DAMAGE,
 	## 搜索模式: 单位远程伤害最低
-	UNIT_MIN_RANGE_DAMAGE,
+	UNIT_MIN_RANGED_DAMAGE,
 	## 搜索模式: 单位 ID 最大
 	UNIT_MAX_ID,
 	## 搜索模式: 单位 ID 最小

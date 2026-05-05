@@ -17,7 +17,7 @@ var _cached_entities_data: Dictionary[String, Entity] = {}
 ## 所有实体数组
 var entity_list: Array = []
 ## 存储实体类型组的字典
-var type_groups: Dictionary[String, Array] = {
+var type_group_list: Dictionary[String, Array] = {
 	"enemies": [],
 	"friendlys": [],
 	"units": [],
@@ -26,7 +26,7 @@ var type_groups: Dictionary[String, Array] = {
 	"auras": [],
 }
 ## 存储组件组的字典
-var component_groups: Dictionary[String, Array] = {}
+var component_group_list: Dictionary[String, Array] = {}
 
 ## 空间索引的网格大小
 const SPACE_INDEX_GRID_SIZE: float = 100
@@ -35,18 +35,18 @@ var space_index_grid_count_x: int = 0
 ## 空间索引行数
 var space_index_grid_count_y: int = 0
 ## 空间索引网格数组
-var space_index_grids: Array[Dictionary] = []
+var space_index_grid_list: Array[Dictionary] = []
 #endregion
 
 
 func load() -> void:
 	_entity_scene_dict.clear()
 	_cached_entities_data.clear()
-	component_groups.clear()
+	component_group_list.clear()
 	entity_list.clear()
-	space_index_grids.clear()
+	space_index_grid_list.clear()
 	
-	for group: Array in type_groups.values():
+	for group: Array in type_group_list.values():
 		group.clear()
 
 	_next_id = 0
@@ -97,7 +97,7 @@ func load() -> void:
 				C.GROUP_AURAS: [],
 			})
 
-		space_index_grids.append(grid_col)
+		space_index_grid_list.append(grid_col)
 	
 	space_index_grid_count_x = grid_count_x
 	space_index_grid_count_y = grid_count_y
@@ -194,11 +194,11 @@ func create_auras(
 #region 索引相关
 ## 根据组名获取组内所有实体
 func get_entities_group(group_name: String) -> Array:
-	if group_name in type_groups:
-		return type_groups[group_name]
+	if group_name in type_group_list:
+		return type_group_list[group_name]
 	
-	if group_name in component_groups:
-		return component_groups[group_name]
+	if group_name in component_group_list:
+		return component_group_list[group_name]
 
 	return []
 
@@ -276,7 +276,7 @@ enum SortMode {
 	## 排序模式: 近战伤害
 	MELEE_DAMAGE,
 	## 排序模式: 远程伤害
-	RANGE_DAMAGE,
+	RANGED_DAMAGE,
 	## 排序模式: 实体 ID
 	ID,
 	## 排序模式: 赏金
@@ -352,7 +352,7 @@ func sort_entities_by_type(
 					d2 = e2_melee_c.list[0].damage_max
 
 				return d1 > d2 if not reversed else d1 < d2
-		SortMode.RANGE_DAMAGE:
+		SortMode.RANGED_DAMAGE:
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
@@ -427,7 +427,7 @@ static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
 		PropertyMeta.new("DISTANCE", SortMode.DISTANCE, true),
 		PropertyMeta.new("HEALTH", SortMode.HEALTH, true),
 		PropertyMeta.new("MELEE_DAMAGE", SortMode.MELEE_DAMAGE, true),
-		PropertyMeta.new("RANGE_DAMAGE", SortMode.RANGE_DAMAGE, true),
+		PropertyMeta.new("RANGED_DAMAGE", SortMode.RANGED_DAMAGE, true),
 		PropertyMeta.new("ID", SortMode.ID, true),
 		PropertyMeta.new("GOLD", SortMode.GOLD, true),
 		PropertyMeta.new("RANDOM", SortMode.RANDOM, false),
@@ -480,7 +480,7 @@ func find_targets_in_range(
 	var grid_max_y: int = min(space_index_grid_count_y - 1, ceili((origin.y + max_range) / SPACE_INDEX_GRID_SIZE))
 
 	for grid_x: int in range(grid_min_x, grid_max_x + 1):
-		var grid_col: Dictionary = space_index_grids[grid_x]
+		var grid_col: Dictionary = space_index_grid_list[grid_x]
 
 		if not grid_col["has_" + group]:
 			continue

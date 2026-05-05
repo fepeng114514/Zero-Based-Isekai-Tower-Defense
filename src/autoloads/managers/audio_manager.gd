@@ -17,7 +17,7 @@ var _music_player := AudioStreamPlayer.new()
 ## 音效 AudioStreamPlayer 总数
 var _sfx_player_count: int = 10
 ## 音效的 AudioStreamPlayer 数组
-var _sfx_players: Array[AudioStreamPlayer] = []
+var _sfx_player_list: Array[AudioStreamPlayer] = []
 
 
 func _ready() -> void:
@@ -30,7 +30,7 @@ func _ready() -> void:
 		var sfx_player := AudioStreamPlayer.new()
 		sfx_player.name = "SFX%d" % (i + 1)
 		add_child(sfx_player)
-		_sfx_players.append(sfx_player)
+		_sfx_player_list.append(sfx_player)
 	
 	
 func load() -> void:
@@ -62,7 +62,7 @@ func play_sfx(audio_data: AudioData) -> void:
 	if not audio_data:
 		return
 	
-	for sfx_player: AudioStreamPlayer in _sfx_players:
+	for sfx_player: AudioStreamPlayer in _sfx_player_list:
 		if sfx_player.playing:
 			continue
 

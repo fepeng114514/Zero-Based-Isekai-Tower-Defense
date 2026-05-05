@@ -28,27 +28,28 @@ const FLAG_TO_GROUP_KEYS: Array[C.Flag] = [
 
 
 var _space_index_grid_size: float = EntityMgr.SPACE_INDEX_GRID_SIZE
-var _space_index_grids: Array[Dictionary] = []
+var _space_index_grid_list: Array[Dictionary] = EntityMgr.space_index_grid_list
 var _world_size := Vector2i.ZERO
-var _component_groups: Dictionary[String, Array] = {}
-var _type_groups: Dictionary[String, Array] = {}
+var _component_group_list: Dictionary[String, Array] = EntityMgr.component_group_list
+var _type_group_list: Dictionary[String, Array] = EntityMgr.type_group_list
 ## 空间索引列数
 var _space_index_grid_count_x: int = EntityMgr.space_index_grid_count_x
 ## 空间索引行数
 var _space_index_grid_count_y: int = EntityMgr.space_index_grid_count_y
 
+
 func _ready() -> void:
-	_space_index_grids = EntityMgr.space_index_grids
+	_space_index_grid_list = EntityMgr.space_index_grid_list
 	_world_size = GlobalMgr.world_size
-	_component_groups = EntityMgr.component_groups
-	_type_groups = EntityMgr.type_groups
+	_component_group_list = EntityMgr.component_group_list
+	_type_group_list = EntityMgr.type_group_list
 	_space_index_grid_count_x = EntityMgr.space_index_grid_count_x
 	_space_index_grid_count_y = EntityMgr.space_index_grid_count_y
 
 
 func _on_update(_delta: float) -> void:
 	# 清空空间索引网格
-	for grid_col: Dictionary in _space_index_grids:
+	for grid_col: Dictionary in _space_index_grid_list:
 		for key: String in grid_col:
 			if key.begins_with("has_"):
 				grid_col[key] = false
@@ -58,11 +59,11 @@ func _on_update(_delta: float) -> void:
 				type_group.clear()
 
 	# 清空分组
-	for group_name: String in _component_groups:
-		_component_groups[group_name].clear()
+	for group_name: String in _component_group_list:
+		_component_group_list[group_name].clear()
 
-	for group_name: String in _type_groups:
-		_type_groups[group_name].clear()
+	for group_name: String in _type_group_list:
+		_type_group_list[group_name].clear()
 
 	for e: Entity in EntityMgr.get_valid_entities():
 		var e_global_position: Vector2 = e.global_position
@@ -77,7 +78,7 @@ func _on_update(_delta: float) -> void:
 		if y >= _space_index_grid_count_y:
 			continue
 
-		var grid_col: Dictionary = _space_index_grids[x]
+		var grid_col: Dictionary = _space_index_grid_list[x]
 		var grid_row: Dictionary = grid_col.row[y]
 		grid_row.entities.append(e)
 		grid_col.has_entities = true
@@ -88,12 +89,12 @@ func _on_update(_delta: float) -> void:
 				if e.flags & flags:
 					var group_name: StringName = FLAG_TO_GROUP[flags]
 
-					_type_groups[group_name].append(e)
+					_type_group_list[group_name].append(e)
 					grid_row[group_name].append(e)
 					grid_col["has_" + group_name] = true
 
 		for c_name: String in e.components:
-			if not _component_groups.has(c_name):
-				_component_groups[c_name] = []
+			if not _component_group_list.has(c_name):
+				_component_group_list[c_name] = []
 
-			_component_groups[c_name].append(e)
+			_component_group_list[c_name].append(e)

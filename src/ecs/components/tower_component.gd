@@ -40,7 +40,7 @@ func _validate_property(property: Dictionary) -> void:
 
 
 func _draw() -> void:
-	if not Engine.is_editor_hint():
+	if Engine.is_editor_hint():
 		draw_circle(
 			show_range_offset, 
 			3,
