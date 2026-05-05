@@ -2,7 +2,7 @@
 extends Control
 
 
-var list: Array[Vector2] = []
+var list := PackedVector2Array()
 
 
 func _ready() -> void:

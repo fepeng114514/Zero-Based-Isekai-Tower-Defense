@@ -3,7 +3,7 @@ extends EditorScript
 
 
 const AUDIO_ASSETS_DIR_PATH: String = "res://assets/audios/"
-var audio_paths: Array[String] = []
+var audio_paths := PackedStringArray()
 
 
 func _run() -> void:

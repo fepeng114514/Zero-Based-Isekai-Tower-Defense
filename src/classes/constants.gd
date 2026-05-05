@@ -159,6 +159,8 @@ enum SearchMode {
 	ENTITY_MAX_GOLD,
 	## 搜索模式: 实体赏金最低
 	ENTITY_MIN_GOLD,
+	## 搜索模式: 实体随机
+	ENTITY_RANDOM,
 
 	## 搜索模式: 敌人路程最远
 	ENEMY_MAX_PROGRESS,
@@ -188,6 +190,8 @@ enum SearchMode {
 	ENEMY_MAX_GOLD,
 	## 搜索模式: 敌人赏金最低
 	ENEMY_MIN_GOLD,
+	## 搜索模式: 敌人随机
+	ENEMY_RANDOM,
 
 	## 搜索模式: 友军路程最远
 	FRIENDLY_MAX_PROGRESS,
@@ -217,6 +221,8 @@ enum SearchMode {
 	FRIENDLY_MAX_GOLD,
 	## 搜索模式: 友军赏金最低
 	FRIENDLY_MIN_GOLD,
+	## 搜索模式: 友军随机
+	FRIENDLY_RANDOM,
 
 	## 搜索模式: 单位路程最远
 	UNIT_MAX_PROGRESS,
@@ -246,6 +252,8 @@ enum SearchMode {
 	UNIT_MAX_GOLD,
 	## 搜索模式: 单位赏金最低
 	UNIT_MIN_GOLD,
+	## 搜索模式: 单位随机
+	UNIT_RANDOM,
 }
 
 

@@ -18,7 +18,7 @@ var progress: float = 0
 ## 距离
 var dist_squared: float = 0
 ## 与另一个路径相交的节点索引
-var intersecting_ni_list: Array[int] = []
+var intersecting_ni_list: PackedInt32Array = []
 
 
 ## PathwayMgr.get_subpath 的简写，已传递 pi, spi

@@ -545,8 +545,8 @@ static func is_valid_entity(e) -> bool:
 ## 判断实体是否被黑名单或白名单禁止
 static func is_allowed_entity(e: Variant, target: Entity) -> bool:
 	var target_scene_name: String = target.scene_name
-	var whitelist: Array[String] = e.whitelist
-	var blacklist: Array[String] = e.blacklist
+	var whitelist: PackedStringArray = e.whitelist
+	var blacklist: PackedStringArray = e.blacklist
 	
 	return (
 		(
@@ -604,3 +604,12 @@ static func merge_flags(flag_list: Array) -> int:
 		
 	return new_flags
 #endregion
+
+
+#region 数组相关方法
+## 从数组中随机选择一个元素
+static func pick_random(array: Array) -> Variant:
+	if array.is_empty():
+		return null
+		
+	return array[randi() % array.size()]

@@ -16,7 +16,7 @@ class_name AuraComponent
 ## 最大可影响的实体数量
 @export var max_influence: int = C.UNSET
 ## 状态效果场景名称
-@export var mods: Array[String] = []
+@export var mods := PackedStringArray()
 ## 周期时间
 @export var cycle_time: float = 1
 ## 最大周期

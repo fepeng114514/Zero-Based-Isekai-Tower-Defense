@@ -38,7 +38,7 @@ class_name BulletComponent
 ## 击中后造成伤害的延迟（秒）
 @export var hit_delay: float = 0
 ## 子弹击中目标时创建的实体场景名称
-@export var hit_payloads: Array[String] = []
+@export var hit_payloads := PackedStringArray()
 ## 击中动画
 @export var hit_animation: AnimationData = null
 ## 击中音效
@@ -48,7 +48,7 @@ class_name BulletComponent
 ## 未击中目标时是否移除子弹实体
 @export var miss_remove: bool = true
 ## 子弹未击中目标时创建的实体场景名称
-@export var miss_payloads: Array[String] = []
+@export var miss_payloads := PackedStringArray()
 ## 未击中动画数据
 @export var miss_animation: AnimationData = null
 ## 未击中音效数据
@@ -63,7 +63,7 @@ var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害标识
 var damage_flags: int = 0
 ## 子弹携带的状态效果
-var mods: Array[String] = []
+var mods := PackedStringArray()
 ## 是否启用范围伤害
 var damage_area_enable: bool = false
 ## 最小伤害半径
@@ -95,7 +95,7 @@ var rotation_direction: int = -1
 ## 预判目标位置
 var predict_target_pos := Vector2.ZERO
 ## 伤害过的实体 ID 列表
-var damaged_entity_ids: Array[int] = []
+var damaged_entity_ids := PackedInt32Array()
 
 
 func _validate_property(property: Dictionary):

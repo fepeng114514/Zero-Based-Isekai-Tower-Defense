@@ -27,7 +27,7 @@ func _on_insert(e: Entity) -> bool:
 		):
 		return false
 		
-	var t_has_mods_ids: Array[int] = target.has_mods_ids
+	var t_has_mods_ids: PackedInt32Array = target.has_mods_ids
 	var same_target_mods: Array[Entity] = []
 	var mod_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
 

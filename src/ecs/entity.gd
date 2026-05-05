@@ -30,9 +30,9 @@ class_name Entity
 
 @export_group("Limit")
 ## 白名单实体场景名称
-@export var whitelist: Array[String] = []
+@export var whitelist := PackedStringArray()
 ## 黑名单实体场景名称
-@export var blacklist: Array[String] = []
+@export var blacklist := PackedStringArray()
 ## 实体标识
 @export var flags: int = 0
 ## 禁止的实体的标识
@@ -53,9 +53,9 @@ var ts: float = 0
 ## 目标实体 ID
 var target_id: int = C.UNSET
 ## 拥有的状态效果 ID 列表
-var has_mods_ids: Array[int] = []
+var has_mods_ids := PackedInt32Array()
 ## 拥有的光环 ID 列表
-var has_auras_ids: Array[int] = []
+var has_auras_ids := PackedInt32Array()
 ## 是否被点击选择
 var selected: bool = false
 ## 上一帧位置
@@ -213,7 +213,7 @@ func add_c(component: GDScript) -> Node:
 #region 状态效果相关方法
 ## 清理无效状态效果
 func cleanup_has_mods() -> void:
-	var new_has_mods_ids: Array[int] = []
+	var new_has_mods_ids := PackedInt32Array()
 	
 	for mod_id in has_mods_ids:
 		if not EntityMgr.get_entity_by_id(mod_id):

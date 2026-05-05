@@ -7,12 +7,12 @@
 
 [sub_resource type="Resource" id="Resource_jhhff"]
 script = ExtResource("2_11f2j")
-list = Array[String](["sound_next_wave_ready"])
+list = Array[StringName](["sound_next_wave_ready"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_p3jos"]
 script = ExtResource("2_11f2j")
-list = Array[String](["sound_wave_incoming"])
+list = Array[StringName](["sound_wave_incoming"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_x08x5"]

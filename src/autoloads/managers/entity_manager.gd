@@ -8,7 +8,7 @@ extends Node
 ## 存储实体场景的字典
 var _entity_scene_dict: Dictionary[String, PackedScene] = {}
 ## 被修改的场景
-var _dirty_scenes_list: Array[String] = []
+var _dirty_scenes_list: Array[StringName] = []
 ## 下一个创建实体的 id
 var _next_id: int = 0
 ## 实体数据缓存字典，用于读取数据，不参与游戏
@@ -124,7 +124,7 @@ func process_create(e: Entity) -> Entity:
 
 ## 批量创建实体
 func create_entities(
-		scene_name_list: Array[String],
+		scene_name_list: PackedStringArray,
 		config_func: Callable = Callable(),
 		auto_insert: bool = true
 	) -> Array[Entity]:
@@ -147,7 +147,7 @@ func create_entities(
 
 ## 创建实体在指定位置
 func create_entities_at_pos(
-		scene_name_list: Array[String], 
+		scene_name_list: PackedStringArray, 
 		pos: Vector2, 
 		auto_insert: bool = true
 	) -> Array[Entity]:
@@ -159,7 +159,7 @@ func create_entities_at_pos(
 ## 批量创建状态效果实体
 func create_mods(
 		target_id: int,
-		scene_name_list: Array[String], 
+		scene_name_list: PackedStringArray, 
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
@@ -176,7 +176,7 @@ func create_mods(
 
 ## 批量创建光环实体
 func create_auras(
-		scene_name_list: Array[String],
+		scene_name_list: PackedStringArray,
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
@@ -279,8 +279,10 @@ enum SortMode {
 	RANGE_DAMAGE,
 	## 排序模式: 实体 ID
 	ID,
-	## 排序模式: 赏金:
+	## 排序模式: 赏金
 	GOLD,
+	## 排序模式: 随机
+	RANDOM,
 }
 
 
@@ -373,28 +375,38 @@ func sort_entities_by_type(
 				var i2: int = e2.id
 				
 				return i1 > i2 if not reversed else i1 < i2
+		SortMode.RANDOM:
+			sort_function = func(_e1: Entity, _e2: Entity) -> bool:
+				return randf() < 0.5
 	
 	entities_array.sort_custom(sort_function)
 
 
 
 #region 实体的搜索模式配置
-const PROPERTY_META: Dictionary[String, SortMode] = {
-	"PROGRESS": SortMode.PROGRESS,
-	"DISTANCE": SortMode.DISTANCE,
-	"HEALTH": SortMode.HEALTH,
-	"MELEE_DAMAGE": SortMode.MELEE_DAMAGE,
-	"RANGE_DAMAGE": SortMode.RANGE_DAMAGE,
-	"ID": SortMode.ID,
-	"GOLD": SortMode.GOLD,
-}
-
 const GROUP_DICT: Dictionary[String, StringName] = {
 	"ENTITY": C.GROUP_ENTITIES,
 	"ENEMY": C.GROUP_ENEMIES,
 	"FRIENDLY": C.GROUP_FRIENDLYS,
 	"UNIT": C.GROUP_UNIT,
 }
+
+
+class PropertyMeta:
+	var name: String
+	var sort_mode: SortMode
+	var has_reverse_mode: bool = true
+
+	func _init(p_name: String, p_sort_mode: SortMode, p_has_reverse_mode: bool = true):
+		name = p_name
+		sort_mode = p_sort_mode
+		has_reverse_mode = p_has_reverse_mode
+
+	func get_mode_name(group: String, reversed: bool = false) -> String:
+		if not has_reverse_mode:
+			return "%s_%s" % [group, name]
+
+		return "%s_%s_%s" % [group, "MIN" if reversed else "MAX", name]
 
 
 ## 搜索模式配置类，包含排序模式、过滤函数和是否反转排序
@@ -411,18 +423,38 @@ class SearchModeConfig:
 
 ## 构建搜索模式配置字典
 static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
+	var property_metas: Array[PropertyMeta] = [
+		PropertyMeta.new("PROGRESS", SortMode.PROGRESS, true),
+		PropertyMeta.new("DISTANCE", SortMode.DISTANCE, true),
+		PropertyMeta.new("HEALTH", SortMode.HEALTH, true),
+		PropertyMeta.new("MELEE_DAMAGE", SortMode.MELEE_DAMAGE, true),
+		PropertyMeta.new("RANGE_DAMAGE", SortMode.RANGE_DAMAGE, true),
+		PropertyMeta.new("ID", SortMode.ID, true),
+		PropertyMeta.new("GOLD", SortMode.GOLD, true),
+		PropertyMeta.new("RANDOM", SortMode.RANDOM, false),
+	]
+
 	var config: Dictionary[C.SearchMode, SearchModeConfig] = {}
 
 	for group: String in GROUP_DICT:
 		var group_name: StringName = GROUP_DICT[group]
 
-		for prop: String in PROPERTY_META:
-			var sort: SortMode = PROPERTY_META[prop]
-			# MAX 模式：降序 = false
-			config[C.SearchMode["%s_MAX_%s" % [group, prop]]] = SearchModeConfig.new(sort, group_name, false)
-			# MIN 模式：降序 = true
-			config[C.SearchMode["%s_MIN_%s" % [group, prop]]] = SearchModeConfig.new(sort, group_name, true)
-
+		for prop: PropertyMeta in property_metas:
+			var sort: SortMode = prop.sort_mode
+			
+			if prop.has_reverse_mode:
+				# MAX 模式：降序 = false
+				var max_mode_name: String = prop.get_mode_name(group, false)
+				config[C.SearchMode[max_mode_name]] = SearchModeConfig.new(sort, group_name, false)
+				
+				# MIN 模式：降序 = true
+				var min_mode_name: String = prop.get_mode_name(group, true)
+				config[C.SearchMode[min_mode_name]] = SearchModeConfig.new(sort, group_name, true)
+			else:
+				# 无反转模式
+				var mode_name: String = prop.get_mode_name(group)
+				config[C.SearchMode[mode_name]] = SearchModeConfig.new(sort, group_name, false)
+			
 	return config
 
 

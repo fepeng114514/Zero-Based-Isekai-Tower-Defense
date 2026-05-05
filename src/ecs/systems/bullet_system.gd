@@ -157,7 +157,7 @@ func _take_damage(
 		e: Entity, 
 		bullet_c: BulletComponent, 
 		targets: Array[Entity], 
-		payloads: Array[String]
+		payloads: PackedStringArray
 		) -> void:
 	var damage_max_count: int = bullet_c.damage_max_count
 	var e_id: int = e.id

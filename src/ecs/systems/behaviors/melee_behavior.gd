@@ -145,7 +145,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 
 
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
-	var blocker_ids: Array[int] = melee_c.blocker_ids
+	var blocker_ids: PackedInt32Array = melee_c.blocker_ids
 	if not blocker_ids:
 		match melee_c.melee_state:
 			C.MeleeState.ORIGIN_POS_ARRIVED:

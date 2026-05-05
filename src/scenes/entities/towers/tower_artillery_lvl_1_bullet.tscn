@@ -13,12 +13,12 @@ left_right = &"idle_left_right"
 
 [sub_resource type="Resource" id="Resource_ciqfa"]
 script = ExtResource("6_jmmy1")
-list = Array[String](["sound_bomb1"])
+list = Array[StringName](["sound_bomb1"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_jmmy1"]
 script = ExtResource("6_jmmy1")
-list = Array[String](["sound_bomb1"])
+list = Array[StringName](["sound_bomb1"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerArtilleryLvl1Bullet" type="Node2D" unique_id=2094980939]
@@ -41,8 +41,8 @@ flight_total_time = 1.5
 rotation_speed = 6.0
 look_to = false
 hit_distance = 30.0
-hit_payloads = Array[String](["explosion_air"])
+hit_payloads = PackedStringArray("explosion_air")
 hit_sfx = SubResource("Resource_ciqfa")
-miss_payloads = Array[String](["explosion_air"])
+miss_payloads = PackedStringArray("explosion_air")
 miss_sfx = SubResource("Resource_jmmy1")
 metadata/_custom_type_script = "uid://haoljvofy74e"

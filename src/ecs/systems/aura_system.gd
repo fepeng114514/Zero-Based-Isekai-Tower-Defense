@@ -27,7 +27,7 @@ func _on_insert(e: Entity) -> bool:
 
 	aura_c.ts = TimeMgr.tick_ts
 
-	var s_has_auras_ids: Array[int] = source.has_auras_ids
+	var s_has_auras_ids: PackedInt32Array = source.has_auras_ids
 	var same_source_auras: Array[Entity] = []
 
 	for aura_id: int in s_has_auras_ids:

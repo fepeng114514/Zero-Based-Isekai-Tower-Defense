@@ -56,13 +56,13 @@ class_name MeleeComponent
 @export var block_bans: int = 0
 
 ## 拦截者 ID 列表
-var blocker_ids: Array[int] = []
+var blocker_ids := PackedInt32Array()
 ## 拦截数量
 ##
 ## 拦截数量根据被拦截者的拦截成本计算
 var blocked_count: int = 0
 ## 被拦截者 ID 列表
-var blocked_ids: Array[int] = []
+var blocked_ids := PackedInt32Array()
 ## 是额外拦截者
 var is_extra_blocker: bool = false
 ## 原位置，用于实体返回原始位置
@@ -158,7 +158,7 @@ func cleanup_melee_relations(e: Entity) -> void:
 			if rally_center_position != Vector2.ZERO:
 				center = rally_center_position
 
-		var new_blockeds_ids: Array[int] = []
+		var new_blockeds_ids := PackedInt32Array()
 		blocked_count = 0
 		
 		for id: int in blocked_ids:
@@ -178,7 +178,7 @@ func cleanup_melee_relations(e: Entity) -> void:
 			
 		blocked_ids = new_blockeds_ids
 	elif is_blocked:
-		var new_blockers_ids: Array[int] = []
+		var new_blockers_ids := PackedInt32Array()
 		
 		for id: int in blocker_ids:
 			var blocker: Entity = EntityMgr.get_entity_by_id(id)

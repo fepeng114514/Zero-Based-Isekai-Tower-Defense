@@ -21,7 +21,7 @@ any = &"idle"
 
 [sub_resource type="Resource" id="Resource_ds7h4"]
 script = ExtResource("14_ds7h4")
-list = Array[String](["artillery_ready", "artillery_taunt1", "artillery_taunt2"])
+list = Array[StringName](["artillery_ready", "artillery_taunt1", "artillery_taunt2"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_5et4c"]
@@ -35,7 +35,7 @@ any = &"ranged"
 
 [sub_resource type="Resource" id="Resource_ipws0"]
 script = ExtResource("14_ds7h4")
-list = Array[String](["sound_engineer_shot"])
+list = Array[StringName](["sound_engineer_shot"])
 delay = 0.466
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 

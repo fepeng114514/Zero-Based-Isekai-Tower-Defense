@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_dxk8f"]
 script = ExtResource("3_au4tr")
-list = Array[String](["mage_ready", "mage_taunt1", "mage_taunt2"])
+list = Array[StringName](["mage_ready", "mage_taunt1", "mage_taunt2"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_fel6d"]

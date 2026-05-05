@@ -3,7 +3,7 @@ extends EditorScript
 
 
 const ENTITY_SCENES_DIR_PATH: String = "res://scenes/entities/"
-var entity_scene_paths: Array[String] = []
+var entity_scene_paths := PackedStringArray()
 	
 
 func _run() -> void:

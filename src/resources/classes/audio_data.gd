@@ -6,7 +6,7 @@ class_name AudioData
 ## 播放模式
 @export var play_mode: C.AudioPlayMode = C.AudioPlayMode.SEQUENCE
 ## 音频列表
-@export var list: Array[String] = []
+@export var list: Array[StringName] = []
 ## 音量，单位为分贝
 @export var volume_db: float = 0
 ## 音量，线性增长而非对数

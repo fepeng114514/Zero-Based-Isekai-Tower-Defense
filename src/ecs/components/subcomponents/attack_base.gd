@@ -32,7 +32,7 @@ class_name Attackbase
 ## 伤害标识
 @export var damage_flags: int = 0
 ## 击中目标给予的状态效果
-@export var mods: Array[String] = []
+@export var mods: PackedStringArray = []
 
 @export_subgroup("Area Damage")
 ## 是否启用范围伤害
@@ -58,14 +58,14 @@ class_name Attackbase
 ## 不可攻击的实体的标识
 @export var bans: int = 0
 ## 可攻击的实体场景名称
-@export var whitelist: Array[String] = []
+@export var whitelist := PackedStringArray()
 ## 不可以攻击的实体场景名称
-@export var blacklist: Array[String] = []
+@export var blacklist := PackedStringArray()
 
 ## 时间戳
 var ts: float = 0
 ## 伤害过的实体 ID 列表
-var damaged_entity_ids: Array[int] = []
+var damaged_entity_ids := PackedInt32Array()
 
 
 func _validate_property(property: Dictionary) -> void:

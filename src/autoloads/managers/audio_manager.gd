@@ -11,7 +11,7 @@ const MusicBus: StringName = &"Music"
 ## 音效总线
 const SFXBus: StringName = &"SFX"
 
-var _audio_stream_dict: Dictionary[String, AudioStream] = {}
+var _audio_stream_dict: Dictionary[StringName, AudioStream] = {}
 ## 音乐的 AudioStreamPlayer
 var _music_player := AudioStreamPlayer.new()
 ## 音效 AudioStreamPlayer 总数
@@ -48,8 +48,7 @@ func load() -> void:
 		Log.verbose("加载音频: %s" % path)
 		var stream: AudioStream = load(path)
 		
-		var stream_name: String = path.get_file().get_basename()
-		
+		var stream_name: StringName = path.get_file().get_basename()
 		_audio_stream_dict[stream_name] = stream
 	
 	
@@ -80,25 +79,25 @@ func play_audio(
 		
 	await TimeMgr.y_wait(audio_data.delay)
 	
-	var play_list: Array[String] = []
-	var data_list: Array[String] = audio_data.list
+	var play_list: Array[StringName] = []
+	var data_list: Array[StringName] = audio_data.list
 
 	match audio_data.play_mode:
 		C.AudioPlayMode.RANGDOM:
-			var audio_name: String = data_list.pick_random()
+			var audio_name: StringName = U.pick_random(data_list)
 			play_list = [audio_name]
 		C.AudioPlayMode.SEQUENCE:
 			var play_idx: int = audio_data.played_idx + 1
 			play_idx %= data_list.size()
 			
-			var audio_name: String = data_list[play_idx]
+			var audio_name: StringName = data_list[play_idx]
 			audio_data.played_idx = play_idx
 			
 			play_list = [audio_name]
 		C.AudioPlayMode.CONCURRENCY:
 			play_list = data_list
 			
-	for audio_name: String in play_list:
+	for audio_name: StringName in play_list:
 		player.stream = _audio_stream_dict[audio_name]
 		player.volume_db = audio_data.volume_db
 		player.volume_linear = audio_data.volume_linear

@@ -21,6 +21,8 @@ class_name Level
 
 func _enter_tree() -> void:
 	GlobalMgr.world_size = world_size
+	
+	WaveMgr.first_release_wave.connect(_on_first_release_wave)
 
 
 func _ready() -> void:
@@ -30,3 +32,6 @@ func _ready() -> void:
 	if ready_music:
 		AudioMgr.play_music(ready_music)
 	
+
+func _on_first_release_wave() -> void:
+	AudioMgr.play_music(battle_music)
