@@ -4,6 +4,14 @@ extends Node
 ## 控制系统主循环与实体插入移除，使用队列控制实体插入与移除。
 
 
+@warning_ignore_start("unused_signal")
+## 创建实体信号
+signal append_insert_queue(entity: Entity)
+## 移除实体信号
+signal append_remove_queue(entity: Entity)
+@warning_ignore_restore("unused_signal")
+
+
 ## 系统列表
 var system_list: Array[System] = []
 ## 实体移除队列

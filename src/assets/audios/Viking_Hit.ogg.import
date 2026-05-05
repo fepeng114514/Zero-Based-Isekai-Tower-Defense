@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c67ojf18i6tey"
-path="res://.godot/imported/Viking_Hit.ogg-ec92d1df491c1d64e2d10cce69e53e0b.oggvorbisstr"
+uid="uid://qk1uapdulqgl"
+path="res://.godot/imported/viking_hit.ogg-94a4b7f3957f0c79210d532918293b57.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Viking_Hit.ogg"
-dest_files=["res://.godot/imported/Viking_Hit.ogg-ec92d1df491c1d64e2d10cce69e53e0b.oggvorbisstr"]
+source_file="res://assets/audios/viking_hit.ogg"
+dest_files=["res://.godot/imported/viking_hit.ogg-94a4b7f3957f0c79210d532918293b57.oggvorbisstr"]
 
 [params]
 

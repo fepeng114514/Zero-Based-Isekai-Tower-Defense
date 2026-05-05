@@ -1,3 +1,4 @@
+@tool
 extends Control
 ## 路径管理器
 ##
@@ -5,6 +6,9 @@ extends Control
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+		
 	var all_node_list: Array[PathwayNode] = PathwayMgr.all_node_list
 	var all_node_list_size: int = all_node_list.size()
 				
@@ -31,3 +35,10 @@ func _ready() -> void:
 				
 			n.intersecting_ni_list.append(other_n.ni)
 			other_n.intersecting_ni_list.append(n.ni)
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	if not get_children():
+		return ["请至少增加一个 Pathway 子节点，否则所有路径相关的操作会出错。"]
+		
+	return []

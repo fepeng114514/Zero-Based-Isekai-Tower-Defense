@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dexlmd5fpyj0w"
-path="res://.godot/imported/Mage_blue_rain_charge.ogg-8653de9768a394c0d07ac9d84266f1a9.oggvorbisstr"
+uid="uid://bj05pqw62e3i1"
+path="res://.godot/imported/mage_blue_rain_charge.ogg-ac55878fc40449de25b7b6290c522c6d.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Mage_blue_rain_charge.ogg"
-dest_files=["res://.godot/imported/Mage_blue_rain_charge.ogg-8653de9768a394c0d07ac9d84266f1a9.oggvorbisstr"]
+source_file="res://assets/audios/mage_blue_rain_charge.ogg"
+dest_files=["res://.godot/imported/mage_blue_rain_charge.ogg-ac55878fc40449de25b7b6290c522c6d.oggvorbisstr"]
 
 [params]
 

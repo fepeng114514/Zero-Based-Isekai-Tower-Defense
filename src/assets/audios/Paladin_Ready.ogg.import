@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dfotcsdmpasgi"
-path="res://.godot/imported/Paladin_Ready.ogg-9a5935784077e0606800ed2a5cfeedd0.oggvorbisstr"
+uid="uid://j1x6i410j211"
+path="res://.godot/imported/paladin_ready.ogg-0d99241ad571eb07d9430ef57d87717b.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Paladin_Ready.ogg"
-dest_files=["res://.godot/imported/Paladin_Ready.ogg-9a5935784077e0606800ed2a5cfeedd0.oggvorbisstr"]
+source_file="res://assets/audios/paladin_ready.ogg"
+dest_files=["res://.godot/imported/paladin_ready.ogg-0d99241ad571eb07d9430ef57d87717b.oggvorbisstr"]
 
 [params]
 

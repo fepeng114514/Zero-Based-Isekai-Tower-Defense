@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://b2okai1osc8xs"
-path="res://.godot/imported/Dwarf_brea_shot_hit.ogg-f166afe5909509966f577f879a20b434.oggvorbisstr"
+uid="uid://j4xxept0tw8u"
+path="res://.godot/imported/dwarf_brea_shot_hit.ogg-4cefa31dbbf7ec2a56411424e259587a.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Dwarf_brea_shot_hit.ogg"
-dest_files=["res://.godot/imported/Dwarf_brea_shot_hit.ogg-f166afe5909509966f577f879a20b434.oggvorbisstr"]
+source_file="res://assets/audios/dwarf_brea_shot_hit.ogg"
+dest_files=["res://.godot/imported/dwarf_brea_shot_hit.ogg-4cefa31dbbf7ec2a56411424e259587a.oggvorbisstr"]
 
 [params]
 

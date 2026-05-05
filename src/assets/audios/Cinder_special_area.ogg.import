@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://b341bik73llxy"
-path="res://.godot/imported/Cinder_special_area.ogg-5b69a1fc5afd0cdb5b6f0ab58d5748ec.oggvorbisstr"
+uid="uid://b4pvgxe70umyh"
+path="res://.godot/imported/cinder_special_area.ogg-4ab9c60911a27e3ba2f9536d14602348.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Cinder_special_area.ogg"
-dest_files=["res://.godot/imported/Cinder_special_area.ogg-5b69a1fc5afd0cdb5b6f0ab58d5748ec.oggvorbisstr"]
+source_file="res://assets/audios/cinder_special_area.ogg"
+dest_files=["res://.godot/imported/cinder_special_area.ogg-4ab9c60911a27e3ba2f9536d14602348.oggvorbisstr"]
 
 [params]
 

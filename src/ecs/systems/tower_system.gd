@@ -68,6 +68,7 @@ func _on_update(_delta: float) -> void:
 			)
 			var holder_tower_c: TowerComponent = tower_holder.get_node_or_null(C.CN_TOWER)
 			tower_holder.global_position = e.global_position
+			holder_tower_c.default_rally_center_local_pos = tower_c.default_rally_center_local_pos
 			holder_tower_c.tower_holder_style = tower_c.tower_holder_style
 			
 			tower_holder.insert_entity()

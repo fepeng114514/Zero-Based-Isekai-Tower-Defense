@@ -10,7 +10,7 @@ class_name Level
 ## 默认塔位样式
 @export var defaul_tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
 ## 地图大小
-@export var world_size: Vector2 = Vector2(2560, 1440)
+@export var world_size := Vector2(2560, 1440)
 
 @export_group("Music")
 ## 准备阶段播放的音乐数据

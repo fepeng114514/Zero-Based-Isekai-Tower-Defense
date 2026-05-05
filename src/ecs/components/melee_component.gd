@@ -76,36 +76,34 @@ var melee_state: C.MeleeState = C.MeleeState.ORIGIN_POS_ARRIVED
 
 
 func _draw() -> void:
-	if not Engine.is_editor_hint():
-		return
-		
-	draw_circle(
-		melee_pos_offset, 
-		3,
-		Color.GREEN, 
-		true
-	)
-	draw_circle(
-		position, 
-		block_max_range,
-		Color(0.448, 0.506, 0.927, 0.604), 
-		false,
-		6
-	)
-	draw_circle(
-		position, 
-		block_min_range,
-		Color(0.448, 0.506, 0.927, 0.604), 
-		false,
-		6
-	)
+	if Engine.is_editor_hint():
+		draw_circle(
+			melee_pos_offset, 
+			3,
+			Color.GREEN, 
+			true
+		)
+		draw_circle(
+			position, 
+			block_max_range,
+			Color(0.448, 0.506, 0.927, 0.604), 
+			false,
+			6
+		)
+		draw_circle(
+			position, 
+			block_min_range,
+			Color(0.448, 0.506, 0.927, 0.604), 
+			false,
+			6
+		)
 	
 	
 func _get_configuration_warnings() -> PackedStringArray:
 	var warn: PackedStringArray = []
 	
 	if not get_children():
-		warn.append("请至少增加一个 MeleeBase 节点或其类型的节点，否则实体无法攻击。")
+		warn.append("请至少增加一个 MeleeBase 或其类型的子节点，否则实体无法攻击。")
 	
 	if not is_blocked and not is_blocker:
 		warn.append("请至少勾选一个 is_blocked 或 is_blocker 属性，否则无法识别被拦截者与拦截者。")

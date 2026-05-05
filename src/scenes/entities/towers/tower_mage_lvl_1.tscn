@@ -10,7 +10,7 @@ scene_name = "tower_mage_lvl_1"
 price = 100.0
 
 [node name="TowerMageLvl1Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("3_j8o77")]
-position = Vector2(1, -2)
+position = Vector2(1, -51)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-54.73, -78.54, 112.585, 102.565)

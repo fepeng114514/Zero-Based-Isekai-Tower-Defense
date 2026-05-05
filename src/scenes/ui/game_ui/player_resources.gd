@@ -13,8 +13,8 @@ extends HBoxContainer
 
 
 func _ready() -> void:
-	S.set_cash.connect(_on_set_cash)
-	S.set_life.connect(_on_set_life)
+	GameMgr.set_cash.connect(_on_set_cash)
+	GameMgr.set_life.connect(_on_set_life)
 
 
 ## 设置金币时调用的信号处理函数

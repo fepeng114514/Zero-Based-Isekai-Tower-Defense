@@ -19,6 +19,11 @@ SHOR_TSIDE = "short_side"
 TYPE_RECT = "rect"
 TYPE_FREE_RECT = "free_rect"
 
+image_atlas_path = config.output_path / "image_atlas"
+animated_atlas_path = config.output_path / "animated_atlas"
+image_atlas_path.mkdir(exist_ok=True)
+animated_atlas_path.mkdir(exist_ok=True)
+
 
 class AtlasGeneratorApp:
     def __init__(self, root):
@@ -676,7 +681,15 @@ def write_atlas(images, result):
     """
     # 创建空白图集
     with Image.new("RGBA", tuple(result["atlas_size"]), (0, 0, 0, 0)) as atlas:
-        output_file = config.output_path / f"{result['name']}.png"
+        atlas_name = result["name"]
+
+        output_path = config.output_path
+        if atlas_name.startswith("image"):
+            output_path = image_atlas_path
+        elif atlas_name.startswith("animated"):
+            output_path = animated_atlas_path
+
+        output_file = output_path / f"{atlas_name}.png"
 
         # 将所有图片粘贴到图集上
         for rect in result["rectangles"]:
@@ -716,7 +729,7 @@ def write_atlas(images, result):
         if output_format == "bc7" or output_format == "bc3":
             save_to_dds(
                 output_file,
-                config.output_path,
+                output_path,
                 output_format,
                 setting_var["delete_temp_var"],
             )
@@ -779,8 +792,14 @@ def write_json_data(images, results, atlas_name):
         atlas_name: 图集名称
     """
     json_content = gen_json_content(images, results)
+    
+    output_path = config.output_path
+    if atlas_name.startswith("image"):
+        output_path = image_atlas_path
+    elif atlas_name.startswith("animated"):
+        output_path = animated_atlas_path
 
-    file = config.output_path / f"{atlas_name}.json"
+    file = output_path / f"{atlas_name}.json"
     log.info(f"写入图集数据 {file}")
 
     with open(file, "w", encoding="utf-8") as f:

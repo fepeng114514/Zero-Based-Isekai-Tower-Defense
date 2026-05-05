@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bdx0ijdu623tk"
-path="res://.godot/imported/Muskateer_Snipe.ogg-39a75404518c9bdad4fbdbe7fc74d643.oggvorbisstr"
+uid="uid://d0qq63ym83mt5"
+path="res://.godot/imported/muskateer_snipe.ogg-25ab312efea79579f9e4d218f584bf89.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Muskateer_Snipe.ogg"
-dest_files=["res://.godot/imported/Muskateer_Snipe.ogg-39a75404518c9bdad4fbdbe7fc74d643.oggvorbisstr"]
+source_file="res://assets/audios/muskateer_snipe.ogg"
+dest_files=["res://.godot/imported/muskateer_snipe.ogg-25ab312efea79579f9e4d218f584bf89.oggvorbisstr"]
 
 [params]
 

@@ -312,6 +312,8 @@ enum Direction {
 enum AudioPlayMode {
 	## 音频播放模式：随机播放音频列表中的音频
 	RANGDOM,
+	## 音频播放模式：按顺序选择并播放音频列表中的音频
+	SEQUENCE,
 	## 音频播放模式：并行播放音频列表中的音频
 	CONCURRENCY
 }

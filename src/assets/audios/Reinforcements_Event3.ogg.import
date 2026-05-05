@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://feeiof2lem3d"
-path="res://.godot/imported/Reinforcements_Event3.ogg-6c49450b743b64cd0b8789eee67ef885.oggvorbisstr"
+uid="uid://dluf22d1tp4rn"
+path="res://.godot/imported/reinforcements_event3.ogg-f2ad8a78fcacb53f16be8bd41522a2ce.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Reinforcements_Event3.ogg"
-dest_files=["res://.godot/imported/Reinforcements_Event3.ogg-6c49450b743b64cd0b8789eee67ef885.oggvorbisstr"]
+source_file="res://assets/audios/reinforcements_event3.ogg"
+dest_files=["res://.godot/imported/reinforcements_event3.ogg-f2ad8a78fcacb53f16be8bd41522a2ce.oggvorbisstr"]
 
 [params]
 

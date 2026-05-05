@@ -3,7 +3,19 @@ class_name BarrackBehavior
 ## 兵营行为系统
 ##
 ## 处理拥有 [BarrackComponent] 兵营组件的实体生成士兵
+
+
+func _on_remove(e: Entity) -> bool:
+	var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
+	if not barrack_c:
+		return true
 	
+	var soldier_group: EntityGroup = barrack_c.soldier_group
+	for soldier: Entity in soldier_group.get_children():
+		soldier.remove_entity()
+		
+	return true
+
 
 func _on_update(e: Entity) -> bool:
 	var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)

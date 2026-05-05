@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dy7mjjsax8fgc"
-path="res://.godot/imported/KR_sfx_mushroomcreep_muerte_edit_vanzen.ogg-d4fb9a8c6eee43622979d0019fb57633.oggvorbisstr"
+uid="uid://y75fk2jv4l4k"
+path="res://.godot/imported/kr_sfx_mushroomcreep_muerte_edit_vanzen.ogg-f9cc72e648a314b76993afce5872bebc.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_mushroomcreep_muerte_edit_vanzen.ogg"
-dest_files=["res://.godot/imported/KR_sfx_mushroomcreep_muerte_edit_vanzen.ogg-d4fb9a8c6eee43622979d0019fb57633.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_mushroomcreep_muerte_edit_vanzen.ogg"
+dest_files=["res://.godot/imported/kr_sfx_mushroomcreep_muerte_edit_vanzen.ogg-f9cc72e648a314b76993afce5872bebc.oggvorbisstr"]
 
 [params]
 

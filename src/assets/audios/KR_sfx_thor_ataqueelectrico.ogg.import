@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c1xcw5dn0lbuu"
-path="res://.godot/imported/KR_sfx_thor_ataqueelectrico.ogg-eb03d5b9a355fc4fab2ca7dd93331757.oggvorbisstr"
+uid="uid://cuaoog1byetuy"
+path="res://.godot/imported/kr_sfx_thor_ataqueelectrico.ogg-6aea03690515bf9009dbd6e7ee0c7d9e.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_thor_ataqueelectrico.ogg"
-dest_files=["res://.godot/imported/KR_sfx_thor_ataqueelectrico.ogg-eb03d5b9a355fc4fab2ca7dd93331757.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_thor_ataqueelectrico.ogg"
+dest_files=["res://.godot/imported/kr_sfx_thor_ataqueelectrico.ogg-6aea03690515bf9009dbd6e7ee0c7d9e.oggvorbisstr"]
 
 [params]
 

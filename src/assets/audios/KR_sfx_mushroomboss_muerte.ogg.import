@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://m886avlpyjmt"
-path="res://.godot/imported/KR_sfx_mushroomboss_muerte.ogg-45c9b5e173d3f41fd8ef7f44f90f06c4.oggvorbisstr"
+uid="uid://bi1b2b27fvudj"
+path="res://.godot/imported/kr_sfx_mushroomboss_muerte.ogg-b26ef44284fdf197f81a931b7265c255.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_mushroomboss_muerte.ogg"
-dest_files=["res://.godot/imported/KR_sfx_mushroomboss_muerte.ogg-45c9b5e173d3f41fd8ef7f44f90f06c4.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_mushroomboss_muerte.ogg"
+dest_files=["res://.godot/imported/kr_sfx_mushroomboss_muerte.ogg-b26ef44284fdf197f81a931b7265c255.oggvorbisstr"]
 
 [params]
 

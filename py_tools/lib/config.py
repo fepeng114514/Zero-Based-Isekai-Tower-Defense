@@ -9,6 +9,7 @@ input_path.mkdir(exist_ok=True)
 output_path.mkdir(exist_ok=True)
 
 setting_file = Path("setting.json")
+setting = {}
 
 log_level = "INFO"
 log_file = None

@@ -11,6 +11,7 @@ scene_name = "tower_archer_lvl_1"
 price = 70.0
 
 [node name="EntityGroup2D" type="Node2D" parent="TowerComponent" index="0" unique_id=1846981393]
+position = Vector2(0, -49)
 script = ExtResource("7_nv2ef")
 metadata/_custom_type_script = "uid://cb268fbjlobm5"
 

@@ -4,7 +4,9 @@ class_name Pathway
 
 
 ## 是否禁用当前路径
-@export var disabled: bool = true
+@export var disabled: bool = false
+@export var is_debug: bool = false
+
 ## 子路径列表
 var subpathway_list: Array[Subpathway] = []
 ## 下一个子路径索引

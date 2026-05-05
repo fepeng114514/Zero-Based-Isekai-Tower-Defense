@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dbcr582a8aa5t"
-path="res://.godot/imported/Viking_Transform.ogg-1d58d974da25d0976d02efa535ff7d8a.oggvorbisstr"
+uid="uid://owiyc4ofvc55"
+path="res://.godot/imported/viking_transform.ogg-87827e83acbf5c698dbaf01cc9c9a803.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Viking_Transform.ogg"
-dest_files=["res://.godot/imported/Viking_Transform.ogg-1d58d974da25d0976d02efa535ff7d8a.oggvorbisstr"]
+source_file="res://assets/audios/viking_transform.ogg"
+dest_files=["res://.godot/imported/viking_transform.ogg-87827e83acbf5c698dbaf01cc9c9a803.oggvorbisstr"]
 
 [params]
 

@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c7usjp4tcm57g"
-path="res://.godot/imported/Sound_Coins.ogg-a55c570379e855480cb0844692be07e9.oggvorbisstr"
+uid="uid://bo8uhectcqusj"
+path="res://.godot/imported/sound_coins.ogg-5966be4570c6de6ece945a97c22d7523.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sound_Coins.ogg"
-dest_files=["res://.godot/imported/Sound_Coins.ogg-a55c570379e855480cb0844692be07e9.oggvorbisstr"]
+source_file="res://assets/audios/sound_coins.ogg"
+dest_files=["res://.godot/imported/sound_coins.ogg-5966be4570c6de6ece945a97c22d7523.oggvorbisstr"]
 
 [params]
 

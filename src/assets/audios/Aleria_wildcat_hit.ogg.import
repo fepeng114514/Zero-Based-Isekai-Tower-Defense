@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://btkqw087mg5la"
-path="res://.godot/imported/Aleria_wildcat_hit.ogg-a90f353ffaeda9fb3a70a40682e63d88.oggvorbisstr"
+uid="uid://ddu7b2uyitw1i"
+path="res://.godot/imported/aleria_wildcat_hit.ogg-1961afbf840a489c72a7ef4da9a4af16.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Aleria_wildcat_hit.ogg"
-dest_files=["res://.godot/imported/Aleria_wildcat_hit.ogg-a90f353ffaeda9fb3a70a40682e63d88.oggvorbisstr"]
+source_file="res://assets/audios/aleria_wildcat_hit.ogg"
+dest_files=["res://.godot/imported/aleria_wildcat_hit.ogg-1961afbf840a489c72a7ef4da9a4af16.oggvorbisstr"]
 
 [params]
 

@@ -15,6 +15,7 @@ texture = ExtResource("2_fuiib")
 price = 110.0
 
 [node name="EntityGroup2D" type="Node2D" parent="TowerComponent" index="0" unique_id=551242185]
+position = Vector2(0, -49)
 script = ExtResource("3_8t32b")
 metadata/_custom_type_script = "uid://cb268fbjlobm5"
 

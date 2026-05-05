@@ -33,7 +33,10 @@ static func dist_factor_inside_radius(
 static func point_on_circle(
 		point: Vector2, radius: float, angle: float = 0
 	) -> Vector2:
-	return point + Vector2.from_angle(angle) * radius
+	var dir: Vector2 = Vector2.from_angle(angle)
+	var d: Vector2 = dir * radius
+		
+	return point + d
 
 
 ## 判断点是否在圆环内

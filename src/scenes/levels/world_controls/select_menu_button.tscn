@@ -2,14 +2,58 @@
 
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="1_8k4f0"]
 [ext_resource type="Script" uid="uid://178r1p0k26uo" path="res://scenes/levels/world_controls/select_menu_button.gd" id="1_8tbqb"]
-[ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_textures/main_icons_0004.tres" id="2_5xrme"]
+[ext_resource type="Texture2D" uid="uid://cnygsu62w1cxt" path="res://resources/atlas_textures/main_icons_0003.tres" id="2_jloxb"]
+[ext_resource type="Texture2D" uid="uid://05hncrusqd3j" path="res://resources/atlas_textures/glow_ico_sub.tres" id="4_i7j32"]
+[ext_resource type="Texture2D" uid="uid://380x6n5pe4u7" path="res://resources/atlas_textures/glow_ico_main.tres" id="4_oy4a5"]
+[ext_resource type="Texture2D" uid="uid://ckv4h4gbmq37" path="res://resources/atlas_textures/glow_ico_sell.tres" id="6_f6hyo"]
+[ext_resource type="Texture2D" uid="uid://jgoi7is6csbd" path="res://resources/atlas_textures/glow_ico_special.tres" id="7_qdmju"]
 
-[node name="SelectMenuItemButton" type="Button" unique_id=677417909]
+[node name="SelectMenuItemButton" type="Button" unique_id=677417909 node_paths=PackedStringArray("upgrade_glow", "rally_glow", "sell_glow", "skill_glow")]
 offset_right = 113.0
 offset_bottom = 102.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme = ExtResource("1_8k4f0")
-icon = ExtResource("2_5xrme")
+icon = ExtResource("2_jloxb")
 flat = true
 icon_alignment = 1
 script = ExtResource("1_8tbqb")
+upgrade_glow = NodePath("UpgradeGlow")
+rally_glow = NodePath("RallyGlow")
+sell_glow = NodePath("SellGlow")
+skill_glow = NodePath("SkillGlow")
+
+[node name="UpgradeGlow" type="TextureRect" parent="." unique_id=1298848039]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 118.0
+offset_bottom = 106.0
+mouse_filter = 2
+texture = ExtResource("4_oy4a5")
+
+[node name="RallyGlow" type="TextureRect" parent="." unique_id=612152113]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 107.0
+offset_bottom = 101.0
+mouse_filter = 2
+texture = ExtResource("4_i7j32")
+
+[node name="SellGlow" type="TextureRect" parent="." unique_id=1467919811]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 11.0
+offset_right = 99.0
+offset_bottom = 91.0
+mouse_filter = 2
+texture = ExtResource("6_f6hyo")
+
+[node name="SkillGlow" type="TextureRect" parent="." unique_id=1811150380]
+layout_mode = 0
+offset_left = -3.0
+offset_top = -4.0
+offset_right = 117.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("7_qdmju")

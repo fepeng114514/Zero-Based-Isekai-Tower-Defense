@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c353fsvvm36w8"
-path="res://.godot/imported/Barrack_Ready.ogg-bc74c807d498406c53e71965aa811fb3.oggvorbisstr"
+uid="uid://wp6s75jf2hn3"
+path="res://.godot/imported/barrack_ready.ogg-224396bd869f4b3dca8aa90db7f94b7d.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Barrack_Ready.ogg"
-dest_files=["res://.godot/imported/Barrack_Ready.ogg-bc74c807d498406c53e71965aa811fb3.oggvorbisstr"]
+source_file="res://assets/audios/barrack_ready.ogg"
+dest_files=["res://.godot/imported/barrack_ready.ogg-224396bd869f4b3dca8aa90db7f94b7d.oggvorbisstr"]
 
 [params]
 

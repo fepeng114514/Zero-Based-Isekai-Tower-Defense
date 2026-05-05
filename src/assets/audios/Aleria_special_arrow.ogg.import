@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://ddwtsfhn3qeld"
-path="res://.godot/imported/Aleria_special_arrow.ogg-c3c1b806a4560f085a48950c89971ff6.oggvorbisstr"
+uid="uid://1ymryn02rrng"
+path="res://.godot/imported/aleria_special_arrow.ogg-ebc002249f649e21fc16eb66eef5b49a.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Aleria_special_arrow.ogg"
-dest_files=["res://.godot/imported/Aleria_special_arrow.ogg-c3c1b806a4560f085a48950c89971ff6.oggvorbisstr"]
+source_file="res://assets/audios/aleria_special_arrow.ogg"
+dest_files=["res://.godot/imported/aleria_special_arrow.ogg-ebc002249f649e21fc16eb66eef5b49a.oggvorbisstr"]
 
 [params]
 

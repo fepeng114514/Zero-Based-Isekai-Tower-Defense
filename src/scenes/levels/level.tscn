@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://be4ofxijaafml"]
 
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://scenes/levels/level.gd" id="1_7ttr4"]
-[ext_resource type="AudioStream" uid="uid://dpl0mcs7s53br" path="res://assets/audios/MusicBattlePreparationsForest.ogg" id="2_475l0"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="3_xp3ar"]
 [ext_resource type="PackedScene" uid="uid://c2ifsgk1fsdc5" path="res://scenes/levels/systems.tscn" id="8_8iyoh"]
 [ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level1_bg.png" id="23_n8wpv"]
@@ -13,11 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui/game_ui_layer.tscn" id="37_g4khr"]
 [ext_resource type="Script" uid="uid://dis1b1tppxlkf" path="res://scenes/levels/world_controls/world_controls.gd" id="37_vprhr"]
 [ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/levels/world_controls/world_controls.tscn" id="38_jup16"]
-[ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://scenes/levels/wave_flags.gd" id="39_475l0"]
+[ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://scenes/levels/wave_flag/wave_flags.gd" id="39_475l0"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("3_xp3ar")
-audio_list = Array[AudioStream]([ExtResource("2_475l0")])
+list = Array[String](["music_battle_preparations_forest"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="Level" type="Node2D" unique_id=1565788906]

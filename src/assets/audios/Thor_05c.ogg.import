@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://ci247b4s76nba"
-path="res://.godot/imported/Thor_05c.ogg-4cc5c66c8efc097ecf61c3af4d7e8f95.oggvorbisstr"
+uid="uid://bhpmh1i81j4jp"
+path="res://.godot/imported/thor_05c.ogg-fd173fdb50be425bbaa989bc97f4c5bb.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Thor_05c.ogg"
-dest_files=["res://.godot/imported/Thor_05c.ogg-4cc5c66c8efc097ecf61c3af4d7e8f95.oggvorbisstr"]
+source_file="res://assets/audios/thor_05c.ogg"
+dest_files=["res://.godot/imported/thor_05c.ogg-fd173fdb50be425bbaa989bc97f4c5bb.oggvorbisstr"]
 
 [params]
 

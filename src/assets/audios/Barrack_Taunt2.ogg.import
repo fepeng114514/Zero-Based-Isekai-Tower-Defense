@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bj8iub4ol1ho3"
-path="res://.godot/imported/Barrack_Taunt2.ogg-797084aa5b7d7bc1a624f217da0ff1fd.oggvorbisstr"
+uid="uid://vg7mlvvampln"
+path="res://.godot/imported/barrack_taunt2.ogg-c1a4e993faceee96a905b98bb297b744.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Barrack_Taunt2.ogg"
-dest_files=["res://.godot/imported/Barrack_Taunt2.ogg-797084aa5b7d7bc1a624f217da0ff1fd.oggvorbisstr"]
+source_file="res://assets/audios/barrack_taunt2.ogg"
+dest_files=["res://.godot/imported/barrack_taunt2.ogg-c1a4e993faceee96a905b98bb297b744.oggvorbisstr"]
 
 [params]
 

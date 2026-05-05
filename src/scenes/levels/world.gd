@@ -9,7 +9,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 		
-	S.insert_entity.connect(_on_create_entity)
+	SystemMgr.append_insert_queue.connect(_on_create_entity)
 	
 	for e: Entity in get_children():
 		EntityMgr.process_create(e)
@@ -21,7 +21,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warn: PackedStringArray = []
 	
 	if not get_children():
-		warn.append("请至少增加一个 WaveSpawner 实体子场景，否则无法生成敌人。")
+		warn.append("请至少增加一个 WaveSpawner 子节点，否则无法生成敌人。")
 		
 	return warn
 	

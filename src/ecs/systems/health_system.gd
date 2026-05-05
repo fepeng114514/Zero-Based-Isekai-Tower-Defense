@@ -41,7 +41,8 @@ func _on_update(_delta: float) -> void:
 
 
 func _death(e: Entity, health_c: HealthComponent) -> void:
-	e._on_death()
+	if e._on_death():
+		return
 	
 	var death_data: DeathData = health_c.death_data
 	if death_data:

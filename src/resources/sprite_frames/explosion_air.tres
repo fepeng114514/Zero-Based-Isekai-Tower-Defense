@@ -2,61 +2,61 @@
 
 [ext_resource type="Texture2D" uid="uid://wdw2l33j31ls" path="res://assets/animated_atlas/animated_towers-1.dds" id="1_6rgq3"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tg4cs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rgq3"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(2178, 2742, 46, 40)
 margin = Rect2(62, 66, 122, 128)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g7q6v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg4cs"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1664, 963, 94, 70)
 margin = Rect2(34, 49, 74, 98)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nc70k"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7q6v"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1425, 3, 124, 101)
 margin = Rect2(19, 33, 44, 67)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6sl4o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc70k"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1271, 2085, 141, 120)
 margin = Rect2(10, 26, 27, 48)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2iowg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sl4o"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1096, 3313, 153, 140)
 margin = Rect2(5, 14, 15, 28)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_efoq5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2iowg"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1096, 1289, 165, 149)
 margin = Rect2(1, 10, 3, 19)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rdtsg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_efoq5"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1096, 1139, 166, 148)
 margin = Rect2(1, 10, 2, 20)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v5r6j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdtsg"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1096, 1674, 164, 146)
 margin = Rect2(3, 10, 4, 22)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lt60q"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5r6j"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1096, 2058, 161, 107)
 margin = Rect2(5, 7, 7, 61)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_irorf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt60q"]
 atlas = ExtResource("1_6rgq3")
 region = Rect2(1551, 2150, 104, 87)
 margin = Rect2(27, 21, 64, 81)
@@ -66,7 +66,13 @@ filter_clip = true
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_6rgq3")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_tg4cs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7q6v")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g7q6v")
@@ -112,12 +118,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lt60q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_irorf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_irorf")
 }],
 "loop": true,
 "name": &"idle",

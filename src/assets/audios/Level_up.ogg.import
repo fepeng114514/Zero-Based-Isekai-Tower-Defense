@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://lo6iumrk70dv"
-path="res://.godot/imported/Level_up.ogg-e6bb7032e878f21a9e1119780dfcb83e.oggvorbisstr"
+uid="uid://ciicice6i36y7"
+path="res://.godot/imported/level_up.ogg-d51901975ca883afc3f7bc76fe4c760d.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Level_up.ogg"
-dest_files=["res://.godot/imported/Level_up.ogg-e6bb7032e878f21a9e1119780dfcb83e.oggvorbisstr"]
+source_file="res://assets/audios/level_up.ogg"
+dest_files=["res://.godot/imported/level_up.ogg-d51901975ca883afc3f7bc76fe4c760d.oggvorbisstr"]
 
 [params]
 

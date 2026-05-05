@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dpi4vnmh6aidx"
-path="res://.godot/imported/Sound_Sniper.ogg-521a34e215127acf3b3e7751636c3f4f.oggvorbisstr"
+uid="uid://cawieyn34hhd3"
+path="res://.godot/imported/sound_sniper.ogg-2c4938570df6c5ee6c23dcbc69b214d6.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sound_Sniper.ogg"
-dest_files=["res://.godot/imported/Sound_Sniper.ogg-521a34e215127acf3b3e7751636c3f4f.oggvorbisstr"]
+source_file="res://assets/audios/sound_sniper.ogg"
+dest_files=["res://.godot/imported/sound_sniper.ogg-2c4938570df6c5ee6c23dcbc69b214d6.oggvorbisstr"]
 
 [params]
 

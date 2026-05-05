@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://ct8d3yburic6"
-path="res://.godot/imported/Sound_Teleport.ogg-0585e6593121e6374ca758d2fe88cc48.oggvorbisstr"
+uid="uid://b8riw70sc408s"
+path="res://.godot/imported/sound_teleport.ogg-dba432b4a2abb6e453aeb936a88018e9.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sound_Teleport.ogg"
-dest_files=["res://.godot/imported/Sound_Teleport.ogg-0585e6593121e6374ca758d2fe88cc48.oggvorbisstr"]
+source_file="res://assets/audios/sound_teleport.ogg"
+dest_files=["res://.godot/imported/sound_teleport.ogg-dba432b4a2abb6e453aeb936a88018e9.oggvorbisstr"]
 
 [params]
 

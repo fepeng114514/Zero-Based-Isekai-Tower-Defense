@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bs2i7v1k6tgox"
-path="res://.godot/imported/CB_Battle.ogg-bced9fb08b31791441b93763de944cb1.oggvorbisstr"
+uid="uid://dw2lxv58phe2s"
+path="res://.godot/imported/cb_battle.ogg-c9b3ac6bc9465a7d5c48998b04f4ddbd.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/CB_Battle.ogg"
-dest_files=["res://.godot/imported/CB_Battle.ogg-bced9fb08b31791441b93763de944cb1.oggvorbisstr"]
+source_file="res://assets/audios/cb_battle.ogg"
+dest_files=["res://.godot/imported/cb_battle.ogg-c9b3ac6bc9465a7d5c48998b04f4ddbd.oggvorbisstr"]
 
 [params]
 

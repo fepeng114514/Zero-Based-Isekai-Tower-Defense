@@ -9,7 +9,7 @@
 	- 如：`RangedAttack` 的攻击范围、攻击速度等。
 4. 可以扩展 `Entity` 的脚本来在一些回调中进行一些操作：
 	- 如：`_on_update` 回调，每帧会被调用。
-5. 运行 tools/update_json_datas 更新场景字典 entity_scenes
+5. 运行 tools/update_entity_scene_paths 更新场景字典 scenes/entities/entity_scene_paths.json
 
 > **注意**：为了可复用性不应该依赖扩展脚本来为实体增加逻辑，而是将逻辑抽象为组件的属性，除非该逻辑不会被复用或过于特例化。
 
@@ -55,6 +55,10 @@
 方向部分可以是 AnimationData 资源属性: "up"、"down"、"left_right" 等。
 动作部分可以是任意描述动画的字符串，如 "idle"、"walk"、"melee"、"death" 等。
 示例:
-"idle_up" 表示向上的待机动画
-"walk_left_right" 表示左右的行走动画
-"melee" 表示无方向的近战攻击动画
+"idle_up" 表示向上的待机动画。
+"walk_left_right" 表示左右的行走动画。
+"melee" 表示无方向的近战攻击动画。
+
+### 导入音频流程
+1. 将音频文件放到 src/assets/audios 中。
+2. 运行 在编辑器运行 src/tools/update_audio_paths 脚本更新 src/assets/audio_paths.json。

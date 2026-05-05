@@ -6,50 +6,46 @@ class_name UIComponent
 @export var select_rect := Rect2(-16, -16, 32, 32):
 	set(value):
 		select_rect = value
-		if not Engine.is_editor_hint():
-			return
-		queue_redraw()
+		if Engine.is_editor_hint():
+			queue_redraw()
 ## 是否可以选择
 @export var can_select: bool = true:
 	set(value):
 		can_select = value
-		if not Engine.is_editor_hint():
-			return
-		queue_redraw()
+		if Engine.is_editor_hint():
+			queue_redraw()
 
 ## 信息栏类型
 @export var info_bar_type: C.InfoBarType = C.InfoBarType.NONE
 ## 选择菜单偏移
-@export var select_menu_offset: Vector2 = Vector2.ZERO:
+@export var select_menu_offset := Vector2.ZERO:
 	set(value):
 		select_menu_offset = value
 		queue_redraw()
 
 func _draw() -> void:
-	if not Engine.is_editor_hint():
-		return
+	if Engine.is_editor_hint():
+		if not can_select:
+			return
 
-	if not can_select:
-		return
-
-	draw_rect(
-		Rect2(select_menu_offset - Vector2(4, 4), Vector2(8, 8)), 
-		Color.GREEN, 
-		true
-	)
-		
-	# 绘制半透明填充和边框
-	draw_rect(
-		Rect2(select_rect.position, select_rect.size), 
-		Color(0.2, 0.6, 1.0, 0.3), 
-		true
-	)
-	draw_rect(
-		Rect2(select_rect.position, select_rect.size), 
-		Color(0.2, 0.6, 1.0, 0.9), 
-		false, 
-		0.5
-	)
+		draw_rect(
+			Rect2(select_menu_offset - Vector2(4, 4), Vector2(8, 8)), 
+			Color.GREEN, 
+			true
+		)
+			
+		# 绘制半透明填充和边框
+		draw_rect(
+			Rect2(select_rect.position, select_rect.size), 
+			Color(0.2, 0.6, 1.0, 0.3), 
+			true
+		)
+		draw_rect(
+			Rect2(select_rect.position, select_rect.size), 
+			Color(0.2, 0.6, 1.0, 0.9), 
+			false, 
+			0.5
+		)
 	
 
 ## 获取全局位置的矩形

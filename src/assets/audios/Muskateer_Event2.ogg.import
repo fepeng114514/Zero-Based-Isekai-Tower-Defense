@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://cn7vtfof2r7k5"
-path="res://.godot/imported/Muskateer_Event2.ogg-3ff8b946568fb6aa2d8a119ffa7b8fd7.oggvorbisstr"
+uid="uid://dkf1dm4rci73j"
+path="res://.godot/imported/muskateer_event2.ogg-cf9f925e82deec56949ee691e4812fa6.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Muskateer_Event2.ogg"
-dest_files=["res://.godot/imported/Muskateer_Event2.ogg-3ff8b946568fb6aa2d8a119ffa7b8fd7.oggvorbisstr"]
+source_file="res://assets/audios/muskateer_event2.ogg"
+dest_files=["res://.godot/imported/muskateer_event2.ogg-cf9f925e82deec56949ee691e4812fa6.oggvorbisstr"]
 
 [params]
 

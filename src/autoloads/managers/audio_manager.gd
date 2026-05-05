@@ -11,6 +11,7 @@ const MusicBus: StringName = &"Music"
 ## 音效总线
 const SFXBus: StringName = &"SFX"
 
+var _audio_stream_dict: Dictionary[String, AudioStream] = {}
 ## 音乐的 AudioStreamPlayer
 var _music_player := AudioStreamPlayer.new()
 ## 音效 AudioStreamPlayer 总数
@@ -30,6 +31,26 @@ func _ready() -> void:
 		sfx_player.name = "SFX%d" % (i + 1)
 		add_child(sfx_player)
 		_sfx_players.append(sfx_player)
+	
+	
+func load() -> void:
+	_audio_stream_dict.clear()
+	
+	var json_data: Array = U.load_json(
+		"res://assets/audio_paths.json"
+	)
+	
+	for path: String in json_data:
+		if not ResourceLoader.exists(path):
+			Log.error("未找到音频: %s" % path)
+			continue
+		
+		Log.verbose("加载音频: %s" % path)
+		var stream: AudioStream = load(path)
+		
+		var stream_name: String = path.get_file().get_basename()
+		
+		_audio_stream_dict[stream_name] = stream
 	
 	
 ## 播放音乐
@@ -58,25 +79,28 @@ func play_audio(
 		return
 		
 	await TimeMgr.y_wait(audio_data.delay)
+	
+	var play_list: Array[String] = []
+	var data_list: Array[String] = audio_data.list
 
 	match audio_data.play_mode:
 		C.AudioPlayMode.RANGDOM:
-			var stream: AudioStream = audio_data.audio_list.pick_random()
-			_play(stream, player, bus, audio_data)
+			var audio_name: String = data_list.pick_random()
+			play_list = [audio_name]
+		C.AudioPlayMode.SEQUENCE:
+			var play_idx: int = audio_data.played_idx + 1
+			play_idx %= data_list.size()
+			
+			var audio_name: String = data_list[play_idx]
+			audio_data.played_idx = play_idx
+			
+			play_list = [audio_name]
 		C.AudioPlayMode.CONCURRENCY:
-			for stream: AudioStream in audio_data.audio_list:
-				_play(stream, player, bus, audio_data)
-
-
-## 播放音频
-func _play(
-		stream: AudioStream, 
-		player: AudioStreamPlayer, 
-		bus: StringName,
-		audio_data: AudioData
-	) -> void:
-	player.stream = stream
-	player.volume_db = audio_data.volume_db
-	player.volume_linear = audio_data.volume_linear
-	player.bus = bus
-	player.play()
+			play_list = data_list
+			
+	for audio_name: String in play_list:
+		player.stream = _audio_stream_dict[audio_name]
+		player.volume_db = audio_data.volume_db
+		player.volume_linear = audio_data.volume_linear
+		player.bus = bus
+		player.play()

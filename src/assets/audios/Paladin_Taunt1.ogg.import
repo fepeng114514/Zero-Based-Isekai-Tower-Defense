@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bax8re7nj4mr2"
-path="res://.godot/imported/Paladin_Taunt1.ogg-9cb2834978500d4e42e2326c4a2412e7.oggvorbisstr"
+uid="uid://b3umrrn7hcxyr"
+path="res://.godot/imported/paladin_taunt1.ogg-3e55e54f8cb2548f322ce97ddb602c3b.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Paladin_Taunt1.ogg"
-dest_files=["res://.godot/imported/Paladin_Taunt1.ogg-9cb2834978500d4e42e2326c4a2412e7.oggvorbisstr"]
+source_file="res://assets/audios/paladin_taunt1.ogg"
+dest_files=["res://.godot/imported/paladin_taunt1.ogg-3e55e54f8cb2548f322ce97ddb602c3b.oggvorbisstr"]
 
 [params]
 

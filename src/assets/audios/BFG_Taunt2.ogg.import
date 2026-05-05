@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://cedsusc5fff62"
-path="res://.godot/imported/BFG_Taunt2.ogg-a27960ac3ab17b5ee629b4aece96728a.oggvorbisstr"
+uid="uid://cwoh08h6xe8uu"
+path="res://.godot/imported/bfg_taunt2.ogg-226993e9ee9ba89f51be6f165da4a735.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/BFG_Taunt2.ogg"
-dest_files=["res://.godot/imported/BFG_Taunt2.ogg-a27960ac3ab17b5ee629b4aece96728a.oggvorbisstr"]
+source_file="res://assets/audios/bfg_taunt2.ogg"
+dest_files=["res://.godot/imported/bfg_taunt2.ogg-226993e9ee9ba89f51be6f165da4a735.oggvorbisstr"]
 
 [params]
 

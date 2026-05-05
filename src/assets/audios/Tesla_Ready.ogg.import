@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://b1w3myw6g5pfd"
-path="res://.godot/imported/Tesla_Ready.ogg-0aa5afe83f4fd22e283e79967dfc8a39.oggvorbisstr"
+uid="uid://drtndi5emwm6m"
+path="res://.godot/imported/tesla_ready.ogg-a582f5b0ad02f61de22496321f1ff041.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Tesla_Ready.ogg"
-dest_files=["res://.godot/imported/Tesla_Ready.ogg-0aa5afe83f4fd22e283e79967dfc8a39.oggvorbisstr"]
+source_file="res://assets/audios/tesla_ready.ogg"
+dest_files=["res://.godot/imported/tesla_ready.ogg-a582f5b0ad02f61de22496321f1ff041.oggvorbisstr"]
 
 [params]
 

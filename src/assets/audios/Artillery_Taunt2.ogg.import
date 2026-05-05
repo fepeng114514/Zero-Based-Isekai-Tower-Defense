@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bmtqvqyyfi0bo"
-path="res://.godot/imported/Artillery_Taunt2.ogg-e4d4c7dafb02e031eb03444b8a9e79c8.oggvorbisstr"
+uid="uid://defc8m78n4bwc"
+path="res://.godot/imported/artillery_taunt2.ogg-5b87ba01ceab92abf3780ab8947d0554.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Artillery_Taunt2.ogg"
-dest_files=["res://.godot/imported/Artillery_Taunt2.ogg-e4d4c7dafb02e031eb03444b8a9e79c8.oggvorbisstr"]
+source_file="res://assets/audios/artillery_taunt2.ogg"
+dest_files=["res://.godot/imported/artillery_taunt2.ogg-5b87ba01ceab92abf3780ab8947d0554.oggvorbisstr"]
 
 [params]
 

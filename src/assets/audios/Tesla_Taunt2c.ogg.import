@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://hl1t5q0mu2ax"
-path="res://.godot/imported/Tesla_Taunt2c.ogg-85c41a1009e63068cddec9d5a94df0fa.oggvorbisstr"
+uid="uid://brrmkwedngkyb"
+path="res://.godot/imported/tesla_taunt2c.ogg-1e2544c9d8cc2a7f0d539953a2ffa652.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Tesla_Taunt2c.ogg"
-dest_files=["res://.godot/imported/Tesla_Taunt2c.ogg-85c41a1009e63068cddec9d5a94df0fa.oggvorbisstr"]
+source_file="res://assets/audios/tesla_taunt2c.ogg"
+dest_files=["res://.godot/imported/tesla_taunt2c.ogg-1e2544c9d8cc2a7f0d539953a2ffa652.oggvorbisstr"]
 
 [params]
 

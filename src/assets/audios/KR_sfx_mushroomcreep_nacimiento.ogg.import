@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dvg10e7ui78ov"
-path="res://.godot/imported/KR_sfx_mushroomcreep_nacimiento.ogg-c9b7d4c716e0f15862a1bfafde6c77d2.oggvorbisstr"
+uid="uid://cbl8gq8l8fpm1"
+path="res://.godot/imported/kr_sfx_mushroomcreep_nacimiento.ogg-6234b45e5115427e0255e2393d54c86b.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_mushroomcreep_nacimiento.ogg"
-dest_files=["res://.godot/imported/KR_sfx_mushroomcreep_nacimiento.ogg-c9b7d4c716e0f15862a1bfafde6c77d2.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_mushroomcreep_nacimiento.ogg"
+dest_files=["res://.godot/imported/kr_sfx_mushroomcreep_nacimiento.ogg-6234b45e5115427e0255e2393d54c86b.oggvorbisstr"]
 
 [params]
 

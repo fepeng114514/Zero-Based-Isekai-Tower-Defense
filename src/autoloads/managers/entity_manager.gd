@@ -6,9 +6,9 @@ extends Node
 
 #region 属性
 ## 存储实体场景的字典
-var _entity_scenes: Dictionary[String, PackedScene] = {}
+var _entity_scene_dict: Dictionary[String, PackedScene] = {}
 ## 被修改的场景
-var _dirty_scenes: Array[String] = []
+var _dirty_scenes_list: Array[String] = []
 ## 下一个创建实体的 id
 var _next_id: int = 0
 ## 实体数据缓存字典，用于读取数据，不参与游戏
@@ -40,7 +40,7 @@ var space_index_grids: Array[Dictionary] = []
 
 
 func load() -> void:
-	_entity_scenes.clear()
+	_entity_scene_dict.clear()
 	_cached_entities_data.clear()
 	component_groups.clear()
 	entity_list.clear()
@@ -56,17 +56,17 @@ func load() -> void:
 	)
 	
 	# 加载实体场景
-	for scene_path: String in json_data:
-		var scene_name: String = scene_path.get_file().get_basename()
+	for path: String in json_data:
+		if not ResourceLoader.exists(path):
+			Log.error("未找到实体场景: %s" % path)
+			continue
 		
-		if not ResourceLoader.exists(scene_path):
-			Log.error("未找到实体场景: %s" % scene_path)
-			return
+		Log.verbose("加载实体场景: %s" % path)
+		var scene: PackedScene = load(path)
 		
-		Log.verbose("加载实体场景: %s" % scene_path)
-		var scene: PackedScene = load(scene_path)
+		var scene_name: String = path.get_file().get_basename()
 		
-		_entity_scenes[scene_name] = scene
+		_entity_scene_dict[scene_name] = scene
 
 	# 初始化空间索引网格
 	var world_size: Vector2 = GlobalMgr.world_size
@@ -217,11 +217,11 @@ func get_entity_by_id(id: int) -> Entity:
 
 ## 获取实体场景
 func get_entity_scene(entity_name: String) -> PackedScene:
-	if not _entity_scenes.has(entity_name):
+	if not _entity_scene_dict.has(entity_name):
 		Log.error("未找到实体场景: %s" % entity_name)
 		return null
 		
-	var scene: PackedScene = _entity_scenes[entity_name]
+	var scene: PackedScene = _entity_scene_dict[entity_name]
 		
 	return scene
 	
@@ -231,8 +231,8 @@ func set_entity_scene(
 		entity_name: String, scene: PackedScene, new_scene_node: Entity
 	) -> void:
 	scene.pack(new_scene_node)
-	EntityMgr._dirty_scenes.append(entity_name)
-	_dirty_scenes.append(entity_name)
+	_dirty_scenes_list.append(entity_name)
+	_dirty_scenes_list.append(entity_name)
 
 
 ## 获取所有有效实体
@@ -254,11 +254,11 @@ func get_entities_by_source(source_id: int):
 func get_entity_data(entity_name: String) -> Entity:
 	if (
 			not _cached_entities_data.has(entity_name) 
-			or entity_name in _dirty_scenes
+			or entity_name in _dirty_scenes_list
 		):
 		var e: Entity = get_entity_scene(entity_name).instantiate()
 		_cached_entities_data[entity_name] = e
-		_dirty_scenes.erase(entity_name)
+		_dirty_scenes_list.erase(entity_name)
 
 	return _cached_entities_data[entity_name]
 #endregion
@@ -285,7 +285,7 @@ enum SortMode {
 
 
 ## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
-static func sort_entities_by_type(
+func sort_entities_by_type(
 		entities_array: Array[Entity], sort_type: SortMode, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_function: Callable = Callable()
@@ -357,12 +357,12 @@ static func sort_entities_by_type(
 
 				var e1_ranged_c: RangedComponent = e1.get_node_or_null(C.CN_RANGED)
 				if e1_ranged_c:
-					d1 = EntityMgr.get_entity_data(
+					d1 = get_entity_data(
 						e1_ranged_c.list[0].bullet
 					).get_node_or_null(C.CN_BULLET).damage_max
 				var e2_ranged_c: RangedComponent = e2.get_node_or_null(C.CN_RANGED)
 				if e2_ranged_c:
-					d2 = EntityMgr.get_entity_data(
+					d2 = get_entity_data(
 						e2_ranged_c.list[0].bullet
 					).get_node_or_null(C.CN_BULLET).damage_max
 

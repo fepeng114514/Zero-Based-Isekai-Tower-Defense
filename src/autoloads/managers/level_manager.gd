@@ -4,10 +4,15 @@ extends Node
 ## 管理关卡
 
 
+## 关卡索引
+var level_idx: int = 1
+
+
 ## 进入指定索引的关卡
 func enter_level(idx: int) -> void:
-	GameMgr.level_idx = idx
+	level_idx = idx
 	
+	AudioMgr.load()
 	EntityMgr.load()
 	PathwayMgr.load()
 	GridMgr.load()

@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dvk3tgjk4ku0s"
-path="res://.godot/imported/Elf_Taun2.ogg-d0c835b0d98d1c74d2ebc5a0bc5321b6.oggvorbisstr"
+uid="uid://brona68cvliep"
+path="res://.godot/imported/elf_taun2.ogg-8452eaaa1fed041f666fedce3adf627a.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Elf_Taun2.ogg"
-dest_files=["res://.godot/imported/Elf_Taun2.ogg-d0c835b0d98d1c74d2ebc5a0bc5321b6.oggvorbisstr"]
+source_file="res://assets/audios/elf_taun2.ogg"
+dest_files=["res://.godot/imported/elf_taun2.ogg-8452eaaa1fed041f666fedce3adf627a.oggvorbisstr"]
 
 [params]
 

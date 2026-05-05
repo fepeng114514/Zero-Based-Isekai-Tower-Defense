@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c70p2fvd5f86w"
-path="res://.godot/imported/Artillery_Ready.ogg-349e85c72caf088e3e2bd1c1873c1701.oggvorbisstr"
+uid="uid://6rnymn4xntae"
+path="res://.godot/imported/artillery_ready.ogg-f7d5b649d93d9657c584c3bde4195eae.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Artillery_Ready.ogg"
-dest_files=["res://.godot/imported/Artillery_Ready.ogg-349e85c72caf088e3e2bd1c1873c1701.oggvorbisstr"]
+source_file="res://assets/audios/artillery_ready.ogg"
+dest_files=["res://.godot/imported/artillery_ready.ogg-f7d5b649d93d9657c584c3bde4195eae.oggvorbisstr"]
 
 [params]
 

@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dee685g881acb"
-path="res://.godot/imported/KR_sfx_mushroomboss_gas_op1.ogg-33ad5e7a7e1917f4c397bd95269514d4.oggvorbisstr"
+uid="uid://dia2051ytjhcf"
+path="res://.godot/imported/kr_sfx_mushroomboss_gas_op1.ogg-7488e1e244b14a371671ce4281195a31.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_mushroomboss_gas_op1.ogg"
-dest_files=["res://.godot/imported/KR_sfx_mushroomboss_gas_op1.ogg-33ad5e7a7e1917f4c397bd95269514d4.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_mushroomboss_gas_op1.ogg"
+dest_files=["res://.godot/imported/kr_sfx_mushroomboss_gas_op1.ogg-7488e1e244b14a371671ce4281195a31.oggvorbisstr"]
 
 [params]
 

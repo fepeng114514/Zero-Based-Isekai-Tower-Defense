@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://jhiso38agweb"
-path="res://.godot/imported/Archer_Ready.ogg-11cda1cdeed0afa45dc42ab2b33d898b.oggvorbisstr"
+uid="uid://clan5d73j5qax"
+path="res://.godot/imported/archer_ready.ogg-c1870afbce1816118486e44911b7437d.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Archer_Ready.ogg"
-dest_files=["res://.godot/imported/Archer_Ready.ogg-11cda1cdeed0afa45dc42ab2b33d898b.oggvorbisstr"]
+source_file="res://assets/audios/archer_ready.ogg"
+dest_files=["res://.godot/imported/archer_ready.ogg-c1870afbce1816118486e44911b7437d.oggvorbisstr"]
 
 [params]
 

@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://xwn40y4rl48q"
-path="res://.godot/imported/KR_sfx_thor_lanzamartillo_op2.ogg-dffa825183d983a365afd82429e0b9af.oggvorbisstr"
+uid="uid://snrwu2ewbher"
+path="res://.godot/imported/kr_sfx_thor_lanzamartillo_op2.ogg-3e59cf1891cf05f20395836990ed237b.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_thor_lanzamartillo_op2.ogg"
-dest_files=["res://.godot/imported/KR_sfx_thor_lanzamartillo_op2.ogg-dffa825183d983a365afd82429e0b9af.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_thor_lanzamartillo_op2.ogg"
+dest_files=["res://.godot/imported/kr_sfx_thor_lanzamartillo_op2.ogg-3e59cf1891cf05f20395836990ed237b.oggvorbisstr"]
 
 [params]
 

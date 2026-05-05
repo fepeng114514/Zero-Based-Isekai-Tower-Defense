@@ -2,6 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemies/enemy.tscn" id="1_wlnjt"]
 [ext_resource type="SpriteFrames" uid="uid://l8jfd7j0becy" path="res://resources/sprite_frames/enemy_orc.tres" id="2_nquq8"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="3_bomnd"]
+
+[sub_resource type="Resource" id="Resource_w5ikr"]
+script = ExtResource("3_bomnd")
+list = Array[String](["sound_enemy_orc_dead"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="EnemyOrc" unique_id=71433118 instance=ExtResource("1_wlnjt")]
 scene_name = "enemy_orc"
@@ -14,6 +20,7 @@ sprite_frames = ExtResource("2_nquq8")
 hp_max = 80.0
 physical_armor = 30
 death_gold = 9.0
+death_sfx = SubResource("Resource_w5ikr")
 
 [node name="HealthBar" parent="HealthComponent" index="0" unique_id=1048256100]
 offset_top = -50.999996

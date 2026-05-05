@@ -1,12 +1,19 @@
 [gd_scene format=3 uid="uid://b8mw5gsptj8n1"]
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemies/enemy.tscn" id="1_bfbt7"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="2_o2c0j"]
+
+[sub_resource type="Resource" id="Resource_nf0rk"]
+script = ExtResource("2_o2c0j")
+list = Array[String](["sound_enemy_goblin_dead"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="EnemyGoblin" unique_id=71433118 instance=ExtResource("1_bfbt7")]
 scene_name = "enemy_goblin"
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 death_gold = 3.0
+death_sfx = SubResource("Resource_nf0rk")
 
 [node name="MeleeAttack" parent="MeleeComponent" parent_id_path=PackedInt32Array(768145759) index="0" unique_id=1304104648]
 damage_min = 1.0

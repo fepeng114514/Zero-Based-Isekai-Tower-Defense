@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bjfqi8bhhurhc"
-path="res://.godot/imported/Barbarian_Ready.ogg-16ea2e191359b3cef5ad8849aceede30.oggvorbisstr"
+uid="uid://dhrnryxravpbh"
+path="res://.godot/imported/barbarian_ready.ogg-c5c808454c8e51abe75c24d4d7fb0e3b.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Barbarian_Ready.ogg"
-dest_files=["res://.godot/imported/Barbarian_Ready.ogg-16ea2e191359b3cef5ad8849aceede30.oggvorbisstr"]
+source_file="res://assets/audios/barbarian_ready.ogg"
+dest_files=["res://.godot/imported/barbarian_ready.ogg-c5c808454c8e51abe75c24d4d7fb0e3b.oggvorbisstr"]
 
 [params]
 

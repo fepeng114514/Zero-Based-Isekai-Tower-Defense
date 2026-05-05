@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c4df0ysj36tjx"
-path="res://.godot/imported/Archer_Taunt1.ogg-0028f24091842308f3efe2cbf082930d.oggvorbisstr"
+uid="uid://b5f5tfbarrnm6"
+path="res://.godot/imported/archer_taunt1.ogg-0acb0aa84b29bbcd9bd73a44a071218f.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Archer_Taunt1.ogg"
-dest_files=["res://.godot/imported/Archer_Taunt1.ogg-0028f24091842308f3efe2cbf082930d.oggvorbisstr"]
+source_file="res://assets/audios/archer_taunt1.ogg"
+dest_files=["res://.godot/imported/archer_taunt1.ogg-0acb0aa84b29bbcd9bd73a44a071218f.oggvorbisstr"]
 
 [params]
 

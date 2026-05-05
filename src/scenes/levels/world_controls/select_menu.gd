@@ -18,9 +18,9 @@ signal hide_select_menu
 
 @export_group("Tween")
 ## 补间缩放时长
-@export var scale_time: float = 0.15
+@export var tween_scale_time: float = 0.15
 ## 补间缩放的目标值
-@export var target_scale := Vector2.ONE
+@export var tween_target_scale := Vector2.ONE
 
 ## 按钮列表
 var button_list: Array[Button] = []
@@ -32,8 +32,8 @@ var is_animating: bool = false
 func _ready() -> void:
 	visible = false
 	
-	S.select_entity.connect(_show)
-	S.deselect_entity.connect(_hide)
+	SelectMgr.select_entity.connect(_show)
+	SelectMgr.deselect_entity.connect(_hide)
 	hide_select_menu.connect(_hide)
 	
 	
@@ -92,7 +92,7 @@ func _show(e: Entity) -> void:
 	scale = Vector2.ZERO
 	global_position = e.global_position + ui_c.select_menu_offset
 		
-	tween_set_scale(target_scale)
+	tween_set_scale(tween_target_scale)
 	
 	
 func _hide() -> void:
@@ -124,6 +124,6 @@ func tween_set_scale(target_s: Vector2) -> Tween:
 	var tween: Tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(self, "scale", target_s, scale_time)
+	tween.tween_property(self, "scale", target_s, tween_scale_time)
 	
 	return tween

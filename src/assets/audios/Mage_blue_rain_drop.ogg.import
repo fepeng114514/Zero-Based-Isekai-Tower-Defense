@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bcm7p1hw1judt"
-path="res://.godot/imported/Mage_blue_rain_drop.ogg-7b670a526275f5d43f31d97fdb5b41f4.oggvorbisstr"
+uid="uid://dxjf5t6yt3r3l"
+path="res://.godot/imported/mage_blue_rain_drop.ogg-1ad900ed169ad10ae26bc69440f5bcb6.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Mage_blue_rain_drop.ogg"
-dest_files=["res://.godot/imported/Mage_blue_rain_drop.ogg-7b670a526275f5d43f31d97fdb5b41f4.oggvorbisstr"]
+source_file="res://assets/audios/mage_blue_rain_drop.ogg"
+dest_files=["res://.godot/imported/mage_blue_rain_drop.ogg-1ad900ed169ad10ae26bc69440f5bcb6.oggvorbisstr"]
 
 [params]
 

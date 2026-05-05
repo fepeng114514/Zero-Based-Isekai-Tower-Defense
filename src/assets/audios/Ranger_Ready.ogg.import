@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://cfs4mc4v3ttqr"
-path="res://.godot/imported/Ranger_Ready.ogg-60e7ea740aeda2a5fca9c686e69e1f4a.oggvorbisstr"
+uid="uid://c0tadevbyjv4q"
+path="res://.godot/imported/ranger_ready.ogg-c81ee717d999c0497572af7bb46e0ba1.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Ranger_Ready.ogg"
-dest_files=["res://.godot/imported/Ranger_Ready.ogg-60e7ea740aeda2a5fca9c686e69e1f4a.oggvorbisstr"]
+source_file="res://assets/audios/ranger_ready.ogg"
+dest_files=["res://.godot/imported/ranger_ready.ogg-c81ee717d999c0497572af7bb46e0ba1.oggvorbisstr"]
 
 [params]
 

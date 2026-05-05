@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bnp57jsa61sj7"
-path="res://.godot/imported/Sound_Sheep.ogg-29d63d3e0847d5b631a862611d4716e7.oggvorbisstr"
+uid="uid://bd5tyqwys1flq"
+path="res://.godot/imported/sound_sheep.ogg-24f97e0b780bf77303ba2292db0f59e7.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sound_Sheep.ogg"
-dest_files=["res://.godot/imported/Sound_Sheep.ogg-29d63d3e0847d5b631a862611d4716e7.oggvorbisstr"]
+source_file="res://assets/audios/sound_sheep.ogg"
+dest_files=["res://.godot/imported/sound_sheep.ogg-24f97e0b780bf77303ba2292db0f59e7.oggvorbisstr"]
 
 [params]
 

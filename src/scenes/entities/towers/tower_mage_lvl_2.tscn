@@ -14,7 +14,7 @@ sprite_frames = ExtResource("2_t06wg")
 price = 160.0
 
 [node name="TowerMageLvl2Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("3_6eiy2")]
-position = Vector2(0, -2)
+position = Vector2(0, -51)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-60.545, -85.265, 126.87, 110.86)

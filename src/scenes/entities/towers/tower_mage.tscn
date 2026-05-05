@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_ewl0l"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="3_au4tr"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://resources/classes/sync_animations_data.gd" id="3_t83il"]
 [ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames/tower_mage_lvl1.tres" id="4_as0po"]
 
@@ -9,6 +10,11 @@
 script = ExtResource("2_ewl0l")
 any = &"idle"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_dxk8f"]
+script = ExtResource("3_au4tr")
+list = Array[String](["mage_ready", "mage_taunt1", "mage_taunt2"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_fel6d"]
 script = ExtResource("2_ewl0l")
@@ -29,6 +35,7 @@ metadata/_custom_type_script = "uid://qu0synx4c136"
 [node name="TowerMage" unique_id=88348674 instance=ExtResource("1_og8n7")]
 scene_name = "tower_mage"
 idle_animation = SubResource("Resource_t83il")
+spawn_sfx = SubResource("Resource_dxk8f")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(-1, -27)

@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://cenaq4b7kf5jf"
-path="res://.godot/imported/Paladin_shield_buff.ogg-97e98014907e3f671b82ff5f46638481.oggvorbisstr"
+uid="uid://c2l054nw5hspw"
+path="res://.godot/imported/paladin_shield_buff.ogg-0b0221afd0b8fc759d4cf84ce8fb9aa3.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Paladin_shield_buff.ogg"
-dest_files=["res://.godot/imported/Paladin_shield_buff.ogg-97e98014907e3f671b82ff5f46638481.oggvorbisstr"]
+source_file="res://assets/audios/paladin_shield_buff.ogg"
+dest_files=["res://.godot/imported/paladin_shield_buff.ogg-0b0221afd0b8fc759d4cf84ce8fb9aa3.oggvorbisstr"]
 
 [params]
 

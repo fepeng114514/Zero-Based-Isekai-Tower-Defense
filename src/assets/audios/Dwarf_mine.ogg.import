@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://b8r3i4scw1u18"
-path="res://.godot/imported/Dwarf_mine.ogg-6339389a8dc82ceffaebda6574dd8cb6.oggvorbisstr"
+uid="uid://b3fxj5r80eurx"
+path="res://.godot/imported/dwarf_mine.ogg-6296e7db493524341fca263ec897df6a.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Dwarf_mine.ogg"
-dest_files=["res://.godot/imported/Dwarf_mine.ogg-6339389a8dc82ceffaebda6574dd8cb6.oggvorbisstr"]
+source_file="res://assets/audios/dwarf_mine.ogg"
+dest_files=["res://.godot/imported/dwarf_mine.ogg-6296e7db493524341fca263ec897df6a.oggvorbisstr"]
 
 [params]
 

@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://otcg47rpgg8v"
-path="res://.godot/imported/KR_sfx_thor_thunder.ogg-f2eeb26d80245074851ed963acd08236.oggvorbisstr"
+uid="uid://c8i6onreaqnwi"
+path="res://.godot/imported/kr_sfx_thor_thunder.ogg-25ed6cb728f532e7669cfd7150001782.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_thor_thunder.ogg"
-dest_files=["res://.godot/imported/KR_sfx_thor_thunder.ogg-f2eeb26d80245074851ed963acd08236.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_thor_thunder.ogg"
+dest_files=["res://.godot/imported/kr_sfx_thor_thunder.ogg-25ed6cb728f532e7669cfd7150001782.oggvorbisstr"]
 
 [params]
 

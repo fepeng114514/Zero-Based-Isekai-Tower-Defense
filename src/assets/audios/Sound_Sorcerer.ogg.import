@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://b1i0sn2daxpla"
-path="res://.godot/imported/Sound_Sorcerer.ogg-a84fafb788c9382192d47308465629b8.oggvorbisstr"
+uid="uid://b6i6ttkiqe6r4"
+path="res://.godot/imported/sound_sorcerer.ogg-8755570104baf4619e67b38b170f8981.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sound_Sorcerer.ogg"
-dest_files=["res://.godot/imported/Sound_Sorcerer.ogg-a84fafb788c9382192d47308465629b8.oggvorbisstr"]
+source_file="res://assets/audios/sound_sorcerer.ogg"
+dest_files=["res://.godot/imported/sound_sorcerer.ogg-8755570104baf4619e67b38b170f8981.oggvorbisstr"]
 
 [params]
 

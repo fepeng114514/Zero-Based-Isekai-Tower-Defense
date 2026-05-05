@@ -24,7 +24,8 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 [node name="BulletComponent" type="Node" parent="." unique_id=797543197]
 script = ExtResource("3_vv5c4")
 flight_trajectory = 1
-flight_total_time = 1.0
+flight_total_time = 0.7
+flight_gravity = 900.0
 flight_animation = SubResource("Resource_ejip2")
 metadata/_custom_type_script = "uid://haoljvofy74e"
 

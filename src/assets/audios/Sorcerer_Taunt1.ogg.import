@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bvjug3smlnwkr"
-path="res://.godot/imported/Sorcerer_Taunt1.ogg-6d8c40ad47d3f14f224a41529250fd46.oggvorbisstr"
+uid="uid://bbf81vwwf8poe"
+path="res://.godot/imported/sorcerer_taunt1.ogg-c5f4c158cbe7864b35d417def38d5848.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sorcerer_Taunt1.ogg"
-dest_files=["res://.godot/imported/Sorcerer_Taunt1.ogg-6d8c40ad47d3f14f224a41529250fd46.oggvorbisstr"]
+source_file="res://assets/audios/sorcerer_taunt1.ogg"
+dest_files=["res://.godot/imported/sorcerer_taunt1.ogg-c5f4c158cbe7864b35d417def38d5848.oggvorbisstr"]
 
 [params]
 

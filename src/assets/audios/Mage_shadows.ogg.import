@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://53ctv0nbbif3"
-path="res://.godot/imported/Mage_shadows.ogg-fb9f28b40a51dee6fe66aa8cf8e2402a.oggvorbisstr"
+uid="uid://ddnbvsyb3k3a1"
+path="res://.godot/imported/mage_shadows.ogg-f526bff01571f2ff1e1c21babd45a75a.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Mage_shadows.ogg"
-dest_files=["res://.godot/imported/Mage_shadows.ogg-fb9f28b40a51dee6fe66aa8cf8e2402a.oggvorbisstr"]
+source_file="res://assets/audios/mage_shadows.ogg"
+dest_files=["res://.godot/imported/mage_shadows.ogg-f526bff01571f2ff1e1c21babd45a75a.oggvorbisstr"]
 
 [params]
 

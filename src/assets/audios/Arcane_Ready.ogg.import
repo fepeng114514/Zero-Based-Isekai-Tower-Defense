@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://b8wynxwmqdiao"
-path="res://.godot/imported/Arcane_Ready.ogg-700d2dac2bc26eba5cf71f749aa22b7d.oggvorbisstr"
+uid="uid://cdfp4ffnxo5sb"
+path="res://.godot/imported/arcane_ready.ogg-a23bfe11fba940258f93d7426964c140.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Arcane_Ready.ogg"
-dest_files=["res://.godot/imported/Arcane_Ready.ogg-700d2dac2bc26eba5cf71f749aa22b7d.oggvorbisstr"]
+source_file="res://assets/audios/arcane_ready.ogg"
+dest_files=["res://.godot/imported/arcane_ready.ogg-a23bfe11fba940258f93d7426964c140.oggvorbisstr"]
 
 [params]
 

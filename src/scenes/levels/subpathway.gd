@@ -27,9 +27,10 @@ func _ready() -> void:
 	node_list = _get_equally_spaced_nodes()
 
 
-#func _draw() -> void:
-	#for node: PathwayNode in node_list:
-		#draw_circle(node.pos, 2, Color.RED)
+func _draw() -> void:
+	if parent_pathway.is_debug:
+		for node: PathwayNode in node_list:
+			draw_circle(node.pos, 2, Color.RED)
 
 
 ## 创建偏移曲线

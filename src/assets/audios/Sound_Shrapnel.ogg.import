@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dbkgg2nioi1yo"
-path="res://.godot/imported/Sound_Shrapnel.ogg-2f75bd86f105f7798c5c9fdaa1234578.oggvorbisstr"
+uid="uid://daxw34w8cs8tf"
+path="res://.godot/imported/sound_shrapnel.ogg-47e252894bcecc47a87bc993baedcae2.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sound_Shrapnel.ogg"
-dest_files=["res://.godot/imported/Sound_Shrapnel.ogg-2f75bd86f105f7798c5c9fdaa1234578.oggvorbisstr"]
+source_file="res://assets/audios/sound_shrapnel.ogg"
+dest_files=["res://.godot/imported/sound_shrapnel.ogg-47e252894bcecc47a87bc993baedcae2.oggvorbisstr"]
 
 [params]
 

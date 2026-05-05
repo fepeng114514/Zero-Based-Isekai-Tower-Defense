@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://d1wc7i6v8m61d"
-path="res://.godot/imported/KR_sfx_thor_muerte.ogg-079144438e768ab5d2e6e23e31aa4c52.oggvorbisstr"
+uid="uid://bsuq3hy6j8v3v"
+path="res://.godot/imported/kr_sfx_thor_muerte.ogg-c9919794c36c98eed1696300e92c58b3.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/KR_sfx_thor_muerte.ogg"
-dest_files=["res://.godot/imported/KR_sfx_thor_muerte.ogg-079144438e768ab5d2e6e23e31aa4c52.oggvorbisstr"]
+source_file="res://assets/audios/kr_sfx_thor_muerte.ogg"
+dest_files=["res://.godot/imported/kr_sfx_thor_muerte.ogg-c9919794c36c98eed1696300e92c58b3.oggvorbisstr"]
 
 [params]
 

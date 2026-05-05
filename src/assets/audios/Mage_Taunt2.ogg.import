@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://cw5br0be4vb27"
-path="res://.godot/imported/Mage_Taunt2.ogg-2b139563c3e9765d1cb65e2584074b5a.oggvorbisstr"
+uid="uid://c5tbkrb0rbuv5"
+path="res://.godot/imported/mage_taunt2.ogg-95af32b63ba640e500a3e471e05f98f0.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Mage_Taunt2.ogg"
-dest_files=["res://.godot/imported/Mage_Taunt2.ogg-2b139563c3e9765d1cb65e2584074b5a.oggvorbisstr"]
+source_file="res://assets/audios/mage_taunt2.ogg"
+dest_files=["res://.godot/imported/mage_taunt2.ogg-95af32b63ba640e500a3e471e05f98f0.oggvorbisstr"]
 
 [params]
 

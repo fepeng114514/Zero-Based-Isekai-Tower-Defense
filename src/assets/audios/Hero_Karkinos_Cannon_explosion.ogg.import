@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://cm7bmhgut0kk8"
-path="res://.godot/imported/Hero_Karkinos_Cannon_explosion.ogg-222a2b8d8bee493ec310e3bcc98a1401.oggvorbisstr"
+uid="uid://2ivda2l5ev28"
+path="res://.godot/imported/hero_karkinos_cannon_explosion.ogg-a9fbb155f1e67bf850df7a34603d1d61.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Hero_Karkinos_Cannon_explosion.ogg"
-dest_files=["res://.godot/imported/Hero_Karkinos_Cannon_explosion.ogg-222a2b8d8bee493ec310e3bcc98a1401.oggvorbisstr"]
+source_file="res://assets/audios/hero_karkinos_cannon_explosion.ogg"
+dest_files=["res://.godot/imported/hero_karkinos_cannon_explosion.ogg-a9fbb155f1e67bf850df7a34603d1d61.oggvorbisstr"]
 
 [params]
 

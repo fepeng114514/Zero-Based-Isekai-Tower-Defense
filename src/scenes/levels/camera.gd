@@ -20,7 +20,7 @@ var _drag_start_position := Vector2.ZERO
 
 
 func _ready() -> void:
-	S.resized_window.connect(_on_resized_window)
+	get_viewport().size_changed.connect(_on_resized_window)
 
 	var limit_size: Vector2i = GlobalMgr.world_size
 	

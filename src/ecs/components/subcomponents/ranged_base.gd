@@ -45,34 +45,32 @@ func _validate_property(property: Dictionary):
 
 
 func _draw() -> void:
-	if not Engine.is_editor_hint():
-		return
-		
-	for v: Vector2 in bullet_offsets.to_dict().values():
-		if not v:
-			continue
-		
-		draw_circle(
-			v, 
-			3,
-			Color.GREEN, 
-			true
-		)
+	if Engine.is_editor_hint():
+		for offset_value: Vector2 in bullet_offsets.to_dict().values():
+			if not offset_value:
+				continue
+			
+			draw_circle(
+				offset_value, 
+				3,
+				Color.GREEN, 
+				true
+			)
 
-	draw_circle(
-		position, 
-		max_range,
-		Color(0.401, 0.865, 0.386, 0.604), 
-		false,
-		6
-	)
-	draw_circle(
-		position, 
-		min_range,
-		Color(0.401, 0.865, 0.386, 0.604), 
-		false,
-		6
-	)
+		draw_circle(
+			position, 
+			max_range,
+			Color(0.401, 0.865, 0.386, 0.604), 
+			false,
+			6
+		)
+		draw_circle(
+			position, 
+			min_range,
+			Color(0.401, 0.865, 0.386, 0.604), 
+			false,
+			6
+		)
 
 
 func _on_offset_data_changed() -> void:

@@ -2,7 +2,18 @@
 
 [ext_resource type="Script" uid="uid://cnfjkkw1yu7av" path="res://scenes/entities/wave_spawner.gd" id="1_x08x5"]
 [ext_resource type="Script" uid="uid://db67y0qigop4w" path="res://ecs/components/spawner_component.gd" id="2_0y0gd"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="2_11f2j"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_n3r7w"]
+
+[sub_resource type="Resource" id="Resource_jhhff"]
+script = ExtResource("2_11f2j")
+list = Array[String](["sound_next_wave_ready"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_p3jos"]
+script = ExtResource("2_11f2j")
+list = Array[String](["sound_wave_incoming"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_x08x5"]
 script = ExtResource("2_n3r7w")
@@ -10,6 +21,8 @@ left_right = "idle_left_right"
 
 [node name="WaveSpawner" type="Node2D" unique_id=708476456]
 script = ExtResource("1_x08x5")
+wave_interval_start_sfx = SubResource("Resource_jhhff")
+wave_interval_finish_sfx = SubResource("Resource_p3jos")
 scene_name = "wave_spawner"
 idle_animation = SubResource("Resource_x08x5")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

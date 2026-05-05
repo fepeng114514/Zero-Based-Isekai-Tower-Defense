@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bqmm047t22umh"
-path="res://.godot/imported/Barbarian_Taunt2.ogg-c84ddaa09b7a012a6cf05872a0204d92.oggvorbisstr"
+uid="uid://cgi04oj1anwf1"
+path="res://.godot/imported/barbarian_taunt2.ogg-d70ce1004549130f4b06a76625b0d396.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Barbarian_Taunt2.ogg"
-dest_files=["res://.godot/imported/Barbarian_Taunt2.ogg-c84ddaa09b7a012a6cf05872a0204d92.oggvorbisstr"]
+source_file="res://assets/audios/barbarian_taunt2.ogg"
+dest_files=["res://.godot/imported/barbarian_taunt2.ogg-d70ce1004549130f4b06a76625b0d396.oggvorbisstr"]
 
 [params]
 

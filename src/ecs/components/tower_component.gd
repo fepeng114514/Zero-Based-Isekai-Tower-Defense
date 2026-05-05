@@ -41,24 +41,22 @@ func _validate_property(property: Dictionary) -> void:
 
 func _draw() -> void:
 	if not Engine.is_editor_hint():
-		return
+		draw_circle(
+			show_range_offset, 
+			3,
+			Color(0.757, 0.0, 0.62, 1.0), 
+			true
+		)
 		
-	draw_circle(
-		show_range_offset, 
-		3,
-		Color(0.757, 0.0, 0.62, 1.0), 
-		true
-	)
-	
-	draw_circle(
-		default_rally_center_local_pos,
-		9,
-		Color.BLUE, 
-		true
-	)
-	draw_line(
-		default_rally_center_local_pos, 
-		to_local(parent.global_position), 
-		Color.BLUE, 
-		2
-	)
+		draw_circle(
+			default_rally_center_local_pos,
+			9,
+			Color.BLUE, 
+			true
+		)
+		draw_line(
+			default_rally_center_local_pos, 
+			to_local(parent.global_position), 
+			Color.BLUE, 
+			2
+		)

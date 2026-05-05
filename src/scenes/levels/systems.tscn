@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://ecs/systems/behaviors/spawner_behavior.gd" id="18_efgoj"]
 [ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://ecs/systems/entity_system.gd" id="19_f2rku"]
 
-[node name="SystemController" type="Node" unique_id=1876505882]
+[node name="Systems" type="Node" unique_id=1876505882]
 script = ExtResource("1_ynbxr")
 metadata/_custom_type_script = "uid://j7j5n4bat6f8"
 

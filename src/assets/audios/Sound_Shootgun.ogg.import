@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c5ot6pesp4b6u"
-path="res://.godot/imported/Sound_Shootgun.ogg-fe25856a752659936309a21c9d48256e.oggvorbisstr"
+uid="uid://bn2ujwn8xvvh5"
+path="res://.godot/imported/sound_shootgun.ogg-dbf763712e85d5640292d7abf5771ce0.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Sound_Shootgun.ogg"
-dest_files=["res://.godot/imported/Sound_Shootgun.ogg-fe25856a752659936309a21c9d48256e.oggvorbisstr"]
+source_file="res://assets/audios/sound_shootgun.ogg"
+dest_files=["res://.godot/imported/sound_shootgun.ogg-dbf763712e85d5640292d7abf5771ce0.oggvorbisstr"]
 
 [params]
 

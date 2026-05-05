@@ -74,7 +74,7 @@ func _validate_property(property: Dictionary):
 
 func _get_configuration_warnings() -> PackedStringArray:
 	if not get_children():
-		return ["请至少增加一个 HealthBar 场景，否则实体无法显示血条。"]
+		return ["请至少增加一个 HealthBar 子节点，否则实体无法显示血条。"]
 		
 	return []
 

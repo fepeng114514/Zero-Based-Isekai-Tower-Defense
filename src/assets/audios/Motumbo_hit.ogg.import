@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://3xvscwbvwhuf"
-path="res://.godot/imported/Motumbo_hit.ogg-6d23c78d1f7eb1f84a2cc638eeba5db8.oggvorbisstr"
+uid="uid://dx13o6k2xvxm7"
+path="res://.godot/imported/motumbo_hit.ogg-1cc1daabe1b124f7158f8e606c846b22.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Motumbo_hit.ogg"
-dest_files=["res://.godot/imported/Motumbo_hit.ogg-6d23c78d1f7eb1f84a2cc638eeba5db8.oggvorbisstr"]
+source_file="res://assets/audios/motumbo_hit.ogg"
+dest_files=["res://.godot/imported/motumbo_hit.ogg-1cc1daabe1b124f7158f8e606c846b22.oggvorbisstr"]
 
 [params]
 

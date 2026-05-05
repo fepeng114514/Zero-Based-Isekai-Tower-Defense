@@ -100,15 +100,13 @@ func _validate_property(property: Dictionary):
 
 
 func _draw() -> void:
-	if not Engine.is_editor_hint():
-		return
-		
-	draw_circle(
-		hit_offset, 
-		3,
-		Color(0.306, 0.914, 0.867, 1.0), 
-		true
-	)
+	if Engine.is_editor_hint():
+		draw_circle(
+			hit_offset, 
+			3,
+			Color(0.306, 0.914, 0.867, 1.0), 
+			true
+		)
 
 	
 #region 回调函数
@@ -147,7 +145,7 @@ func _on_damage(damage: Damage) -> void: pass
 
 ## 实体死亡时调用
 ## 
-## 返回 true 表示完全接管后续自动移除实体等死亡逻辑
+## 返回 true 表示跳过后续自动移除实体等死亡逻辑
 func _on_death() -> bool: return false
 	
 
@@ -188,7 +186,7 @@ func _to_string():
 ## 将实体增加到插入队列
 func insert_entity() -> void:
 	visible = false
-	S.insert_entity.emit(self)
+	SystemMgr.append_insert_queue.emit(self)
 	SystemMgr.insert_queue.append(self)
 
 
@@ -196,8 +194,10 @@ func insert_entity() -> void:
 func remove_entity() -> void:
 	visible = false
 	state |= C.State.REMOVED
-	SystemMgr.remove_queue.append(self)
+	SystemMgr.append_remove_queue.emit(self)
 	Log.debug("移除实体: %s" % self)
+
+	SystemMgr.remove_queue.append(self)
 	
 	
 #region 组件相关方法

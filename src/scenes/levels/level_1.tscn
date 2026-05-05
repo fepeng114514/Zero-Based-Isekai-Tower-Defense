@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://resources/classes/wave/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://scenes/levels/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner.tscn" id="4_dga24"]
+[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://scenes/levels/wave_flag/wave_flag.tscn" id="10_qxy0u"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="14_np2pn"]
 [ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://resources/classes/wave/wave_spawn_group.gd" id="32_hvllt"]
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://resources/classes/wave/wave_spawn.gd" id="33_dp4fg"]
@@ -13,7 +14,6 @@
 [sub_resource type="Resource" id="Resource_svqqs"]
 script = ExtResource("33_dp4fg")
 entity = "enemy_goblin"
-count = 25
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_2to4m"]
@@ -23,13 +23,27 @@ metadata/_custom_type_script = "uid://sexo7n8p0jrb"
 
 [sub_resource type="Resource" id="Resource_kc3v0"]
 script = ExtResource("3_dnkej")
-interval = 5.0
 spawn_group_list = Array[ExtResource("32_hvllt")]([SubResource("Resource_2to4m")])
+metadata/_custom_type_script = "uid://b1twtcymtb7c1"
+
+[sub_resource type="Resource" id="Resource_iav0o"]
+script = ExtResource("33_dp4fg")
+entity = "enemy_goblin"
+metadata/_custom_type_script = "uid://d3o7lg62owyu5"
+
+[sub_resource type="Resource" id="Resource_dnkej"]
+script = ExtResource("32_hvllt")
+spawn_list = Array[ExtResource("33_dp4fg")]([SubResource("Resource_iav0o")])
+metadata/_custom_type_script = "uid://sexo7n8p0jrb"
+
+[sub_resource type="Resource" id="Resource_mm8aj"]
+script = ExtResource("3_dnkej")
+spawn_group_list = Array[ExtResource("32_hvllt")]([SubResource("Resource_dnkej")])
 metadata/_custom_type_script = "uid://b1twtcymtb7c1"
 
 [sub_resource type="Resource" id="Resource_qxy0u"]
 script = ExtResource("2_iav0o")
-wave_list = Array[ExtResource("3_dnkej")]([SubResource("Resource_kc3v0")])
+wave_list = Array[ExtResource("3_dnkej")]([SubResource("Resource_kc3v0"), SubResource("Resource_mm8aj")])
 metadata/_custom_type_script = "uid://okpyko8fvmx4"
 
 [sub_resource type="Resource" id="Resource_excbq"]
@@ -41,9 +55,10 @@ _data = {
 }
 point_count = 8
 
-[node name="Level_1" unique_id=1565788906 instance=ExtResource("1_dga24")]
+[node name="Level1" unique_id=1565788906 instance=ExtResource("1_dga24")]
 
 [node name="WaveSpawner" parent="World" parent_id_path=PackedInt32Array(1261225856) index="0" unique_id=708476456 instance=ExtResource("4_dga24")]
+position = Vector2(-1, 0)
 wave_group = SubResource("Resource_qxy0u")
 track_target = true
 idle_animation = SubResource("Resource_excbq")
@@ -102,8 +117,12 @@ curve = SubResource("Curve2D_iav0o")
 script = ExtResource("3_sk5k4")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"
 
-[node name="GameUILayer" parent="." index="6" unique_id=673863676]
-visible = false
+[node name="WaveFlag" parent="WaveFlags" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1969317594 instance=ExtResource("10_qxy0u")]
+layout_mode = 1
+offset_left = 1186.0
+offset_top = 80.0
+offset_right = 1271.0
+offset_bottom = 165.0
 
 [editable path="World/TowerHolder"]
 [editable path="World/TowerHolder2"]

@@ -96,9 +96,10 @@ func _on_update(delta: float) -> void:
 		
 func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 	e._on_bullet_miss(bullet_c)
+	
+	AudioMgr.play_sfx(bullet_c.miss_sfx)
 	if bullet_c.miss_animation:
 		e.play_animation_by_look(bullet_c.miss_animation)
-		AudioMgr.play_sfx(bullet_c.miss_sfx)
 		await e.wait_animation(bullet_c.miss_animation)
 
 	if bullet_c.damage_area_enable:
@@ -121,9 +122,9 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 				
 		
 func _hit(e: Entity, bullet_c: BulletComponent, target) -> void:
+	AudioMgr.play_sfx(bullet_c.hit_sfx)
 	if bullet_c.hit_animation:
 		e.play_animation_by_look(bullet_c.hit_animation)
-		AudioMgr.play_sfx(bullet_c.hit_sfx)
 		await e.y_wait(bullet_c.hit_delay)
 		
 	var targets: Array[Entity] = [null]

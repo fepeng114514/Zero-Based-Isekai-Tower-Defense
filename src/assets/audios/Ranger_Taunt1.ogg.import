@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://oqp4xyiaw3pc"
-path="res://.godot/imported/Ranger_Taunt1.ogg-4d6b4c03fff0bf40a909a3912b911a41.oggvorbisstr"
+uid="uid://dvp77bqonp3em"
+path="res://.godot/imported/ranger_taunt1.ogg-6f8bffb2361a04dc628255268526b940.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Ranger_Taunt1.ogg"
-dest_files=["res://.godot/imported/Ranger_Taunt1.ogg-4d6b4c03fff0bf40a909a3912b911a41.oggvorbisstr"]
+source_file="res://assets/audios/ranger_taunt1.ogg"
+dest_files=["res://.godot/imported/ranger_taunt1.ogg-6f8bffb2361a04dc628255268526b940.oggvorbisstr"]
 
 [params]
 

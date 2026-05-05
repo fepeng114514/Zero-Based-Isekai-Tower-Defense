@@ -54,36 +54,34 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	if not Engine.is_editor_hint():
-		return
-	
-	draw_circle(
-		position, 
-		rally_min_range,
-		Color(0.448, 0.506, 0.927, 0.604), 
-		false,
-		6
-	)
-	draw_circle(
-		position, 
-		rally_max_range,
-		Color(0.448, 0.506, 0.927, 0.604), 
-		false,
-		6
-	)
-	
-	draw_circle(
-		rally_center_position,
-		9,
-		Color(0.486, 0.294, 1.0, 1.0), 
-		true
-	)
-	draw_circle(
-		respawn_offset,
-		3,
-		Color.GREEN, 
-		true
-	)
+	if Engine.is_editor_hint():
+		draw_circle(
+			position, 
+			rally_min_range,
+			Color(0.448, 0.506, 0.927, 0.604), 
+			false,
+			6
+		)
+		draw_circle(
+			position, 
+			rally_max_range,
+			Color(0.448, 0.506, 0.927, 0.604), 
+			false,
+			6
+		)
+		
+		draw_circle(
+			rally_center_position,
+			9,
+			Color(0.486, 0.294, 1.0, 1.0), 
+			true
+		)
+		draw_circle(
+			respawn_offset,
+			3,
+			Color.GREEN, 
+			true
+		)
 
 
 func new_rally_center_position(

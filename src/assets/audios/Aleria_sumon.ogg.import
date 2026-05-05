@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://b640m6da85t6d"
-path="res://.godot/imported/Aleria_sumon.ogg-67a18d54b6ce081c41fb95583181cf96.oggvorbisstr"
+uid="uid://baslm6nkfsegv"
+path="res://.godot/imported/aleria_sumon.ogg-c4734a5a753582549d570b0204290424.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Aleria_sumon.ogg"
-dest_files=["res://.godot/imported/Aleria_sumon.ogg-67a18d54b6ce081c41fb95583181cf96.oggvorbisstr"]
+source_file="res://assets/audios/aleria_sumon.ogg"
+dest_files=["res://.godot/imported/aleria_sumon.ogg-c4734a5a753582549d570b0204290424.oggvorbisstr"]
 
 [params]
 

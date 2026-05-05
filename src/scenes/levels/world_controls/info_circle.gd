@@ -10,7 +10,7 @@ extends Control
 
 @export_group("Tween")
 ## 补间缩放时长
-@export var scale_time: float = 0.15
+@export var tween_scale_time: float = 0.15
 
 ## 所有圆圈
 @onready var all_circle: Array[TextureRect] = [
@@ -27,8 +27,8 @@ var selected_entity: Entity = null
 
 
 func _ready() -> void:
-	S.select_entity.connect(_show)
-	S.deselect_entity.connect(_hide)
+	SelectMgr.select_entity.connect(_show)
+	SelectMgr.deselect_entity.connect(_hide)
 	visible = false
 	
 	
@@ -129,7 +129,7 @@ func _show_circle(circle: TextureRect, show_range: float, pos: Vector2) -> void:
 	var tween: Tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(circle, "scale", Vector2(show_range, show_range), scale_time)
+	tween.tween_property(circle, "scale", Vector2(show_range, show_range), tween_scale_time)
 	circle.position = pos
 	
 
@@ -138,7 +138,7 @@ func _hide_circle(circle: TextureRect) -> void:
 	var tween: Tween = circle.create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(circle, "scale", Vector2.ZERO, scale_time)
+	tween.tween_property(circle, "scale", Vector2.ZERO, tween_scale_time)
 	
 	await tween.finished
 	circle.visible = false

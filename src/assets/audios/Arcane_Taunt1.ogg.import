@@ -2,13 +2,13 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://byumwsgoc512f"
-path="res://.godot/imported/Arcane_Taunt1.ogg-fa835c3fc634ad9751cd6544223514f1.oggvorbisstr"
+uid="uid://dg4qqnq0pppy8"
+path="res://.godot/imported/arcane_taunt1.ogg-d39d4d6ea43c445a8f19800e038e5a0f.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/Arcane_Taunt1.ogg"
-dest_files=["res://.godot/imported/Arcane_Taunt1.ogg-fa835c3fc634ad9751cd6544223514f1.oggvorbisstr"]
+source_file="res://assets/audios/arcane_taunt1.ogg"
+dest_files=["res://.godot/imported/arcane_taunt1.ogg-d39d4d6ea43c445a8f19800e038e5a0f.oggvorbisstr"]
 
 [params]
 

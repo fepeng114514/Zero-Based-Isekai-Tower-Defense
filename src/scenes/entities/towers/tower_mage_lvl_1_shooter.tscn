@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/ranged_component.gd" id="4_nhbol"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/ranged_attack.gd" id="5_vssey"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_data.gd" id="7_2m7r5"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="8_vtoys"]
 
 [sub_resource type="Resource" id="Resource_i3jkb"]
 script = ExtResource("2_8g6nx")
@@ -14,16 +15,22 @@ up = &"idle_up"
 down = &"idle_down"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
-[sub_resource type="Resource" id="Resource_8g6nx"]
-script = ExtResource("2_8g6nx")
-up = &"ranged_up"
-down = &"ranged_down"
-
 [sub_resource type="Resource" id="Resource_45avb"]
 script = ExtResource("7_2m7r5")
 up = Vector2(12.195, -30.935)
 down = Vector2(-13.38, -31.645)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_8g6nx"]
+script = ExtResource("2_8g6nx")
+up = &"ranged_up"
+down = &"ranged_down"
+
+[sub_resource type="Resource" id="Resource_vtoys"]
+script = ExtResource("8_vtoys")
+list = Array[String](["sound_mage_shot"])
+delay = 0.3
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerMageLvl1Shooter" type="Node2D" unique_id=1442245649]
 script = ExtResource("1_3kgdc")
@@ -47,13 +54,14 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=14077948]
 script = ExtResource("5_vssey")
-animation = SubResource("Resource_8g6nx")
-cooldown = 1.5
 bullet = "tower_mage_bullet"
 bullet_offsets = SubResource("Resource_45avb")
 bullet_spawn_mode = 350
-delay = 0.3
 with_melee = true
+cooldown = 1.5
+delay = 0.3
+animation = SubResource("Resource_8g6nx")
+sfx = SubResource("Resource_vtoys")
 damage_min = 9.0
 damage_max = 17.0
 damage_type = 2
