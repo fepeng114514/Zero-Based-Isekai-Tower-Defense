@@ -44,7 +44,7 @@ func _on_update(e: Entity) -> bool:
 	
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_count:
-		barrack_c.new_rally_center_position(barrack_c.rally_center_position)
+		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
 	
 	barrack_c.last_soldier_count = soldier_count
 	return false

@@ -23,6 +23,7 @@ class_name BarrackComponent
 		queue_redraw()
 ## 集结点半径
 @export var rally_radius: float = 30
+@export var rally_sfx: AudioData = null
 ## 士兵场景名称
 @export var soldier: String = ""
 ## 生成士兵间隔（秒）
@@ -40,6 +41,7 @@ class_name BarrackComponent
 @export var delay: float = 0
 ## 生成士兵播放的音效
 @export var sfx: AudioData = null
+
 
 ## 时间戳（秒）
 var ts: float = 0
@@ -86,15 +88,19 @@ func _draw() -> void:
 
 func new_rally_center_position(
 		center_position: Vector2, 
-		is_force: bool = false
+		is_force: bool = false,
+		play_sfx: bool = true
 	) -> void:
+	if play_sfx:
+		AudioMgr.play_sfx(rally_sfx)
+		
 	rally_center_position = center_position
 	
 	for i: int in soldier_group.get_child_count():
 		var s: Entity = soldier_group.get_child(i)
 		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
 		var formation_position: Vector2 = to_formation_position(rally_center_position, max_soldiers, i)
-		s_rally_c.new_rally_position(formation_position, is_force, rally_center_position)
+		s_rally_c.new_rally_position(formation_position, is_force, rally_center_position, false)
 		
 		var melee_c: MeleeComponent = s.get_node_or_null(C.CN_MELEE)
 		if melee_c:

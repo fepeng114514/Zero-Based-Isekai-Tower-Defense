@@ -65,7 +65,7 @@ func play_sfx(audio_data: AudioData) -> void:
 	for sfx_player: AudioStreamPlayer in _sfx_players:
 		if sfx_player.playing:
 			continue
-		
+
 		play_audio(audio_data, sfx_player, SFXBus)
 		return
 		

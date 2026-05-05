@@ -376,12 +376,11 @@ func sort_entities_by_type(
 				
 				return i1 > i2 if not reversed else i1 < i2
 		SortMode.RANDOM:
-			sort_function = func(_e1: Entity, _e2: Entity) -> bool:
-				return randf() < 0.5
-	
+			entities_array.shuffle()
+			return
+			
 	entities_array.sort_custom(sort_function)
-
-
+	
 
 #region 实体的搜索模式配置
 const GROUP_DICT: Dictionary[String, StringName] = {

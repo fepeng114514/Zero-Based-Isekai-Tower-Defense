@@ -24,6 +24,8 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 script = ExtResource("1_tdsfa")
 scene_name = "tower_mage_bullet"
 idle_animation = SubResource("Resource_sxt40")
+whitelist = Array[String]([])
+blacklist = Array[String]([])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1302005454]
@@ -41,5 +43,7 @@ flight_trajectory = 2
 flight_speed = 500.0
 flight_animation = SubResource("Resource_uuifh")
 disabled_predict_pos = true
+hit_payloads = Array[String]([])
 hit_animation = SubResource("Resource_03csp")
+miss_payloads = Array[String]([])
 metadata/_custom_type_script = "uid://haoljvofy74e"

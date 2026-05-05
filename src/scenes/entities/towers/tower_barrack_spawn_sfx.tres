@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AudioData" format=3 uid="uid://clhshesmvk8at"]
+
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="1_84euy"]
+
+[resource]
+script = ExtResource("1_84euy")
+list = Array[StringName]([&"barrack_move", &"barrack_ready", &"barrack_taunt1", &"barrack_taunt2"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"

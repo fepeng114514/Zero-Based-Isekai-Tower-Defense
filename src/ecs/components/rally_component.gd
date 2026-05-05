@@ -12,6 +12,7 @@ class_name RallyComponent
 @export var can_select_rally: bool = true
 ## 移动动画
 @export var motion_animation: AnimationData = null
+@export var motion_sfx: AudioData = null
 
 ## 是否已到达集结位置
 var arrived: bool = false
@@ -23,10 +24,13 @@ var rally_center_position := Vector2.ZERO
 func new_rally_position(
 		pos: Vector2, 
 		is_force: bool = false,
-		center: Vector2 = pos
+		center: Vector2 = pos,
+		play_sfx: bool = true
 	) -> void:
 	is_force_rally = is_force
 	arrived = false
 	target_position = pos
 	rally_center_position = center
 	
+	if play_sfx:
+		AudioMgr.play_sfx(motion_sfx)

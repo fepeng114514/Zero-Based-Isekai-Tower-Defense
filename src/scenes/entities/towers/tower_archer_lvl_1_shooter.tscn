@@ -27,6 +27,8 @@ down = &"ranged_down"
 script = ExtResource("1_kc3g7")
 scene_name = "tower_archer_lvl_1_shooter"
 idle_animation = SubResource("Resource_e0w6f")
+whitelist = Array[String]([])
+blacklist = Array[String]([])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870]

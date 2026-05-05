@@ -13,18 +13,20 @@ left_right = &"idle_left_right"
 
 [sub_resource type="Resource" id="Resource_ciqfa"]
 script = ExtResource("6_jmmy1")
-list = Array[StringName](["sound_bomb1"])
+list = Array[StringName]([&"sound_bomb1"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_jmmy1"]
 script = ExtResource("6_jmmy1")
-list = Array[StringName](["sound_bomb1"])
+list = Array[StringName]([&"sound_bomb1"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerArtilleryLvl1Bullet" type="Node2D" unique_id=2094980939]
 script = ExtResource("1_121ob")
 scene_name = "tower_artillery_lvl_1_bullet"
 idle_animation = SubResource("Resource_wmreg")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1297058768]

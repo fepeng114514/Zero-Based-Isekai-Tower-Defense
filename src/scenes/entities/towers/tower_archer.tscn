@@ -6,14 +6,12 @@
 
 [sub_resource type="Resource" id="Resource_wq07w"]
 script = ExtResource("2_bcrmv")
-list = Array[StringName](["archer_ready", "archer_taunt1", "archer_taunt2"])
+list = Array[StringName]([&"archer_ready", &"archer_taunt1", &"archer_taunt2"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerArcher" unique_id=1010851235 instance=ExtResource("1_og8n7")]
 scene_name = "tower_archer"
 spawn_sfx = SubResource("Resource_wq07w")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
 position = Vector2(0, -50)
