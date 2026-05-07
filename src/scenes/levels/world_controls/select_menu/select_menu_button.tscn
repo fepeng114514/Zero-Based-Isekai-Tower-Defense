@@ -9,7 +9,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 1
 script = ExtResource("1_8tbqb")
 button = NodePath("Button")
-glow = NodePath("Glow")
+glow = NodePath("Button/Glow")
 
 [node name="Button" type="Button" parent="." unique_id=2068864467]
 layout_mode = 1
@@ -31,7 +31,7 @@ theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
 flat = true
 icon_alignment = 1
 
-[node name="Glow" type="TextureRect" parent="." unique_id=1711401767]
+[node name="Glow" type="TextureRect" parent="Button" unique_id=1711401767]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

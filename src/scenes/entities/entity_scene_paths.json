@@ -40,5 +40,9 @@
 	"res://scenes/entities/towers/tower_mage_lvl_2_shooter.tscn",
 	"res://scenes/entities/towers/tower_mage_lvl_3.tscn",
 	"res://scenes/entities/towers/tower_mage_lvl_3_shooter.tscn",
-	"res://scenes/entities/towers/tower_preview.tscn"
+	"res://scenes/entities/towers/tower_preview.tscn",
+	"res://scenes/entities/towers/tower_preview_archer.tscn",
+	"res://scenes/entities/towers/tower_preview_artillery.tscn",
+	"res://scenes/entities/towers/tower_preview_barrack.tscn",
+	"res://scenes/entities/towers/tower_preview_mage.tscn"
 ]

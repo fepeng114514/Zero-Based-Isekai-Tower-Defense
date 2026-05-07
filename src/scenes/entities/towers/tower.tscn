@@ -2,12 +2,20 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_lq4cm"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_vrxc8"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="4_1tafr"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://ecs/components/tower_component.gd" id="5_r47bq"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="6_6m6kf"]
+
+[sub_resource type="Resource" id="Resource_wcexa"]
+script = ExtResource("4_1tafr")
+list = Array[StringName]([&"sound_tower_sell"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="Tower" type="Node2D" unique_id=794445410]
 script = ExtResource("1_lq4cm")
 scene_name = "tower"
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 flags = 16
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -19,6 +27,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
 script = ExtResource("5_r47bq")
 show_range_offset = Vector2(0, 43.52)
+sell_sfx = SubResource("Resource_wcexa")
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=602361207]

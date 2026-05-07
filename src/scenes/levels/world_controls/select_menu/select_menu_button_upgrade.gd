@@ -10,6 +10,9 @@ class_name SelectMenuButtonUpgrade
 
 @onready var price_tag_label: Label = price_tag.get_node("Label")
 
+var preview: StringName = ""
+var preview_entity: Entity = null
+
 
 func _update() -> void:
 	var upgrade_target: Entity = EntityMgr.get_entity_data(
@@ -32,3 +35,27 @@ func _update() -> void:
 func _on_pressed() -> void:
 	var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
 	tower_c.upgrade_to = upgrade_to
+	
+	_hide_preview()
+
+
+func _on_mouse_entered() -> void:
+	super()
+	
+	if preview:
+		preview_entity = EntityMgr.create_entity(preview)
+		preview_entity.global_position = selected_entity.global_position
+		
+		preview_entity.insert_entity()
+	
+	
+func _on_mouse_exited() -> void:
+	super()
+	
+	_hide_preview()
+		
+		
+func _hide_preview() -> void:
+	if preview_entity:
+		preview_entity.remove_entity()
+		preview_entity = null

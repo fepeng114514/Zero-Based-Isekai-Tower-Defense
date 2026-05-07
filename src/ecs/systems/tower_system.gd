@@ -63,6 +63,8 @@ func _on_update(_delta: float) -> void:
 			e.remove_entity()
 			GameMgr.cash -= price
 		if tower_c.is_sell:
+			AudioMgr.play_sfx(tower_c.sell_sfx)
+			
 			var tower_holder: Entity = EntityMgr.create_entity(
 				"tower_holder"
 			)

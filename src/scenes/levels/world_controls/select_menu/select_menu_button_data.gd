@@ -9,5 +9,3 @@ class_name SelectMenuButtonData
 @export var title: String = ""
 ## 描述
 @export var desc: String = ""
-## 音效
-@export var sfx: AudioGroup = null

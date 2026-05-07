@@ -11,6 +11,7 @@ const MusicBus: StringName = &"Music"
 ## 音效总线
 const SFXBus: StringName = &"SFX"
 
+
 var _audio_stream_dict: Dictionary[StringName, AudioStream] = {}
 ## 音乐的 AudioStreamPlayer
 var _music_player := AudioStreamPlayer.new()

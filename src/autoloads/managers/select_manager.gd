@@ -24,41 +24,39 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func try_select() -> void:
-	var targets: Array[Entity] = EntityMgr.search_targets(
-		C.SearchMode.ENTITY_MAX_ID, 
-		InputMgr.mouse_global_position, 
-		9999, 
-		0, 
-		0, 
-		0, 
-		func(entity: Entity) -> bool:
-			var ui_c: UIComponent = entity.get_node_or_null(C.CN_UI)
-			if not ui_c:
-				return false
-			
-			return ui_c.is_click_at(
-				entity.global_position, 
-				InputMgr.mouse_global_position
-			)
-	)
-	
-	if not targets:
+	if selected_entity:
 		if U.is_valid_entity(selected_entity):
 			selected_entity.selected = false
 			
 		deselect_entity.emit()
-		selected_entity = null
-		return
+	else:
+		var targets: Array[Entity] = EntityMgr.search_targets(
+			C.SearchMode.ENTITY_MAX_ID, 
+			InputMgr.mouse_global_position, 
+			9999, 
+			0, 
+			0, 
+			0, 
+			func(entity: Entity) -> bool:
+				var ui_c: UIComponent = entity.get_node_or_null(C.CN_UI)
+				if not ui_c:
+					return false
+				
+				return ui_c.is_click_at(
+					entity.global_position, 
+					InputMgr.mouse_global_position
+				)
+		)
+		if targets:
+			var e: Entity = targets[0]
 
-	var e: Entity = targets[0]
-
-	Log.debug("选择实体: %s%s" % [e, e.global_position])
-	e.selected = true
-	selected_entity = e
-	select_entity.emit(e)
+			select_entity.emit(e)
 		
 		
 func _on_select(e: Entity) -> void:
+	Log.debug("选择实体: %s%s" % [e, e.global_position])
+	e.selected = true
+	selected_entity = e
 	e._on_select()
 	select_mode = C.SelectMode.NONE
 	
@@ -114,3 +112,5 @@ func _on_deselect() -> void:
 				barrack_c.new_rally_center_position(rally_center_position, true)
 
 	select_mode = C.SelectMode.NONE
+	selected_entity = null
+	

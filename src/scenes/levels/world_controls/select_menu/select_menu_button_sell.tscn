@@ -15,7 +15,7 @@ offset_right = 43.0
 offset_bottom = 39.5
 icon = ExtResource("2_5kd7r")
 
-[node name="Glow" parent="." index="1" unique_id=1711401767]
+[node name="Glow" parent="Button" index="0" unique_id=1711401767]
 offset_left = -42.5
 offset_top = -40.0
 offset_right = 42.5

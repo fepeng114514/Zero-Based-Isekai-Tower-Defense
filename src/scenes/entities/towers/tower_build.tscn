@@ -23,6 +23,7 @@ height = 11
 
 [node name="TowerBuild" type="Node2D" unique_id=1530244974 node_paths=PackedStringArray("progress_bar")]
 script = ExtResource("1_iilrv")
+build_target = ""
 progress_bar = NodePath("TextureProgressBar")
 scene_name = "tower_build"
 spawn_sfx = SubResource("Resource_1cokw")

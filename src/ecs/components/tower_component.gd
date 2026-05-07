@@ -12,15 +12,18 @@ class_name TowerComponent
 		queue_redraw()
 ## 塔位样式
 @export var tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
-## 价格
-@export var price: float = 0
-## 出售比例（%）
-@export var sell_ratio: float = 0.5
 ## 默认集结点
 @export var default_rally_center_local_pos := Vector2.ZERO:
 	set(value):
 		default_rally_center_local_pos = value
 		queue_redraw()
+
+@export_group("Sell")
+## 价格
+@export var price: float = 0
+## 出售比例（%）
+@export var sell_ratio: float = 0.5
+@export var sell_sfx: AudioGroup = null
 
 ## 总价格
 var total_price: float = price

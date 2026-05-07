@@ -62,6 +62,7 @@ func _show(e: Entity) -> void:
 		if data is SelectMenuButtonDataUpgrade:
 			button = upgrade_button_scene.instantiate()
 			button.upgrade_to = data.upgrade_to
+			button.preview = data.preview
 			
 			if data.icon:
 				button.button.icon = data.icon

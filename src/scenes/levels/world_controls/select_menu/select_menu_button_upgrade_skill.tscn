@@ -9,7 +9,7 @@
 [node name="SelectMenuButtonUpgradeSkill" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_syirs")]
 script = ExtResource("2_dlhbn")
 upgrade_skill_idx = -1
-price_tag = NodePath("PriceTag")
+price_tag = NodePath("Button/PriceTag")
 
 [node name="Button" parent="." index="0" unique_id=2068864467]
 offset_left = -58.5
@@ -18,23 +18,23 @@ offset_right = 58.5
 offset_bottom = 54.5
 icon = ExtResource("2_wiw48")
 
-[node name="Glow" parent="." index="1" unique_id=1711401767]
+[node name="Glow" parent="Button" index="0" unique_id=1711401767]
 offset_left = -60.0
 offset_top = -57.0
 offset_right = 60.0
 offset_bottom = 57.0
 texture = ExtResource("3_dlhbn")
 
-[node name="PriceTag" parent="." index="2" unique_id=1309840442 instance=ExtResource("4_s46yc")]
+[node name="PriceTag" parent="Button" index="1" unique_id=1309840442 instance=ExtResource("4_s46yc")]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -33.0
-offset_top = 24.0
-offset_right = 34.0
-offset_bottom = 65.0
+anchor_bottom = 1.0
+offset_left = -33.5
+offset_top = -35.0
+offset_right = 33.5
+offset_bottom = 6.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0

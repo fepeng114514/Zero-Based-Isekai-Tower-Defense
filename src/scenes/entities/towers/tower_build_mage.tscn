@@ -5,7 +5,7 @@
 
 [node name="TowerBuildMage" unique_id=1530244974 instance=ExtResource("1_nt0rc")]
 show_time = 1.25
-build_target = "tower_mage_lvl_1"
+build_target = &"tower_mage_lvl_1"
 scene_name = "tower_build_mage"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]

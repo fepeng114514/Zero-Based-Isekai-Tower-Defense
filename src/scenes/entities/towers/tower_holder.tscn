@@ -42,4 +42,5 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 script = ExtResource("3_qfsqy")
 select_rect = Rect2(-77.425, -59.56, 156.65, 85.995)
 info_bar_type = 2
+select_menu_offset = Vector2(0, -19.71)
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
