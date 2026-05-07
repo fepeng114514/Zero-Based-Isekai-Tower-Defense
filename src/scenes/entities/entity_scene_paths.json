@@ -26,6 +26,11 @@
 	"res://scenes/entities/towers/tower_barrack_lvl_2_soldier.tscn",
 	"res://scenes/entities/towers/tower_barrack_lvl_3.tscn",
 	"res://scenes/entities/towers/tower_barrack_lvl_3_soldier.tscn",
+	"res://scenes/entities/towers/tower_build.tscn",
+	"res://scenes/entities/towers/tower_build_archer.tscn",
+	"res://scenes/entities/towers/tower_build_artillery.tscn",
+	"res://scenes/entities/towers/tower_build_barrack.tscn",
+	"res://scenes/entities/towers/tower_build_mage.tscn",
 	"res://scenes/entities/towers/tower_holder.tscn",
 	"res://scenes/entities/towers/tower_mage.tscn",
 	"res://scenes/entities/towers/tower_mage_bullet.tscn",
@@ -34,5 +39,6 @@
 	"res://scenes/entities/towers/tower_mage_lvl_2.tscn",
 	"res://scenes/entities/towers/tower_mage_lvl_2_shooter.tscn",
 	"res://scenes/entities/towers/tower_mage_lvl_3.tscn",
-	"res://scenes/entities/towers/tower_mage_lvl_3_shooter.tscn"
+	"res://scenes/entities/towers/tower_mage_lvl_3_shooter.tscn",
+	"res://scenes/entities/towers/tower_preview.tscn"
 ]

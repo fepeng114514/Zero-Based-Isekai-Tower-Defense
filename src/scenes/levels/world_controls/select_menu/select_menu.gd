@@ -59,21 +59,21 @@ func _show(e: Entity) -> void:
 	for data: SelectMenuButtonData in group.button_list:		
 		var button: SelectMenuButton = null
 		
-		if data is SelectMenuUpgradeButtonData:
+		if data is SelectMenuButtonDataUpgrade:
 			button = upgrade_button_scene.instantiate()
 			button.upgrade_to = data.upgrade_to
 			
 			if data.icon:
 				button.button.icon = data.icon
-		elif data is SelectMenuUpgradeSkillButtonData:
+		elif data is SelectMenuButtonDataUpgradeSkill:
 			button = upgrade_skill_button_scene.instantiate()
 			button.upgrade_skill_idx = data.upgrade_skill_idx
 			
 			if data.icon:
 				button.button.icon = data.icon
-		elif data is SelectMenuRallyButtonData:
+		elif data is SelectMenuButtonDataRally:
 			button = rally_button_scene.instantiate()
-		elif data is SelectMenuSellButtonData:
+		elif data is SelectMenuButtonDataSell:
 			button = sell_button_scene.instantiate()
 		
 		button.select_menu = self

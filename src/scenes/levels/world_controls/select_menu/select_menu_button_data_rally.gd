@@ -1,0 +1,2 @@
+extends SelectMenuButtonData
+class_name SelectMenuButtonDataRally

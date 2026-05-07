@@ -1,264 +1,20 @@
 [gd_scene format=3 uid="uid://co5ehekpd71r8"]
 
 [ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://scenes/levels/world_controls/select_menu/select_menu.gd" id="1_uviau"]
-[ext_resource type="Script" uid="uid://c2igk5xsppdxf" path="res://scenes/levels/world_controls/select_menu/select_menu_group.gd" id="2_avvsr"]
+[ext_resource type="Resource" uid="uid://diakuvgmjbwrh" path="res://scenes/levels/world_controls/select_menu/select_menu_config.tres" id="2_ji36x"]
 [ext_resource type="Texture2D" uid="uid://pdal2ubobvg3" path="res://resources/atlas_textures/gui_ring.tres" id="2_qqvmo"]
-[ext_resource type="Script" uid="uid://i6rnyxwnxl8h" path="res://scenes/levels/world_controls/select_menu/select_menu_config.gd" id="3_ipwys"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://scenes/levels/world_controls/select_menu/select_menu_button_data.gd" id="3_pbfhu"]
-[ext_resource type="Script" uid="uid://c4luxefveeh5y" path="res://scenes/levels/world_controls/select_menu/select_menu_sell_button_data.gd" id="4_l3ikh"]
-[ext_resource type="Texture2D" uid="uid://bk4vjfex0yago" path="res://resources/atlas_textures/main_icons_0001.tres" id="4_vyhis"]
-[ext_resource type="Script" uid="uid://bee5beykx0mfi" path="res://scenes/levels/world_controls/select_menu/select_menu_rally_button_data.gd" id="5_5ry4v"]
-[ext_resource type="Texture2D" uid="uid://cnygsu62w1cxt" path="res://resources/atlas_textures/main_icons_0003.tres" id="5_w7f45"]
-[ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_textures/main_icons_0004.tres" id="6_2rv5j"]
-[ext_resource type="Script" uid="uid://bp0u0or6xm1ln" path="res://scenes/levels/world_controls/select_menu/select_menu_upgrade_button_data.gd" id="6_dw5l3"]
-[ext_resource type="Texture2D" uid="uid://d03deip2s24tx" path="res://resources/atlas_textures/main_icons_0002.tres" id="7_x5eyn"]
-[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://scenes/levels/world_controls/select_menu/select_menu_rally_button.tscn" id="12_y247d"]
-[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://scenes/levels/world_controls/select_menu/select_menu_sell_button.tscn" id="13_mc105"]
-[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://scenes/levels/world_controls/select_menu/select_menu_upgrade_button.tscn" id="14_gq2cw"]
-[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://scenes/levels/world_controls/select_menu/select_menu_upgrade_skill_button.tscn" id="15_37jvn"]
+[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://scenes/levels/world_controls/select_menu/select_menu_button_rally.tscn" id="12_y247d"]
+[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://scenes/levels/world_controls/select_menu/select_menu_button_sell.tscn" id="13_mc105"]
+[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://scenes/levels/world_controls/select_menu/select_menu_button_upgrade.tscn" id="14_gq2cw"]
+[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://scenes/levels/world_controls/select_menu/select_menu_button_upgrade_skill.tscn" id="15_37jvn"]
 [ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://scenes/levels/world_controls/select_menu/place_holders.gd" id="17_y247d"]
 [ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://scenes/levels/world_controls/select_menu/place_holder.tscn" id="18_mc105"]
-
-[sub_resource type="Resource" id="Resource_imygi"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_archer_lvl_1"
-icon = ExtResource("4_vyhis")
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_5ry4v"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_barrack_lvl_1"
-icon = ExtResource("7_x5eyn")
-place = 2
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_52xag"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_artillery_lvl_1"
-icon = ExtResource("6_2rv5j")
-place = 4
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_k88n7"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_mage_lvl_1"
-icon = ExtResource("5_w7f45")
-place = 6
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_5fx6a"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_imygi"), SubResource("Resource_5ry4v"), SubResource("Resource_52xag"), SubResource("Resource_k88n7")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_2t57x"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_amh31"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_archer_lvl_2"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_tc8e3"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_2t57x"), SubResource("Resource_amh31")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_ku24w"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_nllxg"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_archer_lvl_3"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_r3uwt"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_ku24w"), SubResource("Resource_nllxg")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_4x3yj"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_1ctla"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_4x3yj")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_fgflk"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_o3dtp"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_mage_lvl_2"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_h0gyj"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_fgflk"), SubResource("Resource_o3dtp")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_8vybl"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_3xcf7"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_mage_lvl_3"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_gklnq"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_8vybl"), SubResource("Resource_3xcf7")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_s8452"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_1xlxq"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_s8452")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_2i2uv"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_qffcj"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_artillery_lvl_2"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_vn1ey"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_2i2uv"), SubResource("Resource_qffcj")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_767l3"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_a1auy"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_artillery_lvl_3"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_xsvtk"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_767l3"), SubResource("Resource_a1auy")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_jx2tf"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_gx67x"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_jx2tf")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_e8kws"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_b31xx"]
-script = ExtResource("5_5ry4v")
-place = 4
-metadata/_custom_type_script = "uid://bee5beykx0mfi"
-
-[sub_resource type="Resource" id="Resource_depsw"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_barrack_lvl_2"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_dhes3"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_e8kws"), SubResource("Resource_b31xx"), SubResource("Resource_depsw")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_e1hns"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_37nj2"]
-script = ExtResource("5_5ry4v")
-place = 4
-metadata/_custom_type_script = "uid://bee5beykx0mfi"
-
-[sub_resource type="Resource" id="Resource_go3cf"]
-script = ExtResource("6_dw5l3")
-upgrade_to = "tower_barrack_lvl_3"
-place = 1
-metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
-
-[sub_resource type="Resource" id="Resource_w3qjv"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_e1hns"), SubResource("Resource_37nj2"), SubResource("Resource_go3cf")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_oe2bq"]
-script = ExtResource("4_l3ikh")
-place = 5
-metadata/_custom_type_script = "uid://c4luxefveeh5y"
-
-[sub_resource type="Resource" id="Resource_inqtq"]
-script = ExtResource("5_5ry4v")
-place = 4
-metadata/_custom_type_script = "uid://bee5beykx0mfi"
-
-[sub_resource type="Resource" id="Resource_5mgvj"]
-script = ExtResource("2_avvsr")
-button_list = Array[ExtResource("3_pbfhu")]([SubResource("Resource_oe2bq"), SubResource("Resource_inqtq")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
-[sub_resource type="Resource" id="Resource_b8adr"]
-script = ExtResource("3_ipwys")
-group_dict = Dictionary[String, ExtResource("2_avvsr")]({
-"": null,
-"tower_archer_lvl_1": SubResource("Resource_tc8e3"),
-"tower_archer_lvl_2": SubResource("Resource_r3uwt"),
-"tower_archer_lvl_3": SubResource("Resource_1ctla"),
-"tower_artillery_lvl_1": SubResource("Resource_vn1ey"),
-"tower_artillery_lvl_2": SubResource("Resource_xsvtk"),
-"tower_artillery_lvl_3": SubResource("Resource_gx67x"),
-"tower_barrack_lvl_1": SubResource("Resource_dhes3"),
-"tower_barrack_lvl_2": SubResource("Resource_w3qjv"),
-"tower_barrack_lvl_3": SubResource("Resource_5mgvj"),
-"tower_holder": SubResource("Resource_5fx6a"),
-"tower_mage_lvl_1": SubResource("Resource_h0gyj"),
-"tower_mage_lvl_2": SubResource("Resource_gklnq"),
-"tower_mage_lvl_3": SubResource("Resource_1xlxq")
-})
-metadata/_custom_type_script = "uid://i6rnyxwnxl8h"
 
 [node name="SelectMenu" type="Control" unique_id=1082728830 node_paths=PackedStringArray("place_holders", "ring")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_uviau")
-select_menu_config = SubResource("Resource_b8adr")
+select_menu_config = ExtResource("2_ji36x")
 place_holders = NodePath("Ring/PlaceHolders")
 ring = NodePath("Ring")
 rally_button_scene = ExtResource("12_y247d")
@@ -326,9 +82,9 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlaceHolder7" parent="Ring/PlaceHolders" unique_id=408998546 instance=ExtResource("18_mc105")]
 layout_mode = 1
-offset_left = -12.999992
+offset_left = -4.9999924
 offset_top = 179.0
-offset_right = 96.00001
+offset_right = 104.00001
 offset_bottom = 277.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 

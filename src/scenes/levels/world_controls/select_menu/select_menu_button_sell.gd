@@ -1,5 +1,5 @@
 extends SelectMenuButton
-class_name SelectMenuSellButton
+class_name SelectMenuButtonSell
 
 	
 func _on_pressed() -> void:

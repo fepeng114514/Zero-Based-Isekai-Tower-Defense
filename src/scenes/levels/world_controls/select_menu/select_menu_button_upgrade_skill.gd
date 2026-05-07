@@ -1,5 +1,5 @@
-extends SelectMenuSellButton
-class_name SelectMenuUpgradeSkillButton
+extends SelectMenuButtonSell
+class_name SelectMenuButtonUpgradeSkill
 
 
 ## 升级的技能索引

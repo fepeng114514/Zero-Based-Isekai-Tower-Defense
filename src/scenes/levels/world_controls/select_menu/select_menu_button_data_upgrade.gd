@@ -1,5 +1,5 @@
 extends SelectMenuButtonData
-class_name SelectMenuUpgradeButtonData
+class_name SelectMenuButtonDataUpgrade
 
 
 @export var upgrade_to: String = ""

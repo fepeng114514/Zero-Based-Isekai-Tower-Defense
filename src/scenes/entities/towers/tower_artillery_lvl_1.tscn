@@ -43,9 +43,11 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 scene_name = "tower_artillery_lvl_1"
 idle_animation = SubResource("Resource_rn4jw")
 spawn_sfx = SubResource("Resource_ds7h4")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 
 [node name="SpriteGroup" type="Node2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
-position = Vector2(-3, -49)
+position = Vector2(-3, -46)
 script = ExtResource("4_v8ksx")
 metadata/_custom_type_script = "uid://bcthb5ophrody"
 

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dw0llloxyurxn"]
+
+[ext_resource type="Script" uid="uid://wwnvcleqo7tf" path="res://scenes/entities/towers/tower_build.gd" id="1_iilrv"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_iilrv"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="2_u6arj"]
+[ext_resource type="Texture2D" uid="uid://bdtl1rae115dd" path="res://resources/atlas_textures/tower_constructing_0004.tres" id="3_u6arj"]
+[ext_resource type="Texture2D" uid="uid://bfjqi7kqjwya1" path="res://resources/atlas_textures/buildbar.tres" id="4_wb7qq"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://ecs/components/tower_component.gd" id="6_u6arj"]
+
+[sub_resource type="Resource" id="Resource_1cokw"]
+script = ExtResource("2_u6arj")
+list = Array[StringName]([&"sound_tower_building"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Gradient" id="Gradient_shbcl"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bnhqh"]
+gradient = SubResource("Gradient_shbcl")
+width = 86
+height = 11
+
+[node name="TowerBuild" type="Node2D" unique_id=1530244974 node_paths=PackedStringArray("progress_bar")]
+script = ExtResource("1_iilrv")
+progress_bar = NodePath("TextureProgressBar")
+scene_name = "tower_build"
+spawn_sfx = SubResource("Resource_1cokw")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1200020081]
+script = ExtResource("2_iilrv")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1433762339]
+position = Vector2(0, -40)
+texture = ExtResource("3_u6arj")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1035382269]
+offset_left = -45.0
+offset_top = -56.0
+offset_right = 41.0
+offset_bottom = -45.0
+texture_under = SubResource("GradientTexture2D_bnhqh")
+texture_progress = ExtResource("4_wb7qq")
+texture_progress_offset = Vector2(2, 1)
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=2020079873]
+script = ExtResource("6_u6arj")
+price = 70.0
+metadata/_custom_type_script = "uid://d104itkl6l02e"

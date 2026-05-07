@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dnkbru60qpk3q"]
+
+[ext_resource type="PackedScene" uid="uid://dw0llloxyurxn" path="res://scenes/entities/towers/tower_build.tscn" id="1_of2wb"]
+[ext_resource type="Texture2D" uid="uid://yf1wmr25bo7a" path="res://resources/atlas_textures/tower_constructing_0002.tres" id="2_uwwlb"]
+
+[node name="TowerBuildBarrack" unique_id=1530244974 instance=ExtResource("1_of2wb")]
+show_time = 1.25
+build_target = "tower_barrack_lvl_1"
+scene_name = "tower_build_barrack"
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]
+position = Vector2(0, -45)
+texture = ExtResource("2_uwwlb")
+
+[node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
+offset_left = -40.0
+offset_right = 46.0
+
+[node name="TowerComponent" parent="." index="2" unique_id=2020079873]
+tower_type = 2

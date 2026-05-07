@@ -1,5 +1,5 @@
 extends SelectMenuButtonData
-class_name SelectMenuUpgradeSkillButtonData
+class_name SelectMenuButtonDataUpgradeSkill
 
 
 ## 升级的技能索引

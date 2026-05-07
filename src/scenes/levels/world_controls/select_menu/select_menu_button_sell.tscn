@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://ckw5os80ertnp"]
 
 [ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_nhsmt"]
-[ext_resource type="Script" uid="uid://uv7shkk0kg8m" path="res://scenes/levels/world_controls/select_menu/select_menu_sell_button.gd" id="2_1d3i2"]
+[ext_resource type="Script" uid="uid://uv7shkk0kg8m" path="res://scenes/levels/world_controls/select_menu/select_menu_button_sell.gd" id="2_1d3i2"]
 [ext_resource type="Texture2D" uid="uid://bu6f1c7qrrs2f" path="res://resources/atlas_textures/ico_sell_0001.tres" id="2_5kd7r"]
 [ext_resource type="Texture2D" uid="uid://ckv4h4gbmq37" path="res://resources/atlas_textures/glow_ico_sell.tres" id="5_g1tev"]
 
-[node name="SelectMenuSellButton" unique_id=614263521 instance=ExtResource("1_nhsmt")]
+[node name="SelectMenuButtonSell" unique_id=614263521 instance=ExtResource("1_nhsmt")]
 script = ExtResource("2_1d3i2")
 
 [node name="Button" parent="." index="0" unique_id=2068864467]

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://gvg4up63j61p"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_vp3d5"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_l0kx4"]
+
+[node name="TowerPreview" type="Node2D" unique_id=869103732]
+script = ExtResource("1_vp3d5")
+scene_name = "tower_preview"
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1231309932]
+script = ExtResource("2_l0kx4")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"

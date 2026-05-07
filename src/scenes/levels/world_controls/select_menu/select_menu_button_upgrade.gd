@@ -1,5 +1,5 @@
 extends SelectMenuButton
-class_name SelectMenuUpgradeButton
+class_name SelectMenuButtonUpgrade
 
 
 ## 升级为的实体名称
@@ -16,6 +16,7 @@ func _update() -> void:
 		upgrade_to
 	)
 	var tower_c: TowerComponent = upgrade_target.get_node_or_null(C.CN_TOWER)
+	
 	var price: float = tower_c.price
 	if price > GameMgr.cash:
 		if not disabled:

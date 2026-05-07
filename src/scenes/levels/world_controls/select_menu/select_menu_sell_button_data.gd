@@ -1,2 +1,0 @@
-extends SelectMenuButtonData
-class_name SelectMenuSellButtonData

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://c3aw3opkejlbd"]
 
 [ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_0114p"]
-[ext_resource type="Script" uid="uid://b5vcdr1g0hglx" path="res://scenes/levels/world_controls/select_menu/select_menu_rally_button.gd" id="2_jitr5"]
+[ext_resource type="Script" uid="uid://b5vcdr1g0hglx" path="res://scenes/levels/world_controls/select_menu/select_menu_button_rally.gd" id="2_jitr5"]
 [ext_resource type="Texture2D" uid="uid://ka7on52fud8n" path="res://resources/atlas_textures/sub_icons_0001.tres" id="2_timu7"]
 [ext_resource type="Texture2D" uid="uid://05hncrusqd3j" path="res://resources/atlas_textures/glow_ico_sub.tres" id="4_llsl1"]
 
-[node name="SelectMenuRallyButton" unique_id=614263521 instance=ExtResource("1_0114p")]
+[node name="SelectMenuButtonRally" unique_id=614263521 instance=ExtResource("1_0114p")]
 script = ExtResource("2_jitr5")
 
 [node name="Button" parent="." index="0" unique_id=2068864467]

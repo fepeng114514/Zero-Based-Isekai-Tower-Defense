@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://bvtdqhbod7k87"]
 
 [ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_syirs"]
-[ext_resource type="Script" uid="uid://d4aei0pb6po1i" path="res://scenes/levels/world_controls/select_menu/select_menu_upgrade_skill_button.gd" id="2_dlhbn"]
+[ext_resource type="Script" uid="uid://d4aei0pb6po1i" path="res://scenes/levels/world_controls/select_menu/select_menu_button_upgrade_skill.gd" id="2_dlhbn"]
 [ext_resource type="Texture2D" uid="uid://dl86walhiyovl" path="res://resources/atlas_textures/special_icons_0001.tres" id="2_wiw48"]
 [ext_resource type="Texture2D" uid="uid://jgoi7is6csbd" path="res://resources/atlas_textures/glow_ico_special.tres" id="3_dlhbn"]
 [ext_resource type="PackedScene" uid="uid://cyvvk445spspa" path="res://scenes/levels/world_controls/select_menu/price_tag.tscn" id="4_s46yc"]
 
-[node name="SelectMenuUpgradeSkillButton" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_syirs")]
+[node name="SelectMenuButtonUpgradeSkill" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_syirs")]
 script = ExtResource("2_dlhbn")
 upgrade_skill_idx = -1
 price_tag = NodePath("PriceTag")
