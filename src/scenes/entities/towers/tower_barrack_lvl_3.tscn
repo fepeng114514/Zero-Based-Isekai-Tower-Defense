@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://c3u01oty250k2"]
 
 [ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/towers/tower_barrack_lvl_1.tscn" id="1_dgdoh"]
-[ext_resource type="Texture2D" uid="uid://dlt2m61qmh5et" path="res://resources/atlas_textures/tower_barracks_lvl3_layer1_0001.tres" id="2_gxdjv"]
+[ext_resource type="Texture2D" uid="uid://dchrrmij6h8pf" path="res://resources/atlas_textures/tower_barrack_0003.tres" id="2_cavgn"]
+[ext_resource type="SpriteFrames" uid="uid://bc1vgcl1b8tl7" path="res://resources/sprite_frames/tower_barracks_lvl3_door.tres" id="3_5uvo8"]
 
 [node name="TowerBarrackLvl3" unique_id=187367710 instance=ExtResource("1_dgdoh")]
 scene_name = "tower_barrack_lvl_3"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
-texture = ExtResource("2_gxdjv")
+texture = ExtResource("2_cavgn")
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="1" unique_id=1766989563]
+sprite_frames = ExtResource("3_5uvo8")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 160.0

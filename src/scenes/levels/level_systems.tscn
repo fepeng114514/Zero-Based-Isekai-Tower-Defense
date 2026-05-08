@@ -40,10 +40,6 @@ metadata/_custom_type_script = "uid://doj2bbl12wisd"
 script = ExtResource("5_41cih")
 metadata/_custom_type_script = "uid://deipl5q4eg7vg"
 
-[node name="EntitySystem" type="Node" parent="." unique_id=844543215]
-script = ExtResource("6_7h3fx")
-metadata/_custom_type_script = "uid://cia8mo148t6pb"
-
 [node name="AuraSystem" type="Node" parent="." unique_id=252822561]
 script = ExtResource("7_2kk3o")
 metadata/_custom_type_script = "uid://bhueujkwgexkx"
@@ -95,3 +91,7 @@ metadata/_custom_type_script = "uid://dlkq6p4daka13"
 [node name="SpawnerBehavior" type="Node" parent="BehaviorSystem" unique_id=71576994]
 script = ExtResource("19_xth6e")
 metadata/_custom_type_script = "uid://o0lkma3r7l41"
+
+[node name="EntitySystem" type="Node" parent="." unique_id=844543215]
+script = ExtResource("6_7h3fx")
+metadata/_custom_type_script = "uid://cia8mo148t6pb"

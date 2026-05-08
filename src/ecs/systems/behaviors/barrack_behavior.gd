@@ -23,43 +23,18 @@ func _on_update(e: Entity) -> bool:
 		return false
 		
 	var soldier_group: EntityGroup = barrack_c.soldier_group
-	var max_soldiers: int = barrack_c.max_soldiers
 		
 	if e.is_first_update:
-		e.play_animation_by_look(barrack_c.animation)
-		AudioMgr.play_sfx(barrack_c.sfx)
-		if barrack_c.delay:
-			await e.y_wait(barrack_c.delay)
-			
-		var last_soldier_pos_list: PackedVector2Array = barrack_c.last_soldier_pos_list
-		var last_soldier_pos_list_size: int = last_soldier_pos_list.size()
-		var last_blocked_id_list: Array[PackedInt32Array] = barrack_c.last_blocked_id_list
-			
-		for i: int in max_soldiers:
-			var soldier: Entity = _respawn_soldier(e, barrack_c, soldier_group)
-			
-			if i >= last_soldier_pos_list_size:
-				continue
-				
-			soldier.global_position = last_soldier_pos_list[i]
-
-			var melee_c: MeleeComponent = soldier.get_node_or_null(C.CN_MELEE)
-			if not melee_c:
-				continue
-				
-			soldier.state = C.State.MELEE
-			
-			for id: int in last_blocked_id_list[i]:
-				melee_c.bind_melee_relations(EntityMgr.get_entity_by_id(id), soldier)
-			
-	var soldier_count: int = soldier_group.get_child_count()
+		_first_update(e, barrack_c)
+		return true
 	
 	# 根据重生时间生成士兵
 	if TimeMgr.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
-		if soldier_count < max_soldiers:
-			_respawn_soldier(e, barrack_c, soldier_group)
-		barrack_c.ts = TimeMgr.tick_ts
-	
+		_spawn_by_time(e, barrack_c)
+		return true
+		
+	var soldier_count: int = soldier_group.get_child_count()
+
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_count:
 		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
@@ -68,7 +43,7 @@ func _on_update(e: Entity) -> bool:
 	return false
 
 
-func _respawn_soldier(
+func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent, soldier_group: EntityGroup
 	) -> Entity:
 	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
@@ -81,3 +56,58 @@ func _respawn_soldier(
 	soldier.insert_entity()
 	
 	return soldier
+	
+	
+func _first_update(e: Entity, barrack_c: BarrackComponent) -> void:
+	e.play_animation_by_look(barrack_c.animation)
+	AudioMgr.play_sfx(barrack_c.sfx)
+	if barrack_c.delay:
+		await e.y_wait(barrack_c.delay)
+		
+	var soldier_group: EntityGroup = barrack_c.soldier_group
+	var max_soldiers: int = barrack_c.max_soldiers
+	
+	var last_soldier_pos_list: PackedVector2Array = barrack_c.last_soldier_pos_list
+	var last_soldier_pos_list_size: int = last_soldier_pos_list.size()
+	var last_blocked_id_list: Array[PackedInt32Array] = barrack_c.last_blocked_id_list
+		
+	for i: int in max_soldiers:
+		var soldier: Entity = _spawn_soldier(e, barrack_c, soldier_group)
+		
+		if i >= last_soldier_pos_list_size:
+			continue
+			
+		soldier.global_position = last_soldier_pos_list[i]
+
+		var melee_c: MeleeComponent = soldier.get_node_or_null(C.CN_MELEE)
+		if not melee_c:
+			continue
+			
+		soldier.state = C.State.MELEE
+		
+		for id: int in last_blocked_id_list[i]:
+			melee_c.bind_melee_relations(EntityMgr.get_entity_by_id(id), soldier)
+
+	barrack_c.new_rally_center_position(barrack_c.rally_center_position, false)
+	barrack_c.last_soldier_count = soldier_group.get_child_count()
+	
+	e.wait_animation(barrack_c.animation)
+
+
+func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
+	var soldier_group: EntityGroup = barrack_c.soldier_group
+	var max_soldiers: int = barrack_c.max_soldiers
+	var soldier_count: int = soldier_group.get_child_count()
+	
+	if soldier_count < max_soldiers:
+		barrack_c.ts = TimeMgr.tick_ts
+		e.play_animation_by_look(barrack_c.animation)
+		AudioMgr.play_sfx(barrack_c.sfx)
+		if barrack_c.delay:
+			await e.y_wait(barrack_c.delay)
+
+		_spawn_soldier(e, barrack_c, soldier_group)
+		
+		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
+		barrack_c.last_soldier_count = soldier_group.get_child_count()
+		e.wait_animation(barrack_c.animation)

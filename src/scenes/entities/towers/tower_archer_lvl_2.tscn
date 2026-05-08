@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://71s0bo3xbapv"]
 
 [ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/towers/tower_archer.tscn" id="1_1k3m4"]
-[ext_resource type="Texture2D" uid="uid://bilx3cvah0voe" path="res://resources/atlas_textures/archer_tower_0002.tres" id="2_fuiib"]
+[ext_resource type="Texture2D" uid="uid://cjtu1w547t016" path="res://resources/atlas_textures/tower_archer_0002.tres" id="2_pmlw2"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://ecs/entity_group_2d.gd" id="3_8t32b"]
 [ext_resource type="PackedScene" uid="uid://bt5cby21sk5sc" path="res://scenes/entities/towers/tower_archer_lvl_2_shooter.tscn" id="4_s0mgi"]
 
@@ -9,7 +9,7 @@
 scene_name = "tower_archer_lvl_2"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
-texture = ExtResource("2_fuiib")
+texture = ExtResource("2_pmlw2")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 110.0
@@ -21,9 +21,13 @@ metadata/_custom_type_script = "uid://cb268fbjlobm5"
 
 [node name="TowerArcherLvl2Shooter" parent="TowerComponent/EntityGroup2D" index="0" unique_id=2011504655 instance=ExtResource("4_s0mgi")]
 position = Vector2(-15, -12)
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 
 [node name="TowerArcherLvl2Shooter2" parent="TowerComponent/EntityGroup2D" index="1" unique_id=334249118 instance=ExtResource("4_s0mgi")]
 position = Vector2(16, -10)
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-48.61, -89.745, 95.585, 103.79)

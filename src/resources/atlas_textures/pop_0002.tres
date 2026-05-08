@@ -4,6 +4,6 @@
 
 [resource]
 atlas = ExtResource("1_gdekj")
-region = Rect2(180, 1458, 70, 29)
+region = Rect2(537, 366, 70, 29)
 margin = Rect2(31, 2, 68, 4)
 filter_clip = true

@@ -305,5 +305,4 @@ func _try_melee_attack(
 			EntityMgr.create_mods(t_id, a.mods, e_id)
 		
 		await e.wait_animation(a.animation)
-		e.play_animation_by_look(e.idle_animation)
 		break

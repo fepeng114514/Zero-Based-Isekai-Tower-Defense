@@ -24,7 +24,7 @@ func _on_remove(e: Entity) -> bool:
 func _on_update(delta: float) -> void:
 	var entities: Array = EntityMgr.get_valid_entities().filter(
 		func(e: Entity) -> bool:
-			return not e.state & C.State.DEATH
+			return not e.state & C.State.DEATH and not e.is_waiting()
 	)
 	
 	for e: Entity in entities:
@@ -39,13 +39,14 @@ func _on_update(delta: float) -> void:
 				
 			e.global_position = source.global_position
 			
-		if e.is_waiting():
-			continue
-			
-		_on_e_update(e, delta)
+		_update_entity(e, delta)
+		
+	for e: Entity in EntityMgr.get_valid_entities():
+		if e.is_first_update:
+			e.is_first_update = false
 		
 	
-func _on_e_update(e: Entity, delta: float) -> void:
+func _update_entity(e: Entity, delta: float) -> void:
 	if e.is_first_update:
 		e.play_animation_by_look(e.spawn_animation)
 		AudioMgr.play_sfx(e.spawn_sfx)
@@ -55,4 +56,3 @@ func _on_e_update(e: Entity, delta: float) -> void:
 	e._on_update(delta)
 	
 	e.last_position = e.global_position
-	e.is_first_update = false

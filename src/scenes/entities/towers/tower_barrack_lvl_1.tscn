@@ -3,27 +3,49 @@
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_5r4pg"]
 [ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://scenes/entities/towers/tower_barrack_spawn_sfx.tres" id="2_cw5qr"]
-[ext_resource type="Texture2D" uid="uid://cfpj2lpvfx1c5" path="res://resources/atlas_textures/tower_barracks_lvl1_layer1_0001.tres" id="3_cw5qr"]
+[ext_resource type="Texture2D" uid="uid://c72m7r0dl4dan" path="res://resources/atlas_textures/tower_barrack_0001.tres" id="3_cw5qr"]
+[ext_resource type="SpriteFrames" uid="uid://52031y6w41cu" path="res://resources/sprite_frames/tower_barracks_lvl1_door.tres" id="4_ddijo"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://ecs/components/barrack_component.gd" id="4_u6jgq"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="7_4wg18"]
+
+[sub_resource type="Resource" id="Resource_4wg18"]
+script = ExtResource("2_5r4pg")
+play_idx = 1
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_xe47h"]
 script = ExtResource("2_5r4pg")
-left_right = &"spawn"
+play_idx = 1
+any = &"spawn"
+
+[sub_resource type="Resource" id="Resource_3ddwr"]
+script = ExtResource("7_4wg18")
+list = Array[StringName]([&"sound_tower_open_door"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_og8n7")]
 scene_name = "tower_barrack_lvl_1"
+idle_animation = SubResource("Resource_4wg18")
 spawn_sfx = ExtResource("2_cw5qr")
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
+[node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(0, -48)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=927508667]
 texture = ExtResource("3_cw5qr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="1" unique_id=1766989563]
+sprite_frames = ExtResource("4_ddijo")
+animation = &"idle"
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 2
+show_range_offset = Vector2(0, -16.51)
 price = 70.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
-select_rect = Rect2(-55.715, -82, 107.405, 102.935)
+select_rect = Rect2(-57.155, -82, 112.085, 102.935)
 
 [node name="BarrackComponent" type="Node2D" parent="." index="3" unique_id=441339810]
 script = ExtResource("4_u6jgq")
@@ -31,4 +53,6 @@ rally_radius = 45.0
 rally_sfx = ExtResource("2_cw5qr")
 soldier = "tower_barrack_lvl_1_soldier"
 animation = SubResource("Resource_xe47h")
+delay = 0.167
+sfx = SubResource("Resource_3ddwr")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"

@@ -37,8 +37,8 @@ script = ExtResource("1_0rikb")
 scene_name = "tower_barrack_lvl_1_soldier"
 idle_animation = SubResource("Resource_ovm3w")
 hit_offset = Vector2(0, -16.4)
-whitelist = Array[String]([])
-blacklist = Array[String]([])
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 flags = 4
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -80,8 +80,9 @@ delay = 0.2
 animation = SubResource("Resource_p1ots")
 damage_min = 1.0
 damage_max = 3.0
-whitelist = Array[String]([])
-blacklist = Array[String]([])
+mods = PackedStringArray()
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="RallyComponent" type="NavigationAgent2D" parent="." unique_id=905200269]

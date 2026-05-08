@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cvijiwoloou1l"]
 
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/towers/tower.tscn" id="1_og8n7"]
-[ext_resource type="Texture2D" uid="uid://bjw24pqqjas30" path="res://resources/atlas_textures/archer_tower_0001.tres" id="2_4541l"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="2_bcrmv"]
+[ext_resource type="Texture2D" uid="uid://ddspffab0sqdo" path="res://resources/atlas_textures/tower_archer_0001.tres" id="3_bcrmv"]
 
 [sub_resource type="Resource" id="Resource_wq07w"]
 script = ExtResource("2_bcrmv")
@@ -12,12 +12,10 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 [node name="TowerArcher" unique_id=1010851235 instance=ExtResource("1_og8n7")]
 scene_name = "tower_archer"
 spawn_sfx = SubResource("Resource_wq07w")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
 position = Vector2(0, -50)
-texture = ExtResource("2_4541l")
+texture = ExtResource("3_bcrmv")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 1

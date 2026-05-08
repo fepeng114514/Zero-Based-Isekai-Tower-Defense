@@ -203,6 +203,42 @@
 			}
 		}
 	},
+	"tower_barracks_lvl1_door": {
+		"animations": {
+			"idle":{
+				"from": 1,
+				"to": 1
+			},
+			"spawn": {
+				"from": 1,
+				"to": 25
+			}
+		}
+	},
+	"tower_barracks_lvl2_door": {
+		"animations": {
+			"idle":{
+				"from": 1,
+				"to": 1
+			},
+			"spawn": {
+				"from": 1,
+				"to": 25
+			}
+		}
+	},
+	"tower_barracks_lvl3_door": {
+		"animations": {
+			"idle":{
+				"from": 1,
+				"to": 1
+			},
+			"spawn": {
+				"from": 1,
+				"to": 25
+			}
+		}
+	},
 	"tower_mage_shooter": {
 		"animations": {
 			"idle_down": {

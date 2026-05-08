@@ -2,10 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/towers/tower_archer.tscn" id="1_4joti"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/towers/tower_archer_lvl_1_shooter.tscn" id="2_4mkqg"]
+[ext_resource type="Texture2D" uid="uid://ddspffab0sqdo" path="res://resources/atlas_textures/tower_archer_0001.tres" id="2_ea5ax"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://ecs/entity_group_2d.gd" id="7_nv2ef"]
 
 [node name="TowerArcherLvl1" unique_id=1010851235 instance=ExtResource("1_4joti")]
 scene_name = "tower_archer_lvl_1"
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
+texture = ExtResource("2_ea5ax")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 70.0
@@ -18,10 +22,14 @@ metadata/_custom_type_script = "uid://cb268fbjlobm5"
 [node name="TowerArcherLvl1Shooter" parent="TowerComponent/EntityGroup2D" index="0" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(-15, -7)
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 
 [node name="TowerArcherLvl1Shooter2" parent="TowerComponent/EntityGroup2D" index="1" unique_id=656258836 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(18, -6)
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_menu_offset = Vector2(0, -29.78)

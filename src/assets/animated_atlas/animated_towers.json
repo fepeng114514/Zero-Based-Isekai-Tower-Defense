@@ -23097,7 +23097,7 @@
                 "tower_artillery_lvl3_layer7_0035"
             ]
         },
-        "tower_barrack_lvl4_Barbarians_layer2_0001": {
+        "tower_barrack_lvl4_barbarians_door_0001": {
             "quad": [
                 240,
                 2099,
@@ -23111,10 +23111,10 @@
                 14
             ],
             "alias": [
-                "tower_barrack_lvl4_Barbarians_layer2_0025"
+                "tower_barrack_lvl4_barbarians_door_0025"
             ]
         },
-        "tower_barrack_lvl4_Barbarians_layer2_0002": {
+        "tower_barrack_lvl4_barbarians_door_0002": {
             "quad": [
                 2229,
                 1474,
@@ -23128,10 +23128,10 @@
                 22
             ],
             "alias": [
-                "tower_barrack_lvl4_Barbarians_layer2_0024"
+                "tower_barrack_lvl4_barbarians_door_0024"
             ]
         },
-        "tower_barrack_lvl4_Barbarians_layer2_0003": {
+        "tower_barrack_lvl4_barbarians_door_0003": {
             "quad": [
                 2277,
                 3046,
@@ -23145,10 +23145,10 @@
                 36
             ],
             "alias": [
-                "tower_barrack_lvl4_Barbarians_layer2_0023"
+                "tower_barrack_lvl4_barbarians_door_0023"
             ]
         },
-        "tower_barrack_lvl4_Barbarians_layer2_0004": {
+        "tower_barrack_lvl4_barbarians_door_0004": {
             "quad": [
                 1615,
                 4080,
@@ -23162,27 +23162,27 @@
                 45
             ],
             "alias": [
-                "tower_barrack_lvl4_Barbarians_layer2_0005",
-                "tower_barrack_lvl4_Barbarians_layer2_0006",
-                "tower_barrack_lvl4_Barbarians_layer2_0007",
-                "tower_barrack_lvl4_Barbarians_layer2_0008",
-                "tower_barrack_lvl4_Barbarians_layer2_0009",
-                "tower_barrack_lvl4_Barbarians_layer2_0010",
-                "tower_barrack_lvl4_Barbarians_layer2_0011",
-                "tower_barrack_lvl4_Barbarians_layer2_0012",
-                "tower_barrack_lvl4_Barbarians_layer2_0013",
-                "tower_barrack_lvl4_Barbarians_layer2_0014",
-                "tower_barrack_lvl4_Barbarians_layer2_0015",
-                "tower_barrack_lvl4_Barbarians_layer2_0016",
-                "tower_barrack_lvl4_Barbarians_layer2_0017",
-                "tower_barrack_lvl4_Barbarians_layer2_0018",
-                "tower_barrack_lvl4_Barbarians_layer2_0019",
-                "tower_barrack_lvl4_Barbarians_layer2_0020",
-                "tower_barrack_lvl4_Barbarians_layer2_0021",
-                "tower_barrack_lvl4_Barbarians_layer2_0022"
+                "tower_barrack_lvl4_barbarians_door_0005",
+                "tower_barrack_lvl4_barbarians_door_0006",
+                "tower_barrack_lvl4_barbarians_door_0007",
+                "tower_barrack_lvl4_barbarians_door_0008",
+                "tower_barrack_lvl4_barbarians_door_0009",
+                "tower_barrack_lvl4_barbarians_door_0010",
+                "tower_barrack_lvl4_barbarians_door_0011",
+                "tower_barrack_lvl4_barbarians_door_0012",
+                "tower_barrack_lvl4_barbarians_door_0013",
+                "tower_barrack_lvl4_barbarians_door_0014",
+                "tower_barrack_lvl4_barbarians_door_0015",
+                "tower_barrack_lvl4_barbarians_door_0016",
+                "tower_barrack_lvl4_barbarians_door_0017",
+                "tower_barrack_lvl4_barbarians_door_0018",
+                "tower_barrack_lvl4_barbarians_door_0019",
+                "tower_barrack_lvl4_barbarians_door_0020",
+                "tower_barrack_lvl4_barbarians_door_0021",
+                "tower_barrack_lvl4_barbarians_door_0022"
             ]
         },
-        "tower_barracks_lvl1_layer2_0001": {
+        "tower_barracks_lvl1_door_0001": {
             "quad": [
                 2395,
                 512,
@@ -23196,10 +23196,10 @@
                 17
             ],
             "alias": [
-                "tower_barracks_lvl1_layer2_0025"
+                "tower_barracks_lvl1_door_0025"
             ]
         },
-        "tower_barracks_lvl1_layer2_0002": {
+        "tower_barracks_lvl1_door_0002": {
             "quad": [
                 2395,
                 547,
@@ -23213,10 +23213,10 @@
                 24
             ],
             "alias": [
-                "tower_barracks_lvl1_layer2_0024"
+                "tower_barracks_lvl1_door_0024"
             ]
         },
-        "tower_barracks_lvl1_layer2_0003": {
+        "tower_barracks_lvl1_door_0003": {
             "quad": [
                 2395,
                 580,
@@ -23230,10 +23230,10 @@
                 32
             ],
             "alias": [
-                "tower_barracks_lvl1_layer2_0023"
+                "tower_barracks_lvl1_door_0023"
             ]
         },
-        "tower_barracks_lvl1_layer2_0004": {
+        "tower_barracks_lvl1_door_0004": {
             "quad": [
                 2359,
                 4082,
@@ -23247,11 +23247,27 @@
                 41
             ],
             "alias": [
-                "tower_barracks_lvl1_layer2_0005",
-                "tower_barracks_lvl1_layer2_0022"
+                "tower_barracks_lvl1_door_0005",
+                "tower_barracks_lvl1_door_0006",
+                "tower_barracks_lvl1_door_0007",
+                "tower_barracks_lvl1_door_0008",
+                "tower_barracks_lvl1_door_0009",
+                "tower_barracks_lvl1_door_0010",
+                "tower_barracks_lvl1_door_0011",
+                "tower_barracks_lvl1_door_0012",
+                "tower_barracks_lvl1_door_0013",
+                "tower_barracks_lvl1_door_0014",
+                "tower_barracks_lvl1_door_0015",
+                "tower_barracks_lvl1_door_0016",
+                "tower_barracks_lvl1_door_0017",
+                "tower_barracks_lvl1_door_0018",
+                "tower_barracks_lvl1_door_0019",
+                "tower_barracks_lvl1_door_0020",
+                "tower_barracks_lvl1_door_0021",
+                "tower_barracks_lvl1_door_0022"
             ]
         },
-        "tower_barracks_lvl2_layer2_0001": {
+        "tower_barracks_lvl2_door_0001": {
             "quad": [
                 2395,
                 601,
@@ -23265,10 +23281,10 @@
                 17
             ],
             "alias": [
-                "tower_barracks_lvl2_layer2_0025"
+                "tower_barracks_lvl2_door_0025"
             ]
         },
-        "tower_barracks_lvl2_layer2_0002": {
+        "tower_barracks_lvl2_door_0002": {
             "quad": [
                 2395,
                 637,
@@ -23282,10 +23298,10 @@
                 25
             ],
             "alias": [
-                "tower_barracks_lvl2_layer2_0024"
+                "tower_barracks_lvl2_door_0024"
             ]
         },
-        "tower_barracks_lvl2_layer2_0003": {
+        "tower_barracks_lvl2_door_0003": {
             "quad": [
                 2395,
                 672,
@@ -23300,7 +23316,7 @@
             ],
             "alias": []
         },
-        "tower_barracks_lvl2_layer2_0004": {
+        "tower_barracks_lvl2_door_0004": {
             "quad": [
                 2124,
                 4077,
@@ -23314,11 +23330,27 @@
                 42
             ],
             "alias": [
-                "tower_barracks_lvl2_layer2_0005",
-                "tower_barracks_lvl2_layer2_0022"
+                "tower_barracks_lvl2_door_0005",
+                "tower_barracks_lvl2_door_0006",
+                "tower_barracks_lvl2_door_0007",
+                "tower_barracks_lvl2_door_0008",
+                "tower_barracks_lvl2_door_0009",
+                "tower_barracks_lvl2_door_0010",
+                "tower_barracks_lvl2_door_0011",
+                "tower_barracks_lvl2_door_0012",
+                "tower_barracks_lvl2_door_0013",
+                "tower_barracks_lvl2_door_0014",
+                "tower_barracks_lvl2_door_0015",
+                "tower_barracks_lvl2_door_0016",
+                "tower_barracks_lvl2_door_0017",
+                "tower_barracks_lvl2_door_0018",
+                "tower_barracks_lvl2_door_0019",
+                "tower_barracks_lvl2_door_0020",
+                "tower_barracks_lvl2_door_0021",
+                "tower_barracks_lvl2_door_0022"
             ]
         },
-        "tower_barracks_lvl2_layer2_0023": {
+        "tower_barracks_lvl2_door_0023": {
             "quad": [
                 2395,
                 692,
@@ -23333,7 +23365,7 @@
             ],
             "alias": []
         },
-        "tower_barracks_lvl3_layer2_0001": {
+        "tower_barracks_lvl3_door_0001": {
             "quad": [
                 2359,
                 3907,
@@ -23347,10 +23379,10 @@
                 17
             ],
             "alias": [
-                "tower_barracks_lvl3_layer2_0025"
+                "tower_barracks_lvl3_door_0025"
             ]
         },
-        "tower_barracks_lvl3_layer2_0002": {
+        "tower_barracks_lvl3_door_0002": {
             "quad": [
                 2395,
                 714,
@@ -23364,10 +23396,10 @@
                 26
             ],
             "alias": [
-                "tower_barracks_lvl3_layer2_0024"
+                "tower_barracks_lvl3_door_0024"
             ]
         },
-        "tower_barracks_lvl3_layer2_0003": {
+        "tower_barracks_lvl3_door_0003": {
             "quad": [
                 2395,
                 745,
@@ -23381,10 +23413,10 @@
                 34
             ],
             "alias": [
-                "tower_barracks_lvl3_layer2_0023"
+                "tower_barracks_lvl3_door_0023"
             ]
         },
-        "tower_barracks_lvl3_layer2_0004": {
+        "tower_barracks_lvl3_door_0004": {
             "quad": [
                 2001,
                 4082,
@@ -23398,11 +23430,27 @@
                 44
             ],
             "alias": [
-                "tower_barracks_lvl3_layer2_0005",
-                "tower_barracks_lvl3_layer2_0022"
+                "tower_barracks_lvl3_door_0005",
+                "tower_barracks_lvl3_door_0006",
+                "tower_barracks_lvl3_door_0007",
+                "tower_barracks_lvl3_door_0008",
+                "tower_barracks_lvl3_door_0009",
+                "tower_barracks_lvl3_door_0010",
+                "tower_barracks_lvl3_door_0011",
+                "tower_barracks_lvl3_door_0012",
+                "tower_barracks_lvl3_door_0013",
+                "tower_barracks_lvl3_door_0014",
+                "tower_barracks_lvl3_door_0015",
+                "tower_barracks_lvl3_door_0016",
+                "tower_barracks_lvl3_door_0017",
+                "tower_barracks_lvl3_door_0018",
+                "tower_barracks_lvl3_door_0019",
+                "tower_barracks_lvl3_door_0020",
+                "tower_barracks_lvl3_door_0021",
+                "tower_barracks_lvl3_door_0022"
             ]
         },
-        "tower_barracks_lvl4_Paladins_layer2_0001": {
+        "tower_barracks_lvl4_paladins_door_0001": {
             "quad": [
                 2395,
                 768,
@@ -23416,10 +23464,10 @@
                 17
             ],
             "alias": [
-                "tower_barracks_lvl4_Paladins_layer2_0025"
+                "tower_barracks_lvl4_paladins_door_0025"
             ]
         },
-        "tower_barracks_lvl4_Paladins_layer2_0002": {
+        "tower_barracks_lvl4_paladins_door_0002": {
             "quad": [
                 2395,
                 806,
@@ -23433,10 +23481,10 @@
                 29
             ],
             "alias": [
-                "tower_barracks_lvl4_Paladins_layer2_0024"
+                "tower_barracks_lvl4_paladins_door_0024"
             ]
         },
-        "tower_barracks_lvl4_Paladins_layer2_0003": {
+        "tower_barracks_lvl4_paladins_door_0003": {
             "quad": [
                 2395,
                 833,
@@ -23450,10 +23498,10 @@
                 38
             ],
             "alias": [
-                "tower_barracks_lvl4_Paladins_layer2_0023"
+                "tower_barracks_lvl4_paladins_door_0023"
             ]
         },
-        "tower_barracks_lvl4_Paladins_layer2_0004": {
+        "tower_barracks_lvl4_paladins_door_0004": {
             "quad": [
                 2395,
                 850,
@@ -23467,24 +23515,24 @@
                 41
             ],
             "alias": [
-                "tower_barracks_lvl4_Paladins_layer2_0005",
-                "tower_barracks_lvl4_Paladins_layer2_0006",
-                "tower_barracks_lvl4_Paladins_layer2_0007",
-                "tower_barracks_lvl4_Paladins_layer2_0008",
-                "tower_barracks_lvl4_Paladins_layer2_0009",
-                "tower_barracks_lvl4_Paladins_layer2_0010",
-                "tower_barracks_lvl4_Paladins_layer2_0011",
-                "tower_barracks_lvl4_Paladins_layer2_0012",
-                "tower_barracks_lvl4_Paladins_layer2_0013",
-                "tower_barracks_lvl4_Paladins_layer2_0014",
-                "tower_barracks_lvl4_Paladins_layer2_0015",
-                "tower_barracks_lvl4_Paladins_layer2_0016",
-                "tower_barracks_lvl4_Paladins_layer2_0017",
-                "tower_barracks_lvl4_Paladins_layer2_0018",
-                "tower_barracks_lvl4_Paladins_layer2_0019",
-                "tower_barracks_lvl4_Paladins_layer2_0020",
-                "tower_barracks_lvl4_Paladins_layer2_0021",
-                "tower_barracks_lvl4_Paladins_layer2_0022"
+                "tower_barracks_lvl4_paladins_door_0005",
+                "tower_barracks_lvl4_paladins_door_0006",
+                "tower_barracks_lvl4_paladins_door_0007",
+                "tower_barracks_lvl4_paladins_door_0008",
+                "tower_barracks_lvl4_paladins_door_0009",
+                "tower_barracks_lvl4_paladins_door_0010",
+                "tower_barracks_lvl4_paladins_door_0011",
+                "tower_barracks_lvl4_paladins_door_0012",
+                "tower_barracks_lvl4_paladins_door_0013",
+                "tower_barracks_lvl4_paladins_door_0014",
+                "tower_barracks_lvl4_paladins_door_0015",
+                "tower_barracks_lvl4_paladins_door_0016",
+                "tower_barracks_lvl4_paladins_door_0017",
+                "tower_barracks_lvl4_paladins_door_0018",
+                "tower_barracks_lvl4_paladins_door_0019",
+                "tower_barracks_lvl4_paladins_door_0020",
+                "tower_barracks_lvl4_paladins_door_0021",
+                "tower_barracks_lvl4_paladins_door_0022"
             ]
         },
         "tower_barracks_soldier_lvl1_0001": {
