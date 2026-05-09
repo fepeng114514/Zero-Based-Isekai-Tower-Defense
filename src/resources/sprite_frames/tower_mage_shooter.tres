@@ -2,115 +2,115 @@
 
 [ext_resource type="Texture2D" uid="uid://wdw2l33j31ls" path="res://assets/atlas/animated_atlas/animated_towers-1.dds" id="1_kw5bb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kw5bb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2e5e"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2359, 511, 34, 45)
 margin = Rect2(14, 19, 34, 19)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2e5e"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb1wt"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2320, 3654, 35, 45)
 margin = Rect2(19, 19, 33, 19)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cb1wt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7h8fc"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2320, 856, 37, 42)
 margin = Rect2(13, 22, 31, 22)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7h8fc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebbku"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2277, 271, 41, 41)
 margin = Rect2(9, 23, 27, 23)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ebbku"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruryf"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2229, 3030, 42, 53)
 margin = Rect2(9, 10, 26, 11)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ruryf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_simo2"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2229, 3085, 42, 54)
 margin = Rect2(9, 9, 26, 10)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_simo2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gh55k"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(240, 2146, 45, 56)
 margin = Rect2(6, 7, 23, 8)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gh55k"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyk27"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2229, 72, 46, 58)
 margin = Rect2(5, 5, 22, 6)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dyk27"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sji0v"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2277, 1328, 40, 49)
 margin = Rect2(11, 14, 28, 15)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sji0v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvv44"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2320, 2197, 36, 45)
 margin = Rect2(15, 18, 32, 19)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lvv44"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5iux"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2320, 3701, 35, 45)
 margin = Rect2(19, 19, 33, 19)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e5iux"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_luvk1"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2320, 900, 37, 42)
 margin = Rect2(17, 22, 31, 22)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_luvk1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mnjs"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2277, 2252, 39, 41)
 margin = Rect2(17, 23, 29, 23)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1mnjs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuhew"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2277, 314, 41, 54)
 margin = Rect2(17, 10, 27, 10)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vuhew"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wisli"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2229, 1513, 43, 55)
 margin = Rect2(17, 9, 25, 9)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wisli"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_reydi"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(240, 3907, 44, 55)
 margin = Rect2(17, 9, 24, 9)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_reydi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj0a6"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2229, 132, 46, 59)
 margin = Rect2(17, 5, 22, 5)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gj0a6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1qe4"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2277, 3145, 38, 49)
 margin = Rect2(17, 15, 30, 15)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j1qe4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mt8x"]
 atlas = ExtResource("1_kw5bb")
 region = Rect2(2320, 3748, 35, 46)
 margin = Rect2(17, 18, 33, 18)
@@ -120,7 +120,7 @@ filter_clip = true
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kw5bb")
+"texture": SubResource("AtlasTexture_d2e5e")
 }],
 "loop": true,
 "name": &"idle_down",
@@ -128,7 +128,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d2e5e")
+"texture": SubResource("AtlasTexture_cb1wt")
 }],
 "loop": true,
 "name": &"idle_up",
@@ -136,13 +136,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cb1wt")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_7h8fc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7h8fc")
+"texture": SubResource("AtlasTexture_ebbku")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ebbku")
@@ -154,9 +151,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_simo2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_simo2")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_gh55k")
 }, {
 "duration": 1.0,
@@ -173,6 +167,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sji0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvv44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvv44")
 }],
 "loop": true,
 "name": &"ranged_down",
@@ -180,16 +180,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lvv44")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_e5iux")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_luvk1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_luvk1")
+"texture": SubResource("AtlasTexture_1mnjs")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1mnjs")
@@ -201,9 +198,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_wisli")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wisli")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_reydi")
 }, {
 "duration": 1.0,
@@ -220,6 +214,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j1qe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mt8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mt8x")
 }],
 "loop": true,
 "name": &"ranged_up",
