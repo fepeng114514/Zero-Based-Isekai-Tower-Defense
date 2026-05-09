@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://glrib64s8fvl"]
 
 [ext_resource type="PackedScene" uid="uid://dw0llloxyurxn" path="res://scenes/entities/towers/tower_build.tscn" id="1_bvv0h"]
-[ext_resource type="Texture2D" uid="uid://cy22k4voqjgm5" path="res://resources/atlas_textures/tower_constructing_0001.tres" id="2_qvarf"]
+[ext_resource type="Texture2D" uid="uid://knqnkm241cw4" path="res://resources/atlas_textures/image_towers/tower_constructing_0001.tres" id="2_bvv0h"]
 
 [node name="TowerBuildArtillery" unique_id=1530244974 instance=ExtResource("1_bvv0h")]
 show_time = 1.25
@@ -10,7 +10,7 @@ scene_name = "tower_build_artillery"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]
 position = Vector2(0, -43)
-texture = ExtResource("2_qvarf")
+texture = ExtResource("2_bvv0h")
 
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
 offset_left = -40.0

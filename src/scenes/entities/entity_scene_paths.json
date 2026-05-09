@@ -1,10 +1,10 @@
 [
-	"res://scenes/entities/explosion_air.tscn",
 	"res://scenes/entities/wave_spawner.tscn",
 	"res://scenes/entities/enemies/enemy.tscn",
 	"res://scenes/entities/enemies/enemy_goblin.tscn",
 	"res://scenes/entities/enemies/enemy_orc.tscn",
 	"res://scenes/entities/towers/bullet_sword.tscn",
+	"res://scenes/entities/towers/explosion_air.tscn",
 	"res://scenes/entities/towers/tower.tscn",
 	"res://scenes/entities/towers/tower_archer.tscn",
 	"res://scenes/entities/towers/tower_archer_bullet.tscn",

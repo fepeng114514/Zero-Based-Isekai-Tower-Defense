@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_ewl0l"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="3_au4tr"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://resources/classes/sync_animations_data.gd" id="3_t83il"]
-[ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames/tower_mage_lvl1.tres" id="4_as0po"]
+[ext_resource type="SpriteFrames" uid="uid://baq8dynl0bjyu" path="res://resources/sprite_frames/towers/tower_mage_lvl1.tres" id="5_au4tr"]
 
 [sub_resource type="Resource" id="Resource_t83il"]
 script = ExtResource("2_ewl0l")
@@ -42,8 +42,8 @@ position = Vector2(-1, -27)
 sync_animations = SubResource("Resource_lvkar")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=793888686]
-sprite_frames = ExtResource("4_as0po")
-animation = &"ranged"
+sprite_frames = ExtResource("5_au4tr")
+animation = &"idle"
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 3

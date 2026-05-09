@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bwgt8qdihjrc7"]
 
 [ext_resource type="PackedScene" uid="uid://gvg4up63j61p" path="res://scenes/entities/towers/tower_preview.tscn" id="1_knrdu"]
-[ext_resource type="Texture2D" uid="uid://d0l6eobu1q5fb" path="res://resources/atlas_textures/tower_preview_barrack.tres" id="2_c210s"]
+[ext_resource type="Texture2D" uid="uid://mb8u6i5kpyjs" path="res://resources/atlas_textures/image_towers/tower_preview_barrack.tres" id="2_knrdu"]
 
 [node name="TowerPreviewBarrack" unique_id=869103732 instance=ExtResource("1_knrdu")]
-scene_name = ""
+scene_name = "tower_preview_barrack"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1231309932) index="0" unique_id=1097269827]
-texture = ExtResource("2_c210s")
+texture = ExtResource("2_knrdu")

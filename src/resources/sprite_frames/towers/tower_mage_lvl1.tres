@@ -1,0 +1,85 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://baq8dynl0bjyu"]
+
+[ext_resource type="Texture2D" uid="uid://wdw2l33j31ls" path="res://assets/atlas/animated_atlas/animated_towers-1.dds" id="1_783iv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_783iv"]
+atlas = ExtResource("1_783iv")
+region = Rect2(912, 3199, 173, 113)
+margin = Rect2(3, 28, 3, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml262"]
+atlas = ExtResource("1_783iv")
+region = Rect2(912, 3314, 173, 113)
+margin = Rect2(3, 28, 3, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_if7x6"]
+atlas = ExtResource("1_783iv")
+region = Rect2(912, 3429, 173, 114)
+margin = Rect2(3, 27, 3, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udk0m"]
+atlas = ExtResource("1_783iv")
+region = Rect2(912, 3545, 173, 115)
+margin = Rect2(3, 26, 3, 26)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umf28"]
+atlas = ExtResource("1_783iv")
+region = Rect2(912, 3662, 173, 115)
+margin = Rect2(3, 26, 3, 26)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_783iv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_783iv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_783iv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml262")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml262")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_if7x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_if7x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udk0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udk0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udk0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udk0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umf28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umf28")
+}],
+"loop": true,
+"name": &"ranged",
+"speed": 30.0
+}]

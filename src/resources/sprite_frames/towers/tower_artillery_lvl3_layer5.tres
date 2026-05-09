@@ -1,0 +1,166 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://uixbgyphrivk"]
+
+[ext_resource type="Texture2D" uid="uid://wdw2l33j31ls" path="res://assets/atlas/animated_atlas/animated_towers-1.dds" id="1_rrufg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrufg"]
+atlas = ExtResource("1_rrufg")
+region = Rect2(1079, 4086, 4, 3)
+margin = Rect2(94, 160, 193, 175)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nt46g"]
+atlas = ExtResource("1_rrufg")
+region = Rect2(1851, 1954, 73, 79)
+margin = Rect2(62, 10, 124, 99)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li22a"]
+atlas = ExtResource("1_rrufg")
+region = Rect2(1664, 2678, 89, 81)
+margin = Rect2(59, 7, 108, 97)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8a0c"]
+atlas = ExtResource("1_rrufg")
+region = Rect2(1763, 89, 86, 84)
+margin = Rect2(58, 4, 111, 94)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scopr"]
+atlas = ExtResource("1_rrufg")
+region = Rect2(1763, 175, 86, 87)
+margin = Rect2(56, 2, 111, 91)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo1g0"]
+atlas = ExtResource("1_rrufg")
+region = Rect2(1763, 1112, 85, 88)
+margin = Rect2(55, 2, 112, 90)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_163y0"]
+atlas = ExtResource("1_rrufg")
+region = Rect2(2066, 1117, 54, 41)
+margin = Rect2(75, 1, 143, 137)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt46g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt46g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li22a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li22a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8a0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8a0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scopr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scopr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo1g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo1g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_163y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_163y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrufg")
+}],
+"loop": true,
+"name": &"ranged",
+"speed": 30.0
+}]

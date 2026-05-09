@@ -1,0 +1,55 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://d0ifnvcv5tsjr"]
+
+[ext_resource type="Texture2D" uid="uid://wdw2l33j31ls" path="res://assets/atlas/animated_atlas/animated_towers-1.dds" id="1_0aibt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0aibt"]
+atlas = ExtResource("1_0aibt")
+region = Rect2(317, 3446, 198, 223)
+margin = Rect2(104, 59, 142, 113)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0dr1"]
+atlas = ExtResource("1_0aibt")
+region = Rect2(317, 3710, 197, 234)
+margin = Rect2(114, 59, 143, 102)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bxnr"]
+atlas = ExtResource("1_0aibt")
+region = Rect2(529, 3290, 193, 234)
+margin = Rect2(114, 59, 147, 102)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojbtn"]
+atlas = ExtResource("1_0aibt")
+region = Rect2(529, 3526, 193, 234)
+margin = Rect2(114, 59, 147, 102)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0aibt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0dr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0dr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bxnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojbtn")
+}],
+"loop": true,
+"name": &"ranged",
+"speed": 30.0
+}]

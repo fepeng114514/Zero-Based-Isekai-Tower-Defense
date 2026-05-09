@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://wxrkke7541g"]
 
 [ext_resource type="PackedScene" uid="uid://dgdv4ixqwp3ot" path="res://scenes/entities/towers/tower_mage.tscn" id="1_g3ohr"]
+[ext_resource type="SpriteFrames" uid="uid://baq8dynl0bjyu" path="res://resources/sprite_frames/towers/tower_mage_lvl1.tres" id="2_lg6ln"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/towers/tower_mage_lvl_1_shooter.tscn" id="3_j8o77"]
 
 [node name="TowerMageLvl1" unique_id=794445410 instance=ExtResource("1_g3ohr")]
 scene_name = "tower_mage_lvl_1"
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=793888686]
+sprite_frames = ExtResource("2_lg6ln")
+animation = &"idle"
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 100.0

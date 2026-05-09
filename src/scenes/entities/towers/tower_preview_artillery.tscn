@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://chfqusguy3cig"]
 
 [ext_resource type="PackedScene" uid="uid://gvg4up63j61p" path="res://scenes/entities/towers/tower_preview.tscn" id="1_o6oy1"]
-[ext_resource type="Texture2D" uid="uid://owmp8i45vqkh" path="res://resources/atlas_textures/tower_preview_artillery.tres" id="2_ykrkv"]
+[ext_resource type="Texture2D" uid="uid://w08r0id0l21m" path="res://resources/atlas_textures/image_towers/tower_preview_artillery.tres" id="2_o6oy1"]
 
 [node name="TowerPreviewArtillery" unique_id=869103732 instance=ExtResource("1_o6oy1")]
-scene_name = ""
+scene_name = "tower_preview_artillery"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1231309932) index="0" unique_id=1097269827]
-texture = ExtResource("2_ykrkv")
+texture = ExtResource("2_o6oy1")

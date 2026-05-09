@@ -1,0 +1,9 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://8muf5xyoc7jt"]
+
+[ext_resource type="Texture2D" uid="uid://blm5j7h3ny7pk" path="res://assets/atlas/image_atlas/image_towers-1.dds" id="1_07lyf"]
+
+[resource]
+atlas = ExtResource("1_07lyf")
+region = Rect2(369, 754, 121, 58)
+margin = Rect2(31, 97, 81, 112)
+filter_clip = true

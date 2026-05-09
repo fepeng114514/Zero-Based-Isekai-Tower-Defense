@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://daxror7vuxh6c"]
 
 [ext_resource type="PackedScene" uid="uid://gvg4up63j61p" path="res://scenes/entities/towers/tower_preview.tscn" id="1_wiy1g"]
-[ext_resource type="Texture2D" uid="uid://chfmn37u4xu3j" path="res://resources/atlas_textures/tower_preview_mage.tres" id="2_nmi7x"]
+[ext_resource type="Texture2D" uid="uid://bfge8fne52dwe" path="res://resources/atlas_textures/image_towers/tower_preview_mage.tres" id="2_wiy1g"]
 
 [node name="TowerPreviewMage" unique_id=869103732 instance=ExtResource("1_wiy1g")]
-scene_name = ""
+scene_name = "tower_preview_mage"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1231309932) index="0" unique_id=1097269827]
 position = Vector2(0, -27)
-texture = ExtResource("2_nmi7x")
+texture = ExtResource("2_wiy1g")

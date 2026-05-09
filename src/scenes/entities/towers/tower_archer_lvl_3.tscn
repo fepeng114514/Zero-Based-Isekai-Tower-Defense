@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0kns13pm62mu"]
 
 [ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/towers/tower_archer.tscn" id="1_n4rnl"]
-[ext_resource type="Texture2D" uid="uid://c3wyt1pmwb1x" path="res://resources/atlas_textures/tower_archer_0003.tres" id="2_w3a57"]
+[ext_resource type="Texture2D" uid="uid://c68x6ap620ruu" path="res://resources/atlas_textures/image_towers/tower_archer_0003.tres" id="2_w3a57"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://ecs/entity_group_2d.gd" id="2_xvuyv"]
 [ext_resource type="PackedScene" uid="uid://bleej3esxi75b" path="res://scenes/entities/towers/tower_archer_lvl_3_shooter.tscn" id="3_1rmxj"]
 
@@ -21,13 +21,9 @@ metadata/_custom_type_script = "uid://cb268fbjlobm5"
 
 [node name="TowerArcherLvl3Shooter" parent="TowerComponent/EntityGroup2D" index="0" unique_id=2011504655 instance=ExtResource("3_1rmxj")]
 position = Vector2(-15, -17)
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 
 [node name="TowerArcherLvl3Shooter2" parent="TowerComponent/EntityGroup2D" index="1" unique_id=1538760009 instance=ExtResource("3_1rmxj")]
 position = Vector2(17, -18)
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-52.89, -98.09, 100.79, 114.01)

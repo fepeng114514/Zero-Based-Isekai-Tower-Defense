@@ -1,0 +1,85 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dikgdn5r2afsi"]
+
+[ext_resource type="Texture2D" uid="uid://wdw2l33j31ls" path="res://assets/atlas/animated_atlas/animated_towers-1.dds" id="1_me351"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_me351"]
+atlas = ExtResource("1_me351")
+region = Rect2(1096, 345, 172, 131)
+margin = Rect2(3, 10, 4, 10)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu7tl"]
+atlas = ExtResource("1_me351")
+region = Rect2(1096, 478, 172, 131)
+margin = Rect2(3, 10, 4, 10)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aea41"]
+atlas = ExtResource("1_me351")
+region = Rect2(1096, 611, 172, 132)
+margin = Rect2(3, 9, 4, 9)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpt8r"]
+atlas = ExtResource("1_me351")
+region = Rect2(1096, 745, 172, 134)
+margin = Rect2(3, 7, 4, 7)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llg4c"]
+atlas = ExtResource("1_me351")
+region = Rect2(1096, 881, 172, 132)
+margin = Rect2(3, 9, 4, 9)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_me351")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_me351")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_me351")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vu7tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vu7tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aea41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aea41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpt8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpt8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpt8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpt8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llg4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llg4c")
+}],
+"loop": true,
+"name": &"ranged",
+"speed": 30.0
+}]

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ca75dg47m1q1a"]
 
 [ext_resource type="Script" uid="uid://cu2n4eqm2rpbd" path="res://scenes/levels/world_controls/info_circle.gd" id="1_dgwu4"]
-[ext_resource type="Texture2D" uid="uid://dy4dphv67pyr4" path="res://resources/atlas_textures/range_circle.tres" id="2_2e158"]
-[ext_resource type="Texture2D" uid="uid://cjwth0l5e7mw2" path="res://resources/atlas_textures/rally_circle.tres" id="3_sxjir"]
+[ext_resource type="Texture2D" uid="uid://j3uk3xoys3jx" path="res://resources/atlas_textures/image_gui/range_circle.tres" id="2_b1x22"]
+[ext_resource type="Texture2D" uid="uid://7tvqk88sbv7s" path="res://resources/atlas_textures/image_gui/rally_circle.tres" id="3_l26lk"]
 
 [node name="InfoCircle" type="Control" unique_id=1487020159 node_paths=PackedStringArray("ranged_max_range_circle", "ranged_min_range_circle", "rally_max_range_circle", "rally_min_range_circle", "melee_max_range_circle", "melee_min_range_circle")]
 layout_mode = 3
@@ -31,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("2_2e158")
+texture = ExtResource("2_b1x22")
 
 [node name="RangedMinRangeCircle" type="TextureRect" parent="." unique_id=795272033]
 layout_mode = 1
@@ -48,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("2_2e158")
+texture = ExtResource("2_b1x22")
 
 [node name="RallyMaxRangeCircle" type="TextureRect" parent="." unique_id=876061730]
 layout_mode = 1
@@ -65,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_sxjir")
+texture = ExtResource("3_l26lk")
 
 [node name="RallyMinRangeCircle" type="TextureRect" parent="." unique_id=75749823]
 layout_mode = 1
@@ -82,7 +82,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_sxjir")
+texture = ExtResource("3_l26lk")
 
 [node name="MeleeMaxRangeCircle" type="TextureRect" parent="." unique_id=1935171373]
 layout_mode = 1
@@ -99,7 +99,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_sxjir")
+texture = ExtResource("3_l26lk")
 
 [node name="MeleeMinRangeCircle" type="TextureRect" parent="." unique_id=81789493]
 layout_mode = 1
@@ -116,4 +116,4 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_sxjir")
+texture = ExtResource("3_l26lk")

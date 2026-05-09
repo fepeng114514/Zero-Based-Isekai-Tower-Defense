@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dmn3u58sdn7l1"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_v20dj"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_qp68e"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_xg2qw"]
+[ext_resource type="SpriteFrames" uid="uid://d32jt7lbsr4h2" path="res://resources/sprite_frames/towers/explosion_air.tres" id="4_o2edx"]
+[ext_resource type="Script" uid="uid://bvipq6dw3lalv" path="res://ecs/components/fx_component.gd" id="5_fgu2n"]
+
+[sub_resource type="Resource" id="Resource_qvfn2"]
+script = ExtResource("2_qp68e")
+any = &"idle"
+
+[node name="ExplosionAir" type="Node2D" unique_id=1041664771]
+script = ExtResource("1_v20dj")
+scene_name = "explosion_air"
+idle_animation = SubResource("Resource_qvfn2")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1249947656]
+script = ExtResource("3_xg2qw")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=172993599]
+sprite_frames = ExtResource("4_o2edx")
+animation = &"idle"
+
+[node name="FXComponent" type="Node" parent="." unique_id=619916811]
+script = ExtResource("5_fgu2n")
+metadata/_custom_type_script = "uid://bvipq6dw3lalv"

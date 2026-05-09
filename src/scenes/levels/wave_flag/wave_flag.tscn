@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://hje3y0vepv3t"]
 
-[ext_resource type="Texture2D" uid="uid://d0mwnskgjvkjl" path="res://resources/atlas_textures/nextwaveTimer_0001.tres" id="1_x8bc0"]
-[ext_resource type="Texture2D" uid="uid://dqei45a3mah56" path="res://resources/atlas_textures/nextwaveTimer_glow_0001.tres" id="2_kwfvo"]
+[ext_resource type="Texture2D" uid="uid://dn752xt3r48wp" path="res://resources/atlas_textures/image_gui/nextwaveTimer_0001.tres" id="2_4mye6"]
 [ext_resource type="Script" uid="uid://0qq3qdmjbpyf" path="res://scenes/levels/wave_flag/wave_flag.gd" id="3_h1xy6"]
-[ext_resource type="Texture2D" uid="uid://c6m6ndf756yhv" path="res://resources/atlas_textures/nextwaveTimer_0002.tres" id="4_tyboc"]
-[ext_resource type="Texture2D" uid="uid://bv3a8p7y6hkvr" path="res://resources/atlas_textures/nextwaveTimer_0020.tres" id="5_ebvq0"]
-[ext_resource type="Texture2D" uid="uid://bk602licig37q" path="res://resources/atlas_textures/nextwaveTimer_glow_0003.tres" id="6_am1gl"]
+[ext_resource type="Texture2D" uid="uid://bgne72j146ojb" path="res://resources/atlas_textures/image_gui/nextwaveTimer_0002.tres" id="3_y305d"]
+[ext_resource type="Texture2D" uid="uid://bru2j4lk0olb0" path="res://resources/atlas_textures/image_gui/nextwaveTimer_0020.tres" id="4_p2cha"]
+[ext_resource type="Texture2D" uid="uid://coici0qulndck" path="res://resources/atlas_textures/image_gui/nextwaveTimer_glow_0003.tres" id="5_8v03r"]
+[ext_resource type="Texture2D" uid="uid://b7gbgcmguuctd" path="res://resources/atlas_textures/image_gui/nextwaveTimer_glow_0001.tres" id="6_kbgqf"]
 
 [sub_resource type="Gradient" id="Gradient_kwfvo"]
 offsets = PackedFloat32Array(0.999, 1)
@@ -71,7 +71,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 1
-texture_normal = ExtResource("1_x8bc0")
+texture_normal = ExtResource("2_4mye6")
 
 [node name="Decoration" type="TextureRect" parent="." unique_id=604796389]
 layout_mode = 1
@@ -88,7 +88,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(42.5, 42.5)
 mouse_filter = 2
-texture = ExtResource("4_tyboc")
+texture = ExtResource("3_y305d")
 
 [node name="Arrow" type="TextureRect" parent="." unique_id=621576718]
 layout_mode = 1
@@ -105,10 +105,9 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(42.5, 85)
 mouse_filter = 2
-texture = ExtResource("5_ebvq0")
+texture = ExtResource("4_p2cha")
 
 [node name="ArrowGlow" type="TextureRect" parent="." unique_id=1404161446]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -123,10 +122,9 @@ grow_horizontal = 2
 grow_vertical = 0
 pivot_offset_ratio = Vector2(0.5, 1)
 mouse_filter = 2
-texture = ExtResource("6_am1gl")
+texture = ExtResource("5_8v03r")
 
 [node name="BoderGlow" type="TextureRect" parent="." unique_id=1393068121]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -140,4 +138,4 @@ offset_bottom = 40.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_kwfvo")
+texture = ExtResource("6_kbgqf")

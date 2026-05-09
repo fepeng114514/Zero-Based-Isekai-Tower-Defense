@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_pyfu2"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="3_qfsqy"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="4_eclg5"]
+[ext_resource type="Texture2D" uid="uid://ce01yopue06ym" path="res://resources/atlas_textures/image_towers/build_terrain_0001.tres" id="5_egw88"]
 [ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://scenes/entities/towers/tower_holder.gdshader" id="5_rh6e0"]
-[ext_resource type="Texture2D" uid="uid://byk75f3pfixc" path="res://resources/atlas_textures/build_terrain_0001.tres" id="6_wcy0v"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://ecs/components/tower_component.gd" id="12_pyfu2"]
 
 [sub_resource type="Resource" id="Resource_fdaav"]
@@ -32,7 +32,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2043930113]
 material = SubResource("ShaderMaterial_jcl8y")
-texture = ExtResource("6_wcy0v")
+texture = ExtResource("5_egw88")
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=286705593]
 script = ExtResource("12_pyfu2")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cxy7osvoibnms"]
 
 [ext_resource type="PackedScene" uid="uid://dw0llloxyurxn" path="res://scenes/entities/towers/tower_build.tscn" id="1_nt0rc"]
-[ext_resource type="Texture2D" uid="uid://dg065yclfbeh4" path="res://resources/atlas_textures/tower_constructing_0003.tres" id="2_x7vi0"]
+[ext_resource type="Texture2D" uid="uid://bm8shsxfldhgo" path="res://resources/atlas_textures/image_towers/tower_constructing_0003.tres" id="2_nt0rc"]
 
 [node name="TowerBuildMage" unique_id=1530244974 instance=ExtResource("1_nt0rc")]
 show_time = 1.25
@@ -10,7 +10,7 @@ scene_name = "tower_build_mage"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]
 position = Vector2(0, -28)
-texture = ExtResource("2_x7vi0")
+texture = ExtResource("2_nt0rc")
 
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
 offset_left = -41.0

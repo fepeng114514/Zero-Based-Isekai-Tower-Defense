@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_nhsmt"]
 [ext_resource type="Script" uid="uid://uv7shkk0kg8m" path="res://scenes/levels/world_controls/select_menu/select_menu_button_sell.gd" id="2_1d3i2"]
-[ext_resource type="Texture2D" uid="uid://bu6f1c7qrrs2f" path="res://resources/atlas_textures/ico_sell_0001.tres" id="2_5kd7r"]
-[ext_resource type="Texture2D" uid="uid://ckv4h4gbmq37" path="res://resources/atlas_textures/glow_ico_sell.tres" id="5_g1tev"]
+[ext_resource type="Texture2D" uid="uid://dbp1xfh3fjeot" path="res://resources/atlas_textures/image_icon/ico_sell_0001.tres" id="3_7nihm"]
+[ext_resource type="Texture2D" uid="uid://b4hcb62cjp6vu" path="res://resources/atlas_textures/image_icon/glow_ico_sell.tres" id="4_jgvrm"]
 
 [node name="SelectMenuButtonSell" unique_id=614263521 instance=ExtResource("1_nhsmt")]
 script = ExtResource("2_1d3i2")
@@ -13,11 +13,11 @@ offset_left = -43.0
 offset_top = -39.5
 offset_right = 43.0
 offset_bottom = 39.5
-icon = ExtResource("2_5kd7r")
+icon = ExtResource("3_7nihm")
 
 [node name="Glow" parent="Button" index="0" unique_id=1711401767]
 offset_left = -42.5
 offset_top = -40.0
 offset_right = 42.5
 offset_bottom = 40.0
-texture = ExtResource("5_g1tev")
+texture = ExtResource("4_jgvrm")

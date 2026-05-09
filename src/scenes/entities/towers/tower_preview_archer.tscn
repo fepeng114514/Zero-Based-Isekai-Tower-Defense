@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://gvg4up63j61p" path="res://scenes/entities/towers/tower_preview.tscn" id="1_2psow"]
 
 [node name="TowerPreviewArcher" unique_id=869103732 instance=ExtResource("1_2psow")]
+scene_name = "tower_preview_archer"

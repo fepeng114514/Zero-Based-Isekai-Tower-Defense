@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://drgcomkmcowby"]
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemies/enemy.tscn" id="1_wlnjt"]
-[ext_resource type="SpriteFrames" uid="uid://l8jfd7j0becy" path="res://resources/sprite_frames/enemy_orc.tres" id="2_nquq8"]
+[ext_resource type="SpriteFrames" uid="uid://due0kyivwouc7" path="res://resources/sprite_frames/enemies/enemy_orc.tres" id="2_bomnd"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="3_bomnd"]
 
 [sub_resource type="Resource" id="Resource_w5ikr"]
 script = ExtResource("3_bomnd")
-list = Array[StringName](["sound_enemy_orc_dead"])
+list = Array[StringName]([&"sound_enemy_orc_dead"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="EnemyOrc" unique_id=71433118 instance=ExtResource("1_wlnjt")]
@@ -14,7 +14,7 @@ scene_name = "enemy_orc"
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -25)
-sprite_frames = ExtResource("2_nquq8")
+sprite_frames = ExtResource("2_bomnd")
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 80.0

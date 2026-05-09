@@ -1,0 +1,87 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bjackr2e5vunj"]
+
+[ext_resource type="Texture2D" uid="uid://wdw2l33j31ls" path="res://assets/atlas/animated_atlas/animated_towers-1.dds" id="1_avus5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avus5"]
+atlas = ExtResource("1_avus5")
+region = Rect2(2178, 2585, 47, 24)
+margin = Rect2(1, 15, 29, 25)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qvlo"]
+atlas = ExtResource("1_avus5")
+region = Rect2(2229, 2983, 42, 45)
+margin = Rect2(19, 3, 34, 4)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnyfr"]
+atlas = ExtResource("1_avus5")
+region = Rect2(2277, 3097, 38, 46)
+margin = Rect2(18, 2, 38, 3)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88mnc"]
+atlas = ExtResource("1_avus5")
+region = Rect2(2277, 1283, 40, 43)
+margin = Rect2(18, 2, 36, 6)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkd4y"]
+atlas = ExtResource("1_avus5")
+region = Rect2(2395, 2527, 25, 26)
+margin = Rect2(26, 11, 51, 23)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qlmg"]
+atlas = ExtResource("1_avus5")
+region = Rect2(2277, 3071, 38, 24)
+margin = Rect2(10, 15, 38, 25)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avus5")
+}],
+"loop": true,
+"name": &"flying_left_right",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qvlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qvlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qvlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnyfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnyfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88mnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88mnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkd4y")
+}],
+"loop": true,
+"name": &"hit_left_right",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qlmg")
+}],
+"loop": true,
+"name": &"idle_left_right",
+"speed": 30.0
+}]

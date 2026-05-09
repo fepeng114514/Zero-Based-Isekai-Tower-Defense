@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://wwnvcleqo7tf" path="res://scenes/entities/towers/tower_build.gd" id="1_iilrv"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_iilrv"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="2_u6arj"]
-[ext_resource type="Texture2D" uid="uid://bdtl1rae115dd" path="res://resources/atlas_textures/tower_constructing_0004.tres" id="3_u6arj"]
-[ext_resource type="Texture2D" uid="uid://bfjqi7kqjwya1" path="res://resources/atlas_textures/buildbar.tres" id="4_wb7qq"]
-[ext_resource type="Texture2D" uid="uid://bik6wub12yiqx" path="res://resources/atlas_textures/buildbar_bg.tres" id="5_wb7qq"]
+[ext_resource type="Texture2D" uid="uid://2h5002wnt7ef" path="res://resources/atlas_textures/image_towers/tower_constructing_0004.tres" id="4_wb7qq"]
+[ext_resource type="Texture2D" uid="uid://bk8unidmroadu" path="res://resources/atlas_textures/image_towers/buildbar_bg.tres" id="5_shbcl"]
+[ext_resource type="Texture2D" uid="uid://t1bhka2ewrjf" path="res://resources/atlas_textures/image_towers/buildbar.tres" id="6_bnhqh"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://ecs/components/tower_component.gd" id="6_u6arj"]
 
 [sub_resource type="Resource" id="Resource_1cokw"]
@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1433762339]
 position = Vector2(0, -40)
-texture = ExtResource("3_u6arj")
+texture = ExtResource("4_wb7qq")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1035382269]
 offset_left = -45.0
@@ -36,9 +36,9 @@ offset_top = -56.0
 offset_right = 41.0
 offset_bottom = -45.0
 value = 100.0
-texture_under = ExtResource("5_wb7qq")
-texture_progress = ExtResource("4_wb7qq")
-texture_progress_offset = Vector2(4, 3)
+texture_under = ExtResource("5_shbcl")
+texture_progress = ExtResource("6_bnhqh")
+texture_progress_offset = Vector2(4, 4)
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=2020079873]
 script = ExtResource("6_u6arj")

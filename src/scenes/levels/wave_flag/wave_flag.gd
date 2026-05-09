@@ -50,6 +50,9 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	else:
+		for glow: TextureRect in glow_list:
+			glow.visible = false
+		
 		texture_button.pressed.connect(_on_pressed)
 		mouse_entered.connect(_on_mouse_entered)
 		mouse_exited.connect(_on_mouse_exited)

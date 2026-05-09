@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://g4ovunr1s3vb"]
 
 [ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/game_ui/entity_info_bar.gd" id="1_1ujae"]
+[ext_resource type="Texture2D" uid="uid://b00gds5q1o2ti" path="res://resources/atlas_textures/image_gui/base_info_icons_0001.tres" id="3_45eky"]
+[ext_resource type="Texture2D" uid="uid://s5qvxi2w6530" path="res://resources/atlas_textures/image_gui/base_info_icons_0010.tres" id="4_0k0fm"]
+[ext_resource type="Texture2D" uid="uid://cwemlx51y223m" path="res://resources/atlas_textures/image_gui/base_info_icons_0003.tres" id="5_ctes1"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="5_nlacs"]
-[ext_resource type="Texture2D" uid="uid://ciotpk7kx0b6" path="res://resources/atlas_textures/base_info_icons_0001.tres" id="6_fm2ec"]
-[ext_resource type="Texture2D" uid="uid://crepanmnlo6dm" path="res://resources/atlas_textures/base_info_icons_0010.tres" id="7_avvo0"]
-[ext_resource type="Texture2D" uid="uid://ctmh4emnw437x" path="res://resources/atlas_textures/base_info_icons_0003.tres" id="8_fqc8g"]
-[ext_resource type="Texture2D" uid="uid://dnmwxj17qy4s4" path="res://resources/atlas_textures/base_info_icons_0004.tres" id="9_wmisy"]
+[ext_resource type="Texture2D" uid="uid://ciobyweyj68vs" path="res://resources/atlas_textures/image_gui/base_info_icons_0004.tres" id="6_1ujae"]
 
 [sub_resource type="StyleBoxFlat" id="4"]
 bg_color = Color(0.2, 0.2, 0.25, 0.95)
@@ -78,7 +78,7 @@ theme_override_constants/separation = 20
 
 [node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxMelee" unique_id=2029457686]
 layout_mode = 2
-texture = ExtResource("6_fm2ec")
+texture = ExtResource("3_45eky")
 
 [node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxMelee" unique_id=253791031]
 layout_mode = 2
@@ -93,7 +93,7 @@ theme_override_constants/separation = 20
 
 [node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxRanged" unique_id=1278268678]
 layout_mode = 2
-texture = ExtResource("7_avvo0")
+texture = ExtResource("4_0k0fm")
 
 [node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxRanged" unique_id=1462066987]
 layout_mode = 2
@@ -108,7 +108,7 @@ theme_override_constants/separation = 20
 
 [node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=1144040450]
 layout_mode = 2
-texture = ExtResource("8_fqc8g")
+texture = ExtResource("5_ctes1")
 
 [node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=45631269]
 layout_mode = 2
@@ -123,7 +123,7 @@ theme_override_constants/separation = 20
 
 [node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=2084534205]
 layout_mode = 2
-texture = ExtResource("9_wmisy")
+texture = ExtResource("6_1ujae")
 
 [node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1608248264]
 layout_mode = 2

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_vp3d5"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_l0kx4"]
-[ext_resource type="Texture2D" uid="uid://dfo40ss5e1wn8" path="res://resources/atlas_textures/tower_preview_archer.tres" id="3_l0kx4"]
+[ext_resource type="Texture2D" uid="uid://dn0ddsh8l5xy8" path="res://resources/atlas_textures/image_towers/tower_preview_archer.tres" id="3_l0kx4"]
 
 [node name="TowerPreview" type="Node2D" unique_id=869103732]
 script = ExtResource("1_vp3d5")

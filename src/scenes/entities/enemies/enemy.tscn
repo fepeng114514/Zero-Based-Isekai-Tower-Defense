@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_0ncad"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_1nm20"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_58mnm"]
-[ext_resource type="SpriteFrames" uid="uid://dj27vtf00p7el" path="res://resources/sprite_frames/enemy_goblin.tres" id="3_mee2f"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="4_bfbt7"]
+[ext_resource type="SpriteFrames" uid="uid://ymooww5yfs6t" path="res://resources/sprite_frames/enemies/enemy_goblin.tres" id="4_wyqsp"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://ecs/components/nav_path_component.gd" id="5_gt3hg"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://ecs/components/health_bar.tscn" id="5_yidua"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="6_ijmwd"]
@@ -51,7 +51,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
 position = Vector2(0, -19)
-sprite_frames = ExtResource("3_mee2f")
+sprite_frames = ExtResource("4_wyqsp")
 animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]

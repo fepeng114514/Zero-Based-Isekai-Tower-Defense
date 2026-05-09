@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cv2hsfu7birtl"]
 
 [ext_resource type="Script" uid="uid://b6l8uqpbpxei2" path="res://scenes/ui/game_ui/player_resources.gd" id="1_asxmd"]
-[ext_resource type="Texture2D" uid="uid://bgh2p7pg5xgmt" path="res://resources/atlas_textures/base_info_icons_0009.tres" id="2_lnjvu"]
+[ext_resource type="Texture2D" uid="uid://b5axhghpai7ey" path="res://resources/atlas_textures/image_gui/base_info_icons_0009.tres" id="2_lnjvu"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="2_y7bry"]
 
 [node name="PlayerResources" type="HBoxContainer" unique_id=883217190 node_paths=PackedStringArray("life_icon", "life_value", "cash_icon", "cash_value")]

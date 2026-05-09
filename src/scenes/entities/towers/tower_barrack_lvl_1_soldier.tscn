@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_0rikb"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_i4u0u"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_63s5i"]
-[ext_resource type="SpriteFrames" uid="uid://bcuypu8u2qhpt" path="res://resources/sprite_frames/tower_barracks_soldier_lvl1.tres" id="4_d8utj"]
+[ext_resource type="SpriteFrames" uid="uid://5h1px07jr5pr" path="res://resources/sprite_frames/towers/tower_barracks_soldier_lvl1.tres" id="4_xkrn4"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="5_uecfs"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://ecs/components/health_bar.tscn" id="6_7yqqd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://ecs/components/melee_component.gd" id="7_xu63r"]
@@ -49,7 +49,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
 position = Vector2(0, -34)
-sprite_frames = ExtResource("4_d8utj")
+sprite_frames = ExtResource("4_xkrn4")
 animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713]

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_121ob"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_0mq2b"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_bgj51"]
-[ext_resource type="Texture2D" uid="uid://dkdjev2thqd6w" path="res://resources/atlas_textures/bombs_0001.tres" id="3_cbh1n"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="4_1jhx5"]
+[ext_resource type="Texture2D" uid="uid://cpiqi6jk308r1" path="res://resources/atlas_textures/image_towers/bombs_0001.tres" id="4_jmmy1"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="6_jmmy1"]
 
 [sub_resource type="Resource" id="Resource_wmreg"]
@@ -34,7 +34,7 @@ script = ExtResource("2_0mq2b")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2139566938]
-texture = ExtResource("3_cbh1n")
+texture = ExtResource("4_jmmy1")
 
 [node name="BulletComponent" type="Node" parent="." unique_id=444267291]
 script = ExtResource("4_1jhx5")

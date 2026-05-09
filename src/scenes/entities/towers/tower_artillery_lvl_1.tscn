@@ -2,14 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_snldt"]
-[ext_resource type="SpriteFrames" uid="uid://prmlcknumm4q" path="res://resources/sprite_frames/tower_artillery_lvl1_layer1.tres" id="4_mbgfo"]
 [ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://ecs/components/sprite_group.gd" id="4_v8ksx"]
-[ext_resource type="SpriteFrames" uid="uid://dnvxuuv68o1tn" path="res://resources/sprite_frames/tower_artillery_lvl1_layer2.tres" id="5_1qc6l"]
-[ext_resource type="SpriteFrames" uid="uid://c25uf33x7n6yy" path="res://resources/sprite_frames/tower_artillery_lvl1_layer3.tres" id="6_l5l73"]
-[ext_resource type="SpriteFrames" uid="uid://dksqbc6hccdbe" path="res://resources/sprite_frames/tower_artillery_lvl1_layer4.tres" id="7_n4ua5"]
-[ext_resource type="SpriteFrames" uid="uid://jwv8561hnfk3" path="res://resources/sprite_frames/tower_artillery_lvl1_layer5.tres" id="8_3uqv8"]
-[ext_resource type="SpriteFrames" uid="uid://b80vqhtuvk40l" path="res://resources/sprite_frames/tower_artillery_lvl1_layer6.tres" id="9_6ve1v"]
-[ext_resource type="SpriteFrames" uid="uid://dmyxk70sgcsj4" path="res://resources/sprite_frames/tower_artillery_lvl1_layer7.tres" id="10_s1vxx"]
+[ext_resource type="SpriteFrames" uid="uid://cad0bk8hmnfi4" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer1.tres" id="5_ds7h4"]
+[ext_resource type="SpriteFrames" uid="uid://c3yc8fdiekstw" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer2.tres" id="6_ipws0"]
+[ext_resource type="SpriteFrames" uid="uid://bxg2oa34vjixw" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer3.tres" id="7_st7oj"]
+[ext_resource type="SpriteFrames" uid="uid://rxo2p1514tbb" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer4.tres" id="8_67tlk"]
+[ext_resource type="SpriteFrames" uid="uid://ct1dihhrvq53w" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer5.tres" id="9_31xy0"]
+[ext_resource type="SpriteFrames" uid="uid://i0pjfli71fxq" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer6.tres" id="10_d7smu"]
+[ext_resource type="SpriteFrames" uid="uid://b2exek271mgfo" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer7.tres" id="11_6652w"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/ranged_component.gd" id="13_l5l73"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="14_ds7h4"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/ranged_attack.gd" id="14_n4ua5"]
@@ -43,8 +43,6 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 scene_name = "tower_artillery_lvl_1"
 idle_animation = SubResource("Resource_rn4jw")
 spawn_sfx = SubResource("Resource_ds7h4")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 
 [node name="SpriteGroup" type="Node2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
 position = Vector2(-3, -46)
@@ -52,34 +50,32 @@ script = ExtResource("4_v8ksx")
 metadata/_custom_type_script = "uid://bcthb5ophrody"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="0" unique_id=257270110]
-sprite_frames = ExtResource("4_mbgfo")
+sprite_frames = ExtResource("5_ds7h4")
 animation = &"idle"
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="1" unique_id=2085102450]
-sprite_frames = ExtResource("5_1qc6l")
+sprite_frames = ExtResource("6_ipws0")
 animation = &"idle"
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="2" unique_id=532296352]
-sprite_frames = ExtResource("6_l5l73")
+sprite_frames = ExtResource("7_st7oj")
 animation = &"idle"
 
 [node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="3" unique_id=1525718789]
-sprite_frames = ExtResource("7_n4ua5")
+sprite_frames = ExtResource("8_67tlk")
 animation = &"idle"
-frame_progress = 0.85702354
 
 [node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="4" unique_id=859521095]
-sprite_frames = ExtResource("8_3uqv8")
+sprite_frames = ExtResource("9_31xy0")
 animation = &"idle"
 
 [node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="5" unique_id=1766719931]
-sprite_frames = ExtResource("9_6ve1v")
-animation = &"ranged"
+sprite_frames = ExtResource("10_d7smu")
+animation = &"idle"
 
 [node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="6" unique_id=473479711]
-sprite_frames = ExtResource("10_s1vxx")
+sprite_frames = ExtResource("11_6652w")
 animation = &"idle"
-frame_progress = 0.85702354
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 4

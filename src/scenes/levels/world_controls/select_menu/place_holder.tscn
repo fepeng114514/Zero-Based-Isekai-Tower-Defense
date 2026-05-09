@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://gp0xhls187yw"]
 
-[ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_textures/main_icons_0004.tres" id="2_p7yov"]
+[ext_resource type="Texture2D" uid="uid://b63n4ppxbpi16" path="res://resources/atlas_textures/image_icon/main_icons_0004.tres" id="1_6ufvd"]
 
 [node name="PlaceHolder" type="TextureRect" unique_id=1573593846]
 offset_right = 109.0
 offset_bottom = 98.0
-texture = ExtResource("2_p7yov")
+texture = ExtResource("1_6ufvd")
 
 [node name="Label" type="Label" parent="." unique_id=496434553]
 layout_mode = 1

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cyvvk445spspa"]
 
-[ext_resource type="Texture2D" uid="uid://chcla5lrvksry" path="res://resources/atlas_textures/price_tag.tres" id="1_1b77w"]
+[ext_resource type="Texture2D" uid="uid://s5s8g1p46d35" path="res://resources/atlas_textures/image_gui/price_tag.tres" id="1_1b77w"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="2_71hrg"]
 
 [node name="PriceTag" type="TextureRect" unique_id=1309840442]

@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_syirs"]
 [ext_resource type="Script" uid="uid://d4aei0pb6po1i" path="res://scenes/levels/world_controls/select_menu/select_menu_button_upgrade_skill.gd" id="2_dlhbn"]
-[ext_resource type="Texture2D" uid="uid://dl86walhiyovl" path="res://resources/atlas_textures/special_icons_0001.tres" id="2_wiw48"]
-[ext_resource type="Texture2D" uid="uid://jgoi7is6csbd" path="res://resources/atlas_textures/glow_ico_special.tres" id="3_dlhbn"]
+[ext_resource type="Texture2D" uid="uid://dvmifgpn48i4w" path="res://resources/atlas_textures/image_icon/special_icons_0001.tres" id="3_t77q2"]
+[ext_resource type="Texture2D" uid="uid://bcne7yj538ccs" path="res://resources/atlas_textures/image_gui/glow_ico_special.tres" id="4_1nmau"]
 [ext_resource type="PackedScene" uid="uid://cyvvk445spspa" path="res://scenes/levels/world_controls/select_menu/price_tag.tscn" id="4_s46yc"]
 
 [node name="SelectMenuButtonUpgradeSkill" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_syirs")]
@@ -16,14 +16,14 @@ offset_left = -58.5
 offset_top = -54.5
 offset_right = 58.5
 offset_bottom = 54.5
-icon = ExtResource("2_wiw48")
+icon = ExtResource("3_t77q2")
 
 [node name="Glow" parent="Button" index="0" unique_id=1711401767]
 offset_left = -60.0
 offset_top = -57.0
 offset_right = 60.0
 offset_bottom = 57.0
-texture = ExtResource("3_dlhbn")
+texture = ExtResource("4_1nmau")
 
 [node name="PriceTag" parent="Button" index="1" unique_id=1309840442 instance=ExtResource("4_s46yc")]
 layout_mode = 1
