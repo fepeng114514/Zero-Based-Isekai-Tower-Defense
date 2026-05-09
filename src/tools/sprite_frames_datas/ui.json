@@ -1,0 +1,22 @@
+{
+	"cursor": {
+		"animations": {
+			"rally_hover": {
+				"from": 1,
+				"to": 10
+			},
+			"barrack_rally_click": {
+				"from": 11,
+				"to": 40
+			},
+			"rally_click": {
+				"from": 41,
+				"to": 51
+			},
+			"error_click": {
+				"from": 52,
+				"to": 65
+			}
+		}
+	}
+}

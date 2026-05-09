@@ -8,6 +8,6 @@ extends Node
 var grid: TileMapLayer = null
 
 
-func load() -> void:
+func _load() -> void:
 	grid = null
 	

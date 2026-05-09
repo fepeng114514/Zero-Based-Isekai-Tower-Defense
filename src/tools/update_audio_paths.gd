@@ -7,9 +7,7 @@ var audio_paths := PackedStringArray()
 
 
 func _run() -> void:
-	var audio_assets_dir: DirAccess = U.open_directory(AUDIO_ASSETS_DIR_PATH)
-	
-	for file: String in audio_assets_dir.get_files():	
+	for file: String in U.open_directory(AUDIO_ASSETS_DIR_PATH).get_files():	
 		if file.get_extension() not in ["wav", "ogg", "mp3"]:
 			continue
 		

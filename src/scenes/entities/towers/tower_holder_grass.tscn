@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ckf2o2h3wv2xo"]
+
+[ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://scenes/entities/towers/tower_holder.tscn" id="1_yible"]
+
+[node name="TowerHolderGrass" unique_id=1898604313 instance=ExtResource("1_yible")]
+scene_name = "tower_holder_grass"

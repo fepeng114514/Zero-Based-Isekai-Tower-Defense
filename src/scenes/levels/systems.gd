@@ -8,4 +8,4 @@ func _ready() -> void:
 	for child: System in get_children():
 		list.append(child)
 		
-	SystemMgr.load(list)
+	SystemMgr._load(list)

@@ -3,7 +3,7 @@ extends Entity
 
 
 @export var show_time: float = 1
-@export var build_target: StringName = ""
+@export var build_target: StringName = &""
 
 @export_group("Ref")
 @export var progress_bar: TextureProgressBar = null

@@ -12,10 +12,10 @@ var level_idx: int = 1
 func enter_level(idx: int) -> void:
 	level_idx = idx
 	
-	AudioMgr.load()
-	EntityMgr.load()
-	PathwayMgr.load()
-	GridMgr.load()
+	AudioMgr._load()
+	EntityMgr._load()
+	PathwayMgr._load()
+	GridMgr._load()
 
 	get_tree().change_scene_to_file(
 		"res://scenes/levels/level_%d.tscn" % idx

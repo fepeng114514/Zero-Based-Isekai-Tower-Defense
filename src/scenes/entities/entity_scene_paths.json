@@ -32,6 +32,7 @@
 	"res://scenes/entities/towers/tower_build_barrack.tscn",
 	"res://scenes/entities/towers/tower_build_mage.tscn",
 	"res://scenes/entities/towers/tower_holder.tscn",
+	"res://scenes/entities/towers/tower_holder_grass.tscn",
 	"res://scenes/entities/towers/tower_mage.tscn",
 	"res://scenes/entities/towers/tower_mage_bullet.tscn",
 	"res://scenes/entities/towers/tower_mage_lvl_1.tscn",

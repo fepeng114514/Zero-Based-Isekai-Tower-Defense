@@ -13,7 +13,7 @@ var frame_length: float = 0
 var fps: float = 0
 
 
-func load() -> void:
+func _load() -> void:
 	tick_ts = 0
 	tick = 0
 	frame_length = 0

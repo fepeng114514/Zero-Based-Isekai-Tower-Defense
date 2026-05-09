@@ -9,10 +9,9 @@ var entity_scene_paths := PackedStringArray()
 func _run() -> void:
 	_process_scene_dir(ENTITY_SCENES_DIR_PATH)
 	
-	var entity_scene_dir: DirAccess = U.open_directory(ENTITY_SCENES_DIR_PATH)
-	for dir_name: String in entity_scene_dir.get_directories():
-		var dir_path: String = ENTITY_SCENES_DIR_PATH.path_join(dir_name)
-		_process_scene_dir(dir_path)
+	for dir_name: String in U.open_directory(ENTITY_SCENES_DIR_PATH).get_directories():
+		var full_path: String = ENTITY_SCENES_DIR_PATH.path_join(dir_name)
+		_process_scene_dir(full_path)
 			
 	U.save_json(
 		entity_scene_paths, 
@@ -21,9 +20,7 @@ func _run() -> void:
 	
 
 func _process_scene_dir(dir_path: String) -> void:
-	var dir: DirAccess = U.open_directory(dir_path)
-	
-	for file: String in dir.get_files():		
+	for file: String in U.open_directory(dir_path).get_files():		
 		if file.get_extension() != "tscn":
 			continue
 			

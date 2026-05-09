@@ -22,7 +22,7 @@ var insert_queue: Array[Entity] = []
 var damage_queue: Array[Damage] = []
 
 
-func load(new_system_list: Array[System]) -> void:
+func _load(new_system_list: Array[System]) -> void:
 	system_list.clear()
 	remove_queue.clear()
 	insert_queue.clear()

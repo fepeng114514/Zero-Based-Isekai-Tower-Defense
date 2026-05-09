@@ -23,8 +23,8 @@ func _on_insert(e: Entity) -> bool:
 			EntityMgr.process_create(sub_e)
 			sub_e.insert_entity()
 		
-	if not tower_c.tower_holder_style:
-		tower_c.tower_holder_style = GameMgr.defaul_tower_holder_style
+	if not tower_c.tower_holder:
+		tower_c.tower_holder = GameMgr.defaul_tower_holder
 		
 	if tower_c.tower_type == C.TowerType.TOWER_HOLDER:
 		tower_c.total_price = 0
@@ -47,7 +47,7 @@ func _on_update(_delta: float) -> void:
 			new_tower_c.total_price = (
 				tower_c.total_price + price
 			)
-			new_tower_c.tower_holder_style = tower_c.tower_holder_style
+			new_tower_c.tower_holder = tower_c.tower_holder
 			
 			var default_rally_center_local_pos: Vector2 = tower_c.default_rally_center_local_pos
 			new_tower_c.default_rally_center_local_pos = default_rally_center_local_pos
@@ -86,7 +86,7 @@ func _on_update(_delta: float) -> void:
 			var holder_tower_c: TowerComponent = tower_holder.get_node_or_null(C.CN_TOWER)
 			tower_holder.global_position = e.global_position
 			holder_tower_c.default_rally_center_local_pos = tower_c.default_rally_center_local_pos
-			holder_tower_c.tower_holder_style = tower_c.tower_holder_style
+			holder_tower_c.tower_holder = tower_c.tower_holder
 			
 			tower_holder.insert_entity()
 			e.remove_entity()

@@ -71,7 +71,7 @@ func _validate_property(property: Dictionary):
 ## 根据实体与目标点的角度返回对应的动画名称
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 	var dir: C.Direction = C.Direction.DOWN
-	var anim_name: StringName = ""
+	var anim_name: StringName = &""
 	var flip_h: bool = false
 	
 	if any:

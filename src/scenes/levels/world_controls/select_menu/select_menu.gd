@@ -52,7 +52,14 @@ func _show(e: Entity) -> void:
 	if not ui_c:
 		return
 		
-	var group: SelectMenuGroup = select_menu_config.group_dict.get(e.scene_name)
+	var group: SelectMenuGroup = null
+		
+	var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
+	if tower_c and tower_c.tower_type == C.TowerType.TOWER_HOLDER:
+		group = select_menu_config.group_dict["tower_holder"]
+	else:
+		group = select_menu_config.group_dict.get(e.scene_name)
+	
 	if not group:
 		return
 

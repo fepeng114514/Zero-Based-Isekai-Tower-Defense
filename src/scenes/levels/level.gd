@@ -8,7 +8,7 @@ class_name Level
 ## 初始生命
 @export var life: int = 20
 ## 默认塔位样式
-@export var defaul_tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
+@export var defaul_tower_holder: StringName = &"tower_holder_grass"
 ## 地图大小
 @export var world_size := Vector2(2560, 1440)
 

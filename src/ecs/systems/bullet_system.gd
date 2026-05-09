@@ -103,7 +103,7 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 		await e.wait_animation(bullet_c.miss_animation)
 
 	if bullet_c.damage_area_enable:
-		var targets: Array[Entity] = [null]
+		var targets: Array[Entity] = []
 		targets = EntityMgr.search_targets(
 			bullet_c.damage_search_mode, 
 			bullet_c.to + bullet_c.damage_offset, 

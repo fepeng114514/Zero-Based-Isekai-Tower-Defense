@@ -23,4 +23,4 @@ var life: int = 20:
 		set_life.emit(value)
 		life = value
 ## 默认塔位样式
-var defaul_tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
+var defaul_tower_holder: StringName = &"tower_holder_grass"

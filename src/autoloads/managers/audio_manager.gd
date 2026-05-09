@@ -34,7 +34,7 @@ func _ready() -> void:
 		_sfx_player_list.append(sfx_player)
 	
 	
-func load() -> void:
+func _load() -> void:
 	_audio_stream_dict.clear()
 	
 	var json_data: Array = U.load_json(

@@ -10,7 +10,7 @@ class_name SelectMenuButtonUpgrade
 
 @onready var price_tag_label: Label = price_tag.get_node("Label")
 
-var preview: StringName = ""
+var preview: StringName = &""
 var preview_entity: Entity = null
 
 

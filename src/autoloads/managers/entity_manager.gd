@@ -39,7 +39,7 @@ var space_index_grid_list: Array[Dictionary] = []
 #endregion
 
 
-func load() -> void:
+func _load() -> void:
 	_entity_scene_dict.clear()
 	_cached_entities_data.clear()
 	component_group_list.clear()

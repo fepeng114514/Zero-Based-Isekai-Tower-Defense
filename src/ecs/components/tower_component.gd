@@ -11,7 +11,7 @@ class_name TowerComponent
 		show_range_offset = value
 		queue_redraw()
 ## 塔位样式
-@export var tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
+@export var tower_holder: StringName = &"tower_holder_grass"
 ## 默认集结点
 @export var default_rally_center_local_pos := Vector2.ZERO:
 	set(value):

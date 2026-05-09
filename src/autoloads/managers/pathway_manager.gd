@@ -19,7 +19,7 @@ var node_count: int = 256
 var intersect_dist_threshold: float = 16
 
 
-func load() -> void:
+func _load() -> void:
 	pathway_list.clear()
 	all_node_list.clear()
 	next_pi = 0

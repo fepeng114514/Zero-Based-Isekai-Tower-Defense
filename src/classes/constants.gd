@@ -342,13 +342,6 @@ enum TowerType {
 }
 
 
-## 塔位样式枚举
-enum TowerHolderStyle {
-	## 草地
-	GRASS,
-}
-
-
 ## 子弹生成模式枚举
 enum BulletSpawnMode {
 	## 子弹生成模式：随机

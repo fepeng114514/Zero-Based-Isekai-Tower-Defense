@@ -53,6 +53,12 @@ TimeMgr="*res://autoloads/managers/time_manager.gd"
 GridMgr="*uid://bsty3nv6hyvtv"
 PathwayMgr="*res://autoloads/managers/pathway_manager.gd"
 LevelMgr="*res://autoloads/managers/level_manager.gd"
+CanvasMgr="*uid://bsabxvw5o5g4l"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
