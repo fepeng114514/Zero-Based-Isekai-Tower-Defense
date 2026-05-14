@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://resources/classes/wave/wave.gd" id="3_dnkej"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://scenes/levels/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://scenes/entities/wave_spawner.tscn" id="4_dga24"]
-[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://scenes/levels/wave_flag/wave_flag.tscn" id="10_qxy0u"]
+[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://scenes/ui/game_ui/wave_flag/wave_flag.tscn" id="10_qxy0u"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="14_np2pn"]
 [ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://resources/classes/wave/wave_spawn_group.gd" id="32_hvllt"]
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://resources/classes/wave/wave_spawn.gd" id="33_dp4fg"]

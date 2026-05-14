@@ -1,13 +1,12 @@
 extends Node
 
 
-@onready var canvas_transform: Transform2D = get_viewport().canvas_transform
-@onready var canvas_transform_affine_inverse: Transform2D = canvas_transform.affine_inverse()
+# 世界坐标 → 屏幕坐标
+func world_to_screen(world_pos: Vector2) -> Vector2:
+	var canvas_transform = get_viewport().canvas_transform
+	return canvas_transform * world_pos
 
-
-func screen_to_world(v: Vector2) -> Vector2:
-	return v * canvas_transform
-	
-	
-func world_to_screen(v: Vector2) -> Vector2:
-	return v * canvas_transform_affine_inverse
+# 屏幕坐标 → 世界坐标
+func screen_to_world(screen_pos: Vector2) -> Vector2:
+	var canvas_transform = get_viewport().canvas_transform
+	return canvas_transform.affine_inverse() * screen_pos

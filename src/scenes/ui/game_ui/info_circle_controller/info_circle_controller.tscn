@@ -1,22 +1,23 @@
 [gd_scene format=3 uid="uid://ca75dg47m1q1a"]
 
-[ext_resource type="Script" uid="uid://cu2n4eqm2rpbd" path="res://scenes/levels/world_controls/info_circle.gd" id="1_dgwu4"]
+[ext_resource type="Script" uid="uid://cu2n4eqm2rpbd" path="res://scenes/ui/game_ui/info_circle_controller/info_circle_controller.gd" id="1_dgwu4"]
 [ext_resource type="Texture2D" uid="uid://j3uk3xoys3jx" path="res://resources/atlas_textures/image_gui/range_circle.tres" id="2_b1x22"]
+[ext_resource type="Script" uid="uid://xqwd5vws2go" path="res://scenes/ui/game_ui/info_circle_controller/info_circle.gd" id="3_505d5"]
 [ext_resource type="Texture2D" uid="uid://7tvqk88sbv7s" path="res://resources/atlas_textures/image_gui/rally_circle.tres" id="3_l26lk"]
 
-[node name="InfoCircle" type="Control" unique_id=1487020159 node_paths=PackedStringArray("ranged_max_range_circle", "ranged_min_range_circle", "rally_max_range_circle", "rally_min_range_circle", "melee_max_range_circle", "melee_min_range_circle")]
+[node name="InfoCircleController" type="Control" unique_id=1487020159 node_paths=PackedStringArray("ranged_min_range_circle", "ranged_max_range_circle", "rally_min_range_circle", "rally_max_range_circle", "melee_min_range_circle", "melee_max_range_circle")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 script = ExtResource("1_dgwu4")
-ranged_max_range_circle = NodePath("RangedMaxRangeCircle")
 ranged_min_range_circle = NodePath("RangedMinRangeCircle")
-rally_max_range_circle = NodePath("RallyMaxRangeCircle")
+ranged_max_range_circle = NodePath("RangedMaxRangeCircle")
 rally_min_range_circle = NodePath("RallyMinRangeCircle")
-melee_max_range_circle = NodePath("MeleeMaxRangeCircle")
+rally_max_range_circle = NodePath("RallyMaxRangeCircle")
 melee_min_range_circle = NodePath("MeleeMinRangeCircle")
+melee_max_range_circle = NodePath("MeleeMaxRangeCircle")
 
-[node name="RangedMaxRangeCircle" type="TextureRect" parent="." unique_id=1534782061]
+[node name="RangedMinRangeCircle" type="TextureRect" parent="." unique_id=1059059884]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -32,8 +33,10 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("2_b1x22")
+script = ExtResource("3_505d5")
+metadata/_custom_type_script = "uid://xqwd5vws2go"
 
-[node name="RangedMinRangeCircle" type="TextureRect" parent="." unique_id=795272033]
+[node name="RangedMaxRangeCircle" type="TextureRect" parent="." unique_id=439387873]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -49,8 +52,10 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("2_b1x22")
+script = ExtResource("3_505d5")
+metadata/_custom_type_script = "uid://xqwd5vws2go"
 
-[node name="RallyMaxRangeCircle" type="TextureRect" parent="." unique_id=876061730]
+[node name="RallyMinRangeCircle" type="TextureRect" parent="." unique_id=723441]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -66,8 +71,10 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_l26lk")
+script = ExtResource("3_505d5")
+metadata/_custom_type_script = "uid://xqwd5vws2go"
 
-[node name="RallyMinRangeCircle" type="TextureRect" parent="." unique_id=75749823]
+[node name="RallyMaxRangeCircle" type="TextureRect" parent="." unique_id=834347913]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -83,8 +90,10 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_l26lk")
+script = ExtResource("3_505d5")
+metadata/_custom_type_script = "uid://xqwd5vws2go"
 
-[node name="MeleeMaxRangeCircle" type="TextureRect" parent="." unique_id=1935171373]
+[node name="MeleeMinRangeCircle" type="TextureRect" parent="." unique_id=1070533264]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -100,8 +109,10 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_l26lk")
+script = ExtResource("3_505d5")
+metadata/_custom_type_script = "uid://xqwd5vws2go"
 
-[node name="MeleeMinRangeCircle" type="TextureRect" parent="." unique_id=81789493]
+[node name="MeleeMaxRangeCircle" type="TextureRect" parent="." unique_id=1559389404]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -117,3 +128,5 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("3_l26lk")
+script = ExtResource("3_505d5")
+metadata/_custom_type_script = "uid://xqwd5vws2go"

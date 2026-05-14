@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SelectMenuButtonDataRally" format=3 uid="uid://csxx1xces6u0d"]
 
-[ext_resource type="Script" uid="uid://bee5beykx0mfi" path="res://scenes/levels/world_controls/select_menu/select_menu_button_data_rally.gd" id="1_7skbf"]
+[ext_resource type="Script" uid="uid://bee5beykx0mfi" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_data_rally.gd" id="1_7skbf"]
 
 [resource]
 script = ExtResource("1_7skbf")

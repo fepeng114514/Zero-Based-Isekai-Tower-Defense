@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ckw5os80ertnp"]
 
-[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_nhsmt"]
-[ext_resource type="Script" uid="uid://uv7shkk0kg8m" path="res://scenes/levels/world_controls/select_menu/select_menu_button_sell.gd" id="2_1d3i2"]
+[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button.tscn" id="1_nhsmt"]
+[ext_resource type="Script" uid="uid://uv7shkk0kg8m" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_sell.gd" id="2_1d3i2"]
 [ext_resource type="Texture2D" uid="uid://dbp1xfh3fjeot" path="res://resources/atlas_textures/image_icon/ico_sell_0001.tres" id="3_7nihm"]
 [ext_resource type="Texture2D" uid="uid://b4hcb62cjp6vu" path="res://resources/atlas_textures/image_icon/glow_ico_sell.tres" id="4_jgvrm"]
 

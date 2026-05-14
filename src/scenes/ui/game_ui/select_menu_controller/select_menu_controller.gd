@@ -1,5 +1,8 @@
 extends Control
-class_name SelectMenu
+class_name SelectMenuController
+## 选择菜单控制器
+##
+## 负责显示和隐藏选择菜单，并根据实体类型显示对应的按钮
 
 
 signal hide_select_menu
@@ -38,8 +41,19 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	if visible and not U.is_valid_entity(selected_entity):
+	if not visible:
+		return
+		
+	if not U.is_valid_entity(selected_entity):
 		_hide()
+		return
+		
+	var ui_c: UIComponent = selected_entity.get_node_or_null(C.CN_UI)
+	if not ui_c:
+		return
+		
+	global_position = selected_entity.global_position + ui_c.select_menu_offset
+
 	
 	
 func _show(e: Entity) -> void:
@@ -101,12 +115,12 @@ func _hide() -> void:
 	if is_animating:
 		return
 		
-	is_animating = true
 	var tween: Tween = tween_set_scale(Vector2.ZERO)
 	
+	is_animating = true
 	await tween.finished
-	_clear()
 	is_animating = false
+	_clear()
 	
 	
 ## 清空菜单

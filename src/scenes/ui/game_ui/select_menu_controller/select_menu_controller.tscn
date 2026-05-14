@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://co5ehekpd71r8"]
 
-[ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://scenes/levels/world_controls/select_menu/select_menu.gd" id="1_uviau"]
-[ext_resource type="Resource" uid="uid://diakuvgmjbwrh" path="res://scenes/levels/world_controls/select_menu/select_menu_config.tres" id="2_ji36x"]
+[ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_controller.gd" id="1_uviau"]
+[ext_resource type="Resource" uid="uid://diakuvgmjbwrh" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_config.tres" id="2_ji36x"]
 [ext_resource type="Texture2D" uid="uid://3wv80xv74csy" path="res://resources/atlas_textures/image_gui/gui_ring.tres" id="7_ji36x"]
-[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://scenes/levels/world_controls/select_menu/select_menu_button_rally.tscn" id="12_y247d"]
-[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://scenes/levels/world_controls/select_menu/select_menu_button_sell.tscn" id="13_mc105"]
-[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://scenes/levels/world_controls/select_menu/select_menu_button_upgrade.tscn" id="14_gq2cw"]
-[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://scenes/levels/world_controls/select_menu/select_menu_button_upgrade_skill.tscn" id="15_37jvn"]
-[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://scenes/levels/world_controls/select_menu/place_holders.gd" id="17_y247d"]
-[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://scenes/levels/world_controls/select_menu/place_holder.tscn" id="18_mc105"]
+[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_rally.tscn" id="12_y247d"]
+[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_sell.tscn" id="13_mc105"]
+[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_upgrade.tscn" id="14_gq2cw"]
+[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_upgrade_skill.tscn" id="15_37jvn"]
+[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://scenes/ui/game_ui/select_menu_controller/place_holders.gd" id="17_y247d"]
+[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://scenes/ui/game_ui/select_menu_controller/place_holder.tscn" id="18_mc105"]
 
-[node name="SelectMenu" type="Control" unique_id=1082728830 node_paths=PackedStringArray("place_holders", "ring")]
+[node name="SelectMenuController" type="Control" unique_id=1082728830 node_paths=PackedStringArray("place_holders", "ring")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_uviau")

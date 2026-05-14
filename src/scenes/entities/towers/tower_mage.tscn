@@ -47,7 +47,6 @@ animation = &"idle"
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 3
-show_range_offset = Vector2(0, -4.45)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-53.405, -80.22, 111.71, 108.205)

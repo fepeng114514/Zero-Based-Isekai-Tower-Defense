@@ -25,6 +25,7 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_enhu5"]
 script = ExtResource("2_i4u0u")
+mirror_horizontal = true
 right = &"walk_left_right"
 
 [sub_resource type="Resource" id="Resource_prid8"]

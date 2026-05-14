@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d4lowd40q545e"]
 
-[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://scenes/levels/world_controls/select_menu/place_holders.gd" id="1_73otq"]
-[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://scenes/levels/world_controls/select_menu/place_holder.tscn" id="2_n8afe"]
+[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://scenes/ui/game_ui/select_menu_controller/place_holders.gd" id="1_73otq"]
+[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://scenes/ui/game_ui/select_menu_controller/place_holder.tscn" id="2_n8afe"]
 
 [node name="PlaceHolders" type="Control" unique_id=274001826]
 visible = false

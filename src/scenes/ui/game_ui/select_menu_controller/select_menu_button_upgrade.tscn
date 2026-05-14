@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c4qyoe342uqq1"]
 
-[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_tx736"]
-[ext_resource type="Script" uid="uid://htwblywokptt" path="res://scenes/levels/world_controls/select_menu/select_menu_button_upgrade.gd" id="2_8n25n"]
+[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button.tscn" id="1_tx736"]
+[ext_resource type="Script" uid="uid://htwblywokptt" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_upgrade.gd" id="2_8n25n"]
 [ext_resource type="Texture2D" uid="uid://jdp34kihhpnt" path="res://resources/atlas_textures/image_icon/main_icons_0001.tres" id="3_tswut"]
 [ext_resource type="Texture2D" uid="uid://dmndvaldpt8pk" path="res://resources/atlas_textures/image_icon/glow_ico_main.tres" id="4_32akb"]
-[ext_resource type="PackedScene" uid="uid://cyvvk445spspa" path="res://scenes/levels/world_controls/select_menu/price_tag.tscn" id="4_k7aj5"]
+[ext_resource type="PackedScene" uid="uid://cyvvk445spspa" path="res://scenes/ui/game_ui/select_menu_controller/price_tag.tscn" id="4_k7aj5"]
 
 [node name="SelectMenuButtonUpgrade" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_tx736")]
 script = ExtResource("2_8n25n")

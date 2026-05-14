@@ -10,7 +10,7 @@ class_name SelectMenuButton
 
 var disabled: bool = false
 ## 选择菜单引用
-var select_menu: SelectMenu = null
+var select_menu: SelectMenuController = null
 ## 选择的实体
 var selected_entity: Entity = null
 

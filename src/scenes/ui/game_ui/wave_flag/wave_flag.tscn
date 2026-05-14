@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hje3y0vepv3t"]
 
 [ext_resource type="Texture2D" uid="uid://dn752xt3r48wp" path="res://resources/atlas_textures/image_gui/nextwaveTimer_0001.tres" id="2_4mye6"]
-[ext_resource type="Script" uid="uid://0qq3qdmjbpyf" path="res://scenes/levels/wave_flag/wave_flag.gd" id="3_h1xy6"]
+[ext_resource type="Script" uid="uid://0qq3qdmjbpyf" path="res://scenes/ui/game_ui/wave_flag/wave_flag.gd" id="3_h1xy6"]
 [ext_resource type="Texture2D" uid="uid://bgne72j146ojb" path="res://resources/atlas_textures/image_gui/nextwaveTimer_0002.tres" id="3_y305d"]
 [ext_resource type="Texture2D" uid="uid://bru2j4lk0olb0" path="res://resources/atlas_textures/image_gui/nextwaveTimer_0020.tres" id="4_p2cha"]
 [ext_resource type="Texture2D" uid="uid://coici0qulndck" path="res://resources/atlas_textures/image_gui/nextwaveTimer_glow_0003.tres" id="5_8v03r"]

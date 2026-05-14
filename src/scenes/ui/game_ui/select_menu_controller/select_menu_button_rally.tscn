@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c3aw3opkejlbd"]
 
-[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_0114p"]
-[ext_resource type="Script" uid="uid://b5vcdr1g0hglx" path="res://scenes/levels/world_controls/select_menu/select_menu_button_rally.gd" id="2_jitr5"]
+[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button.tscn" id="1_0114p"]
+[ext_resource type="Script" uid="uid://b5vcdr1g0hglx" path="res://scenes/ui/game_ui/select_menu_controller/select_menu_button_rally.gd" id="2_jitr5"]
 [ext_resource type="Texture2D" uid="uid://dbwp0gvq3bkju" path="res://resources/atlas_textures/image_icon/sub_icons_0001.tres" id="3_rfxde"]
 [ext_resource type="Texture2D" uid="uid://h76l5pbx4cgb" path="res://resources/atlas_textures/image_icon/glow_ico_sub.tres" id="4_sy30k"]
 
