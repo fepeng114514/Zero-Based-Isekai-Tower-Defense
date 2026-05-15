@@ -6,17 +6,8 @@ class_name BulletComponent
 ## BulletComponent 可以使实体按照飞行轨迹飞行，命中目标后造成影响
 
 
-## 飞行轨迹类型
-@export var flight_trajectory: C.Trajectory = C.Trajectory.LINEAR:
-	set(value):
-		flight_trajectory = value
-		notify_property_list_changed()
-## 子弹从发射到命中或消失的时间
-@export var flight_total_time: float = 0
-## 子弹的飞行速度
-@export var flight_speed: float = 0
-## 重力加速度
-@export var flight_gravity: float = 980
+## 飞行轨迹资源
+@export var trajectory: BulletTrajectory = null
 ## 飞行动画数据
 @export var flight_animation: AnimationGroup = null
 ## 是否禁用预判目标位置
@@ -92,16 +83,3 @@ var velocity := Vector2.ZERO
 var predict_target_pos := Vector2.ZERO
 ## 伤害过的实体 ID 列表
 var damaged_entity_ids := PackedInt32Array()
-
-
-func _validate_property(property: Dictionary):
-	match property.name:
-		"flight_total_time":
-			if flight_trajectory in [C.Trajectory.TRACKING, C.Trajectory.INSTANT]:
-				property.usage = PROPERTY_USAGE_NONE
-		"flight_speed":
-			if flight_trajectory != C.Trajectory.TRACKING:
-				property.usage = PROPERTY_USAGE_NONE
-		"flight_gravity":
-			if flight_trajectory != C.Trajectory.PARABOLA:
-				property.usage = PROPERTY_USAGE_NONE

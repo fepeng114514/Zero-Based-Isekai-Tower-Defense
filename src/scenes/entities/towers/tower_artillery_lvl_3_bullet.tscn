@@ -5,10 +5,15 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_jiuyv"]
 [ext_resource type="Texture2D" uid="uid://cq6cnp2d8pfvx" path="res://resources/atlas_textures/image_towers/bombs_0003.tres" id="4_vepmv"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="5_81akh"]
+[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://resources/classes/trajectories/trajectory_parabola.gd" id="6_t4p8n"]
 
 [sub_resource type="Resource" id="Resource_wmreg"]
 script = ExtResource("2_wm65d")
 left_right = &"idle_left_right"
+
+[sub_resource type="Resource" id="Resource_lvl3_traj"]
+script = ExtResource("6_t4p8n")
+flight_total_time = 1.5
 
 [node name="TowerArtilleryLvl3Bullet" type="Node2D" unique_id=2094980939]
 script = ExtResource("1_jtlys")
@@ -28,8 +33,7 @@ texture = ExtResource("4_vepmv")
 
 [node name="BulletComponent" type="Node" parent="." unique_id=444267291]
 script = ExtResource("5_81akh")
-flight_trajectory = 1
-flight_total_time = 1.5
+trajectory = SubResource("Resource_lvl3_traj")
 hit_distance = 30.0
 hit_payloads = PackedStringArray("explosion_air")
 miss_payloads = PackedStringArray("explosion_air")

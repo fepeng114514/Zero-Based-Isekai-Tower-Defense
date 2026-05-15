@@ -5,9 +5,14 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_bgj51"]
 [ext_resource type="Texture2D" uid="uid://cpiqi6jk308r1" path="res://resources/atlas_textures/image_towers/bombs_0001.tres" id="4_jmmy1"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="6_jmmy1"]
+[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://resources/classes/trajectories/trajectory_parabola.gd" id="7_k2m4n"]
 
 [sub_resource type="Resource" id="Resource_wmreg"]
 script = ExtResource("2_bgj51")
+
+[sub_resource type="Resource" id="Resource_arty_traj"]
+script = ExtResource("7_k2m4n")
+flight_total_time = 1.5
 
 [sub_resource type="Resource" id="Resource_ac2ml"]
 script = ExtResource("6_jmmy1")
@@ -24,9 +29,9 @@ scene_name = "tower_artillery_lvl_1_bullet"
 idle_animation = SubResource("Resource_wmreg")
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
-flight_trajectory = 1
-flight_total_time = 1.5
+trajectory = SubResource("Resource_arty_traj")
 rotation_speed = 6.0
+look_to = false
 hit_payloads = PackedStringArray("explosion_air")
 hit_sfx = SubResource("Resource_ac2ml")
 miss_payloads = PackedStringArray("explosion_air")

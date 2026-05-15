@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_4g6k2"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_23yll"]
 [ext_resource type="SpriteFrames" uid="uid://bjackr2e5vunj" path="res://resources/sprite_frames/towers/tower_mage_bolt.tres" id="4_halcm"]
+[ext_resource type="Script" uid="uid://dik34npwy07xl" path="res://resources/classes/trajectories/trajectory_tracking.gd" id="5_m7k2d"]
 
 [sub_resource type="Resource" id="Resource_hf44a"]
 script = ExtResource("2_4g6k2")
@@ -23,13 +24,16 @@ mirror_horizontal = true
 right = &"hit_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
+[sub_resource type="Resource" id="Resource_mage_traj"]
+script = ExtResource("5_m7k2d")
+flight_speed = 500.0
+
 [node name="TowerMageBullet" unique_id=511000022 instance=ExtResource("1_y76x6")]
 scene_name = "tower_mage_bullet"
 idle_animation = SubResource("Resource_hf44a")
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
-flight_trajectory = 2
-flight_speed = 500.0
+trajectory = SubResource("Resource_mage_traj")
 flight_animation = SubResource("Resource_halcm")
 hit_animation = SubResource("Resource_tx2v8")
 

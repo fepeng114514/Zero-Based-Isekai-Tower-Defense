@@ -16,8 +16,9 @@ func _on_insert(e: Entity) -> bool:
 
 	bullet_c.ts = TimeMgr.tick_ts
 	if not bullet_c.disabled_predict_pos:
+		var predict_time: float = bullet_c.trajectory._get_predict_time() if bullet_c.trajectory else 0.0
 		bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
-			target, bullet_c.flight_total_time
+			target, predict_time
 		)
 	else:
 		bullet_c.predict_target_pos = target.global_position
@@ -33,15 +34,8 @@ func _on_insert(e: Entity) -> bool:
 	if bullet_c.look_to:
 		e.look_at(to)
 
-	match bullet_c.flight_trajectory:
-		C.Trajectory.LINEAR:
-			_trajectory_liniear_init(bullet_c)
-		C.Trajectory.PARABOLA:
-			_trajectory_parabola_init(e, bullet_c)
-		C.Trajectory.TRACKING:
-			_trajectory_tracking_init(e, bullet_c)
-		C.Trajectory.INSTANT:
-			_trajectory_instant_init(e, target)
+	if bullet_c.trajectory:
+		bullet_c.trajectory._init_trajectory(bullet_c, e, target)
 
 	return true
 
@@ -54,44 +48,32 @@ func _on_update(delta: float) -> void:
 
 	for e: Entity in entity_list:
 		var bullet_c: BulletComponent = e.get_node_or_null(C.CN_BULLET)
+		if not bullet_c or not bullet_c.trajectory:
+			continue
+			
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
 
-		match bullet_c.flight_trajectory:
-			C.Trajectory.LINEAR:
-				_trajectory_liniear_update(e, bullet_c)
-			C.Trajectory.PARABOLA:
-				_trajectory_parabola_update(e, bullet_c, flying_time)
-			C.Trajectory.TRACKING:
-				_trajectory_tracking_update(e, bullet_c, target)
+		bullet_c.trajectory._update_trajectory(e, bullet_c, target, flying_time, delta)
 		
 		if bullet_c.flight_animation:
 			e.play_animation_by_look(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 
-		var flight_total_time: float = bullet_c.flight_total_time 
-		
 		# 未击中处理
 		if (
-				flight_total_time > 0 and flying_time >= flight_total_time 
-				or not target 
-				and U.is_at_destination(
-					e.global_position, bullet_c.to, bullet_c.hit_distance
-				)
-			):
+			bullet_c.trajectory._should_miss(bullet_c, flying_time)
+			or not target
+			and U.is_at_destination(
+				e.global_position, bullet_c.to, bullet_c.hit_distance
+			)
+		):
 			_miss(e, bullet_c)
 		else:
 			if not bullet_c.can_arrived:
 				continue
 			
-			match bullet_c.flight_trajectory:
-				C.Trajectory.PARABOLA:
-					if flying_time <= flight_total_time * 0.8:
-						continue
-			
-			if not U.is_at_destination(
-					e.global_position, bullet_c.to, bullet_c.hit_distance
-				):
+			if not bullet_c.trajectory._has_arrived(e, bullet_c, flying_time):
 				continue
 				
 			_hit(e, bullet_c, target)
@@ -197,93 +179,3 @@ func _take_damage(
 		bullet_c.damaged_entity_ids.append(t_id)
 		
 	EntityMgr.create_entities_at_pos(payloads, bullet_c.to)
-
-
-#region 轨迹相关函数
-## 直线轨迹初始化
-func _trajectory_liniear_init(bullet_c: BulletComponent) -> void:
-	bullet_c.velocity = U.initial_linear_velocity(
-		bullet_c.from, bullet_c.to, bullet_c.flight_total_time
-	)
-
-
-## 直线轨迹更新
-func _trajectory_liniear_update(e: Entity, bullet_c: BulletComponent) -> void:
-	e.global_position = U.position_in_linear(
-		bullet_c.velocity, bullet_c.from, TimeMgr.get_time_by_ts(bullet_c.ts)
-	)
-
-
-## 抛物线轨迹初始化
-func _trajectory_parabola_init(
-		e: Entity, bullet_c: BulletComponent
-	) -> void:
-	var from: Vector2 = bullet_c.from
-	var to: Vector2 = bullet_c.to
-	
-	var velocity: Vector2 = U.initial_parabola_velocity(
-		from, to, bullet_c.flight_total_time, bullet_c.flight_gravity
-	)
-	bullet_c.velocity = velocity
-	
-	var next_pos = U.position_in_parabola(
-		velocity, from, 0.1, bullet_c.flight_gravity
-	)
-	
-	if bullet_c.look_to:
-		e.look_at(next_pos)
-	
-
-## 抛物线轨迹更新
-func _trajectory_parabola_update(
-		e: Entity, bullet_c: BulletComponent, flying_time: float
-	) -> void:
-	var current_pos: Vector2 = U.position_in_parabola(
-		bullet_c.velocity, bullet_c.from, flying_time, bullet_c.flight_gravity
-	)
-	
-	var next_time: float = flying_time + TimeMgr.frame_length
-	var next_pos: Vector2 = U.position_in_parabola(
-		bullet_c.velocity, bullet_c.from, next_time, bullet_c.flight_gravity
-	)
-	
-	e.global_position = current_pos
-	
-	if bullet_c.look_to:
-		e.look_at(next_pos)
-
-
-## 追踪轨迹初始化
-func _trajectory_tracking_init(
-		e: Entity, bullet_c: BulletComponent
-	) -> void:
-	if bullet_c.look_to:
-		e.look_at(bullet_c.to)
-
-
-## 追踪轨迹更新
-func _trajectory_tracking_update(
-		e: Entity, bullet_c: BulletComponent, target: Entity
-	) -> void:
-	if is_instance_valid(target):
-		var to: Vector2 = target.global_position
-		if target.hit_offsets:
-			var hit_offset: Vector2 = target.hit_offsets.get_offset_for_point(
-				target.global_position, target.look_point
-			)
-			to += hit_offset
-		bullet_c.to = to
-	
-	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
-	e.global_position += direction * bullet_c.flight_speed * TimeMgr.frame_length
-	
-	if bullet_c.look_to:
-		e.look_at(bullet_c.to)
-
-
-## 瞬移轨迹初始化
-func _trajectory_instant_init(e: Entity, target: Entity) -> void:
-	e.global_position = target.global_position
-	
-	e.rotation = deg_to_rad(90)
-#endregion

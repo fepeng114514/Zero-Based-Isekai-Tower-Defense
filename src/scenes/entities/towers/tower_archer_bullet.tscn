@@ -4,17 +4,21 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_gqtod"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="4_6s8cc"]
 [ext_resource type="Texture2D" uid="uid://bxdykv64qhvc8" path="res://resources/atlas_textures/image_towers/arrow.tres" id="5_ijd73"]
+[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://resources/classes/trajectories/trajectory_parabola.gd" id="6_mj8kf"]
 
 [sub_resource type="Resource" id="Resource_ycjcd"]
 script = ExtResource("2_gqtod")
+
+[sub_resource type="Resource" id="Resource_archer_traj"]
+script = ExtResource("6_mj8kf")
+flight_total_time = 0.7
 
 [node name="TowerArcherBullet" unique_id=43521632 instance=ExtResource("1_y76x6")]
 scene_name = "tower_archer_bullet"
 idle_animation = SubResource("Resource_ycjcd")
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
-flight_trajectory = 1
-flight_total_time = 0.7
+trajectory = SubResource("Resource_archer_traj")
 
 [node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1158787809]
 script = ExtResource("4_6s8cc")
